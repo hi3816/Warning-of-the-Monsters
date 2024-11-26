@@ -75,10 +75,10 @@
 
 ## 발표자료
 
-팀 노션: <>
+팀 노션: <https://gorgeous-mousepad-03c.notion.site/7-14942b67318780e79804d46f90aecb77?pvs=4>
 
 
-WireFrame: <>
+WireFrame: <https://www.figma.com/board/7LOSL81sfmvUHM4C1jvtXd/Warning-of-the-Monsters?node-id=0-1&t=t2NWAwBbt9yvN3Az-1>
 
 
 영상: <>
@@ -90,16 +90,16 @@ PPT: <>
 ## 라이선스
 
 
-타일: <>
+타일: <https://www.gamedevmarket.net/asset/fantasy-rpg-tileset-pack-3541>, <https://www.gamedevmarket.net/asset/50-pixel-art-textures>
 
 
-사람: <>
+사람: <https://www.gamedevmarket.net/asset/over-80-rpg-characters-w-animations-3540>
 
 
-몬스터: <>
+몬스터: <https://www.gamedevmarket.net/asset/faction-expansion-woodland-folk>, <https://www.gamedevmarket.net/asset/monsters-time-fantasy-rpg-sprite-pack-4391>, <https://www.gamedevmarket.net/asset/fantasy-rpg-monster-pack>, 
 
 
-UI: <>
+UI: <https://www.gamedevmarket.net/asset/rpg-ui-pack>
 
 
 기타 오브젝트: <>
