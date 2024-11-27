@@ -1,21 +1,140 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Monster : MonoBehaviour
+public enum MonsterState
 {
-    public MonsterSO data;
-
-    private void Start()
-    {
-        
-    }
-
-    private void Update()
-    {
-        
-    }
+    Idle,
+    Detecting, //detect human distance
+    Scaring, //scare human distance
+    Summoning, //for summonerMonster
+    Walking, //for minion
+    ReturningVillage
 }
 
-//나중에 몬스터 종류가 많아지면 상속 시키는데 몬스터 종류별(고양이, 용...)로 상속시키고 더 세분화(검정 고양이, 하얀 고양이...) 하지 않기!
+public abstract class Monster : MonoBehaviour
+{
+    public MonsterSO data;
+    private Animator animator;
+    private MonsterState monsterState;
+    private float currentFatigue = 0f; //현재 피로도
+    private float lastScareTime;
+    private bool isInBattle = false;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+    
+    private void Update()
+    {
+        switch (monsterState)
+        {
+            case MonsterState.Idle:
+            case MonsterState.Detecting:
+                // if (HumanInRange())
+                // {
+                //     SetState(MonsterState.Scaring);
+                // }
+                break;
+            case MonsterState.Scaring:
+                Battle();
+                break;
+            case MonsterState.ReturningVillage:
+                ReturnToVillage();
+                break;
+        }
+    }
+
+    protected virtual void SetState(MonsterState state)
+    {
+        monsterState = state;
+        switch (state)
+        {
+            case MonsterState.Scaring:
+                animator.SetBool("Scare", true);
+                isInBattle = true;
+                break;
+
+            case MonsterState.ReturningVillage:
+                //animator.SetTrigger("Return"); or whatever
+                break;
+            
+            case MonsterState.Idle:
+                animator.SetBool("Scare", false);
+                animator.SetBool("Idle", true);
+                break;
+            case MonsterState.Detecting:
+                animator.SetBool("Scare", false);
+                break;
+        }
+    }
+
+    protected virtual void Place()
+    {
+        //monster need coin for place on the map
+        // if (playerCoins >= data.requiredCoins) //if player has enough coins to place monster
+        // {
+        //     playercoins -= data.requiredCoins;
+        //     Debug.Log("place monster");
+        //     monsterState = MonsterState.Detecting;
+        // }
+        // else
+        // {
+        //     Debug.Log("not enough coins to place the monster");
+        // }
+    }
+
+    // protected virtual void DetectionRange()
+    // {
+    //     //monster detect human when human walk into the humanDetectionRange
+    //     if (HumanInRange())
+    //     {
+    //         SetState(MonsterState.Detecting);
+    //     }
+    // }
+
+    // private bool HumanInRange()
+    // {
+    //     // Collider2D[] detectedHumans = Physics2D.OverlapCircleAll(transform.position, data.humanDetectionRange);
+    //     // foreach (var human in detectedHumans)
+    //     // {
+    //     //     if (human.CompareTag("Human")) //let's see
+    //     //     {
+    //     //         return true;
+    //     //     }
+    //     // }
+    //     // return false;
+    // }
+
+    protected virtual void Battle()
+    {
+        // currentFatigue += (Time.deltaTime * //인간이 주는 피로도 변수 이름 들어갈 공간);
+        
+        if (data.cooldown <= 0)
+        {
+            InflictFear();
+            lastScareTime = Time.time;
+        }
+        
+        if (currentFatigue >= data.fatigue)
+        {
+            SetState(MonsterState.ReturningVillage);
+            ReturnToVillage();
+        }
+    }
+        
+    protected virtual void InflictFear()
+    {
+        if (Time.time - lastScareTime > data.cooldown)
+        {
+            lastScareTime = Time.time;
+            // human fear value += (Time.deltaTime * data.fearInflicted);
+            // animator.SetTrigger("Scared");
+        }
+    }
+
+    private void ReturnToVillage()
+    {
+        //fading out, 1f
+        gameObject.SetActive(false);
+    }
+}
