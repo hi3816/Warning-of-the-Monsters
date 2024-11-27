@@ -8,7 +8,7 @@ public static class CustomUtil
         T instance = Resources.Load<T>(path);
         if (instance == null)
         {
-            Debug.Log($"{typeof(T).Name} not found in Resources folder at {path}.");
+            Debug.LogAssertion($"{typeof(T).Name} not found in Resources folder at {path}.");
         }
 
         return instance;
@@ -20,7 +20,7 @@ public static class CustomUtil
         T[] instance = Resources.LoadAll<T>(path);
         if (instance == null)
         {
-            Debug.Log($"{typeof(T).Name} not found in Resources folder at {path}.");
+            Debug.LogAssertion($"{typeof(T).Name} not found in Resources folder at {path}.");
         }
 
         return instance;
