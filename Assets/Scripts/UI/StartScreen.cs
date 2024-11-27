@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class StartScreen : UIBase
 {
@@ -7,12 +8,11 @@ public class StartScreen : UIBase
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("스타트화면출력");
         startButton.onClick.AddListener(OnButtonClicked);
     }
 
     public void OnButtonClicked()
     {
-        Debug.Log("스타트클릭");
+        SceneManager.LoadScene("LobySceneTest");
     }
 }

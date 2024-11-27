@@ -10,6 +10,13 @@ public class UIManager : SingletonBase<UIManager>
     public float ScreenHeight = 1080;
 
     private List<UIBase> uiList = new List<UIBase>();
+
+    protected override void Awake()
+    {
+        base.Awake();
+        DontDestroyOnLoad(gameObject);
+    }
+
     public T Show<T>() where T : UIBase
     {
         string uiName = typeof(T).ToString();
@@ -32,7 +39,7 @@ public class UIManager : SingletonBase<UIManager>
         canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         canvasScaler.referenceResolution = new Vector2(ScreenWidth, ScreenHeight);
 
-        canvasScaler = newCanvasObject.AddComponent<CanvasScaler>();
+        newCanvasObject.AddComponent<GraphicRaycaster>();
 
         UIBase ui = Instantiate(prefab, newCanvasObject.transform);
         ui.name = ui.name.Replace("(Clone)", "");
