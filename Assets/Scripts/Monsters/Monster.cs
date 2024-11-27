@@ -13,9 +13,13 @@ public enum MonsterState
 public abstract class Monster : MonoBehaviour
 {
     public MonsterSO data;
+    public Transform monsterSpawnPoint;
     private Animator animator;
     private MonsterState monsterState;
+    public string monsterTag = "Monster";
+    public string poolTag;
     private float currentFatigue = 0f; //현재 피로도
+    private float lastSpawnTime;
     private float lastScareTime;
     private bool isInBattle = false;
 
@@ -71,16 +75,25 @@ public abstract class Monster : MonoBehaviour
     protected virtual void Place()
     {
         //monster need coin for place on the map
-        // if (playerCoins >= data.requiredCoins) //if player has enough coins to place monster
+        // if (playerCoins >= data.requiredCoins && (Time.time - lastSpawnTime > spawnDelay)) //if player has enough coins to place monster
         // {
         //     playercoins -= data.requiredCoins;
-        //     Debug.Log("place monster");
+        //     SpawnMonster();
+        //     lastSpawnTime = Time.time;
         //     monsterState = MonsterState.Detecting;
         // }
         // else
         // {
         //     Debug.Log("not enough coins to place the monster");
         // }
+    }
+    
+    private void SpawnMonster()
+    {
+        if (PoolManager.Instance != null)
+        {
+            GameObject monster = PoolManager.Instance.SpawnFromPool(monsterTag, monsterSpawnPoint.position, Quaternion.identity);
+        }
     }
 
     // protected virtual void DetectionRange()
@@ -136,5 +149,6 @@ public abstract class Monster : MonoBehaviour
     {
         //fading out, 1f
         gameObject.SetActive(false);
+        PoolManager.Instance.ReturnToPool(monsterTag, gameObject);
     }
 }
