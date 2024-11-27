@@ -42,7 +42,14 @@ public class StageManager : SingletonBase<StageManager>
         healthTxt.text = currHealth.ToString();
         goldTxt.text = currGold.ToString();
     }
-    
+
+    // health 변경
+    public void ChangeHealth(int health)
+    {
+        currHealth += health;
+        ChangeUI();
+    }
+
     // Wave 업데이트
     public void UpdateWave()
     {

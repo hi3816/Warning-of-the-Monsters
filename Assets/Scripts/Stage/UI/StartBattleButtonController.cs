@@ -66,7 +66,7 @@ public class StartBattleButtonController : MonoBehaviour
         CheckClear();
     }
 
-    // 현재 스테이지를 클릭어 했는지 확인
+    // 현재 스테이지를 클리어 했는지 확인
     private void CheckClear()
     {
         if (StageManager.Instance.CheckEndStage())
