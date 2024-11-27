@@ -8,7 +8,7 @@ public class StartBattleButtonController : MonoBehaviour
 
     private bool isWaveEnd = false; // 웨이브가 끝났는지 확인
     private float interWaveDelay; // 웨이브 간 지연 시간
-    private float currInterDelayTime = 0f; // 현재 지현 시간 설정
+    private float currInterDelayTime = 0f; // 현재 지연 시간 설정
 
     private Coroutine coroutine; // 지연 시간 계산 코루틴
     private WaitForSeconds coroutineSeconds; // 지연 시간 캐싱 필드

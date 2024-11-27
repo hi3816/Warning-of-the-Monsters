@@ -42,7 +42,8 @@ public class StageManager : SingletonBase<StageManager>
         healthTxt.text = currHealth.ToString();
         goldTxt.text = currGold.ToString();
     }
-
+    
+    // Wave 업데이트
     public void UpdateWave()
     {
         // 웨이브 증가 후 텍스트 변경
@@ -50,6 +51,7 @@ public class StageManager : SingletonBase<StageManager>
         ChangeUI();
     }
 
+    // 현재 스테이지 클리어 됐는지 체크
     public bool CheckEndStage()
     {
         return (currWave == totalWave);
