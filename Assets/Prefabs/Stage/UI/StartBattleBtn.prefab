@@ -235,6 +235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9005759860985117032}
   - component: {fileID: 8479895508434045532}
+  - component: {fileID: 1160516218018638187}
   m_Layer: 0
   m_Name: StartBattleBtn
   m_TagString: Untagged
@@ -304,7 +305,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1160516218018638187}
+        m_TargetAssemblyTypeName: ContactStartButton, Assembly-CSharp
+        m_MethodName: StartWave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1160516218018638187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4172433494550995578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c9a1e8b9aada1548a06fb6a2994420b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeCircleImage: {fileID: 1835790905183993909}
 --- !u!1 &7806411744750406018
 GameObject:
   m_ObjectHideFlags: 0
