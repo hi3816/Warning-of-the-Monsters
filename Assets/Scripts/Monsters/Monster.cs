@@ -13,18 +13,18 @@ public enum MonsterState
 public abstract class Monster : MonoBehaviour
 {
     public MonsterSO data;
+    private StageManager stageManager;
     public Transform monsterSpawnPoint;
     private Animator animator;
     private MonsterState monsterState;
-    public string monsterTag = "Monster";
     public string poolTag;
     private float currentFatigue = 0f; //현재 피로도
-    private float lastSpawnTime;
     private float lastScareTime;
     private bool isInBattle = false;
 
     private void Awake()
     {
+        stageManager = FindObjectOfType<StageManager>();
         animator = GetComponent<Animator>();
     }
     
@@ -51,48 +51,43 @@ public abstract class Monster : MonoBehaviour
     protected virtual void SetState(MonsterState state)
     {
         monsterState = state;
+        
         switch (state)
         {
+            case MonsterState.Idle:
+            case MonsterState.Detecting:
+                break;
             case MonsterState.Scaring:
                 animator.SetBool("Scare", true);
                 isInBattle = true;
                 break;
-
             case MonsterState.ReturningVillage:
-                //animator.SetTrigger("Return"); or whatever
-                break;
-            
-            case MonsterState.Idle:
                 animator.SetBool("Scare", false);
-                animator.SetBool("Idle", true);
-                break;
-            case MonsterState.Detecting:
-                animator.SetBool("Scare", false);
+                animator.SetTrigger("Return");
                 break;
         }
     }
 
-    protected virtual void Place()
-    {
-        //monster need coin for place on the map
-        // if (playerCoins >= data.requiredCoins && (Time.time - lastSpawnTime > spawnDelay)) //if player has enough coins to place monster
-        // {
-        //     playercoins -= data.requiredCoins;
-        //     SpawnMonster();
-        //     lastSpawnTime = Time.time;
-        //     monsterState = MonsterState.Detecting;
-        // }
-        // else
-        // {
-        //     Debug.Log("not enough coins to place the monster");
-        // }
-    }
+    // protected virtual void Place()
+    // {
+    //      if (stageManager.currGold >= data.requiredCoins) //if player has enough coins to place monster
+    //      {
+    //          stageManager.currGold -= data.requiredCoins;
+    //          SpawnMonster();
+    //          SetState(MonsterState.Detecting);
+    //      }
+    //      else
+    //      {
+    //          Debug.Log("not enough coins to place the monster");
+    //      }
+    // }
     
     private void SpawnMonster()
     {
         if (PoolManager.Instance != null)
         {
-            GameObject monster = PoolManager.Instance.SpawnFromPool(monsterTag, monsterSpawnPoint.position, Quaternion.identity);
+            GameObject monster = PoolManager.Instance.SpawnFromPool(poolTag, monsterSpawnPoint.position, Quaternion.identity);
+            SetState(MonsterState.Detecting);
         }
     }
 
@@ -101,7 +96,7 @@ public abstract class Monster : MonoBehaviour
     //     //monster detect human when human walk into the humanDetectionRange
     //     if (HumanInRange())
     //     {
-    //         SetState(MonsterState.Detecting);
+    //         SetState(MonsterState.Scaring);
     //     }
     // }
 
@@ -122,33 +117,28 @@ public abstract class Monster : MonoBehaviour
     {
         // currentFatigue += (Time.deltaTime * //인간이 주는 피로도 변수 이름 들어갈 공간);
         
-        if (data.cooldown <= 0)
+        if (Time.time - lastScareTime > data.cooldown)
         {
             InflictFear();
-            lastScareTime = Time.time;
         }
         
         if (currentFatigue >= data.fatigue)
         {
             SetState(MonsterState.ReturningVillage);
-            ReturnToVillage();
         }
     }
         
     protected virtual void InflictFear()
     {
-        if (Time.time - lastScareTime > data.cooldown)
-        {
-            lastScareTime = Time.time;
-            // human fear value += (Time.deltaTime * data.fearInflicted);
-            // animator.SetTrigger("Scared");
-        }
+        lastScareTime = Time.time;
+        // human fear value += (Time.deltaTime * data.fearInflicted);
+        // animator.SetTrigger("Scared");
     }
 
     private void ReturnToVillage()
     {
         //fading out, 1f
         gameObject.SetActive(false);
-        PoolManager.Instance.ReturnToPool(monsterTag, gameObject);
+        PoolManager.Instance.ReturnToPool(poolTag, gameObject);
     }
 }
