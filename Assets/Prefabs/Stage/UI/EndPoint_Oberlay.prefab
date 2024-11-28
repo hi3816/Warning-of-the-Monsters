@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7766254583987620088}
   - component: {fileID: 3546713434424517455}
   m_Layer: 0
-  m_Name: EndPoint_UI
+  m_Name: EndPoint_Oberlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,7 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -50, y: 50}
   serializedVersion: 2
   m_Radius: 50
 --- !u!114 &3546713434424517455

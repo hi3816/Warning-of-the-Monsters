@@ -9,6 +9,7 @@ public class StageManager : SingletonBase<StageManager>
     [SerializeField] private TextMeshProUGUI waveTxt;
     [SerializeField] private TextMeshProUGUI healthTxt;
     [SerializeField] private TextMeshProUGUI goldTxt;
+    [SerializeField] private GameObject optionPanel;
 
     [Header("Stat")]
 
@@ -62,5 +63,11 @@ public class StageManager : SingletonBase<StageManager>
     public bool CheckEndStage()
     {
         return (currWave == totalWave);
+    }
+
+    // Stop 버튼 눌렀을 때 optionPanel 활성화
+    public void ShowOptionPanel()
+    {
+        optionPanel.SetActive(true);
     }
 }
