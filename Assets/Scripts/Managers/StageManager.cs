@@ -27,6 +27,11 @@ public class StageManager : SingletonBase<StageManager>
         ChangeUI();
     }
 
+    private void Start()
+    {
+        SoundManager.Instance.PlayBGM(BgmType.Stage);
+    }
+
     // stageSO를 통해 기본 값 초기화
     private void SetStageStat()
     {
@@ -69,5 +74,17 @@ public class StageManager : SingletonBase<StageManager>
     public void ShowOptionPanel()
     {
         optionPanel.SetActive(true);
+    }
+
+    public void ClickBgmButton()
+    {
+        if (SoundManager.Instance.isPlayBGM)
+        {
+            SoundManager.Instance.StopBGM();
+        }
+        else
+        {
+            SoundManager.Instance.PlayBGM(BgmType.Stage);
+        }
     }
 }
