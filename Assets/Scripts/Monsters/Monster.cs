@@ -13,24 +13,21 @@ public enum MonsterState
 public abstract class Monster : MonoBehaviour
 {
     public MonsterSO data;
-    private StageManager stageManager;
-    public Transform monsterSpawnPoint;
-    private Animator animator;
-    private MonsterState monsterState;
-    public string poolTag;
-    private float currentFatigue = 0f; //현재 피로도
-    private float lastScareTime;
+    private HumanSO _human;
+    private Animator _animator;
+    private MonsterState _monsterState;
+    private float _currentFatigue = 0f; //현재 피로도
+    private float _lastScareTime;
     private bool isInBattle = false;
 
     private void Awake()
     {
-        stageManager = FindObjectOfType<StageManager>();
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
     
     private void Update()
     {
-        switch (monsterState)
+        switch (_monsterState)
         {
             case MonsterState.Idle:
             case MonsterState.Detecting:
@@ -48,9 +45,9 @@ public abstract class Monster : MonoBehaviour
         }
     }
 
-    protected virtual void SetState(MonsterState state)
+    public void SetState(MonsterState state)
     {
-        monsterState = state;
+        _monsterState = state;
         
         switch (state)
         {
@@ -58,39 +55,15 @@ public abstract class Monster : MonoBehaviour
             case MonsterState.Detecting:
                 break;
             case MonsterState.Scaring:
-                animator.SetBool("Scare", true);
+                _animator.SetBool("Scare", true);
                 isInBattle = true;
                 break;
             case MonsterState.ReturningVillage:
-                animator.SetBool("Scare", false);
-                animator.SetTrigger("Return");
+                _animator.SetTrigger("Return");
                 break;
         }
     }
-
-    // protected virtual void Place()
-    // {
-    //      if (stageManager.currGold >= data.requiredCoins) //if player has enough coins to place monster
-    //      {
-    //          stageManager.currGold -= data.requiredCoins;
-    //          SpawnMonster();
-    //          SetState(MonsterState.Detecting);
-    //      }
-    //      else
-    //      {
-    //          Debug.Log("not enough coins to place the monster");
-    //      }
-    // }
     
-    private void SpawnMonster()
-    {
-        if (PoolManager.Instance != null)
-        {
-            GameObject monster = PoolManager.Instance.SpawnFromPool(poolTag, monsterSpawnPoint.position, Quaternion.identity);
-            SetState(MonsterState.Detecting);
-        }
-    }
-
     // protected virtual void DetectionRange()
     // {
     //     //monster detect human when human walk into the humanDetectionRange
@@ -115,14 +88,13 @@ public abstract class Monster : MonoBehaviour
 
     protected virtual void Battle()
     {
-        // currentFatigue += (Time.deltaTime * //인간이 주는 피로도 변수 이름 들어갈 공간);
-        
-        if (Time.time - lastScareTime > data.cooldown)
+        // currentFatigue += (Time.deltaTime * Random.Range(human.minFatigueInflicted, human.maxFatigueInflicted));
+        if (Time.time - _lastScareTime > data.cooldown)
         {
             InflictFear();
         }
         
-        if (currentFatigue >= data.fatigue)
+        if (_currentFatigue >= data.fatigue)
         {
             SetState(MonsterState.ReturningVillage);
         }
@@ -130,8 +102,8 @@ public abstract class Monster : MonoBehaviour
         
     protected virtual void InflictFear()
     {
-        lastScareTime = Time.time;
-        // human fear value += (Time.deltaTime * data.fearInflicted);
+        _lastScareTime = Time.time;
+        // human.currentFear += (Time.deltaTime * data.fearInflicted);
         // animator.SetTrigger("Scared");
     }
 
@@ -139,6 +111,6 @@ public abstract class Monster : MonoBehaviour
     {
         //fading out, 1f
         gameObject.SetActive(false);
-        PoolManager.Instance.ReturnToPool(poolTag, gameObject);
+        PoolManager.Instance.ReturnToPool(data.prefab.name, gameObject);
     }
 }
