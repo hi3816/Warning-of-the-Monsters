@@ -1,3 +1,4 @@
+using Unity.Properties;
 using UnityEngine;
 
 public enum MonsterState
@@ -13,10 +14,17 @@ public enum MonsterState
 public abstract class Monster : MonoBehaviour
 {
     public MonsterSO data;
-    private HumanSO _human;
+    
     private Animator _animator;
     private MonsterState _monsterState;
-    private float _currentFatigue = 0f; //현재 피로도
+    
+    private float _currentFatigue; //현재 피로도
+    public float CurrentFatigue
+    {
+        get => _currentFatigue;
+        private set => _currentFatigue = Mathf.Clamp(value, 0f, data.fatigue);
+    }
+    
     private float _lastScareTime;
     private bool isInBattle = false;
 
@@ -30,6 +38,8 @@ public abstract class Monster : MonoBehaviour
         switch (_monsterState)
         {
             case MonsterState.Idle:
+                _animator.SetBool("Idle", true);
+                break;
             case MonsterState.Detecting:
                 // if (HumanInRange())
                 // {
@@ -51,9 +61,6 @@ public abstract class Monster : MonoBehaviour
         
         switch (state)
         {
-            case MonsterState.Idle:
-            case MonsterState.Detecting:
-                break;
             case MonsterState.Scaring:
                 _animator.SetBool("Scare", true);
                 isInBattle = true;
@@ -88,13 +95,13 @@ public abstract class Monster : MonoBehaviour
 
     protected virtual void Battle()
     {
-        // currentFatigue += (Time.deltaTime * Random.Range(human.minFatigueInflicted, human.maxFatigueInflicted));
+        // CurrentFatigue += (Time.deltaTime * Random.Range(human.minFatigueInflicted, human.maxFatigueInflicted));
         if (Time.time - _lastScareTime > data.cooldown)
         {
             InflictFear();
         }
         
-        if (_currentFatigue >= data.fatigue)
+        if (CurrentFatigue >= data.fatigue)
         {
             SetState(MonsterState.ReturningVillage);
         }
@@ -111,6 +118,6 @@ public abstract class Monster : MonoBehaviour
     {
         //fading out, 1f
         gameObject.SetActive(false);
-        PoolManager.Instance.ReturnToPool(data.prefab.name, gameObject);
+        PoolManager.Instance.ReturnToPool(data.poolTag, gameObject);
     }
 }
