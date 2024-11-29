@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,23 +14,25 @@ public class StageManager : SingletonBase<StageManager>
 
     [Header("Stat")]
 
-    public StageSO stageSO;
+    public StageSO stageSO; 
     [SerializeField] private int totalWave; // 총 웨이브
     [SerializeField] private int currWave; // 현재 웨이브
     [SerializeField] private int currHealth; // 현재 체력
     [SerializeField] private int currGold; // 현재 골드
 
+    private SoundManager soundManager;
+
     protected override void Awake()
     {
         base.Awake();
-
+        soundManager = SoundManager.Instance;
         SetStageStat();
         ChangeUI();
     }
 
     private void Start()
     {
-        SoundManager.Instance.PlayBGM(BgmType.Stage);
+        soundManager.PlayBGM(BgmType.Stage);
     }
 
     // stageSO를 통해 기본 값 초기화
@@ -76,15 +79,30 @@ public class StageManager : SingletonBase<StageManager>
         optionPanel.SetActive(true);
     }
 
+    // BGM 버튼 클릭 시 On Off
     public void ClickBgmButton()
     {
-        if (SoundManager.Instance.isPlayBGM)
+        soundManager.ChangeIsPlayBGM();
+
+        if (soundManager.IsPlayBGM)
         {
-            SoundManager.Instance.StopBGM();
+            soundManager.PlayBGM(BgmType.Stage);
         }
         else
         {
-            SoundManager.Instance.PlayBGM(BgmType.Stage);
+            soundManager.StopBGM();
         }
+    }
+
+    // SFX 버튼 클릭 시 On Off
+    public void ClickSfxButton()
+    {
+        soundManager.ChangeIsPlaySFX();
+    }
+
+    // Retry 버튼 클릭 시 optionPanel 비활성화
+    public void ClickRetryButton()
+    {
+        optionPanel.SetActive(false);
     }
 }

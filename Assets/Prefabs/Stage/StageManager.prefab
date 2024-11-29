@@ -587,7 +587,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7390258755801773858}
+        m_TargetAssemblyTypeName: StageManager, Assembly-CSharp
+        m_MethodName: ClickSfxButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &6135383653608635039
 GameObject:
@@ -834,6 +846,34 @@ PrefabInstance:
     - target: {fileID: 1077952586408790107, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3444832835389032056, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3444832835389032056, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3444832835389032056, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7390258755801773858}
+    - target: {fileID: 3444832835389032056, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3444832835389032056, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClickRetryButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 3444832835389032056, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StageManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3444832835389032056, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8179583286680606036, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
       propertyPath: m_Name
@@ -1322,6 +1362,14 @@ PrefabInstance:
     - target: {fileID: 1189350007426777270, guid: 705491be0f2c9bb45a88cd8844edfd59, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1189350007426777270, guid: 705491be0f2c9bb45a88cd8844edfd59, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EndWave
+      objectReference: {fileID: 0}
+    - target: {fileID: 1189350007426777270, guid: 705491be0f2c9bb45a88cd8844edfd59, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StartBattleButtonController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2815513433556221204, guid: 705491be0f2c9bb45a88cd8844edfd59, type: 3}
       propertyPath: m_Pivot.x

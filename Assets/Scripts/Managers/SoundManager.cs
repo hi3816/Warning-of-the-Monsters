@@ -34,7 +34,8 @@ public class SoundManager : SingletonBase<SoundManager>
     [SerializeField][Range(0f, 1f)] private float sfxVolume;
     [SerializeField][Range(0f, 1f)] private float sfxPitchVariance; // 높은 음이 나옴
 
-    public bool isPlayBGM;
+    public bool IsPlayBGM { get; private set; } // BGM 출력 설정 (On / Off)
+    public bool IsPlaySFX { get; private set; }// SFX 출력 설정 (On / Off)
 
     protected override void Awake()
     {
@@ -43,6 +44,8 @@ public class SoundManager : SingletonBase<SoundManager>
         audioBgm = GetComponent<AudioSource>();
         audioBgm.volume = bgmVolume;
         audioBgm.loop = true;
+        IsPlayBGM = true;
+        IsPlaySFX = true;
 
         DontDestroyOnLoad(this);
         SetBgmDictionary();
@@ -75,29 +78,50 @@ public class SoundManager : SingletonBase<SoundManager>
         }
     }
 
-    // 배경 음악 재생
+    // 배경 음악 시작
     public void PlayBGM(BgmType bgmType)
     {
-        isPlayBGM = true;
-        audioBgm.clip = bgmDict[bgmType];
-        audioBgm.Play();
+        if (IsPlayBGM)
+        {
+            audioBgm.clip = bgmDict[bgmType];
+            audioBgm.mute = false;
+            audioBgm.Play();
+        }
     }
 
     // 배경 음악 정지
     public void StopBGM()
     {
-        isPlayBGM = false;
         audioBgm.Stop();
     }
 
     // 효과음 재생
     public void PlaySFX(SfxType sfxType)
     {
-        // enum -> int 로 형변환
-        //audioSfx.PlayOneShot(sfxDict[sfxType]);
-        GameObject obj = PoolManager.Instance.SpawnFromPool(sfxType.ToString());
-        obj.SetActive(true);
-        SfxSoundSource soundSource = obj.GetComponent<SfxSoundSource>();
-        soundSource.Play(sfxDict[sfxType], sfxType, sfxVolume, sfxPitchVariance);
+        if (IsPlaySFX)
+        {
+            // enum -> int 로 형변환
+            GameObject obj = PoolManager.Instance.SpawnFromPool(sfxType.ToString());
+            obj.SetActive(true);
+            SfxSoundSource soundSource = obj.GetComponent<SfxSoundSource>();
+            soundSource.Play(sfxDict[sfxType], sfxType, sfxVolume, sfxPitchVariance);
+        }
+    }
+
+    // BGM On / Off
+    public void ChangeIsPlayBGM()
+    {
+        IsPlayBGM = !IsPlayBGM;
+    }
+
+    // SFX On / Off
+    public void ChangeIsPlaySFX()
+    {
+        IsPlaySFX = !IsPlaySFX;
+    }
+
+    public void OnClick()
+    {
+        PlaySFX(SfxType.Click);
     }
 }

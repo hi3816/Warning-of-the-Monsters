@@ -719,17 +719,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1947102430599819499, guid: 9e88b509184bd6a4ba91ff287e6a8348, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1947102430599819499, guid: 9e88b509184bd6a4ba91ff287e6a8348, type: 3}
+      propertyPath: Mute
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8816805551781717135, guid: 9e88b509184bd6a4ba91ff287e6a8348, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.0615163
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8816805551781717135, guid: 9e88b509184bd6a4ba91ff287e6a8348, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.6252857
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8816805551781717135, guid: 9e88b509184bd6a4ba91ff287e6a8348, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.037302263
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8816805551781717135, guid: 9e88b509184bd6a4ba91ff287e6a8348, type: 3}
       propertyPath: m_LocalRotation.w

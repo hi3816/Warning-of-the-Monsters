@@ -51,10 +51,9 @@ MonoBehaviour:
   SfxList:
   - sfxType: 0
     clip: {fileID: 8300000, guid: 5be5e28f5fc70354d8db24b183d2236d, type: 3}
-  bgmVolume: 0.541
-  sfxVolume: 0.565
+  bgmVolume: 0.063
+  sfxVolume: 1
   sfxPitchVariance: 0.524
-  isPlayBGM: 0
 --- !u!82 &1947102430599819499
 AudioSource:
   m_ObjectHideFlags: 0
@@ -69,7 +68,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

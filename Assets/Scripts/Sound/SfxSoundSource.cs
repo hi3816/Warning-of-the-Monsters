@@ -23,6 +23,7 @@ public class SfxSoundSource : MonoBehaviour
     public void Disable()
     {
         if(audioSource.isPlaying) audioSource.Stop();
+        gameObject.SetActive(false);
         PoolManager.Instance.ReturnToPool(type.ToString(), gameObject);
     }
 }
