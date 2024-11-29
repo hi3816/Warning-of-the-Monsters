@@ -3,10 +3,13 @@ using UnityEngine;
 
 public class MonsterManager : SingletonBase<MonsterManager>
 {
+    [Header("Monster Spawn Points")]
+    [SerializeField] private Transform[] spawnPoints;
+    
     [Header("References")]
     [SerializeField] private MonsterSpawner monsterSpawner;
     
-    public List<MonsterSO> selectedMonsters = new List<MonsterSO>(); // Four monsters selected in the stage scene
+    public List<MonsterSO> Monsters { get; private set; } = new List<MonsterSO>();
     private StageManager _stageManager;
     
     private int _selectedMonsterIndex = 0;
@@ -14,39 +17,53 @@ public class MonsterManager : SingletonBase<MonsterManager>
     
     private void Start()
     {
-        LoadMonstersFromGoogleSheets();
-    }
-    
-    private void LoadMonstersFromGoogleSheets()
-    {
-        // Fetch and parse the data from Google Sheets API here
-        // After data is fetched, populate the selectedMonsters list
+        MonsterDataLoader monsterDataLoader = FindObjectOfType<MonsterDataLoader>(); //DON'T USE FIND, REPLACE THIS LATER
+        if (monsterDataLoader != null)
+        {
+            Monsters = monsterDataLoader.MonsterData;
+        }
     }
 
     public void SelectMonster(int index)
     { 
-        if (index >= 0 && index < selectedMonsters.Count)
+        if (index >= 0 && index < Monsters.Count)
         {
             _selectedMonsterIndex = index;
         }
     }
-
-    public void SpawnMonsterAtPosition(Vector3 spawnPosition)
-    {
-        MonsterSO selectedMonster = selectedMonsters[_selectedMonsterIndex];
     
-        // if (_stageManager.currGold >= selectedMonster.requiredCoins)
-        // {
-        //     _stageManager.currGold -= selectedMonster.requiredCoins;
-        //
-        //     if (monsterSpawner != null)
-        //     {
-        //         monsterSpawner.SpawnMonster(spawnPosition);
-        //     }
-        // }
-        // else
-        // {
-        //     Debug.Log("Not enough coins to spawn this monster.");
-        // }
+    public void SpawnMonster(Vector3 spawnPosition, MonsterSO selectedMonsterData)
+    {
+        string poolTag = selectedMonsterData.poolTag;
+
+        GameObject spawnedMonster = PoolManager.Instance.SpawnFromPool(poolTag, spawnPosition, Quaternion.identity);
+        if (spawnedMonster != null)
+        {
+            Monster monster = spawnedMonster.GetComponent<Monster>();
+            if (monster != null)
+            {
+                monster.data = selectedMonsterData;
+                monster.SetState(MonsterState.Idle);
+            }
+        }
     }
+
+    // public void SpawnMonsterAtPosition(Vector3 spawnPosition)
+    // {
+    //     MonsterSO selectedMonsterData = Monsters[_selectedMonsterIndex];
+    //
+    //     if (_stageManager.currGold >= selectedMonsterData.requiredCoins)
+    //     {
+    //         _stageManager.currGold -= selectedMonsterData.requiredCoins;
+    //     
+    //         if (monsterSpawner != null)
+    //         {
+    //             monsterSpawner.SpawnMonster(spawnPosition, selectedMonsterData);
+    //         }
+    //     }
+    //     else
+    //     {
+    //         //print "Not enough coins to spawn this monster."
+    //     }
+    // }
 }
