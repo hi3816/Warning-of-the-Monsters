@@ -5071,6 +5071,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5188921963228620309}
     m_Modifications:
+    - target: {fileID: 1835790905183993909, guid: aa302bf4406c20b4f8884c08757068c6, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4172433494550995578, guid: aa302bf4406c20b4f8884c08757068c6, type: 3}
       propertyPath: m_Name
       value: StartBattleBtn

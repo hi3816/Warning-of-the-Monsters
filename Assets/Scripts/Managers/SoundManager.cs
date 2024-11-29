@@ -100,9 +100,4 @@ public class SoundManager : SingletonBase<SoundManager>
         SfxSoundSource soundSource = obj.GetComponent<SfxSoundSource>();
         soundSource.Play(sfxDict[sfxType], sfxType, sfxVolume, sfxPitchVariance);
     }
-
-    public void OnClick()
-    {
-        PlaySFX(SfxType.Click);
-    }
 }
