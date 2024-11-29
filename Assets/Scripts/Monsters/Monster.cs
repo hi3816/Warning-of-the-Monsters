@@ -1,10 +1,8 @@
-using Unity.Properties;
 using UnityEngine;
 
 public enum MonsterState
 {
     Idle,
-    Detecting, //detect human distance
     Scaring, //scare human distance
     Summoning, //for summonerMonster
     Walking, //for minion
@@ -26,7 +24,6 @@ public abstract class Monster : MonoBehaviour
     }
     
     private float _lastScareTime;
-    private bool isInBattle = false;
 
     private void Awake()
     {
@@ -34,17 +31,11 @@ public abstract class Monster : MonoBehaviour
     }
     
     private void Update()
-    {
+    { 
         switch (_monsterState)
         {
             case MonsterState.Idle:
                 _animator.SetBool("Idle", true);
-                break;
-            case MonsterState.Detecting:
-                // if (HumanInRange())
-                // {
-                //     SetState(MonsterState.Scaring);
-                // }
                 break;
             case MonsterState.Scaring:
                 Battle();
@@ -63,35 +54,18 @@ public abstract class Monster : MonoBehaviour
         {
             case MonsterState.Scaring:
                 _animator.SetBool("Scare", true);
-                isInBattle = true;
                 break;
             case MonsterState.ReturningVillage:
                 _animator.SetTrigger("Return");
                 break;
         }
     }
-    
-    // protected virtual void DetectionRange()
-    // {
-    //     //monster detect human when human walk into the humanDetectionRange
-    //     if (HumanInRange())
-    //     {
-    //         SetState(MonsterState.Scaring);
-    //     }
-    // }
 
-    // private bool HumanInRange()
-    // {
-    //     // Collider2D[] detectedHumans = Physics2D.OverlapCircleAll(transform.position, data.humanDetectionRange);
-    //     // foreach (var human in detectedHumans)
-    //     // {
-    //     //     if (human.CompareTag("Human")) //let's see
-    //     //     {
-    //     //         return true;
-    //     //     }
-    //     // }
-    //     // return false;
-    // }
+     private void HumanInRange()
+     {
+         Collider2D[] detectedHumans = Physics2D.OverlapCircleAll(transform.position, data.humanScaringRange);
+         SetState(MonsterState.Scaring);
+     }
 
     protected virtual void Battle()
     {
@@ -100,18 +74,16 @@ public abstract class Monster : MonoBehaviour
         {
             InflictFear();
         }
-        
-        if (CurrentFatigue >= data.fatigue)
-        {
-            SetState(MonsterState.ReturningVillage);
-        }
     }
         
     protected virtual void InflictFear()
     {
         _lastScareTime = Time.time;
         // human.currentFear += (Time.deltaTime * data.fearInflicted);
-        // animator.SetTrigger("Scared");
+        if (CurrentFatigue >= data.fatigue)
+        {
+            SetState(MonsterState.ReturningVillage);
+        }
     }
 
     private void ReturnToVillage()

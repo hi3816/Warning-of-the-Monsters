@@ -36,22 +36,22 @@ public class MonsterManager : SingletonBase<MonsterManager>
         }
     }
 
-    // public void SpawnMonsterAtPosition(Vector3 spawnPosition)
-    // {
-    //     MonsterSO selectedMonster = selectedMonsters[_selectedMonsterIndex];
-    //
-    //     if (_stageManager.currGold >= selectedMonster.requiredCoins)
-    //     {
-    //         _stageManager.currGold -= selectedMonster.requiredCoins;
-    //
-    //         if (monsterSpawner != null)
-    //         {
-    //             monsterSpawner.SpawnMonster(spawnPosition);
-    //         }
-    //     }
-    //     else
-    //     {
-    //         Debug.Log("Not enough coins to spawn this monster.");
-    //     }
-    // }
+    public void SpawnMonsterAtPosition(Vector3 spawnPosition)
+    {
+        MonsterSO selectedMonster = selectedMonsters[_selectedMonsterIndex];
+    
+        // if (_stageManager.currGold >= selectedMonster.requiredCoins)
+        // {
+        //     _stageManager.currGold -= selectedMonster.requiredCoins;
+        //
+        //     if (monsterSpawner != null)
+        //     {
+        //         monsterSpawner.SpawnMonster(spawnPosition);
+        //     }
+        // }
+        // else
+        // {
+        //     Debug.Log("Not enough coins to spawn this monster.");
+        // }
+    }
 }

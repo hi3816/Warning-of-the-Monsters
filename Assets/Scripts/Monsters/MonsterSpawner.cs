@@ -43,7 +43,7 @@ public class MonsterSpawner : MonoBehaviour
             if (monster != null)
             {
                 monster.data = selectedMonsterData;
-                monster.SetState(MonsterState.Detecting);
+                monster.SetState(MonsterState.Idle);
             }
         }
     }
