@@ -8,8 +8,7 @@ public class EndPoint : MonoBehaviour
         {
             // HumanSO.lifeInflicted °ªÀ¸·Î ±ï±â
             // StageManager.Instance.ChangeHealth(humanSO.lifeInflicted);
-            StageManager.Instance.ChangeHealth(-1);
-            Destroy(collision.gameObject);
+            // Destroy(collision.gameObject);
             Debug.LogAssertion("Enemy Collision");
         }
     }

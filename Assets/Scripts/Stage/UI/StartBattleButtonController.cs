@@ -60,10 +60,13 @@ public class StartBattleButtonController : MonoBehaviour
     // 웨이브가 끝났을 때
     public void EndWave()
     {
-        isWaveEnd = true;
-        gameObject.SetActive(true);
-        coroutine = StartCoroutine(CoInterWaveDelay());
-        CheckClear();
+        if (!gameObject.activeSelf)
+        {
+            isWaveEnd = true;
+            gameObject.SetActive(true);
+            coroutine = StartCoroutine(CoInterWaveDelay());
+            CheckClear();
+        }
     }
 
     // 현재 스테이지를 클리어 했는지 확인
