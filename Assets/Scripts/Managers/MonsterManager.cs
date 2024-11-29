@@ -3,15 +3,10 @@ using UnityEngine;
 
 public class MonsterManager : SingletonBase<MonsterManager>
 {
-    [Header("Spawn Points")]
-    [SerializeField] private Transform[] spawnPoints; // Spawn points in the game scene
-    
-    [Header("Monster Configuration")]
-    public List<MonsterSO> selectedMonsters = new List<MonsterSO>(); // Four monsters selected in the stage scene
-    
     [Header("References")]
     [SerializeField] private MonsterSpawner monsterSpawner;
     
+    public List<MonsterSO> selectedMonsters = new List<MonsterSO>(); // Four monsters selected in the stage scene
     private StageManager _stageManager;
     
     private int _selectedMonsterIndex = 0;
@@ -19,17 +14,17 @@ public class MonsterManager : SingletonBase<MonsterManager>
     
     private void Start()
     {
-        _stageManager = FindObjectOfType<StageManager>();
-
-        if (selectedMonsters.Count == 0)
-        {
-            //플레이어가 몬스터를 선택하면 카운트 올라감
-        }
+        LoadMonstersFromGoogleSheets();
+    }
+    
+    private void LoadMonstersFromGoogleSheets()
+    {
+        // Fetch and parse the data from Google Sheets API here
+        // After data is fetched, populate the selectedMonsters list
     }
 
     public void SelectMonster(int index)
-    {
-        // Change the currently selected monster
+    { 
         if (index >= 0 && index < selectedMonsters.Count)
         {
             _selectedMonsterIndex = index;

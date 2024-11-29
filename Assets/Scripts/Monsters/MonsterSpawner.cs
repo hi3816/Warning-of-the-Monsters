@@ -2,16 +2,25 @@ using UnityEngine;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    [Header("Monster Spawn Points")]
-    [SerializeField] private Transform[] spawnPoints;
-    
+    private StageManager _stageManager;
+    private Transform[] spawnPoints;
     private MonsterManager _monsterManager;
     
     private void Start()
     {
+        _stageManager = StageManager.Instance;
         _monsterManager = MonsterManager.Instance;
+        
+        GetSpawnPointsFromCurrentStage();
     }
-
+    
+    private void GetSpawnPointsFromCurrentStage()
+    {
+        // GameObject Stage = _stageManager.CurrentStage;
+        // spawnPoints = Stage.GetComponentsInChildren<Transform>(); // This gets all child transforms (spawn points)
+        // spawnPoints = System.Array.FindAll(spawnPoints, t => t.CompareTag("SpawnPoint")); //NO FIND. REPLACE LATER
+    }
+    
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) //when player touch

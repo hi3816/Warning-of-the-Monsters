@@ -64,7 +64,10 @@ public abstract class Monster : MonoBehaviour
      private void HumanInRange()
      {
          Collider2D[] detectedHumans = Physics2D.OverlapCircleAll(transform.position, data.humanScaringRange);
-         SetState(MonsterState.Scaring);
+         if (detectedHumans.Length > 0)
+         {
+             SetState(MonsterState.Scaring);
+         }
      }
 
     protected virtual void Battle()
