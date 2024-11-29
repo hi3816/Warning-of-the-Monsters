@@ -875,6 +875,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4009221717713443096, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: eeb6e4a1156544e48b265a0de4753658, type: 2}
+    - target: {fileID: 4009221717713443096, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6048710711015226243, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: eeb6e4a1156544e48b265a0de4753658, type: 2}
+    - target: {fileID: 6048710711015226243, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8179583286680606036, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
       propertyPath: m_Name
       value: OptionPanel
@@ -998,6 +1014,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: HPBar
       objectReference: {fileID: 0}
+    - target: {fileID: 5183792840769921899, guid: 1f0ac0cf8dc1dc24580c3e560007136b, type: 3}
+      propertyPath: m_fontSize
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 5183792840769921899, guid: 1f0ac0cf8dc1dc24580c3e560007136b, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: eeb6e4a1156544e48b265a0de4753658, type: 2}
+    - target: {fileID: 5183792840769921899, guid: 1f0ac0cf8dc1dc24580c3e560007136b, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 5183792840769921899, guid: 1f0ac0cf8dc1dc24580c3e560007136b, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -5070498466862533057, guid: eeb6e4a1156544e48b265a0de4753658, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1217,6 +1249,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: GoldBar
       objectReference: {fileID: 0}
+    - target: {fileID: 8913631125958569286, guid: de73b1b9d83dd8348be3d268b40ab4c3, type: 3}
+      propertyPath: m_fontSize
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 8913631125958569286, guid: de73b1b9d83dd8348be3d268b40ab4c3, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: eeb6e4a1156544e48b265a0de4753658, type: 2}
+    - target: {fileID: 8913631125958569286, guid: de73b1b9d83dd8348be3d268b40ab4c3, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 8913631125958569286, guid: de73b1b9d83dd8348be3d268b40ab4c3, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -5070498466862533057, guid: eeb6e4a1156544e48b265a0de4753658, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1326,6 +1374,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8240451965117447507, guid: 3b72e423033d097489b444316af6ee7a, type: 3}
+      propertyPath: m_fontSize
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240451965117447507, guid: 3b72e423033d097489b444316af6ee7a, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: eeb6e4a1156544e48b265a0de4753658, type: 2}
+    - target: {fileID: 8240451965117447507, guid: 3b72e423033d097489b444316af6ee7a, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240451965117447507, guid: 3b72e423033d097489b444316af6ee7a, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -5070498466862533057, guid: eeb6e4a1156544e48b265a0de4753658, type: 2}
     - target: {fileID: 8781680096068768741, guid: 3b72e423033d097489b444316af6ee7a, type: 3}
       propertyPath: m_Name
       value: WaveBar

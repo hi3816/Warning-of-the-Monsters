@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class SfxSoundSource : MonoBehaviour
@@ -17,12 +18,12 @@ public class SfxSoundSource : MonoBehaviour
         audioSource.pitch = 1f + Random.Range(-soundEffectPitchVaricance, soundEffectPitchVaricance); // 다양한 음향 효과
         audioSource.PlayOneShot(clip);
 
-        Invoke("Disable", clip.length * 2); // clip.length -> 오디오 클립의 재생시간
+        StartCoroutine(CoDisable(clip.length));
     }
 
-    public void Disable()
+    private IEnumerator CoDisable(float length)
     {
-        if(audioSource.isPlaying) audioSource.Stop();
+        yield return new WaitForSecondsRealtime(length);
         gameObject.SetActive(false);
         PoolManager.Instance.ReturnToPool(type.ToString(), gameObject);
     }

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class SoundManager : SingletonBase<SoundManager>
 {
@@ -122,6 +124,13 @@ public class SoundManager : SingletonBase<SoundManager>
 
     public void OnClick()
     {
-        PlaySFX(SfxType.Click);
+        // context.phase == InputActionPhase.Performed
+
+        // IsPointerOverGameObject() -> UI만 작동하도록 제어
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) 
+            Debug.LogAssertion(EventSystem.current.currentSelectedGameObject.name);
+            PlaySFX(SfxType.Click);
+        {
+        }
     }
 }

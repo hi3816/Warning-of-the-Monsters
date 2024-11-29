@@ -77,6 +77,7 @@ public class StageManager : SingletonBase<StageManager>
     public void ShowOptionPanel()
     {
         optionPanel.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     // BGM 버튼 클릭 시 On Off
@@ -104,5 +105,6 @@ public class StageManager : SingletonBase<StageManager>
     public void ClickRetryButton()
     {
         optionPanel.SetActive(false);
+        Time.timeScale = 1f;
     }
 }
