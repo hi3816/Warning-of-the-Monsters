@@ -58,6 +58,7 @@ namespace Monster_Data
 
 		public System.Int32 id;
 		public System.String name;
+		public System.String prefabName;
 		public System.Single fatigue;
 		public System.Single fearInflicted;
 		public System.Single cooldown;

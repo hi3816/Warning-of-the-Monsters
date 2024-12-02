@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class SurpriseNode : INode
 {
     private HumanController _humanController;
@@ -13,8 +15,11 @@ public class SurpriseNode : INode
     {
         if (!_hasReacted)   // 겁주기 반응하지 않았으면
         {
+            Debug.LogAssertion("Enter SurpriseNode");
+            _humanController.animator.SetBool("IsSurprised", true);
             _humanController.ReactToScaring(); // 겁주기에 반응하기(두려움 수치 증가)
             _hasReacted = true;
+            _humanController.animator.SetBool("IsSurprised", false);
             return NodeState.Success; // 루트 노드로 이동
         }
         return NodeState.Failure; // 이전 상태로 전환
