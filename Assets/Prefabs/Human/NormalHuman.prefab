@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b64fec6aceb79d448de67d9dd0f34e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  humanData: {fileID: 11400000, guid: d056cc639ada6c64b981a2bc9984880b, type: 2}
+  humanData: {fileID: 0}
   animator: {fileID: 0}
   targetMonster: {fileID: 0}
 --- !u!195 &5045224751481305426

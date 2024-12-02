@@ -11,12 +11,12 @@ public class HumanDataLoader : MonoBehaviour
         // JSON 파일 리스트로 로드
         List<Human_Data.HumanData> humanDataList = Human_Data.HumanData.GetList();
         
-        string savePath = "Assets/SOs/Human/";  // SO 저장할 경로 설정
+        string savePath = "Assets/Resources/SO/Human/";  // SO 저장할 경로 설정
 
         foreach (HumanData humanData in humanDataList)
         {
             // 경로에 SO 있는지 확인하고 없으면 새로 생성
-            string soPath = $"{savePath}NormalHumanSO_{humanData.id}.asset";
+            string soPath = $"{savePath}HumanSO_{humanData.id}.asset";
             HumanSO humanSO = AssetDatabase.LoadAssetAtPath<HumanSO>(soPath);
             if (humanSO == null)
             {
