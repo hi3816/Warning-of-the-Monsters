@@ -86,6 +86,23 @@ public abstract class Monster : MonoBehaviour
         }
     }
 
+    // private void OnTriggerEnter2D(Collider2D other)
+    // {
+    //     Debug.LogAssertion("Human entered");
+    //     _lastScareTime = Time.time;
+    //
+    //     HumanController humanController = other.GetComponent<HumanController>();
+    //     if (humanController != null)
+    //     {
+    //         humanController.human.targetMonster = this;
+    //     }
+    //
+    //     if (CurrentFatigue >= data.fatigue)
+    //     {
+    //         SetState(MonsterState.ReturningVillage);
+    //     }
+    // }
+    
     private void ReturnToVillage()
     {
         //fading out, 1f
