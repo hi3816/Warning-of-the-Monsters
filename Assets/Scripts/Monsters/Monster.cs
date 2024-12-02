@@ -12,10 +12,9 @@ public enum MonsterState
 public abstract class Monster : MonoBehaviour
 {
     public MonsterSO data;
-    
     private Animator _animator;
     private MonsterState _monsterState;
-    
+    private float _lastScareTime;
     private float _currentFatigue; //현재 피로도
     public float CurrentFatigue
     {
@@ -23,15 +22,13 @@ public abstract class Monster : MonoBehaviour
         private set => _currentFatigue = Mathf.Clamp(value, 0f, data.fatigue);
     }
     
-    private float _lastScareTime;
-
     private void Awake()
     {
         _animator = GetComponent<Animator>();
     }
     
     private void Update()
-    { 
+    {
         switch (_monsterState)
         {
             case MonsterState.Idle:
@@ -89,6 +86,23 @@ public abstract class Monster : MonoBehaviour
         }
     }
 
+    // private void OnTriggerEnter2D(Collider2D other)
+    // {
+    //     Debug.LogAssertion("Human entered");
+    //     _lastScareTime = Time.time;
+    //
+    //     HumanController humanController = other.GetComponent<HumanController>();
+    //     if (humanController != null)
+    //     {
+    //         humanController.human.targetMonster = this;
+    //     }
+    //
+    //     if (CurrentFatigue >= data.fatigue)
+    //     {
+    //         SetState(MonsterState.ReturningVillage);
+    //     }
+    // }
+    
     private void ReturnToVillage()
     {
         //fading out, 1f

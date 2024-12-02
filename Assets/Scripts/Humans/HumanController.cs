@@ -5,14 +5,21 @@ using UnityEngine.AI;
 public class HumanController : MonoBehaviour
 {
     public Human human;
+    public Animator animator;
     private NavMeshAgent agent;
+    public bool IsAttacked;
 
     private float lastAttackTime;
 
-    private void Start()
+    private void Awake()
     {
         human = GetComponent<Human>();
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponentInChildren<Animator>();  // 자식 오브젝트(MainSprite)의 애니메이터 가져오기
+        if (animator == null)
+        {
+            Debug.LogAssertion("Human Animator not found");
+        }
     }
 
     public bool MoveToDestination(Vector3 target)
@@ -54,11 +61,6 @@ public class HumanController : MonoBehaviour
         }
     }
 
-    public void SetIdleAnim()
-    {
-        human.animator.SetTrigger("Idle");
-    }
-
     // 몬스터가 공격범위 내에 있는지 확인
     public bool MonsterInRange(float attackRange)
     {
@@ -87,6 +89,7 @@ public class HumanController : MonoBehaviour
     {
         if (human.targetMonster != null)
         {
+            Debug.Log("ReactToScaring");
             IncreaseFear(human.targetMonster.data.fearInflicted);   // 공포 수치 증가
         }
     }
