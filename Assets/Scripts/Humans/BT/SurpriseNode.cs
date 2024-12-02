@@ -22,6 +22,6 @@ public class SurpriseNode : INode
 
     public void Reset()
     {
-        _hasReacted = false; // Reset state when re-entering the node
+        _hasReacted = false; // 해당 노드에 들어왔을 때 겁주기 반응 상태 초기화
     }
 }
