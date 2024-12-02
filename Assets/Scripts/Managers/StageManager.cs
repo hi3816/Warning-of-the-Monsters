@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,7 +16,8 @@ public class StageManager : SingletonBase<StageManager>
 
     [Header("Stat")]
 
-    public StageSO stageSO; 
+    public StageSO stageSO;
+    [SerializeField] private StageSO[] stageSOs;
     [SerializeField] private int totalWave; // 총 웨이브
     [SerializeField] private int currWave; // 현재 웨이브
     [SerializeField] private int currHealth; // 현재 체력
@@ -32,8 +34,6 @@ public class StageManager : SingletonBase<StageManager>
     protected override void Awake()
     {
         base.Awake();
-        stage = Instantiate<GameObject>(stages[stageIdx]);
-        startBattleBtnController = stage.GetComponentInChildren<StartBattleButtonController>();
         soundManager = SoundManager.Instance;
         SetStageStat();
         ChangeUI();
@@ -47,6 +47,8 @@ public class StageManager : SingletonBase<StageManager>
     // stageSO를 통해 기본 값 초기화
     private void SetStageStat()
     {
+        stage = Instantiate<GameObject>(stages[stageIdx]);
+        startBattleBtnController = stage.GetComponentInChildren<StartBattleButtonController>();
         totalWave = stageSO.wave;
         currWave = 0;
         currHealth = stageSO.health;
