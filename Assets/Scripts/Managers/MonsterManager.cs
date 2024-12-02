@@ -30,11 +30,11 @@ public class MonsterManager : SingletonBase<MonsterManager>
     }
 
     public void SelectMonster(int index)
-    { 
-        if (index >= 0 && index < Monsters.Count)
-        {
-            _selectedMonsterIndex = index;
-        }
+    {
+        string selectedIdsString = PlayerPrefs.GetString("SelectedMonsters", "");
+        if (string.IsNullOrEmpty(selectedIdsString)) return;
+        
+        selectedMonsters = Monsters.FindAll(m => selectedIdsString.Contains(m.id.ToString()));
     }
     
     public void SpawnMonster(Vector3 spawnPosition, MonsterSO selectedMonsterData)
@@ -57,18 +57,18 @@ public class MonsterManager : SingletonBase<MonsterManager>
     {
         MonsterSO selectedMonsterData = Monsters[_selectedMonsterIndex];
     
-        // if (_stageManager.currGold >= selectedMonsterData.requiredCoins)
-        // {
-        //     _stageManager.currGold -= selectedMonsterData.requiredCoins;
+        if (_stageManager.currGold >= selectedMonsterData.requiredCoins)
+        {
+            _stageManager.currGold -= selectedMonsterData.requiredCoins;
         
             if (monsterSpawner != null)
             {
                 monsterSpawner.SpawnMonster(spawnPosition);
             }
-        // }
-        // else
-        // {
-        //     //print "Not enough coins to spawn this monster."
-        // }
+        }
+        else
+        {
+            //print "Not enough coins to spawn this monster."
+        }
     }
 }

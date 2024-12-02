@@ -18,10 +18,10 @@ public class StageManager : SingletonBase<StageManager>
 
     public StageSO stageSO;
     [SerializeField] private StageSO[] stageSOs;
-    [SerializeField] private int totalWave; // ÃÑ ¿þÀÌºê
-    [SerializeField] private int currWave; // ÇöÀç ¿þÀÌºê
-    [SerializeField] private int currHealth; // ÇöÀç Ã¼·Â
-    [SerializeField] private int currGold; // ÇöÀç °ñµå
+    [SerializeField] private int totalWave; // ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
+    [SerializeField] private int currWave; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
+    [SerializeField] private int currHealth; // ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½
+    public float currGold; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
     private SoundManager soundManager;
 
@@ -44,7 +44,7 @@ public class StageManager : SingletonBase<StageManager>
         soundManager.PlayBGM(BgmType.Stage);
     }
 
-    // stageSO¸¦ ÅëÇØ ±âº» °ª ÃÊ±âÈ­
+    // stageSOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½âº» ï¿½ï¿½ ï¿½Ê±ï¿½È­
     private void SetStageStat()
     {
         stage = Instantiate<GameObject>(stages[stageIdx]);
@@ -55,7 +55,7 @@ public class StageManager : SingletonBase<StageManager>
         currGold = stageSO.gold;
     }
 
-    // ÇöÀç °ªµé·Î UI Á¶Á¤
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½
     private void ChangeUI()
     {
         waveTxt.text = $"Wave {currWave} / {totalWave}";
@@ -63,36 +63,36 @@ public class StageManager : SingletonBase<StageManager>
         goldTxt.text = currGold.ToString();
     }
 
-    // health º¯°æ
+    // health ï¿½ï¿½ï¿½ï¿½
     public void ChangeHealth(int health)
     {
         currHealth += health;
         ChangeUI();
     }
 
-    // Wave ¾÷µ¥ÀÌÆ®
+    // Wave ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     public void UpdateWave()
     {
-        // ¿þÀÌºê Áõ°¡ ÈÄ ÅØ½ºÆ® º¯°æ
+        // ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
         if (currWave >= totalWave) return;
         currWave++;
         ChangeUI();
     }
 
-    // ÇöÀç ½ºÅ×ÀÌÁö Å¬¸®¾î µÆ´ÂÁö Ã¼Å©
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ï¿½ï¿½ Ã¼Å©
     public bool CheckEndStage()
     {
         return (currWave == totalWave);
     }
 
-    // Stop ¹öÆ° ´­·¶À» ¶§ optionPanel È°¼ºÈ­
+    // Stop ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ optionPanel È°ï¿½ï¿½È­
     public void ShowOptionPanel()
     {
         optionPanel.SetActive(true);
         Time.timeScale = 0f;
     }
 
-    // BGM ¹öÆ° Å¬¸¯ ½Ã On Off
+    // BGM ï¿½ï¿½Æ° Å¬ï¿½ï¿½ ï¿½ï¿½ On Off
     public void ClickBgmButton()
     {
         soundManager.ChangeIsPlayBGM();
@@ -107,13 +107,13 @@ public class StageManager : SingletonBase<StageManager>
         }
     }
 
-    // SFX ¹öÆ° Å¬¸¯ ½Ã On Off
+    // SFX ï¿½ï¿½Æ° Å¬ï¿½ï¿½ ï¿½ï¿½ On Off
     public void ClickSfxButton()
     {
         soundManager.ChangeIsPlaySFX();
     }
 
-    // Retry ¹öÆ° Å¬¸¯ ½Ã optionPanel ºñÈ°¼ºÈ­
+    // Retry ï¿½ï¿½Æ° Å¬ï¿½ï¿½ ï¿½ï¿½ optionPanel ï¿½ï¿½È°ï¿½ï¿½È­
     public void ClickRetryButton()
     {
         optionPanel.SetActive(false);

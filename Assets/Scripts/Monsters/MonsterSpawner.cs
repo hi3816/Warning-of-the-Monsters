@@ -16,13 +16,13 @@ public class MonsterSpawner : MonoBehaviour
     
     private void GetSpawnPointsFromCurrentStage()
     {
-        // GameObject currentStage = _stageManager.CurrentStage;
-        // if (currentStage != null)
-        // {
-        //     // Get all child transforms tagged as "SpawnPoint"
-        //     Transform[] allTransforms = currentStage.GetComponentsInChildren<Transform>();
-        //     _spawnPoints = System.Array.FindAll(allTransforms, t => t.CompareTag("SpawnPoint"));
-        // }
+        GameObject currentStage = GameObject.Find("Stage1"); //_stageManager.CurrentStage; //REPLACE FIND LATER
+        if (currentStage != null)
+        {
+            // Get all child transforms tagged as "SpawnPoint"
+            Transform[] allTransforms = currentStage.GetComponentsInChildren<Transform>();
+            _spawnPoints = System.Array.FindAll(allTransforms, t => t.CompareTag("SpawnPoint"));
+        }
     }
     
     void Update()
