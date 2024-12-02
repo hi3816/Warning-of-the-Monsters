@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5082bccd210b64d71be12c27a6701bce, type: 3}
-  m_Name: MonsterSO_Demon
+  m_Name: Demon
   m_EditorClassIdentifier: 
-  fatigue: 10
-  fearInflicted: 2
-  initialCooldown: 2
+  prefab: {fileID: 7674980571249262148, guid: 7685c4643fb174fd587dafc1460f6be2, type: 3}
+  poolTag: Demon
+  fatigue: 0
+  fearInflicted: 0
   cooldown: 0
-  humanDetectionRange: 1
-  humanScaringRange: 0.5
-  requiredCoins: 2
+  humanScaringRange: 0
+  requiredCoins: 0
