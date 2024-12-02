@@ -122,15 +122,12 @@ public class SoundManager : SingletonBase<SoundManager>
         IsPlaySFX = !IsPlaySFX;
     }
 
-    public void OnClick()
+    public void OnClick(InputAction.CallbackContext context)
     {
-        // context.phase == InputActionPhase.Performed
-
         // IsPointerOverGameObject() -> UI만 작동하도록 제어
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) 
-            Debug.LogAssertion(EventSystem.current.currentSelectedGameObject.name);
-            PlaySFX(SfxType.Click);
+        if(context.started && EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
         {
+            PlaySFX(SfxType.Click);
         }
     }
 }

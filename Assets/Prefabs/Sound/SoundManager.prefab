@@ -51,6 +51,12 @@ MonoBehaviour:
   SfxList:
   - sfxType: 0
     clip: {fileID: 8300000, guid: 5be5e28f5fc70354d8db24b183d2236d, type: 3}
+  - sfxType: 1
+    clip: {fileID: 8300000, guid: 5f47a196a01c4d14c8c50bbd1cb182b7, type: 3}
+  - sfxType: 2
+    clip: {fileID: 8300000, guid: 5c6b3d9df4fbb424bb9a9779abb16e74, type: 3}
+  - sfxType: 3
+    clip: {fileID: 8300000, guid: 129df4fd2d7e0a04c92da179da8deab5, type: 3}
   bgmVolume: 0.063
   sfxVolume: 1
   sfxPitchVariance: 0.524
