@@ -60,23 +60,28 @@ public class StartBattleButtonController : MonoBehaviour
     // 웨이브가 끝났을 때
     public void EndWave()
     {
-        if (!gameObject.activeSelf)
+        if (!gameObject.activeSelf && !CheckClear())
         {
             isWaveEnd = true;
             gameObject.SetActive(true);
             coroutine = StartCoroutine(CoInterWaveDelay());
-            CheckClear();
         }
     }
 
     // 현재 스테이지를 클리어 했는지 확인
-    private void CheckClear()
+    private bool CheckClear()
     {
         if (StageManager.Instance.CheckEndStage())
         {
             Time.timeScale = 0f;
+            SoundManager.Instance.StopBGM();
+            return true;
             // 클리어 팝업 추가
         }
-        else ChangeStartBattleBtn();
+        else
+        {
+            ChangeStartBattleBtn();
+            return false;
+        }
     }
 }

@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StageManager : SingletonBase<StageManager>
@@ -22,9 +23,17 @@ public class StageManager : SingletonBase<StageManager>
 
     private SoundManager soundManager;
 
+    [Header("Stage")]
+    [SerializeField] private GameObject[] stages;
+    [SerializeField] private GameObject stage;
+    [SerializeField] private int stageIdx;
+    [SerializeField] private StartBattleButtonController startBattleBtnController;
+
     protected override void Awake()
     {
         base.Awake();
+        stage = Instantiate<GameObject>(stages[stageIdx]);
+        startBattleBtnController = stage.GetComponentInChildren<StartBattleButtonController>();
         soundManager = SoundManager.Instance;
         SetStageStat();
         ChangeUI();
@@ -63,6 +72,7 @@ public class StageManager : SingletonBase<StageManager>
     public void UpdateWave()
     {
         // 웨이브 증가 후 텍스트 변경
+        if (currWave >= totalWave) return;
         currWave++;
         ChangeUI();
     }
@@ -106,5 +116,11 @@ public class StageManager : SingletonBase<StageManager>
     {
         optionPanel.SetActive(false);
         Time.timeScale = 1f;
+        SceneManager.LoadScene("StageScene");
+    }
+
+    public void ClickEndWaveBtn()
+    {
+        startBattleBtnController.EndWave();
     }
 }
