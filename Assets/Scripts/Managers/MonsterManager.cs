@@ -9,7 +9,7 @@ public class MonsterManager : SingletonBase<MonsterManager>
     [Header("References")]
     [SerializeField] private MonsterSpawner monsterSpawner;
     
-    private List<MonsterSO> Monsters { get; set; } = new List<MonsterSO>();
+    public List<MonsterSO> Monsters { get; set; } = new List<MonsterSO>();
     private StageManager _stageManager;
     
     private int _selectedMonsterIndex = 0;
@@ -17,16 +17,15 @@ public class MonsterManager : SingletonBase<MonsterManager>
     
     private void Start()
     {
+        _stageManager = StageManager.Instance;
         LoadMonsterData();
     }
     
     private void LoadMonsterData()
     {
-        MonsterDataManager monsterDataManager = FindObjectOfType<MonsterDataManager>(); //DON'T USE FINDDDDDDD
-        
-        if (monsterDataManager != null)
+        if (MonsterDataManager.Instance != null)
         {
-            Monsters = monsterDataManager.LoadMonstersFromAssets();
+            Monsters = MonsterDataManager.Instance.LoadMonstersFromAssets();
         }
     }
 
@@ -54,22 +53,22 @@ public class MonsterManager : SingletonBase<MonsterManager>
         }
     }
 
-    // public void SpawnMonsterAtPosition(Vector3 spawnPosition)
-    // {
-    //     MonsterSO selectedMonsterData = Monsters[_selectedMonsterIndex];
-    //
-    //     if (_stageManager.currGold >= selectedMonsterData.requiredCoins)
-    //     {
-    //         _stageManager.currGold -= selectedMonsterData.requiredCoins;
-    //     
-    //         if (monsterSpawner != null)
-    //         {
-    //             monsterSpawner.SpawnMonster(spawnPosition, selectedMonsterData);
-    //         }
-    //     }
-    //     else
-    //     {
-    //         //print "Not enough coins to spawn this monster."
-    //     }
-    // }
+    public void SpawnMonsterAtPosition(Vector3 spawnPosition)
+    {
+        MonsterSO selectedMonsterData = Monsters[_selectedMonsterIndex];
+    
+        // if (_stageManager.currGold >= selectedMonsterData.requiredCoins)
+        // {
+        //     _stageManager.currGold -= selectedMonsterData.requiredCoins;
+        
+            if (monsterSpawner != null)
+            {
+                monsterSpawner.SpawnMonster(spawnPosition);
+            }
+        // }
+        // else
+        // {
+        //     //print "Not enough coins to spawn this monster."
+        // }
+    }
 }

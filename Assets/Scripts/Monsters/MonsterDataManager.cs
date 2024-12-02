@@ -4,7 +4,20 @@ using UnityEngine;
 
 public class MonsterDataManager : MonoBehaviour
 {
+    public static MonsterDataManager Instance { get; private set; }
+    
    [MenuItem("Tools/Update MonsterSO from JSON")]
+   
+   private void Awake()
+   {
+       if (Instance != null && Instance != this)
+       {
+           Destroy(gameObject);
+           return;
+       }
+       Instance = this;
+   }
+   
     public static void UpdateMonsterSOFromGoogleSheets()
     {
         List<Monster_Data.Monster_Data> monsterDataList = Monster_Data.Monster_Data.GetList();
@@ -52,6 +65,7 @@ public class MonsterDataManager : MonoBehaviour
                 monsters.Add(monsterSO);
             }
         }
-        return monsters;
+        return new List<MonsterSO>();
+        
     }
 }
