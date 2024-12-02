@@ -4,6 +4,7 @@ using UnityEngine;
 public class MonsterSO : ScriptableObject
 {
     public GameObject prefab;
+    public int id;
     public string poolTag;
     public float fatigue; //몬스터 피로도바 최대치
     public float fearInflicted; //적(인간)에게 주는 공포수치량

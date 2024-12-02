@@ -9,7 +9,7 @@ public class MonsterManager : SingletonBase<MonsterManager>
     [Header("References")]
     [SerializeField] private MonsterSpawner monsterSpawner;
     
-    public List<MonsterSO> Monsters { get; private set; } = new List<MonsterSO>();
+    private List<MonsterSO> Monsters { get; set; } = new List<MonsterSO>();
     private StageManager _stageManager;
     
     private int _selectedMonsterIndex = 0;
@@ -17,10 +17,16 @@ public class MonsterManager : SingletonBase<MonsterManager>
     
     private void Start()
     {
-        MonsterDataLoader monsterDataLoader = FindObjectOfType<MonsterDataLoader>(); //DON'T USE FIND, REPLACE THIS LATER
-        if (monsterDataLoader != null)
+        LoadMonsterData();
+    }
+    
+    private void LoadMonsterData()
+    {
+        MonsterDataManager monsterDataManager = FindObjectOfType<MonsterDataManager>(); //DON'T USE FINDDDDDDD
+        
+        if (monsterDataManager != null)
         {
-            Monsters = monsterDataLoader.MonsterData;
+            Monsters = monsterDataManager.LoadMonstersFromAssets();
         }
     }
 
