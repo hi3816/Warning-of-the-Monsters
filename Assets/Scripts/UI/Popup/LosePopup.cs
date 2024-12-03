@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LosePopup : MonoBehaviour
+public class LosePopup : UIBase
 {
     [Header("Button")]
     public Button btnRetry;

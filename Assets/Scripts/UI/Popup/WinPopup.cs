@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class WinPopup : MonoBehaviour
+public class WinPopup : UIBase
 {
     [Header("Button")]
     public Button btnRetry;
