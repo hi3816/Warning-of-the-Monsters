@@ -686,6 +686,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7066214383474598609}
   - component: {fileID: 7390258755801773858}
+  - component: {fileID: 4200521760937723927}
   m_Layer: 0
   m_Name: StageManager
   m_TagString: Untagged
@@ -725,7 +726,7 @@ MonoBehaviour:
   healthTxt: {fileID: 8023629456091528223}
   goldTxt: {fileID: 1543629079589151352}
   optionPanel: {fileID: 6969273097220513573}
-  stageSO: {fileID: 11400000, guid: 21d0254434376f94a8e805b2d10abfd4, type: 2}
+  stageSOs: []
   totalWave: 0
   currWave: 0
   currHealth: 0
@@ -736,6 +737,18 @@ MonoBehaviour:
   stage: {fileID: 0}
   stageIdx: 0
   startBattleBtnController: {fileID: 0}
+--- !u!114 &4200521760937723927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6135383653608635039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6350f68f258845446a14c18127154a5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6207528262063605471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1614,6 +1627,10 @@ PrefabInstance:
     - target: {fileID: 3089179544922214812, guid: 705491be0f2c9bb45a88cd8844edfd59, type: 3}
       propertyPath: m_Name
       value: Tesst_EndWaveButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089179544922214812, guid: 705491be0f2c9bb45a88cd8844edfd59, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

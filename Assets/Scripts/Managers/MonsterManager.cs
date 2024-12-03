@@ -29,13 +29,13 @@ public class MonsterManager : SingletonBase<MonsterManager>
         }
     }
 
-    public void SelectMonster(int index)
-    {
-        string selectedIdsString = PlayerPrefs.GetString("SelectedMonsters", "");
-        if (string.IsNullOrEmpty(selectedIdsString)) return;
+    //public void SelectMonster(int index)
+    //{
+    //    string selectedIdsString = PlayerPrefs.GetString("SelectedMonsters", "");
+    //    if (string.IsNullOrEmpty(selectedIdsString)) return;
         
-        selectedMonsters = Monsters.FindAll(m => selectedIdsString.Contains(m.id.ToString()));
-    }
+    //    selectedMonsters = Monsters.FindAll(m => selectedIdsString.Contains(m.id.ToString()));
+    //}
     
     public void SpawnMonster(Vector3 spawnPosition, MonsterSO selectedMonsterData)
     {
