@@ -6,7 +6,7 @@ public class StageDataLoader : MonoBehaviour
 {
     public StageSO[] SetStageSOs()
     {
-        List<Stage_Data.Data> stageDataList = Stage_Data.Data.GetList();
+        List<Stage_Data.Stage_Data> stageDataList = Stage_Data.Stage_Data.GetList();
 
         StageSO[] stageSOs = new StageSO[stageDataList.Count];
         for(int i = 0; i < stageSOs.Length; i++)

@@ -17,10 +17,10 @@ using UnityEngine;
 namespace Stage_Data
 {
     [GoogleSheet.Attribute.TableStruct]
-    public partial class Data : ITable
+    public partial class Stage_Data : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<Data> loadedList, Dictionary<int, Data> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<Stage_Data> loadedList, Dictionary<int, Stage_Data> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "1DdzSuhBH_RyrsVfC6Iu-bhQ3-gT5vtjg2cbwHE6IJ34"; // it is file id
@@ -29,27 +29,27 @@ namespace Stage_Data
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<int, Data> DataMap = new Dictionary<int, Data>();  
-        public static List<Data> DataList = new List<Data>();   
+        public static Dictionary<int, Stage_Data> Stage_DataMap = new Dictionary<int, Stage_Data>();  
+        public static List<Stage_Data> Stage_DataList = new List<Stage_Data>();   
 
         /// <summary>
-        /// Get Data List 
+        /// Get Stage_Data List 
         /// Auto Load
         /// </summary>
-        public static List<Data> GetList()
+        public static List<Stage_Data> GetList()
         {{
            if (isLoaded == false) Load();
-           return DataList;
+           return Stage_DataList;
         }}
 
         /// <summary>
-        /// Get Data Dictionary, keyType is your sheet A1 field type.
+        /// Get Stage_Data Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<int, Data>  GetDictionary()
+        public static Dictionary<int, Stage_Data>  GetDictionary()
         {{
            if (isLoaded == false) Load();
-           return DataMap;
+           return Stage_DataMap;
         }}
 
     
@@ -71,7 +71,7 @@ namespace Stage_Data
             if(isLoaded && forceReload == false)
             {
 #if UGS_DEBUG
-                 Debug.Log("Data is already loaded! if you want reload then, forceReload parameter set true");
+                 Debug.Log("Stage_Data is already loaded! if you want reload then, forceReload parameter set true");
 #endif
                  return;
             }
@@ -87,7 +87,7 @@ namespace Stage_Data
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<Data>, Dictionary<int, Data>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<Stage_Data>, Dictionary<int, Stage_Data>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -115,14 +115,14 @@ namespace Stage_Data
                
 
 
-    public static (List<Data> list, Dictionary<int, Data> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<int, Data> Map = new Dictionary<int, Data>();
-            List<Data> List = new List<Data>();     
+    public static (List<Stage_Data> list, Dictionary<int, Stage_Data> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<int, Stage_Data> Map = new Dictionary<int, Stage_Data>();
+            List<Stage_Data> List = new List<Stage_Data>();     
             TypeMap.Init();
-            FieldInfo[] fields = typeof(Data).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(Stage_Data).GetFields(BindingFlags.Public | BindingFlags.Instance);
             List<(string original, string propertyName, string type)> typeInfos = new List<(string, string, string)>(); 
             List<List<string>> rows = new List<List<string>>();
-            var sheet = jsonObject["Data"];
+            var sheet = jsonObject["Stage_Data"];
 
             foreach (var column in sheet.Keys)
             {
@@ -141,7 +141,7 @@ namespace Stage_Data
                         int rowCount = rows[0].Count;
                         for (int i = 0; i < rowCount; i++)
                         {
-                            Data instance = new Data();
+                            Stage_Data instance = new Stage_Data();
                             for (int j = 0; j < typeInfos.Count; j++)
                             {
                                 try
@@ -182,8 +182,8 @@ namespace Stage_Data
                         }
                         if(isLoaded == false || forceReload)
                         { 
-                            DataList = List;
-                            DataMap = Map;
+                            Stage_DataList = List;
+                            Stage_DataMap = Map;
                             isLoaded = true;
                         }
                     } 
@@ -193,10 +193,10 @@ namespace Stage_Data
 
  
 
-        public static void Write(Data data, System.Action<WriteObjectResult> onWriteCallback = null)
+        public static void Write(Stage_Data data, System.Action<WriteObjectResult> onWriteCallback = null)
         { 
             TypeMap.Init();
-            FieldInfo[] fields = typeof(Data).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(Stage_Data).GetFields(BindingFlags.Public | BindingFlags.Instance);
             var datas = new string[fields.Length];
             for (int i = 0; i < fields.Length; i++)
             {
