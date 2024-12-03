@@ -64,7 +64,7 @@ public class HumanController : MonoBehaviour
             Debug.LogAssertion("Human attacked Monster");
             /* TestCode */
             // 공격 여러번하면 몬스터 피로도 올라가고 20(임의의 값) 이상이면 타겟 몬스터 null로 만들기
-            human.targetMonster.CurrentFatigue += Random.Range(human.humanData.minFatigueInflicted, human.humanData.maxFatigueInflicted);
+           // human.targetMonster.CurrentFatigue += Random.Range(human.humanData.minFatigueInflicted, human.humanData.maxFatigueInflicted);
             Debug.LogAssertion($"MonsterFatigue:{human.targetMonster.CurrentFatigue}");
             if (human.targetMonster.CurrentFatigue >= 20)
                 human.targetMonster = null;

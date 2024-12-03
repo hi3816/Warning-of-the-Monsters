@@ -30,7 +30,7 @@ public class HumanTest : MonoBehaviour
             if (_human.targetMonster == null)
                 Debug.LogAssertion("TargetMonster is null");
             // 몬스터의 시작 피로도 임의로 설정(디폴트 값도 0임)
-            _human.targetMonster.CurrentFatigue = 0;
+            //_human.targetMonster.CurrentFatigue = 0;
             _humanController.ReactToScaring();
         }
 
