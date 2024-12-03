@@ -1,9 +1,7 @@
-using System;
-using System.Collections;
-using System.Threading;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 
@@ -19,7 +17,17 @@ public class StagePopup : UIBase
     public GameObject displaySelectMonster;
     public GameObject displayEnemyInfo;
     public GameObject displayStory;
-    
+
+    [Header("MonsterSelectedSlot")]
+    public Transform SelectedMonster;
+    private List<GameObject> monsterSelectedSlots;
+
+    [Header("MonsterList")]
+    public GameObject monsterListSlot;
+    public Transform monsterListScroll;
+    private List<MonsterSpriteData> _monstersSprite;
+
+
     private enum Display
     {
         SelectMonster,
@@ -30,6 +38,7 @@ public class StagePopup : UIBase
 
     void Start()
     {
+        ShowMonsterScroll();
         EventSystem.current.SetSelectedGameObject(btnSelectMonster);
 
         btnSelectMonster.GetComponent<Button>().onClick.AddListener(ShowSelectMonster);
@@ -48,6 +57,25 @@ public class StagePopup : UIBase
         HideSelectedDisplay(_currentDisplay);
         displaySelectMonster.SetActive(true);
         _currentDisplay = Display.SelectMonster;
+    }
+
+    private void ShowMonsterScroll()
+    {
+        _monstersSprite = DataManager.Instance.GetMonsterSpriteData();
+        SpriteAtlas sprites = Resources.Load<SpriteAtlas>("UI/UISprites/MonsterList");
+
+        for (int i = 0; i < _monstersSprite.Count; i++)
+        {
+            //생성
+            GameObject Instance = Instantiate(monsterListSlot);
+            //오브젝트 위치
+            Instance.transform.SetParent(monsterListScroll);
+            Instance.transform.localScale = Vector3.one;
+            //이미지 전환
+            //Instance.GetComponent<MonsterListSlot>().setSlotImage(sprites.GetSprite(_monstersSprite[i].spriteName));
+            var sprite = Instance.transform.GetChild(0).GetComponent<Image>();
+            sprite.sprite = sprites.GetSprite(_monstersSprite[i].spriteName);
+        }
     }
 
     private void ShowEnemyInfo()
@@ -81,7 +109,5 @@ public class StagePopup : UIBase
                 displayStory.SetActive(false);
                 break;
         }
-
-
     }
 }
