@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -15,7 +16,17 @@ public class StagePopup : UIBase
     public GameObject displaySelectMonster;
     public GameObject displayEnemyInfo;
     public GameObject displayStory;
-    
+
+    [Header("MonsterSelectedSlot")]
+    public Transform SelectedMonster;
+    public List<GameObject> monsterSelectedSlots;
+
+    [Header("MonsterList")]
+    public GameObject monsterListSlot;
+    public Transform monsterListScroll;
+    public List<int> monsterIds;
+
+
     private enum Display
     {
         SelectMonster,
@@ -44,6 +55,15 @@ public class StagePopup : UIBase
         HideSelectedDisplay(_currentDisplay);
         displaySelectMonster.SetActive(true);
         _currentDisplay = Display.SelectMonster;
+    }
+
+    private void ShowMonsterList()
+    {
+        for (int i = 0; i < monsterIds.Count; i++)
+        {
+            GameObject Instance = Instantiate(monsterListSlot);
+            Instance.transform.SetParent(monsterListScroll);
+        }
     }
 
     private void ShowEnemyInfo()
@@ -77,7 +97,5 @@ public class StagePopup : UIBase
                 displayStory.SetActive(false);
                 break;
         }
-
-
     }
 }
