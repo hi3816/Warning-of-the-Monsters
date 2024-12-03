@@ -735,7 +735,7 @@ MonoBehaviour:
   - {fileID: 2284649617022564568, guid: 7629eb4821dbf6045904e2df44d1ecc8, type: 3}
   - {fileID: 1668995797750212664, guid: 11c00103252aac84b8a16007b2c76c71, type: 3}
   stage: {fileID: 0}
-  stageIdx: 1
+  stageIdx: 0
   startBattleBtnController: {fileID: 0}
 --- !u!114 &4200521760937723927
 MonoBehaviour:
@@ -1627,6 +1627,10 @@ PrefabInstance:
     - target: {fileID: 3089179544922214812, guid: 705491be0f2c9bb45a88cd8844edfd59, type: 3}
       propertyPath: m_Name
       value: Tesst_EndWaveButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089179544922214812, guid: 705491be0f2c9bb45a88cd8844edfd59, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

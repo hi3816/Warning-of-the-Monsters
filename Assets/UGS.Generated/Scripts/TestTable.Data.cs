@@ -56,10 +56,10 @@ namespace TestTable
 
 /* Fields. */
 
-		public System.Int32 index;
-		public System.Int32 intValue;
-		public System.String strValue;
-		public System.Int32 asfd;
+		public System.Int32 Id;
+		public System.String name;
+		public System.String desc;
+		public System.String spriteName;
   
 
 #region fuctions
@@ -177,7 +177,7 @@ namespace TestTable
                               
                             }
                             List.Add(instance); 
-                            Map.Add(instance.index, instance);
+                            Map.Add(instance.Id, instance);
                         }
                         if(isLoaded == false || forceReload)
                         { 
