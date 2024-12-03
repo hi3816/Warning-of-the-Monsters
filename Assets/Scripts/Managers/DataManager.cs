@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataManager : SingletonBase<UIManager>
+public class DataManager : SingletonBase<DataManager>
 {
     protected override void Awake()
     {
@@ -10,14 +10,14 @@ public class DataManager : SingletonBase<UIManager>
         DontDestroyOnLoad(gameObject);
     }
 
-    private List<int> GetMonsterIdListData()
+    public List<int> GetMonsterIdListData()
     {
-        List<Monster_Data.Monster_Data> monsterList = Monster_Data.Monster_Data.GetList();
+        List<TestTable.Data> monsterList = TestTable.Data.GetList();
 
         List<int> ids = new List<int>();
         foreach (var monster in monsterList)
         {
-            ids.Add(monster.id);
+            ids.Add(monster.Id);
         }
         
         return ids;
