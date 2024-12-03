@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public enum MonsterState
@@ -12,8 +13,12 @@ public enum MonsterState
 public abstract class Monster : MonoBehaviour
 {
     public MonsterSO data;
+    public HumanSO humanData;
+    public Human human;
+    private SpriteRenderer _spriteRenderer;
     private Animator _animator;
     private MonsterState _monsterState;
+    public float fadeDuration = 1f;
     private float _lastScareTime;
     private float _currentFatigue; //현재 피로도
     public float CurrentFatigue
@@ -24,6 +29,7 @@ public abstract class Monster : MonoBehaviour
     
     private void Awake()
     {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
     }
     
@@ -69,7 +75,7 @@ public abstract class Monster : MonoBehaviour
 
     protected virtual void Battle()
     {
-        // CurrentFatigue += (Time.deltaTime * Random.Range(human.minFatigueInflicted, human.maxFatigueInflicted));
+        CurrentFatigue += Time.deltaTime * Random.Range(humanData.minFatigueInflicted, humanData.maxFatigueInflicted);
         if (Time.time - _lastScareTime > data.cooldown)
         {
             InflictFear();
@@ -79,34 +85,54 @@ public abstract class Monster : MonoBehaviour
     protected virtual void InflictFear()
     {
         _lastScareTime = Time.time;
-        // human.currentFear += (Time.deltaTime * data.fearInflicted);
+        human.FearLevel += (Time.deltaTime * data.fearInflicted);
         if (CurrentFatigue >= data.fatigue)
         {
             SetState(MonsterState.ReturningVillage);
         }
     }
 
-    // private void OnTriggerEnter2D(Collider2D other)
-    // {
-    //     Debug.LogAssertion("Human entered");
-    //     _lastScareTime = Time.time;
-    //
-    //     HumanController humanController = other.GetComponent<HumanController>();
-    //     if (humanController != null)
-    //     {
-    //         humanController.human.targetMonster = this;
-    //     }
-    //
-    //     if (CurrentFatigue >= data.fatigue)
-    //     {
-    //         SetState(MonsterState.ReturningVillage);
-    //     }
-    // }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.LogAssertion("Human entered");
+        _lastScareTime = Time.time;
+    
+        HumanController humanController = other.GetComponent<HumanController>();
+        if (humanController != null)
+        {
+            humanController.human.targetMonster = this;
+        }
+    
+        if (CurrentFatigue >= data.fatigue)
+        {
+            SetState(MonsterState.ReturningVillage);
+        }
+    }
     
     private void ReturnToVillage()
     {
-        //fading out, 1f
+        StartCoroutine(FadeOutAndReturnToPool());
+    }
+
+    private IEnumerator FadeOutAndReturnToPool()
+    {
+        yield return StartCoroutine(FadeOut());
         gameObject.SetActive(false);
         PoolManager.Instance.ReturnToPool(data.poolTag, gameObject);
+    }
+    
+    private IEnumerator FadeOut()
+    {
+        float startAlpha = _spriteRenderer.color.a;
+        float elapsedTime = 0f;
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float newAlpha = Mathf.Lerp(startAlpha, 0f, elapsedTime / fadeDuration);
+            _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, newAlpha);
+            yield return null;
+        }
+        
+        _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 0f);
     }
 }

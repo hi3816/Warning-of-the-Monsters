@@ -9,11 +9,11 @@ public class MonsterManager : SingletonBase<MonsterManager>
     [Header("References")]
     [SerializeField] private MonsterSpawner monsterSpawner;
     
-    public List<MonsterSO> Monsters { get; set; } = new List<MonsterSO>();
+    public Dictionary<int, MonsterSO> MonstersById = new Dictionary<int, MonsterSO>();
     private StageManager _stageManager;
     
-    private int _selectedMonsterIndex = 0;
-    public int SelectedMonsterIndex => _selectedMonsterIndex; // Current monster selected by the player
+    private int _selectedMonsterId = 0;
+    public int SelectedMonsterId => _selectedMonsterId; // Current monster selected by the player
     
     private void Start()
     {
@@ -25,50 +25,39 @@ public class MonsterManager : SingletonBase<MonsterManager>
     {
         if (MonsterDataManager.Instance != null)
         {
-            Monsters = MonsterDataManager.Instance.LoadMonstersFromAssets();
-        }
-    }
-
-    public void SelectMonster(int index)
-    {
-        string selectedIdsString = PlayerPrefs.GetString("SelectedMonsters", "");
-        if (string.IsNullOrEmpty(selectedIdsString)) return;
-        
-        selectedMonsters = Monsters.FindAll(m => selectedIdsString.Contains(m.id.ToString()));
-    }
-    
-    public void SpawnMonster(Vector3 spawnPosition, MonsterSO selectedMonsterData)
-    {
-        string poolTag = selectedMonsterData.poolTag;
-
-        GameObject spawnedMonster = PoolManager.Instance.SpawnFromPool(poolTag, spawnPosition, Quaternion.identity);
-        if (spawnedMonster != null)
-        {
-            Monster monster = spawnedMonster.GetComponent<Monster>();
-            if (monster != null)
+            List<MonsterSO> monsters = MonsterDataManager.Instance.LoadMonstersFromAssets();
+            foreach (MonsterSO monster in monsters)
             {
-                monster.data = selectedMonsterData;
-                monster.SetState(MonsterState.Idle);
+                MonstersById[monster.id] = monster;
             }
         }
     }
 
+    public void SelectMonster(int id)
+    {
+        if (MonstersById.ContainsKey(id))
+        {
+            _selectedMonsterId = id;
+        }
+    }
+    
     public void SpawnMonsterAtPosition(Vector3 spawnPosition)
     {
-        MonsterSO selectedMonsterData = Monsters[_selectedMonsterIndex];
-    
-        if (_stageManager.currGold >= selectedMonsterData.requiredCoins)
+        if (MonstersById.TryGetValue(_selectedMonsterId, out MonsterSO selectedMonsterData))
         {
-            _stageManager.currGold -= selectedMonsterData.requiredCoins;
-        
-            if (monsterSpawner != null)
+            if (_stageManager.currGold >= selectedMonsterData.requiredCoins)
             {
-                monsterSpawner.SpawnMonster(spawnPosition);
+                _stageManager.currGold -= selectedMonsterData.requiredCoins;
+
+                if (monsterSpawner != null)
+                {
+                    monsterSpawner.SpawnMonster(spawnPosition);
+                }
             }
-        }
-        else
-        {
-            //print "Not enough coins to spawn this monster."
+            else
+            {
+                //print "Not enough coins to spawn this monster."
+            }
         }
     }
 }

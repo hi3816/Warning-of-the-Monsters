@@ -2,24 +2,22 @@ using UnityEngine;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    private StageManager _stageManager;
+    [Header("References")]
+    [SerializeField] private GameObject currentStage;
+    
     private MonsterManager _monsterManager;
     private Transform[] _spawnPoints;
     
     private void Start()
     {
-        _stageManager = StageManager.Instance;
         _monsterManager = MonsterManager.Instance;
-        
         GetSpawnPointsFromCurrentStage();
     }
     
     private void GetSpawnPointsFromCurrentStage()
     {
-        GameObject currentStage = GameObject.Find("Stage1"); //_stageManager.CurrentStage; //REPLACE FIND LATER
         if (currentStage != null)
         {
-            // Get all child transforms tagged as "SpawnPoint"
             Transform[] allTransforms = currentStage.GetComponentsInChildren<Transform>();
             _spawnPoints = System.Array.FindAll(allTransforms, t => t.CompareTag("SpawnPoint"));
         }
@@ -45,18 +43,20 @@ public class MonsterSpawner : MonoBehaviour
     
     public void SpawnMonster(Vector3 spawnPosition)
     {
-        int selectedMonsterIndex = _monsterManager.SelectedMonsterIndex;
-        MonsterSO selectedMonsterData = _monsterManager.Monsters[selectedMonsterIndex];
-        string poolTag = selectedMonsterData.poolTag;
-        
-        GameObject spawnedMonster = PoolManager.Instance.SpawnFromPool(poolTag, spawnPosition, Quaternion.identity);
-        if (spawnedMonster != null)
+        if (_monsterManager.SelectedMonsterId != 0 &&
+            _monsterManager.MonstersById.TryGetValue(_monsterManager.SelectedMonsterId,
+                out MonsterSO selectedMonsterData))
         {
-            Monster monster = spawnedMonster.GetComponent<Monster>();
-            if (monster != null)
+            string poolTag = selectedMonsterData.poolTag;
+            GameObject spawnedMonster = PoolManager.Instance.SpawnFromPool(poolTag, spawnPosition, Quaternion.identity);
+            if (spawnedMonster != null)
             {
-                monster.data = selectedMonsterData;
-                monster.SetState(MonsterState.Idle);
+                Monster monster = spawnedMonster.GetComponent<Monster>();
+                if (monster != null)
+                {
+                    monster.data = selectedMonsterData;
+                    monster.SetState(MonsterState.Idle);
+                }
             }
         }
     }

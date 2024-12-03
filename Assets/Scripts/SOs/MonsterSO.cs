@@ -3,7 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MonsterSO_", menuName = "MonsterSO_")]
 public class MonsterSO : ScriptableObject
 {
-    public GameObject prefab;
     public int id;
     public string poolTag;
     public float fatigue; //몬스터 피로도바 최대치
