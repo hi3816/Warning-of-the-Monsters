@@ -6,6 +6,7 @@ TagManager:
   tags:
   - HumanSpawnPoint
   - DestinationPoint
+  - MonsterSpawnPoint
   layers:
   - Default
   - TransparentFX

@@ -14,42 +14,42 @@ using System.Reflection;
 using UnityEngine;
 
 
-namespace Monster_Data
+namespace Stage_Data
 {
     [GoogleSheet.Attribute.TableStruct]
-    public partial class Monster_Data : ITable
+    public partial class Data : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<Monster_Data> loadedList, Dictionary<int, Monster_Data> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<Data> loadedList, Dictionary<int, Data> loadedDictionary);
 
         static bool isLoaded = false;
-        static string spreadSheetID = "114x3sY4Qf5iKh3tkf2GXsqlNufwgEc13JmaLskbTBxo"; // it is file id
+        static string spreadSheetID = "1DdzSuhBH_RyrsVfC6Iu-bhQ3-gT5vtjg2cbwHE6IJ34"; // it is file id
         static string sheetID = "0"; // it is sheet id
         static UnityFileReader reader = new UnityFileReader();
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<int, Monster_Data> Monster_DataMap = new Dictionary<int, Monster_Data>();  
-        public static List<Monster_Data> Monster_DataList = new List<Monster_Data>();   
+        public static Dictionary<int, Data> DataMap = new Dictionary<int, Data>();  
+        public static List<Data> DataList = new List<Data>();   
 
         /// <summary>
-        /// Get Monster_Data List 
+        /// Get Data List 
         /// Auto Load
         /// </summary>
-        public static List<Monster_Data> GetList()
+        public static List<Data> GetList()
         {{
            if (isLoaded == false) Load();
-           return Monster_DataList;
+           return DataList;
         }}
 
         /// <summary>
-        /// Get Monster_Data Dictionary, keyType is your sheet A1 field type.
+        /// Get Data Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<int, Monster_Data>  GetDictionary()
+        public static Dictionary<int, Data>  GetDictionary()
         {{
            if (isLoaded == false) Load();
-           return Monster_DataMap;
+           return DataMap;
         }}
 
     
@@ -57,12 +57,10 @@ namespace Monster_Data
 /* Fields. */
 
 		public System.Int32 id;
-		public System.String name;
-		public System.Single fatigue;
-		public System.Single fearInflicted;
-		public System.Single cooldown;
-		public System.Single humanScaringRange;
-		public System.Single requiredCoins;
+		public System.Int32 wave;
+		public System.Int32 health;
+		public System.Int32 gold;
+		public System.Single interWaveDelay;
   
 
 #region fuctions
@@ -73,12 +71,12 @@ namespace Monster_Data
             if(isLoaded && forceReload == false)
             {
 #if UGS_DEBUG
-                 Debug.Log("Monster_Data is already loaded! if you want reload then, forceReload parameter set true");
+                 Debug.Log("Data is already loaded! if you want reload then, forceReload parameter set true");
 #endif
                  return;
             }
 
-            string text = reader.ReadData("Monster_Data"); 
+            string text = reader.ReadData("Stage_Data"); 
             if (text != null)
             {
                 var result = Newtonsoft.Json.JsonConvert.DeserializeObject<ReadSpreadSheetResult>(text);
@@ -89,7 +87,7 @@ namespace Monster_Data
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<Monster_Data>, Dictionary<int, Monster_Data>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<Data>, Dictionary<int, Data>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -117,14 +115,14 @@ namespace Monster_Data
                
 
 
-    public static (List<Monster_Data> list, Dictionary<int, Monster_Data> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<int, Monster_Data> Map = new Dictionary<int, Monster_Data>();
-            List<Monster_Data> List = new List<Monster_Data>();     
+    public static (List<Data> list, Dictionary<int, Data> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<int, Data> Map = new Dictionary<int, Data>();
+            List<Data> List = new List<Data>();     
             TypeMap.Init();
-            FieldInfo[] fields = typeof(Monster_Data).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(Data).GetFields(BindingFlags.Public | BindingFlags.Instance);
             List<(string original, string propertyName, string type)> typeInfos = new List<(string, string, string)>(); 
             List<List<string>> rows = new List<List<string>>();
-            var sheet = jsonObject["Monster_Data"];
+            var sheet = jsonObject["Data"];
 
             foreach (var column in sheet.Keys)
             {
@@ -143,7 +141,7 @@ namespace Monster_Data
                         int rowCount = rows[0].Count;
                         for (int i = 0; i < rowCount; i++)
                         {
-                            Monster_Data instance = new Monster_Data();
+                            Data instance = new Data();
                             for (int j = 0; j < typeInfos.Count; j++)
                             {
                                 try
@@ -184,8 +182,8 @@ namespace Monster_Data
                         }
                         if(isLoaded == false || forceReload)
                         { 
-                            Monster_DataList = List;
-                            Monster_DataMap = Map;
+                            DataList = List;
+                            DataMap = Map;
                             isLoaded = true;
                         }
                     } 
@@ -195,10 +193,10 @@ namespace Monster_Data
 
  
 
-        public static void Write(Monster_Data data, System.Action<WriteObjectResult> onWriteCallback = null)
+        public static void Write(Data data, System.Action<WriteObjectResult> onWriteCallback = null)
         { 
             TypeMap.Init();
-            FieldInfo[] fields = typeof(Monster_Data).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(Data).GetFields(BindingFlags.Public | BindingFlags.Instance);
             var datas = new string[fields.Length];
             for (int i = 0; i < fields.Length; i++)
             {

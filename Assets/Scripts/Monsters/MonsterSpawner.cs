@@ -1,25 +1,30 @@
+using System.Linq;
 using UnityEngine;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] private GameObject currentStage;
-    
-    private MonsterManager _monsterManager;
-    private Transform[] _spawnPoints;
-    
-    private void Start()
+    public Transform[] spawnPoints;
+    private StageManager _stageManager;
+
+    private void Awake()
     {
-        _monsterManager = MonsterManager.Instance;
-        GetSpawnPointsFromCurrentStage();
+        spawnPoints = GetComponentsInChildren<Transform>().Where(t => t.CompareTag("MonsterSpawnPoint")).ToArray();
     }
     
-    private void GetSpawnPointsFromCurrentStage()
+    private void SpawnMonster(Vector3 spawnPosition, MonsterSO selectedMonsterData)
     {
-        if (currentStage != null)
+        GameObject monster = PoolManager.Instance.SpawnFromPool(selectedMonsterData.poolTag, spawnPosition, Quaternion.identity);
+        if (monster != null)
         {
-            Transform[] allTransforms = currentStage.GetComponentsInChildren<Transform>();
-            _spawnPoints = System.Array.FindAll(allTransforms, t => t.CompareTag("SpawnPoint"));
+            monster.transform.position = spawnPosition;
+            monster.SetActive(true);
+            
+            var monsterComponent = monster.GetComponent<Monster>();
+            if (monsterComponent != null)
+            {
+                monsterComponent.data = selectedMonsterData;
+                monsterComponent.SetState(MonsterState.Idle);
+            }
         }
     }
     
@@ -29,33 +34,25 @@ public class MonsterSpawner : MonoBehaviour
         {
             Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             touchPosition.z = 0f;
-    
-            foreach (Transform spawnPoint in _spawnPoints)
+            
+            foreach (Transform spawnPoint in spawnPoints)
             {
+                MonsterSO selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
                 if (Vector2.Distance(touchPosition, spawnPoint.position) < 0.5f)
                 {
-                    SpawnMonster(spawnPoint.position);
-                    return;
-                }
-            }
-        }
-    }
-    
-    public void SpawnMonster(Vector3 spawnPosition)
-    {
-        if (_monsterManager.SelectedMonsterId != 0 &&
-            _monsterManager.MonstersById.TryGetValue(_monsterManager.SelectedMonsterId,
-                out MonsterSO selectedMonsterData))
-        {
-            string poolTag = selectedMonsterData.poolTag;
-            GameObject spawnedMonster = PoolManager.Instance.SpawnFromPool(poolTag, spawnPosition, Quaternion.identity);
-            if (spawnedMonster != null)
-            {
-                Monster monster = spawnedMonster.GetComponent<Monster>();
-                if (monster != null)
-                {
-                    monster.data = selectedMonsterData;
-                    monster.SetState(MonsterState.Idle);
+                    if (MonsterManager.Instance.SelectedMonsterId != 0)
+                    {
+                        if (_stageManager.currGold >= selectedMonsterData.requiredCoins)
+                        {
+                            _stageManager.currGold -= selectedMonsterData.requiredCoins;
+                            Vector3 spawnPosition = spawnPoint.position;
+                            SpawnMonster(spawnPosition, selectedMonsterData);
+                        }
+                        else
+                        {
+                            print("You do not have enough gold to spawn monster");
+                        }
+                    }
                 }
             }
         }

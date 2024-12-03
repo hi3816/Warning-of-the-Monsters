@@ -13,8 +13,8 @@ public enum MonsterState
 public abstract class Monster : MonoBehaviour
 {
     public MonsterSO data;
-    public HumanSO humanData;
-    public Human human;
+    private HumanSO _humanData;
+    private Human _human;
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
     private MonsterState _monsterState;
@@ -75,7 +75,7 @@ public abstract class Monster : MonoBehaviour
 
     protected virtual void Battle()
     {
-        CurrentFatigue += Time.deltaTime * Random.Range(humanData.minFatigueInflicted, humanData.maxFatigueInflicted);
+        CurrentFatigue += Time.deltaTime * Random.Range(_humanData.minFatigueInflicted, _humanData.maxFatigueInflicted);
         if (Time.time - _lastScareTime > data.cooldown)
         {
             InflictFear();
@@ -85,7 +85,7 @@ public abstract class Monster : MonoBehaviour
     protected virtual void InflictFear()
     {
         _lastScareTime = Time.time;
-        human.FearLevel += (Time.deltaTime * data.fearInflicted);
+        _human.FearLevel += (Time.deltaTime * data.fearInflicted);
         if (CurrentFatigue >= data.fatigue)
         {
             SetState(MonsterState.ReturningVillage);
