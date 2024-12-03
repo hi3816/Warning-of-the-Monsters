@@ -1,6 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+
+public class MonsterSpriteData
+{
+    public int id;
+    public string spriteName;
+}
 
 public class DataManager : SingletonBase<DataManager>
 {
@@ -10,16 +17,16 @@ public class DataManager : SingletonBase<DataManager>
         DontDestroyOnLoad(gameObject);
     }
 
-    public List<int> GetMonsterIdListData()
+    public List<MonsterSpriteData> GetMonsterSpriteData()
     {
-        List<TestTable.Data> monsterList = TestTable.Data.GetList();
-
-        List<int> ids = new List<int>();
-        foreach (var monster in monsterList)
+        var selectedData = TestTable.Data.GetList()
+        .Select(monster => new MonsterSpriteData
         {
-            ids.Add(monster.Id);
-        }
-        
-        return ids;
+            id = monster.Id,
+            spriteName = monster.spriteName
+        })
+        .ToList();
+
+        return selectedData;
     }
 }
