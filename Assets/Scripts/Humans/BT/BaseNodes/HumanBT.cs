@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class HumanBT : MonoBehaviour
@@ -6,19 +5,19 @@ public class HumanBT : MonoBehaviour
     private BehaviorTree _behaviorTree;
     private HumanController _humanController;
 
-    public Transform spawnPoint;
-    public Transform targetPoint;
+    public Vector3 spawnPoint;
+    public Vector3 targetPoint;
 
     private void Awake()
     {
         _humanController = TryGetComponent<HumanController>(out _humanController)
             ? _humanController : gameObject.AddComponent<HumanController>();
-        spawnPoint = GameObject.FindWithTag("HumanSpawnPoint").transform;
+        spawnPoint = GameObject.FindWithTag("HumanSpawnPoint").transform.position;
         if (spawnPoint == null)
         {
             Debug.LogAssertion("Could not find spawn point");
         }
-        targetPoint = GameObject.FindWithTag("DestinationPoint").transform;
+        targetPoint = GameObject.FindWithTag("DestinationPoint").transform.position;
         if (targetPoint == null)
         {
             Debug.LogAssertion("Could not find destination point");
@@ -42,48 +41,29 @@ public class HumanBT : MonoBehaviour
         SelectorNode root = new SelectorNode();
 
         // Idle Node
-        SequenceNode idleSequence = new SequenceNode();
-        idleSequence.AddChild(new IdleNode(_humanController));
-        //IdleNode idleNode = new IdleNode(_humanController);
+        IdleNode idleNode = new IdleNode(_humanController);
 
         // Walk Node
-        SequenceNode walkSequence = new SequenceNode();
-        walkSequence.AddChild(new WalkNode(_humanController, targetPoint.position));
-        //WalkNode walkNode = new WalkNode(_humanController, targetPoint.position);
+        WalkNode walkNode = new WalkNode(_humanController, targetPoint);
 
-        // Battle Subtree
-        SelectorNode battleSelector = new SelectorNode();
+        // Ready To Battle        
+        SelectorNode readySelector = new SelectorNode();
 
-        SequenceNode attackSequence = new SequenceNode();
-        var attackNode = new AttackNode(_humanController);
-        attackSequence.AddChild(attackNode);
-        attackSequence.AddChild(new WaitNode(_humanController));
-
-        SequenceNode formationSequence = new SequenceNode();
-        formationSequence.AddChild(new SetFormationNode(_humanController));
-        //SetFormationNode setFormationNode = new SetFormationNode(_humanController);
-
-        battleSelector.AddChild(formationSequence);
-        //battleSelector.AddChild(setFormationNode);
-        battleSelector.AddChild(attackSequence);
-
-        // Run Node
-        SequenceNode runSequence = new SequenceNode();
-        runSequence.AddChild(new RunNode(_humanController, spawnPoint.position));
-        //RunNode runNode = new RunNode(_humanController, spawnPoint.position);
+        // SetFormation Node
+        SetFormationNode setFormationNode =  new SetFormationNode(_humanController);
         
-        // Surprise Node
-        SurpriseNode surpriseNode = new SurpriseNode(_humanController);
-
-        root.AddChild(surpriseNode); // Any State
-        root.AddChild(idleSequence);
-        //root.AddChild(idleNode);
-        root.AddChild(walkSequence);
-        //root.AddChild(walkNode);
-        root.AddChild(battleSelector);
-        root.AddChild(runSequence);
-        //root.AddChild(runNode);
-
+        // Battle
+        SequenceNode battleSequence = new SequenceNode();
+        battleSequence.AddChild(new RunNode(_humanController, spawnPoint));
+        battleSequence.AddChild(new AttackNode(_humanController));
+        
+        readySelector.AddChild(setFormationNode);
+        readySelector.AddChild(battleSequence);
+        
+        root.AddChild(idleNode);
+        root.AddChild(walkNode);
+        root.AddChild(readySelector);
+    
         _behaviorTree = new BehaviorTree(root);
     }
 }

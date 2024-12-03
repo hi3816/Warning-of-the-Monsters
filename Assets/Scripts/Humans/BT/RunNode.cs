@@ -13,11 +13,12 @@ public class RunNode : INode
 
     public NodeState Evaluate()
     {
-        // 도착 지점에 갈 때까지 계속 Run 상태 유지
-        if (_humanController.MoveToDestination(_spawnPosition))
+        // Debug.Log($"Evaluating {this.GetType().Name}");
+        if (_humanController.IsFearMaxed())
         {
+            _humanController.ArriveToDestination(_spawnPosition);
             return NodeState.Running;
         }
-        return NodeState.Success; // 도착 지점 도달하면 다른 상태로 전환
+        return NodeState.Success;
     }
 }
