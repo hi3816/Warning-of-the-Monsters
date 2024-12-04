@@ -28,7 +28,7 @@ public class StagePopup : UIBase
     [Header("MonsterList")]
     public GameObject monsterListSlot;
     public Transform monsterListScroll;
-    private List<MonsterSpriteData> _monstersSprite;
+    //private List<MonsterSpriteData> _monstersSprite;
     private TestSO[] _testSOs;
 
     [Header("disPlayStageInfo")]
