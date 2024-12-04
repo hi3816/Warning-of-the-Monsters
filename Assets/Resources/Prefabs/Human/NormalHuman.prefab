@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6097526258372461423}
   - component: {fileID: 2782478536638138749}
   - component: {fileID: 7430299337410943144}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MainSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,9 +121,9 @@ GameObject:
   - component: {fileID: 2711220336945300611}
   - component: {fileID: 3270947719706656307}
   - component: {fileID: 5493669602540388708}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: NormalHuman
-  m_TagString: Untagged
+  m_TagString: Human
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -213,7 +213,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.2
-  m_Speed: 2.5
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
