@@ -3,18 +3,18 @@ using UnityEngine;
 public class HumanSpawner : MonoBehaviour
 {
     private Human _human;
-    [SerializeField] private Human humanPrefab;
-    private HumanController _humanController;
+    //[SerializeField] private Human humanPrefab;
+    // private HumanController _humanController;
 
     private void Awake()
     {
-        humanPrefab = CustomUtil.ResourceLoad<Human>("Prefabs/Human/NormalHuman");
+        //humanPrefab = CustomUtil.ResourceLoad<Human>("Prefabs/Human/NormalHuman");
     }
     
     private void Start()
     {
-        _human = Instantiate(humanPrefab, gameObject.transform.position, Quaternion.identity); // 스폰 위치에 생성
-        _humanController = _human.GetComponent<HumanController>();
+        //_human = Instantiate(humanPrefab, gameObject.transform.position, Quaternion.identity); // 스폰 위치에 생성
+        //_humanController = _human.GetComponent<HumanController>();
     }
 
     private void Update()
@@ -24,6 +24,8 @@ public class HumanSpawner : MonoBehaviour
         // 스페이스바 누르면 웨이브 시작
         if (Input.GetKeyDown("space"))
         {
+            GameObject obj = PoolManager.Instance.SpawnFromPool("Human", transform.position, Quaternion.identity);
+            _human = obj.GetComponent<Human>();
             _human.IsWaveStarted = true;
         }
 

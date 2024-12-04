@@ -17,6 +17,6 @@ public class SetFormationNode : INode
 
         Vector3 formationPosition = _humanController.human.transform.position;    // 각 인간 객체의 전투 시작 위치
         _humanController.MoveToFormationPosition(formationPosition);
-        return NodeState.Failure; // TestCode 바로 상태 전환
+        return NodeState.Success; // TestCode 바로 상태 전환
     }
 }

@@ -154,6 +154,7 @@ public abstract class Monster : MonoBehaviour
         if (other.CompareTag("Human"))
         {
             HumanController human = other.GetComponent<HumanController>();
+            human.SetTargetMonster(null);
             if (human != null && _targetHumanList.Contains(human))
             {
                 _targetHumanList.Remove(human);
@@ -164,6 +165,7 @@ public abstract class Monster : MonoBehaviour
     public void IncreaseFatigue(float value)
     {
         _currentFatigue += value;
+        Debug.Log($"Monster curFatigue: {_currentFatigue}");
         if (_currentFatigue >= data.fatigue)
         {
             _currentFatigue = data.fatigue;

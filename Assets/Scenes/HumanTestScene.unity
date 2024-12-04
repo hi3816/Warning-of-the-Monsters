@@ -258,6 +258,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2823574123480220013, guid: 79489871a0af74485806a1c6a122dd7a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -408,6 +412,12 @@ MonoBehaviour:
   - tag: SurprisingHuman
     prefab: {fileID: 664224834642801451, guid: 8e4212d74cab36540a47066b2bdec95d, type: 3}
     size: 20
+  - tag: Human
+    prefab: {fileID: 2330070577731405459, guid: 499e5e11e4fc0f444b2364c66ab115d3, type: 3}
+    size: 20
+  - tag: Demon
+    prefab: {fileID: 7674980571249262148, guid: 7685c4643fb174fd587dafc1460f6be2, type: 3}
+    size: 9
 --- !u!4 &1605738393
 Transform:
   m_ObjectHideFlags: 0
@@ -585,6 +595,10 @@ PrefabInstance:
     - target: {fileID: 1049963523787419594, guid: 9e88b509184bd6a4ba91ff287e6a8348, type: 3}
       propertyPath: m_Name
       value: SoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5946197456775107438, guid: 9e88b509184bd6a4ba91ff287e6a8348, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8816805551781717135, guid: 9e88b509184bd6a4ba91ff287e6a8348, type: 3}
       propertyPath: m_LocalPosition.x
