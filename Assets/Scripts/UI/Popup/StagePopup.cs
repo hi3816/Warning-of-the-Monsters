@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.U2D;
 using UnityEngine.UI;
 
@@ -49,7 +50,7 @@ public class StagePopup : UIBase
 
     private void LoadGameScene()
     {
-        Debug.Log("∞‘¿”æ¿ ∑ŒµÂ");
+        SceneManager.LoadScene("StageScene");
     }
 
     private void ShowSelectMonster()
@@ -66,12 +67,12 @@ public class StagePopup : UIBase
 
         for (int i = 0; i < _monstersSprite.Count; i++)
         {
-            //ª˝º∫
+            //ÔøΩÔøΩÔøΩÔøΩ
             GameObject Instance = Instantiate(monsterListSlot);
-            //ø¿∫Í¡ß∆Æ ¿ßƒ°
+            //ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ∆Æ ÔøΩÔøΩƒ°
             Instance.transform.SetParent(monsterListScroll);
             Instance.transform.localScale = Vector3.one;
-            //¿ÃπÃ¡ˆ ¿¸»Ø
+            //ÔøΩÃπÔøΩÔøΩÔøΩ ÔøΩÔøΩ»Ø
             //Instance.GetComponent<MonsterListSlot>().setSlotImage(sprites.GetSprite(_monstersSprite[i].spriteName));
             var sprite = Instance.transform.GetChild(0).GetComponent<Image>();
             sprite.sprite = sprites.GetSprite(_monstersSprite[i].spriteName);
