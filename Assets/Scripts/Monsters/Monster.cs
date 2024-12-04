@@ -14,28 +14,21 @@ public enum MonsterState
 public abstract class Monster : MonoBehaviour
 {
     public MonsterSO data;
-    private HumanSO _humanData;
-    private Human _human;
-    private List<HumanController> _targethumanList = new List<HumanController>();
+    private List<HumanController> _targetHumanList = new List<HumanController>();
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
     private MonsterState _monsterState;
     public float fadeDuration = 1f;
     private float _lastScareTime;
     private float _currentFatigue; //현재 피로도
-    private float CurrentFatigue
-    {
-        get => _currentFatigue;
-        set => _currentFatigue = Mathf.Clamp(value, 0f, data.fatigue);
-    }
     
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
+        SetState(MonsterState.Idle);
     }
     
-    //void Update()
     protected virtual void Update()
     {
         Transform nearestHuman = GetNearestHuman();
@@ -44,11 +37,22 @@ public abstract class Monster : MonoBehaviour
         {
             case MonsterState.Idle:
                 UpdateAnimatorParameters(Vector2.zero);
+                if (nearestHuman != null)
+                {
+                    SetState(MonsterState.Scaring);
+                }
                 break;
             case MonsterState.Scaring:
-                // Vector2 directionToHuman = (nearestHuman.position - transform.position).normalized;
-                // UpdateAnimatorParameters(directionToHuman);
-                Battle();
+                if (nearestHuman != null)
+                {
+                    Vector2 directionToHuman = ((Vector2)nearestHuman.position - (Vector2)transform.position).normalized;
+                    UpdateAnimatorParameters(directionToHuman);
+                    Scaring();
+                }
+                else
+                {
+                    SetState(MonsterState.Idle);
+                }
                 break;
             case MonsterState.ReturningVillage:
                 ReturnToVillage();
@@ -58,12 +62,7 @@ public abstract class Monster : MonoBehaviour
     
     private Transform GetNearestHuman()
     {
-        BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
-        Vector2 boxCenter = transform.position;
-        Vector2 boxSize = boxCollider.size;
-        float boxAngle = 0f;
-
-        Collider2D[] detectedHumans = Physics2D.OverlapBoxAll(boxCenter, boxSize, boxAngle, LayerMask.GetMask("Human"));
+        Collider2D[] detectedHumans = Physics2D.OverlapCircleAll(transform.position, data.humanScaringRange, LayerMask.GetMask("Human"));
         if (detectedHumans.Length > 0)
         {
             Transform nearestHuman = detectedHumans[0].transform;
@@ -89,36 +88,40 @@ public abstract class Monster : MonoBehaviour
         
         _monsterState = state;
         
-        switch (state)
+        switch (_monsterState)
         {
+            case MonsterState.Idle:
+                _animator.SetBool("Scare", false);
+                break;
+
             case MonsterState.Scaring:
                 _animator.SetBool("Scare", true);
                 break;
+
             case MonsterState.ReturningVillage:
                 _animator.SetTrigger("Return");
+                StartCoroutine(FadeOutAndReturnToPool());
                 break;
         }
     }
     
-     private void UpdateAnimatorParameters(Vector2 direction)
-     {
-         if (_animator == null) return;
-
-         _animator.SetFloat("Horizontal", direction.x);
-         _animator.SetFloat("Vertical", direction.y);
-     }
-     
-    protected virtual void Battle()
+    private void UpdateAnimatorParameters(Vector2 direction)
     {
-        // CurrentFatigue += Time.deltaTime * Random.Range(_humanData.minFatigueInflicted, _humanData.maxFatigueInflicted);
-        // if (Time.time - _lastScareTime > data.cooldown)
-        // {
-        //     InflictFear();
-        // }
-        if (_targethumanList.Count <= 0)
-            SetState(MonsterState.Idle);
-        foreach (HumanController human in _targethumanList)
+        if (_animator == null) return;
+
+        _animator.SetFloat("Horizontal", direction.x);
+        _animator.SetFloat("Vertical", direction.y);
+        
+        bool isScaring = direction != Vector2.zero;
+        _animator.SetBool("Scare", isScaring);
+    }
+    
+    private void Scaring()
+    {
+        foreach (HumanController human in _targetHumanList)
         {
+            if (human == null) continue;
+
             if (Time.time - _lastScareTime > data.cooldown)
             {
                 _lastScareTime = Time.time;
@@ -126,15 +129,10 @@ public abstract class Monster : MonoBehaviour
                 human.SetTargetMonster(this);
             }
         }
-    }
         
-    protected virtual void InflictFear()
-    {
-        _lastScareTime = Time.time;
-        _human.FearLevel += (Time.deltaTime * data.fearInflicted);
-        if (CurrentFatigue >= data.fatigue)
+        if (_targetHumanList.Count == 0)
         {
-            SetState(MonsterState.ReturningVillage);
+            SetState(MonsterState.Idle);
         }
     }
 
@@ -142,24 +140,33 @@ public abstract class Monster : MonoBehaviour
     {
         if (other.CompareTag("Human"))
         {
-            _targethumanList.Add(other.gameObject.GetComponent<HumanController>());
-            SetState(MonsterState.Scaring);
-        }
-    
-        if (CurrentFatigue >= data.fatigue)
-        {
-            SetState(MonsterState.ReturningVillage);
+            HumanController human = other.GetComponent<HumanController>();
+            if (human != null && !_targetHumanList.Contains(human))
+            {
+                _targetHumanList.Add(human);
+                SetState(MonsterState.Scaring);
+            }
         }
     }
+    
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Human"))
+        {
+            HumanController human = other.GetComponent<HumanController>();
+            if (human != null && _targetHumanList.Contains(human))
+            {
+                _targetHumanList.Remove(human);
+            }
+        }
+    }
+    
     public void IncreaseFatigue(float value)
     {
-        Debug.Log($"Monster curFatigue is {_currentFatigue}");
-        
         _currentFatigue += value;
         if (_currentFatigue >= data.fatigue)
         {
             _currentFatigue = data.fatigue;
-            Debug.LogAssertion($"Monster returns to Village");
             SetState(MonsterState.ReturningVillage);
         }
     }
@@ -171,23 +178,20 @@ public abstract class Monster : MonoBehaviour
 
     private IEnumerator FadeOutAndReturnToPool()
     {
-        foreach (var human in _targethumanList)
+        foreach (var human in _targetHumanList)
         {
             if (human != null)
             {
                 human.SetTargetMonster(null);
             }
         }
-        _targethumanList.Clear();
-        yield return StartCoroutine(FadeOut());
-        gameObject.SetActive(false);
-        PoolManager.Instance.ReturnToPool(data.poolTag, gameObject);
-    }
-    
-    private IEnumerator FadeOut()
-    {
+        
+        _targetHumanList.Clear();
+        
+        // Fade out
         float startAlpha = _spriteRenderer.color.a;
         float elapsedTime = 0f;
+
         while (elapsedTime < fadeDuration)
         {
             elapsedTime += Time.deltaTime;
@@ -195,7 +199,9 @@ public abstract class Monster : MonoBehaviour
             _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, newAlpha);
             yield return null;
         }
-        
+
         _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 0f);
+        gameObject.SetActive(false);
+        PoolManager.Instance.ReturnToPool(data.poolTag, gameObject);
     }
 }
