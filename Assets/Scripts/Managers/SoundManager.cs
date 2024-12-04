@@ -29,29 +29,35 @@ public class SoundManager : SingletonBase<SoundManager>
 
     private AudioSource audioBgm;
     
-    // BGM º¼·ı
+    // BGM ë³¼ë¥¨
     [SerializeField][Range(0f, 1f)] private float bgmVolume;
 
-    // SFX º¼·ı ¹× À½ ³ô³·ÀÌ Á¶Àı
+    // SFX ë³¼ë¥¨ ë° ìŒ ë†’ë‚®ì´ ì¡°ì ˆ
     [SerializeField][Range(0f, 1f)] private float sfxVolume;
-    [SerializeField][Range(0f, 1f)] private float sfxPitchVariance; // ³ôÀº À½ÀÌ ³ª¿È
+    [SerializeField][Range(0f, 1f)] private float sfxPitchVariance; // ë†’ì€ ìŒì´ ë‚˜ì˜´
 
-    public bool IsPlayBGM { get; private set; } // BGM Ãâ·Â ¼³Á¤ (On / Off)
-    public bool IsPlaySFX { get; private set; }// SFX Ãâ·Â ¼³Á¤ (On / Off)
+    public bool IsPlayBGM { get; private set; } // BGM ì¶œë ¥ ì„¤ì • (On / Off)
+    public bool IsPlaySFX { get; private set; }// SFX ì¶œë ¥ ì„¤ì • (On / Off)
 
     protected override void Awake()
     {
-        base.Awake();
-
         audioBgm = GetComponent<AudioSource>();
         audioBgm.volume = bgmVolume;
         audioBgm.loop = true;
         IsPlayBGM = true;
         IsPlaySFX = true;
 
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
         SetBgmDictionary();
         SetSfxDictionary();
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            OnClick();
+        }
     }
 
     private void SetBgmDictionary()
@@ -80,7 +86,7 @@ public class SoundManager : SingletonBase<SoundManager>
         }
     }
 
-    // ¹è°æ À½¾Ç ½ÃÀÛ
+    // ë°°ê²½ ìŒì•… ì‹œì‘
     public void PlayBGM(BgmType bgmType)
     {
         if (IsPlayBGM)
@@ -91,18 +97,18 @@ public class SoundManager : SingletonBase<SoundManager>
         }
     }
 
-    // ¹è°æ À½¾Ç Á¤Áö
+    // ë°°ê²½ ìŒì•… ì •ì§€
     public void StopBGM()
     {
         audioBgm.Stop();
     }
 
-    // È¿°úÀ½ Àç»ı
+    // íš¨ê³¼ìŒ ì¬ìƒ
     public void PlaySFX(SfxType sfxType)
     {
         if (IsPlaySFX)
         {
-            // enum -> int ·Î Çüº¯È¯
+            // enum -> int ë¡œ í˜•ë³€í™˜
             GameObject obj = PoolManager.Instance.SpawnFromPool(sfxType.ToString());
             obj.SetActive(true);
             SfxSoundSource soundSource = obj.GetComponent<SfxSoundSource>();
@@ -122,10 +128,10 @@ public class SoundManager : SingletonBase<SoundManager>
         IsPlaySFX = !IsPlaySFX;
     }
 
-    public void OnClick(InputAction.CallbackContext context)
+    public void OnClick()
     {
-        // IsPointerOverGameObject() -> UI¸¸ ÀÛµ¿ÇÏµµ·Ï Á¦¾î
-        if(context.started && EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        // IsPointerOverGameObject() -> UIë§Œ ì‘ë™í•˜ë„ë¡ ì œì–´
+        if(EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
         {
             PlaySFX(SfxType.Click);
         }

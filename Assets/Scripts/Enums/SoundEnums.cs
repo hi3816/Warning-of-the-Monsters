@@ -1,15 +1,21 @@
 public enum BgmType
 {
-    Intro, // ÀÎÆ®·Î¾À
-    Robby, // ·Îºñ¾À
-    Stage, // ½ºÅ×ÀÌÁö¾À
+    Intro, // ì¸íŠ¸ë¡œì”¬
+    Robby, // ë¡œë¹„ì”¬
+    Stage, // ìŠ¤í…Œì´ì§€ì”¬
 }
 
-//SFX Á¾·ùµé
+//SFX ì¢…ë¥˜ë“¤
 public enum SfxType
 {
-    Click, // UI Å¬¸¯ ¼Ò¸®
-    SpawnSmallMonster, // ÀÛÀº ¸ó½ºÅÍ ½ºÆù È¿°úÀ½
-    SpawnBigMonster, // Å« ¸ó½ºÅÍ ½ºÆù È¿°úÀ½
-    SurprisingHuman// ÀÎ°£ ³î¶ó´Â È¿°úÀ½
+    Click, // UI í´ë¦­ ì†Œë¦¬
+    SpawnSmallMonster, // ì‘ì€ ëª¬ìŠ¤í„° ìŠ¤í° íš¨ê³¼ìŒ
+    SpawnBigMonster, // í° ëª¬ìŠ¤í„° ìŠ¤í° íš¨ê³¼ìŒ
+    SurprisingHuman// ì¸ê°„ ë†€ë¼ëŠ” íš¨ê³¼ìŒ
+}
+
+public enum SoundType
+{
+    BGM,
+    SFX,
 }

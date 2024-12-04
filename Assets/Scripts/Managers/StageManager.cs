@@ -24,9 +24,8 @@ public class StageManager : SingletonBase<StageManager>
     [SerializeField] private int currHealth; // 현재 체력
     public float currGold; // 현재 골드
 
-
     [Header("Stage")]
-    [SerializeField] private GameObject[] stages;
+
     [SerializeField] private GameObject stage;
     [SerializeField] private int stageIdx;
     [SerializeField] private StartBattleButtonController startBattleBtnController;
@@ -38,11 +37,8 @@ public class StageManager : SingletonBase<StageManager>
     {
         base.Awake();
         soundManager = SoundManager.Instance;
-        SetStageSOs();
         SetStageStat();
-        stage = Instantiate<GameObject>(stages[stageIdx]);
-        // startBattleBtn에 interWaveDelay필드에 값 저장하기 위해 StageSO 세팅 후에 캐싱
-        startBattleBtnController = stage.GetComponentInChildren<StartBattleButtonController>();
+        SetStageObject();
         ChangeUI();
     }
 
@@ -51,21 +47,29 @@ public class StageManager : SingletonBase<StageManager>
         soundManager.PlayBGM(BgmType.Stage);
     }
 
-    // 모든 Stage 정보 가져오기
-    private void SetStageSOs()
-    {
-        stageDataLoader = GetComponent<StageDataLoader>();
-        stageSOs = stageDataLoader.SetStageSOs();
-    }
-
     // stage에 대한 정보 초기화
     private void SetStageStat()
     {
+        // 모든 StageSO 가져오기
+        stageDataLoader = GetComponent<StageDataLoader>();
+        stageSOs = stageDataLoader.SetStageSOs();
+        
+        // 현재 Stage의 Stat 설정
         stageSO = stageSOs[stageIdx];
         totalWave = stageSO.wave;
         currWave = 0;
         currHealth = stageSO.health;
         currGold = stageSO.gold;
+    }
+
+    private void SetStageObject()
+    {
+        // 스테이지 동적 로드
+        stage = Instantiate<GameObject>(Resources.Load<GameObject>($"Prefabs/Stage/Stage{stageIdx + 1}"));
+        stage.name = $"Stage{stageIdx + 1}";
+
+        // startBattleBtn에 interWaveDelay필드에 값 저장하기 위해 StageSO 세팅 후에 캐싱
+        startBattleBtnController = stage.GetComponentInChildren<StartBattleButtonController>();
     }
 
     // UI 변경(웨이브, 체력, 골드)
@@ -103,27 +107,6 @@ public class StageManager : SingletonBase<StageManager>
     {
         optionPanel.SetActive(true);
         Time.timeScale = 0f;
-    }
-
-    // BGM 버튼 클릭 (On / Off)
-    public void ClickBgmButton()
-    {
-        soundManager.ChangeIsPlayBGM();
-
-        if (soundManager.IsPlayBGM)
-        {
-            soundManager.PlayBGM(BgmType.Stage);
-        }
-        else
-        {
-            soundManager.StopBGM();
-        }
-    }
-
-    // SFX 버튼 클릭 (On / Off)
-    public void ClickSfxButton()
-    {
-        soundManager.ChangeIsPlaySFX();
     }
 
     // Retry 버튼 클릭
