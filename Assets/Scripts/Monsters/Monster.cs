@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum MonsterState
@@ -15,6 +16,7 @@ public abstract class Monster : MonoBehaviour
     public MonsterSO data;
     private HumanSO _humanData;
     private Human _human;
+    private List<HumanController> _targethumanList = new List<HumanController>();
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
     private MonsterState _monsterState;
@@ -33,7 +35,8 @@ public abstract class Monster : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
     
-    private void Update()
+    //void Update()
+    protected virtual void Update()
     {
         Transform nearestHuman = GetNearestHuman();
         
@@ -43,8 +46,8 @@ public abstract class Monster : MonoBehaviour
                 UpdateAnimatorParameters(Vector2.zero);
                 break;
             case MonsterState.Scaring:
-                Vector2 directionToHuman = (nearestHuman.position - transform.position).normalized;
-                UpdateAnimatorParameters(directionToHuman);
+                // Vector2 directionToHuman = (nearestHuman.position - transform.position).normalized;
+                // UpdateAnimatorParameters(directionToHuman);
                 Battle();
                 break;
             case MonsterState.ReturningVillage:
@@ -101,16 +104,27 @@ public abstract class Monster : MonoBehaviour
      {
          if (_animator == null) return;
 
-         _animator.SetFloat("horizontal", direction.x);
-         _animator.SetFloat("vertical", direction.y);
+         _animator.SetFloat("Horizontal", direction.x);
+         _animator.SetFloat("Vertical", direction.y);
      }
      
     protected virtual void Battle()
     {
-        CurrentFatigue += Time.deltaTime * Random.Range(_humanData.minFatigueInflicted, _humanData.maxFatigueInflicted);
-        if (Time.time - _lastScareTime > data.cooldown)
+        // CurrentFatigue += Time.deltaTime * Random.Range(_humanData.minFatigueInflicted, _humanData.maxFatigueInflicted);
+        // if (Time.time - _lastScareTime > data.cooldown)
+        // {
+        //     InflictFear();
+        // }
+        if (_targethumanList.Count <= 0)
+            SetState(MonsterState.Idle);
+        foreach (HumanController human in _targethumanList)
         {
-            InflictFear();
+            if (Time.time - _lastScareTime > data.cooldown)
+            {
+                _lastScareTime = Time.time;
+                human.IncreaseFear(data.fearInflicted);
+                human.SetTargetMonster(this);
+            }
         }
     }
         
@@ -126,17 +140,26 @@ public abstract class Monster : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.LogAssertion("Human entered");
-        _lastScareTime = Time.time;
-    
-        HumanController humanController = other.GetComponent<HumanController>();
-        if (humanController != null)
+        if (other.CompareTag("Human"))
         {
-            humanController.human.targetMonster = this;
+            _targethumanList.Add(other.gameObject.GetComponent<HumanController>());
+            SetState(MonsterState.Scaring);
         }
     
         if (CurrentFatigue >= data.fatigue)
         {
+            SetState(MonsterState.ReturningVillage);
+        }
+    }
+    public void IncreaseFatigue(float value)
+    {
+        Debug.Log($"Monster curFatigue is {_currentFatigue}");
+        
+        _currentFatigue += value;
+        if (_currentFatigue >= data.fatigue)
+        {
+            _currentFatigue = data.fatigue;
+            Debug.LogAssertion($"Monster returns to Village");
             SetState(MonsterState.ReturningVillage);
         }
     }
@@ -148,6 +171,14 @@ public abstract class Monster : MonoBehaviour
 
     private IEnumerator FadeOutAndReturnToPool()
     {
+        foreach (var human in _targethumanList)
+        {
+            if (human != null)
+            {
+                human.SetTargetMonster(null);
+            }
+        }
+        _targethumanList.Clear();
         yield return StartCoroutine(FadeOut());
         gameObject.SetActive(false);
         PoolManager.Instance.ReturnToPool(data.poolTag, gameObject);
