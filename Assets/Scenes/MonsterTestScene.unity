@@ -1014,6 +1014,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4163183526409726560, guid: 79489871a0af74485806a1c6a122dd7a, type: 3}
+      propertyPath: poolConfigs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4163183526409726560, guid: 79489871a0af74485806a1c6a122dd7a, type: 3}
+      propertyPath: poolConfigs.Array.data[1].tag
+      value: Human
+      objectReference: {fileID: 0}
+    - target: {fileID: 4163183526409726560, guid: 79489871a0af74485806a1c6a122dd7a, type: 3}
+      propertyPath: poolConfigs.Array.data[1].size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4163183526409726560, guid: 79489871a0af74485806a1c6a122dd7a, type: 3}
+      propertyPath: poolConfigs.Array.data[1].prefab
+      value: 
+      objectReference: {fileID: 2330070577731405459, guid: 499e5e11e4fc0f444b2364c66ab115d3, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1035,19 +1051,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1875837616686777366}
   m_CullTransparentMesh: 1
---- !u!114 &2964047604891390712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6069682642453140942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eab85f9a15ed7fb438ed721cdfbfe542, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  humanPrefab: {fileID: 0}
 --- !u!222 &2984254252291146450
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2127,23 +2130,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &6069682642453140942
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6505241853829000428}
-  - component: {fileID: 2964047604891390712}
-  m_Layer: 0
-  m_Name: HumanSpawnPoint
-  m_TagString: HumanSpawnPoint
-  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!114 &6147879055705849314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2273,21 +2259,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!4 &6505241853829000428
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6069682642453140942}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!223 &6537301326328443578
 Canvas:
   m_ObjectHideFlags: 0
@@ -3380,5 +3351,4 @@ SceneRoots:
   - {fileID: 1257509672796682453}
   - {fileID: 6723708995037975232}
   - {fileID: 1963770680100275957}
-  - {fileID: 6505241853829000428}
   - {fileID: 2886780635995125449}

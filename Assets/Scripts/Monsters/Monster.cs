@@ -20,7 +20,7 @@ public abstract class Monster : MonoBehaviour
     private MonsterState _monsterState;
     public float fadeDuration = 1f;
     private float _lastScareTime;
-    private float _currentFatigue; //현재 피로도
+    public float currentFatigue; //현재 피로도
     
     private void Awake()
     {
@@ -164,17 +164,18 @@ public abstract class Monster : MonoBehaviour
     
     public void IncreaseFatigue(float value)
     {
-        _currentFatigue += value;
-        Debug.Log($"Monster curFatigue: {_currentFatigue}");
-        if (_currentFatigue >= data.fatigue)
+        currentFatigue += value;
+        Debug.Log($"Monster curFatigue: {currentFatigue}");
+        if (currentFatigue >= data.fatigue)
         {
-            _currentFatigue = data.fatigue;
+            currentFatigue = data.fatigue;
             SetState(MonsterState.ReturningVillage);
         }
     }
     
     private void ReturnToVillage()
     {
+        currentFatigue = 0f;
         StartCoroutine(FadeOutAndReturnToPool());
     }
 
