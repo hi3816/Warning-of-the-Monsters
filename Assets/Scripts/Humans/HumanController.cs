@@ -49,25 +49,29 @@ public class HumanController : MonoBehaviour
     // 공격 쿨타임 다 채워졌는지 확인
     public bool CanAttack()
     {
-        return Time.time >= lastAttackTime + human.humanData.cooldown;
+        return human.targetMonster != null && Time.time - lastAttackTime > human.humanData.cooldown;
     }
 
     // 몬스터 공격하는 메서드
     public void PerformAttack()
     {
-        lastAttackTime = Time.time; // 마지막 공격 시각 갱신
-        if (human.targetMonster != null)    // 타겟으로 하는 몬스터 있으면
+        //lastAttackTime = Time.time; // 마지막 공격 시각 갱신
+        //if (human.targetMonster == null) return;
+        //if (human.targetMonster != null)    // 타겟으로 하는 몬스터 있으면
         {
             // 몬스터 피로도를 최소 ~ 최대 피로도 영향 수치 내에서 랜덤 값으로 증가
             // TODO: Monster.cs에서 접근 제한 수정되면 주석 해제
             animator.SetTrigger("Attack");
-            Debug.LogAssertion("Human attacked Monster");
+            //Debug.LogAssertion("Human attacked Monster");
             /* TestCode */
             // 공격 여러번하면 몬스터 피로도 올라가고 20(임의의 값) 이상이면 타겟 몬스터 null로 만들기
            // human.targetMonster.CurrentFatigue += Random.Range(human.humanData.minFatigueInflicted, human.humanData.maxFatigueInflicted);
-            // Debug.LogAssertion($"MonsterFatigue:{human.targetMonster.CurrentFatigue}");
-            // if (human.targetMonster.CurrentFatigue >= 20)
-            //     human.targetMonster = null;
+           //  Debug.LogAssertion($"MonsterFatigue:{human.targetMonster.CurrentFatigue}");
+           //  if (human.targetMonster.CurrentFatigue >= 20)
+           //      human.targetMonster = null;
+           float randValue = Random.Range(human.humanData.minFatigueInflicted, human.humanData.maxFatigueInflicted);
+           human.targetMonster.IncreaseFatigue(randValue);
+           lastAttackTime = Time.time;
         }
     }
 
@@ -77,6 +81,11 @@ public class HumanController : MonoBehaviour
         return human.targetMonster != null && Vector3.Distance(transform.position, human.targetMonster.transform.position) <= attackRange;
     }
 
+    public void SetTargetMonster(Monster monster)
+    {
+        human.targetMonster = monster;
+    }
+    
     public bool HasTargetMonster()
     {
         return human.targetMonster != null;
@@ -91,9 +100,9 @@ public class HumanController : MonoBehaviour
     public void IncreaseFear(float amount)
     {
         human.FearLevel += amount;
-        Debug.Log($"Fear: {human.FearLevel}");
+        Debug.LogWarning($"Fear: {human.FearLevel}");
         // 최대 공포 수치 넘지 않도록 조정
-        if (human.FearLevel > human.humanData.maxFear)
+        if (IsFearMaxed())
         {
             human.FearLevel = human.humanData.maxFear;
         }
