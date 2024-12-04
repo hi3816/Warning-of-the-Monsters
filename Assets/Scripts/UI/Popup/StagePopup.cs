@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -16,8 +17,9 @@ public class StagePopup : UIBase
 
     [Header("Display")]
     public GameObject displaySelectMonster;
-    public GameObject displayEnemyInfo;
+    public GameObject displayStageInfo;
     public GameObject displayStory;
+    private int _stageIdx;
 
     [Header("MonsterSelectedSlot")]
     public Transform SelectedMonster;
@@ -27,6 +29,11 @@ public class StagePopup : UIBase
     public GameObject monsterListSlot;
     public Transform monsterListScroll;
     private List<MonsterSpriteData> _monstersSprite;
+    private TestSO[] _testSOs;
+
+    [Header("disPlayStageInfo")]
+    [SerializeField] TextMeshProUGUI stageInfoTxt;
+    [SerializeField] TextMeshProUGUI enemyInfoTxt;
 
 
     private enum Display
@@ -39,13 +46,17 @@ public class StagePopup : UIBase
 
     void Start()
     {
-        ShowMonsterScroll();
         EventSystem.current.SetSelectedGameObject(btnSelectMonster);
 
         btnSelectMonster.GetComponent<Button>().onClick.AddListener(ShowSelectMonster);
-        btnEnemyInfo.GetComponent<Button>().onClick.AddListener(ShowEnemyInfo);
+        btnEnemyInfo.GetComponent<Button>().onClick.AddListener(ShowStageInfo);
         btnStory.GetComponent<Button>().onClick.AddListener(ShowStory);
         btnGo.GetComponent<Button>().onClick.AddListener(LoadGameScene);
+    }
+
+    public void SetStageIdx(int Idx)
+    {
+        _stageIdx = Idx;
     }
 
     private void LoadGameScene()
@@ -58,33 +69,44 @@ public class StagePopup : UIBase
         HideSelectedDisplay(_currentDisplay);
         displaySelectMonster.SetActive(true);
         _currentDisplay = Display.SelectMonster;
+
+        SetMonsterScroll();
     }
 
-    private void ShowMonsterScroll()
+    private void SetMonsterScroll()
     {
-        _monstersSprite = DataManager.Instance.GetMonsterSpriteData();
+        _testSOs = DataManager.Instance.GetTestSprite();
         SpriteAtlas sprites = Resources.Load<SpriteAtlas>("UI/UISprites/MonsterList");
 
-        for (int i = 0; i < _monstersSprite.Count; i++)
+        for (int i = 0; i < _testSOs.Length; i++)
         {
-            //����
             GameObject Instance = Instantiate(monsterListSlot);
-            //������Ʈ ��ġ
+
             Instance.transform.SetParent(monsterListScroll);
             Instance.transform.localScale = Vector3.one;
-            //�̹��� ��ȯ
-            //Instance.GetComponent<MonsterListSlot>().setSlotImage(sprites.GetSprite(_monstersSprite[i].spriteName));
+
             var sprite = Instance.transform.GetChild(0).GetComponent<Image>();
-            sprite.sprite = sprites.GetSprite(_monstersSprite[i].spriteName);
+            sprite.sprite = sprites.GetSprite(_testSOs[i].testSpriteName);
         }
     }
 
-    private void ShowEnemyInfo()
+    private void ShowStageInfo()
     {
         HideSelectedDisplay(_currentDisplay);
-        displayEnemyInfo.SetActive(true);
+        displayStageInfo.SetActive(true);
         _currentDisplay = Display.EnemyInfo;
-        
+
+        SetStageInfo(_stageIdx);
+    }
+
+    public void SetStageInfo(int index)
+    {
+        //StageInfo Load
+        StageSO stageSO = DataManager.Instance.GetStageByIndex(index);
+        stageInfoTxt.text = $"{stageSO.name}\n{stageSO.wave}\n{stageSO.health}";
+
+        //EnemyInfo Load
+
     }
 
     private void ShowStory()
@@ -103,7 +125,7 @@ public class StagePopup : UIBase
                 break;
 
             case Display.EnemyInfo:
-                displayEnemyInfo.SetActive(false);
+                displayStageInfo.SetActive(false);
                 break;
 
             case Display.Story:
