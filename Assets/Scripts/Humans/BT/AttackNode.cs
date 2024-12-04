@@ -1,27 +1,23 @@
 public class AttackNode : INode
 {
     private HumanController _humanController;
-    private bool _attackFlag;   // 공격을 수행했는지 확인
 
     public AttackNode(HumanController humanController)
     {
         _humanController = humanController;
-        _attackFlag = false;
     }
 
     public NodeState Evaluate()
     {
-        if (!_attackFlag)   // 공격한 적 없으면
+        // Debug.Log($"Evaluating {this.GetType().Name}");
+        if (!_humanController.HasTargetMonster())   // 타겟몬스터 없어지면
+        {
+            return NodeState.Failure;
+        }
+        if (_humanController.CanAttack())
         {
             _humanController.PerformAttack(); // 공격 수행
-            _attackFlag = true; // 공격 수행 완료 상태로 전환
-            return NodeState.Success; // WaitNode로
         }
-        return NodeState.Failure;
-    }
-
-    public void Reset()
-    {
-        _attackFlag = false;  // 해당 노드에 들어왔을 때 겁주기 반응 상태 초기화
+        return NodeState.Success; 
     }
 }

@@ -22,10 +22,10 @@ public class HumanController : MonoBehaviour
         }
     }
 
-    public bool MoveToDestination(Vector3 target)
+    public bool ArriveToDestination(Vector3 target)
     {
         agent.SetDestination(target);
-        return agent.remainingDistance > agent.stoppingDistance;
+        return agent.remainingDistance <= agent.stoppingDistance;
     }
 
     // 유닛이 대형을 정비하는 메서드
@@ -33,8 +33,11 @@ public class HumanController : MonoBehaviour
     // 현재는 그냥 타겟 위치로 이동하는 메서드와 동일
     public bool MoveToFormationPosition(Vector3 formationPosition)
     {
-        agent.SetDestination(formationPosition);
-        return agent.remainingDistance > agent.stoppingDistance;
+        agent.ResetPath();
+        // formationPosition = agent.transform.position;   // TestCode: SetFormation -> AttackSquence로 바로 전환
+        // return agent.remainingDistance > agent.stoppingDistance;
+        animator.SetBool("IsSet", true);
+        return false;
     }
 
     // 현재 방향에서 몬스터 방향으로 바라보게 하는 메서드(에임 맞추기)
@@ -57,7 +60,14 @@ public class HumanController : MonoBehaviour
         {
             // 몬스터 피로도를 최소 ~ 최대 피로도 영향 수치 내에서 랜덤 값으로 증가
             // TODO: Monster.cs에서 접근 제한 수정되면 주석 해제
-            // human.targetMonster.CurrentFatigue += Random.Range(human.humanData.minFatigueInflicted, human.humanData.maxFatigueInflicted);
+            animator.SetTrigger("Attack");
+            Debug.LogAssertion("Human attacked Monster");
+            /* TestCode */
+            // 공격 여러번하면 몬스터 피로도 올라가고 20(임의의 값) 이상이면 타겟 몬스터 null로 만들기
+           // human.targetMonster.CurrentFatigue += Random.Range(human.humanData.minFatigueInflicted, human.humanData.maxFatigueInflicted);
+            Debug.LogAssertion($"MonsterFatigue:{human.targetMonster.CurrentFatigue}");
+            if (human.targetMonster.CurrentFatigue >= 20)
+                human.targetMonster = null;
         }
     }
 
@@ -67,10 +77,21 @@ public class HumanController : MonoBehaviour
         return human.targetMonster != null && Vector3.Distance(transform.position, human.targetMonster.transform.position) <= attackRange;
     }
 
+    public bool HasTargetMonster()
+    {
+        return human.targetMonster != null;
+    }
+
+    public bool IsWaveStarted()
+    {
+        return human.IsWaveStarted;
+    }
+
     // 공포 수치 증가시키는 메서드
     public void IncreaseFear(float amount)
     {
         human.FearLevel += amount;
+        Debug.Log($"Fear: {human.FearLevel}");
         // 최대 공포 수치 넘지 않도록 조정
         if (human.FearLevel > human.humanData.maxFear)
         {
@@ -90,7 +111,10 @@ public class HumanController : MonoBehaviour
         if (human.targetMonster != null)
         {
             Debug.Log("ReactToScaring");
-            IncreaseFear(human.targetMonster.data.fearInflicted);   // 공포 수치 증가
+            //IncreaseFear(human.targetMonster.data.fearInflicted);   // 공포 수치 증가
+            // TestCode 임시로 값 부여
+            IncreaseFear(10);   // 공포 수치 증가
+            animator.SetTrigger("Surprise");
         }
     }
 }

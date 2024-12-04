@@ -202,7 +202,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   humanData: {fileID: 0}
-  animator: {fileID: 0}
   targetMonster: {fileID: 0}
 --- !u!195 &5045224751481305426
 NavMeshAgent:
@@ -214,7 +213,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.2
-  m_Speed: 1
+  m_Speed: 2.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -239,6 +238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   human: {fileID: 0}
+  animator: {fileID: 0}
   IsAttacked: 0
 --- !u!114 &3270947719706656307
 MonoBehaviour:
@@ -252,8 +252,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac4e61891a0dec2408b769b524388f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 0}
-  targetPoint: {fileID: 0}
+  spawnPoint: {x: 0, y: 0, z: 0}
+  targetPoint: {x: 0, y: 0, z: 0}
 --- !u!50 &5493669602540388708
 Rigidbody2D:
   serializedVersion: 4
