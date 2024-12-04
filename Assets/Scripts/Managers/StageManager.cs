@@ -30,6 +30,10 @@ public class StageManager : SingletonBase<StageManager>
     [SerializeField] private int stageIdx;
     [SerializeField] private StartBattleButtonController startBattleBtnController;
 
+    [Header("ToggleButton")]
+    [SerializeField] private Toggle bgmToggle;
+    [SerializeField] private Toggle sfxToggle; 
+
     private SoundManager soundManager;
     private StageDataLoader stageDataLoader;
 
@@ -39,6 +43,7 @@ public class StageManager : SingletonBase<StageManager>
         soundManager = SoundManager.Instance;
         SetStageStat();
         SetStageObject();
+        SetToggleIsOn();
         ChangeUI();
     }
 
@@ -70,6 +75,13 @@ public class StageManager : SingletonBase<StageManager>
 
         // startBattleBtn에 interWaveDelay필드에 값 저장하기 위해 StageSO 세팅 후에 캐싱
         startBattleBtnController = stage.GetComponentInChildren<StartBattleButtonController>();
+    }
+
+    // ToggleButton 초기화
+    private void SetToggleIsOn()
+    {
+        bgmToggle.isOn = soundManager.IsPlayBGM;
+        sfxToggle.isOn = soundManager.IsPlaySFX;
     }
 
     // UI 변경(웨이브, 체력, 골드)

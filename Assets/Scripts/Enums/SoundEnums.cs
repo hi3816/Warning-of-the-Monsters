@@ -13,9 +13,3 @@ public enum SfxType
     SpawnBigMonster, // 큰 몬스터 스폰 효과음
     SurprisingHuman// 인간 놀라는 효과음
 }
-
-public enum SoundType
-{
-    BGM,
-    SFX,
-}
