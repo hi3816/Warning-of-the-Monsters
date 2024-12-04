@@ -1,14 +1,17 @@
+using System;
 using System.Linq;
 using UnityEngine;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    public Transform[] spawnPoints;
-    private StageManager _stageManager;
-
-    private void Awake()
+    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private StageManager stageManager;
+    private Transform[] _spawnPoints;
+    
+    private void Start()
     {
-        spawnPoints = GetComponentsInChildren<Transform>().Where(t => t.CompareTag("MonsterSpawnPoint")).ToArray();
+        GameObject[] spawnPointObjects = GameObject.FindGameObjectsWithTag("MonsterSpawnPoint"); //NO FIND...
+        _spawnPoints = spawnPointObjects.Select(go => go.transform).ToArray();
     }
     
     private void SpawnMonster(Vector3 spawnPosition, MonsterSO selectedMonsterData)
@@ -35,16 +38,16 @@ public class MonsterSpawner : MonoBehaviour
             Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             touchPosition.z = 0f;
             
-            foreach (Transform spawnPoint in spawnPoints)
+            foreach (Transform spawnPoint in _spawnPoints)
             {
                 MonsterSO selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
                 if (Vector2.Distance(touchPosition, spawnPoint.position) < 0.5f)
                 {
                     if (MonsterManager.Instance.SelectedMonsterId != 0)
                     {
-                        if (_stageManager.currGold >= selectedMonsterData.requiredCoins)
+                        if (stageManager.currGold >= selectedMonsterData.requiredCoins)
                         {
-                            _stageManager.currGold -= selectedMonsterData.requiredCoins;
+                            stageManager.currGold -= selectedMonsterData.requiredCoins;
                             Vector3 spawnPosition = spawnPoint.position;
                             SpawnMonster(spawnPosition, selectedMonsterData);
                         }

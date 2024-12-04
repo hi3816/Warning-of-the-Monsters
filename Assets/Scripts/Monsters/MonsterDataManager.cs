@@ -52,7 +52,7 @@ public class MonsterDataManager : MonoBehaviour
     
     public List<MonsterSO> LoadMonstersFromAssets()
     {
-        string folderPath = "Assets/SOs/Monsters/";
+        string folderPath = "Assets/SOs/Monster/";
         string[] assetGUIDs = AssetDatabase.FindAssets("t:MonsterSO", new[] { folderPath });
 
         List<MonsterSO> monsters = new List<MonsterSO>();
@@ -65,7 +65,7 @@ public class MonsterDataManager : MonoBehaviour
                 monsters.Add(monsterSO);
             }
         }
-        return new List<MonsterSO>();
+        return monsters;
         
     }
 }
