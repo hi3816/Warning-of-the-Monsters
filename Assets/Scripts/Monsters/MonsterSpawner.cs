@@ -6,6 +6,7 @@ public class MonsterSpawner : MonoBehaviour
 {
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private StageManager stageManager;
+    private Monster _monster;
     private Transform[] _spawnPoints;
     
     private void Start()
@@ -26,6 +27,8 @@ public class MonsterSpawner : MonoBehaviour
             if (monsterComponent != null)
             {
                 monsterComponent.data = selectedMonsterData;
+                SpriteRenderer renderer = monsterComponent.GetComponent<SpriteRenderer>();
+                renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 255f);
                 monsterComponent.SetState(MonsterState.Idle);
             }
         }
@@ -50,6 +53,7 @@ public class MonsterSpawner : MonoBehaviour
                             stageManager.currGold -= selectedMonsterData.requiredCoins;
                             Vector3 spawnPosition = spawnPoint.position;
                             SpawnMonster(spawnPosition, selectedMonsterData);
+
                         }
                         else
                         {

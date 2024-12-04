@@ -40,30 +40,43 @@ public class HumanBT : MonoBehaviour
     {
         SelectorNode root = new SelectorNode();
 
-        // Idle Node
         IdleNode idleNode = new IdleNode(_humanController);
-
-        // Walk Node
-        WalkNode walkNode = new WalkNode(_humanController, targetPoint);
-
-        // Ready To Battle        
-        SelectorNode readySelector = new SelectorNode();
-
-        // SetFormation Node
-        SetFormationNode setFormationNode =  new SetFormationNode(_humanController);
+        RunNode runNode = new RunNode(_humanController, spawnPoint);
         
+        //SelectorNode readySelector = new SelectorNode();
+        
+        
+        // // Idle Node
+        //
+        // // Walk Node
+        // WalkNode walkNode = new WalkNode(_humanController, targetPoint);
+        //
+        // // Ready To Battle        
+         SelectorNode readySelector = new SelectorNode();
+         WalkNode walkNode = new WalkNode(_humanController, targetPoint);
+         readySelector.AddChild(walkNode);
+        // // SetFormation Node
+        // SetFormationNode setFormationNode =  new SetFormationNode(_humanController);
+        //
         // Battle
         SequenceNode battleSequence = new SequenceNode();
-        battleSequence.AddChild(new RunNode(_humanController, spawnPoint));
+        battleSequence.AddChild(new SetFormationNode(_humanController));
         battleSequence.AddChild(new AttackNode(_humanController));
-        
-        readySelector.AddChild(setFormationNode);
-        readySelector.AddChild(battleSequence);
-        
-        root.AddChild(idleNode);
-        root.AddChild(walkNode);
-        root.AddChild(readySelector);
+        //
+         readySelector.AddChild(battleSequence);
+        // readySelector.AddChild(setFormationNode);
+        // readySelector.AddChild(battleSequence);
+        //
+        // root.AddChild(idleNode);
+        // root.AddChild(walkNode);
+        // root.AddChild(readySelector);
     
+        root.AddChild(idleNode);
+        root.AddChild(runNode);
+        root.AddChild(readySelector);
+        //root.AddChild(walkNode);
+        //root.AddChild(battleSequence);
+        
         _behaviorTree = new BehaviorTree(root);
     }
 }

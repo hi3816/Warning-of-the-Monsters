@@ -19,6 +19,6 @@ public class RunNode : INode
             _humanController.ArriveToDestination(_spawnPosition);
             return NodeState.Running;
         }
-        return NodeState.Success;
+        return NodeState.Failure;
     }
 }
