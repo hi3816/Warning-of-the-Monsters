@@ -73,6 +73,8 @@ public class StagePopup : UIBase
 
     private void LoadGameScene()
     {
+        DataManager.Instance.selectedStageIdx = _stageIdx;
+
         SceneManager.LoadScene("StageScene");
     }
 

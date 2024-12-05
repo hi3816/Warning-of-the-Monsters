@@ -10,6 +10,8 @@ public class DataManager : SingletonBase<DataManager>
     private StageSO[] _stageSOs;
     private TestSO[] _testSOs;
 
+    public int selectedStageIdx;
+
     protected override void Awake()
     {
         base.Awake();
