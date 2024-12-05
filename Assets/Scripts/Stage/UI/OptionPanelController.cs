@@ -5,22 +5,25 @@ using UnityEngine.UI;
 public class OptionPanelController : MonoBehaviour
 {
     [Header("ToggleButton")]
-    [SerializeField] private Toggle bgmToggle;
-    [SerializeField] private Toggle sfxToggle;
+    [SerializeField] private Image bgmImage;
+    [SerializeField] private Image sfxImage;
+
+    private float onAlpha = 255f / 255f;
+    private float offAlpha = 200f / 255f;
 
     private SoundManager soundManager;
 
     private void Awake()
     {
         soundManager = SoundManager.Instance;
-        SetToggleIsOn();
+        SetMusicButton();
     }
 
-    // ToggleButton 초기화
-    private void SetToggleIsOn()
+    // BGM, SFX 세팅
+    public void SetMusicButton()
     {
-        bgmToggle.isOn = soundManager.IsPlayBGM;
-        sfxToggle.isOn = soundManager.IsPlaySFX;
+        ChangeBgmImage();
+        ChangeSfxImage();
     }
 
     // BGM 버튼 클릭 (On / Off)
@@ -36,16 +39,34 @@ public class OptionPanelController : MonoBehaviour
         {
             soundManager.StopBGM();
         }
+        ChangeBgmImage();
+    }
+
+    // BGM On Off 변경시 이미지 alpha 값 변경
+    private void ChangeBgmImage()
+    {
+        Color color = bgmImage.color;
+        color.a = soundManager.IsPlayBGM ? onAlpha : offAlpha;
+        bgmImage.color = color;
     }
 
     // SFX 버튼 클릭 (On / Off)
     public void ClickSfxButton()
     {
         soundManager.ChangeIsPlaySFX();
+        ChangeSfxImage();
+    }
+
+    // SFX On Off 변경시 SFX 이미지 alpha 값 변경
+    private void ChangeSfxImage()
+    {
+        Color color = sfxImage.color;
+        color.a = soundManager.IsPlaySFX ? onAlpha : offAlpha;
+        sfxImage.color = color;
     }
 
     // Retry 버튼 클릭
-    public void ClickRetryButton()
+    private void ClickRetryButton()
     {
         gameObject.SetActive(false);
         Time.timeScale = 1f;

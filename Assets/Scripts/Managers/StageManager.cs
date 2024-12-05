@@ -31,14 +31,10 @@ public class StageManager : SingletonBase<StageManager>
     {
         base.Awake();
         soundManager = SoundManager.Instance;
+        soundManager.PlayBGM(BgmType.Stage);
         SetStageStat();
         SetStageObject();
         ChangeUI();
-    }
-
-    private void Start()
-    {
-        soundManager.PlayBGM(BgmType.Stage);
     }
 
     // stage에 대한 정보 초기화
