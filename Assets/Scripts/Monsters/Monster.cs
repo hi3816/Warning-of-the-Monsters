@@ -204,6 +204,7 @@ public abstract class Monster : MonoBehaviour
         }
 
         _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 0f);
+        
         gameObject.SetActive(false);
         PoolManager.Instance.ReturnToPool(data.poolTag, gameObject);
     }
@@ -213,7 +214,7 @@ public abstract class Monster : MonoBehaviour
         StopAllCoroutines();
         currentFatigue = 0f;
         _targetHumanList.Clear();
-        _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 255f);
+        _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 1f);
         SetState(MonsterState.Idle);
     }
 }
