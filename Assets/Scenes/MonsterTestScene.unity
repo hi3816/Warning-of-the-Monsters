@@ -215,6 +215,57 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &470327625
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 470327627}
+  - component: {fileID: 470327626}
+  m_Layer: 0
+  m_Name: PoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &470327626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470327625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39d8faa4bfad71948a8d68329f413d81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolConfigs:
+  - tag: Demon
+    prefab: {fileID: 7674980571249262148, guid: 7685c4643fb174fd587dafc1460f6be2, type: 3}
+    size: 20
+  - tag: Human
+    prefab: {fileID: 2330070577731405459, guid: 499e5e11e4fc0f444b2364c66ab115d3, type: 3}
+    size: 9
+--- !u!4 &470327627
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470327625}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.0690646, y: 1.0413857, z: 0.027536022}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!222 &83933894124664035
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -812,7 +863,6 @@ MonoBehaviour:
   healthTxt: {fileID: 1587839886411700283}
   goldTxt: {fileID: 7799277929554888284}
   optionPanel: {fileID: 1866565545759210241}
-  stageSOs: []
   totalWave: 0
   currWave: 0
   currHealth: 0
@@ -1014,22 +1064,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4163183526409726560, guid: 79489871a0af74485806a1c6a122dd7a, type: 3}
-      propertyPath: poolConfigs.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4163183526409726560, guid: 79489871a0af74485806a1c6a122dd7a, type: 3}
-      propertyPath: poolConfigs.Array.data[1].tag
-      value: Human
-      objectReference: {fileID: 0}
-    - target: {fileID: 4163183526409726560, guid: 79489871a0af74485806a1c6a122dd7a, type: 3}
-      propertyPath: poolConfigs.Array.data[1].size
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4163183526409726560, guid: 79489871a0af74485806a1c6a122dd7a, type: 3}
-      propertyPath: poolConfigs.Array.data[1].prefab
-      value: 
-      objectReference: {fileID: 2330070577731405459, guid: 499e5e11e4fc0f444b2364c66ab115d3, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3351,4 +3385,5 @@ SceneRoots:
   - {fileID: 1257509672796682453}
   - {fileID: 6723708995037975232}
   - {fileID: 1963770680100275957}
+  - {fileID: 470327627}
   - {fileID: 2886780635995125449}
