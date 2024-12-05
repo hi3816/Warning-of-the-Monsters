@@ -14,8 +14,27 @@ public class MonsterSpawner : MonoBehaviour
         _spawnPoints = spawnPointObjects.Select(go => go.transform).ToArray();
     }
     
+    private bool IsSpawnPointOccupied(Vector3 spawnPosition, float checkRadius)
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(spawnPosition, checkRadius, LayerMask.GetMask("Monster"));
+        foreach (var collider in colliders)
+        {
+            if (Vector3.Distance(spawnPosition, collider.transform.position) < checkRadius)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     private void SpawnMonster(Vector3 spawnPosition, MonsterSO selectedMonsterData)
     {
+        if (IsSpawnPointOccupied(spawnPosition, 0.5f))
+        {
+            print("Spawn point is already occupied by another monster.");
+            return;
+        }
+        
         GameObject monster = PoolManager.Instance.SpawnFromPool(selectedMonsterData.poolTag, spawnPosition, Quaternion.identity);
         if (monster != null)
         {
