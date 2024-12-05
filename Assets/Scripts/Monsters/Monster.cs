@@ -82,7 +82,7 @@ public abstract class Monster : MonoBehaviour
         return null;
     }
 
-    public void SetState(MonsterState state)
+    private void SetState(MonsterState state)
     {
         if (_monsterState == state) return;
         

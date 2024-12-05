@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using UnityEngine;
 
@@ -51,7 +50,6 @@ public class MonsterSpawner : MonoBehaviour
                             stageManager.currGold -= selectedMonsterData.requiredCoins;
                             Vector3 spawnPosition = spawnPoint.position;
                             SpawnMonster(spawnPosition, selectedMonsterData);
-
                         }
                         else
                         {
