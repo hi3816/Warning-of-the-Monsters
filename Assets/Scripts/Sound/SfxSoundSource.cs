@@ -15,12 +15,13 @@ public class SfxSoundSource : MonoBehaviour
         type = sfxType;
         audioSource.clip = clip;
         audioSource.volume = soundEffectVolume;
-        audioSource.pitch = 1f + Random.Range(-soundEffectPitchVaricance, soundEffectPitchVaricance); // ´Ù¾çÇÑ À½Çâ È¿°ú
+        audioSource.pitch = 1f + Random.Range(-soundEffectPitchVaricance, soundEffectPitchVaricance); // ë‹¤ì–‘í•œ ìŒí–¥ íš¨ê³¼
         audioSource.PlayOneShot(clip);
 
         StartCoroutine(CoDisable(clip.length));
     }
 
+    // ë¹„í™œì„±í™” ë° í’€ ë°˜í™˜
     private IEnumerator CoDisable(float length)
     {
         yield return new WaitForSecondsRealtime(length);

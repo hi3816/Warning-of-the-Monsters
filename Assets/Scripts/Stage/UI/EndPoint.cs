@@ -6,7 +6,7 @@ public class EndPoint : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            // HumanSO.lifeInflicted °ªÀ¸·Î ±ï±â
+            // HumanSO.lifeInflicted ê°’ìœ¼ë¡œ ê¹ê¸°
             // StageManager.Instance.ChangeHealth(humanSO.lifeInflicted);
             // Destroy(collision.gameObject);
             Debug.LogAssertion("Enemy Collision");
