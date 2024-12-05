@@ -5,6 +5,10 @@ public class SequenceNode : INode
 {
     private readonly List<INode> _children = new List<INode>();
 
+    public SequenceNode(List<INode> children)
+    {
+        _children = children ?? new List<INode>();
+    }
     public void AddChild(INode child)
     {
         _children.Add(child);
