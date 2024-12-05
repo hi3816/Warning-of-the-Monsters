@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   poolTag: Demon
-  fatigue: 10
-  fearInflicted: 2
-  cooldown: 1.5
-  humanScaringRange: 2
-  requiredCoins: 2
+  fatigue: 40
+  fearInflicted: 0
+  cooldown: 0
+  humanScaringRange: 0
+  requiredCoins: 0

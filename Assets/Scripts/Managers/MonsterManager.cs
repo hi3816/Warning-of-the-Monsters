@@ -1,7 +1,11 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class MonsterManager : SingletonBase<MonsterManager>
 {
+    [SerializeField]
+    private MonsterDataManager monsterDataManager;
+    
     private Dictionary<int, MonsterSO> _monstersById = new Dictionary<int, MonsterSO>();
     private int _selectedMonsterId;
     public int SelectedMonsterId => _selectedMonsterId;
@@ -14,12 +18,15 @@ public class MonsterManager : SingletonBase<MonsterManager>
     
     private void LoadMonsterData()
     {
-        if (MonsterDataManager.Instance != null)
+        if (monsterDataManager != null)
         {
-            List<MonsterSO> monsters = MonsterDataManager.Instance.LoadMonstersFromAssets();
+            MonsterSO[] monsters = monsterDataManager.LoadMonsterData();
             foreach (MonsterSO monster in monsters)
             {
-                _monstersById[monster.id] = monster;
+                if (!_monstersById.ContainsKey(monster.id))
+                {
+                    _monstersById[monster.id] = monster;
+                }
             }
         }
     }
@@ -34,9 +41,9 @@ public class MonsterManager : SingletonBase<MonsterManager>
     
     public MonsterSO GetSelectedMonsterData()
     {
-        if (_monstersById.ContainsKey(_selectedMonsterId))
+        if (_monstersById.TryGetValue(_selectedMonsterId, out var monsterSo))
         {
-            return _monstersById[_selectedMonsterId];
+            return monsterSo;
         }
         return null;
     }

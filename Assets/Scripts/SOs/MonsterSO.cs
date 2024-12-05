@@ -9,5 +9,5 @@ public class MonsterSO : ScriptableObject
     public float fearInflicted; //적(인간)에게 주는 공포수치량
     public float cooldown; //몬스터 놀래킴 쿨타임
     public float humanScaringRange; //적(인간)을 놀래킬 수 있는 범위
-    public float requiredCoins; //필요재화
+    public int requiredCoins; //필요재화
 }
