@@ -41,7 +41,6 @@ public class SoundManager : SingletonBase<SoundManager>
 
     protected override void Awake()
     {
-        base.Awake();
         audioBgm = GetComponent<AudioSource>();
         audioBgm.volume = bgmVolume;
         audioBgm.loop = true;

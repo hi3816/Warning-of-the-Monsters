@@ -29,10 +29,13 @@ public class ObjectPool : MonoBehaviour
         Queue<GameObject> objectPool = new Queue<GameObject>();
         for (int i = 0; i < pool.Size; i++)
         {
-            // 게임오브젝트 프리팹에서 생성하고 비활성화
-            GameObject obj = Instantiate(pool.Prefab, transform);
-            obj.SetActive(false);
-            objectPool.Enqueue(obj);    // 큐 구조의 오브젝트풀에 생성된 게임오브젝트 추가
+            if (pool.Prefab != null)
+            {
+                // 게임오브젝트 프리팹에서 생성하고 비활성화
+                GameObject obj = Instantiate(pool.Prefab, transform);
+                obj.SetActive(false);
+                objectPool.Enqueue(obj);    // 큐 구조의 오브젝트풀에 생성된 게임오브젝트 추가
+            }
         }
         
         _poolDictionary.Add(pool.Tag, objectPool);  // 새로 만든 풀을 풀 딕셔너리에 추가

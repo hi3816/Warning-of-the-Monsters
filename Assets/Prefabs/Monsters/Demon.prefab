@@ -152,7 +152,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3, y: 3}
+  m_Size: {x: 5, y: 5}
   m_EdgeRadius: 0
 --- !u!50 &3483221263393832048
 Rigidbody2D:
@@ -194,5 +194,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 48fd5faab8b20405d907d101bdf45166, type: 2}
-  fadeDuration: 1
+  fadeDuration: 0.5
   currentFatigue: 0

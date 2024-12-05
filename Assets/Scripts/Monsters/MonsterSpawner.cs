@@ -27,9 +27,7 @@ public class MonsterSpawner : MonoBehaviour
             if (monsterComponent != null)
             {
                 monsterComponent.data = selectedMonsterData;
-                SpriteRenderer renderer = monsterComponent.GetComponent<SpriteRenderer>();
-                renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 255f);
-                monsterComponent.SetState(MonsterState.Idle);
+                monsterComponent.Reset();
             }
         }
     }
@@ -48,9 +46,9 @@ public class MonsterSpawner : MonoBehaviour
                 {
                     if (MonsterManager.Instance.SelectedMonsterId != 0)
                     {
-                        if (stageManager.CurrGold >= selectedMonsterData.requiredCoins)
+                        if (stageManager.currGold >= selectedMonsterData.requiredCoins)
                         {
-                            stageManager.ChangeGold((int)selectedMonsterData.requiredCoins);
+                            stageManager.currGold -= selectedMonsterData.requiredCoins;
                             Vector3 spawnPosition = spawnPoint.position;
                             SpawnMonster(spawnPosition, selectedMonsterData);
 

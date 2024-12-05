@@ -18,7 +18,7 @@ public abstract class Monster : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
     private MonsterState _monsterState;
-    public float fadeDuration = 1f;
+    public float fadeDuration = 0.5f;
     private float _lastScareTime;
     public float currentFatigue; //현재 피로도
     
@@ -175,7 +175,7 @@ public abstract class Monster : MonoBehaviour
     
     private void ReturnToVillage()
     {
-        currentFatigue = 0f;
+        StopAllCoroutines();
         StartCoroutine(FadeOutAndReturnToPool());
     }
 
@@ -206,5 +206,14 @@ public abstract class Monster : MonoBehaviour
         _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 0f);
         gameObject.SetActive(false);
         PoolManager.Instance.ReturnToPool(data.poolTag, gameObject);
+    }
+    
+    public void Reset()
+    {
+        StopAllCoroutines();
+        currentFatigue = 0f;
+        _targetHumanList.Clear();
+        _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 255f);
+        SetState(MonsterState.Idle);
     }
 }
