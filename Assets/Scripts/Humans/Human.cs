@@ -20,4 +20,10 @@ public class Human : MonoBehaviour
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
+
+    private void OnEnable()
+    {
+        IsWaveStarted = true;
+        FearLevel = 0;
+    }
 }

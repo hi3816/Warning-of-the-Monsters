@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class HumanBT : MonoBehaviour
@@ -38,45 +39,57 @@ public class HumanBT : MonoBehaviour
     // TODO: unity editor experimental graph view 활용 or 외부 패키지 사용하여 Edtor에서 확인 가능하게 수정
     private void InitializeBehaviorTree()   // 인간 행동 트리 초기화
     {
-        SelectorNode root = new SelectorNode();
-
-        IdleNode idleNode = new IdleNode(_humanController);
-        RunNode runNode = new RunNode(_humanController, spawnPoint);
-        
-        //SelectorNode readySelector = new SelectorNode();
-        
-        
-        // // Idle Node
+        // SelectorNode root = new SelectorNode();
         //
-        // // Walk Node
-        // WalkNode walkNode = new WalkNode(_humanController, targetPoint);
+        // IdleNode idleNode = new IdleNode(_humanController);
+        // RunNode runNode = new RunNode(_humanController, spawnPoint);
         //
-        // // Ready To Battle        
-         SelectorNode readySelector = new SelectorNode();
-         WalkNode walkNode = new WalkNode(_humanController, targetPoint);
-         readySelector.AddChild(walkNode);
-        // // SetFormation Node
-        // SetFormationNode setFormationNode =  new SetFormationNode(_humanController);
         //
-        // Battle
-        SequenceNode battleSequence = new SequenceNode();
-        battleSequence.AddChild(new SetFormationNode(_humanController));
-        battleSequence.AddChild(new AttackNode(_humanController));
+        //  // Ready To Battle        
+        //  SelectorNode readySelector = new SelectorNode();
+        //  WalkNode walkNode = new WalkNode(_humanController, targetPoint);
+        //  readySelector.AddChild(walkNode);
+        // // Battle
+        // SequenceNode battleSequence = new SequenceNode();
+        // battleSequence.AddChild(new SetFormationNode(_humanController));
+        // battleSequence.AddChild(new AttackNode(_humanController));
         //
-         readySelector.AddChild(battleSequence);
-        // readySelector.AddChild(setFormationNode);
         // readySelector.AddChild(battleSequence);
         //
         // root.AddChild(idleNode);
-        // root.AddChild(walkNode);
+        // root.AddChild(runNode);
         // root.AddChild(readySelector);
-    
-        root.AddChild(idleNode);
-        root.AddChild(runNode);
-        root.AddChild(readySelector);
-        //root.AddChild(walkNode);
-        //root.AddChild(battleSequence);
-        
+        //
+        // _behaviorTree = new BehaviorTree(root);
+        SelectorNode root = new SelectorNode
+        (
+            new List<INode>
+            {
+                new IdleNode(_humanController), 
+
+                new RunNode(_humanController, spawnPoint), 
+
+                // 전투 분기 노드
+                new SelectorNode
+                (
+                    new List<INode>
+                    {
+                        new WalkNode(_humanController, targetPoint),
+
+                        // 전투 시퀀스
+                        new SequenceNode
+                        (
+                            new List<INode>
+                            {
+                                new SetFormationNode(_humanController), // 공격 위치 조정
+                                new AttackNode(_humanController)      // 공격 수행
+                            }
+                        )
+                    }
+                )
+            }
+        );
         _behaviorTree = new BehaviorTree(root);
+
     }
 }

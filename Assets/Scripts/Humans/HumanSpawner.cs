@@ -26,7 +26,7 @@ public class HumanSpawner : MonoBehaviour
         {
             GameObject obj = PoolManager.Instance.SpawnFromPool("Human", transform.position, Quaternion.identity);
             _human = obj.GetComponent<Human>();
-            _human.IsWaveStarted = true;
+            //_human.IsWaveStarted = true;
         }
 
         // // A키 누르면 몬스터에게 인간이 공격을 당한 것(깜짝 놀란 것)으로 간주

@@ -15,7 +15,8 @@ public class SetFormationNode : INode
 
         _humanController.animator.SetBool("IsAttacked", true);
 
-        Vector3 formationPosition = _humanController.human.transform.position;    // 각 인간 객체의 전투 시작 위치
+        // 타켓 몬스터의 위치로 계속해서 이동
+        Vector3 formationPosition = _humanController.human.targetMonster.transform.position;
         _humanController.MoveToFormationPosition(formationPosition);
         return NodeState.Success; // TestCode 바로 상태 전환
     }
