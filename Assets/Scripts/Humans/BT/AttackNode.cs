@@ -11,6 +11,7 @@ public class AttackNode : INode
 
     public NodeState Evaluate()
     {
+        _humanController.nodeTxt.text = "Attack";
         // Debug.Log($"Evaluating {this.GetType().Name}");
         if (!_humanController.HasTargetMonster())   // 타겟몬스터 없어지면
         {

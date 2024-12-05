@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -14,6 +15,8 @@ public class HumanController : MonoBehaviour
 
     private float lastAttackTime;
     private bool isReturning = false;
+
+    public TextMeshProUGUI nodeTxt;
     
     private void Awake()
     {
@@ -93,6 +96,7 @@ public class HumanController : MonoBehaviour
     public void IncreaseFear(float amount)
     {
         animator.SetTrigger("Surprise");
+        //nodeTxt.text = "Surprise";
 
         human.FearLevel += amount;
         Debug.LogWarning($"Fear: {human.FearLevel}");
@@ -134,7 +138,7 @@ public class HumanController : MonoBehaviour
     {
         if (!isReturning)
         {
-            Debug.LogAssertion("Returning human process");
+            Debug.Log("Returning human process");
             isReturning = true;
             yield return new WaitForSeconds(1.0f);
             PoolManager.Instance.ReturnToPool("Human", this.gameObject);

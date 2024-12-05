@@ -11,6 +11,7 @@ public class SetFormationNode : INode
 
     public NodeState Evaluate()
     {
+        _humanController.nodeTxt.text = "SetFormation";
         // Debug.Log($"Evaluating {this.GetType().Name}");
         _humanController.animator.SetBool("IsBattle", true);
         // 타켓 몬스터의 위치로 계속해서 이동

@@ -14,6 +14,7 @@ public class WalkNode : INode
     public NodeState Evaluate()
     {
         // Debug.Log($"Evaluating {this.GetType().Name}");
+        _humanController.nodeTxt.text = "Walk";
 
         if (_humanController.HasTargetMonster() || _humanController.IsFearMaxed())   // 타겟몬스터 있으면
         {
