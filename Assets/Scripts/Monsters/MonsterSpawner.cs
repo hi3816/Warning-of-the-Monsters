@@ -64,9 +64,9 @@ public class MonsterSpawner : MonoBehaviour
                 {
                     if (MonsterManager.Instance.SelectedMonsterId != 0)
                     {
-                        if (stageManager.currGold >= selectedMonsterData.requiredCoins)
+                        if (stageManager.CurrGold >= selectedMonsterData.requiredCoins)
                         {
-                            stageManager.currGold -= selectedMonsterData.requiredCoins;
+                            stageManager.ChangeGold(-selectedMonsterData.requiredCoins);
                             Vector3 spawnPosition = spawnPoint.position;
                             SpawnMonster(spawnPosition, selectedMonsterData);
                         }
