@@ -6,12 +6,12 @@ public class StartBattleButtonController : MonoBehaviour
 {
     [SerializeField] private Image timeCircleImage;
 
-    private bool isWaveEnd = false; // ¿şÀÌºê°¡ ³¡³µ´ÂÁö È®ÀÎ
-    private float interWaveDelay; // ¿şÀÌºê °£ Áö¿¬ ½Ã°£
-    private float currInterDelayTime = 0f; // ÇöÀç Áö¿¬ ½Ã°£ ¼³Á¤
+    private bool isWaveEnd = false; // ì›¨ì´ë¸Œê°€ ëë‚¬ëŠ”ì§€ í™•ì¸
+    private float interWaveDelay; // ì›¨ì´ë¸Œ ê°„ ì§€ì—° ì‹œê°„
+    private float currInterDelayTime = 0f; // í˜„ì¬ ì§€ì—° ì‹œê°„ ì„¤ì •
 
-    private Coroutine coroutine; // Áö¿¬ ½Ã°£ °è»ê ÄÚ·çÆ¾
-    private WaitForSeconds coroutineSeconds; // Áö¿¬ ½Ã°£ Ä³½Ì ÇÊµå
+    private Coroutine coroutine; // ì§€ì—° ì‹œê°„ ê³„ì‚° ì½”ë£¨í‹´
+    private WaitForSeconds coroutineSeconds; // ì§€ì—° ì‹œê°„ ìºì‹± í•„ë“œ
 
     private void Awake()
     {
@@ -32,7 +32,7 @@ public class StartBattleButtonController : MonoBehaviour
         }
     }
 
-    // StartBattleBtn Å¬¸¯
+    // StartBattleBtn í´ë¦­
     public void StartWave()
     {
         isWaveEnd = false;
@@ -44,20 +44,20 @@ public class StartBattleButtonController : MonoBehaviour
         StageManager.Instance.UpdateWave();
     }
 
-    // ´ÙÀ½ ¿şÀÌºê ½Ã°£ °è»ê
+    // ë‹¤ìŒ ì›¨ì´ë¸Œ ì‹œê°„ ê³„ì‚°
     private IEnumerator CoInterWaveDelay()
     {
         yield return coroutineSeconds;
         isWaveEnd = true;
     }
 
-    // StartBattleBtn ÀÌ¹ÌÁö º¯È­
+    // StartBattleBtn ì´ë¯¸ì§€ ë³€í™”
     private void ChangeStartBattleBtn()
     {
         timeCircleImage.fillAmount = currInterDelayTime / interWaveDelay;
     }
 
-    // ¿şÀÌºê°¡ ³¡³µÀ» ¶§
+    // ì›¨ì´ë¸Œê°€ ëë‚¬ì„ ë•Œ
     public void EndWave()
     {
         if (!gameObject.activeSelf && !CheckClear())
@@ -68,7 +68,7 @@ public class StartBattleButtonController : MonoBehaviour
         }
     }
 
-    // ÇöÀç ½ºÅ×ÀÌÁö¸¦ Å¬¸®¾î Çß´ÂÁö È®ÀÎ
+    // í˜„ì¬ ìŠ¤í…Œì´ì§€ë¥¼ í´ë¦¬ì–´ í–ˆëŠ”ì§€ í™•ì¸
     private bool CheckClear()
     {
         if (StageManager.Instance.CheckEndStage())
@@ -76,7 +76,7 @@ public class StartBattleButtonController : MonoBehaviour
             Time.timeScale = 0f;
             SoundManager.Instance.StopBGM();
             return true;
-            // Å¬¸®¾î ÆË¾÷ Ãß°¡
+            // í´ë¦¬ì–´ íŒì—… ì¶”ê°€
         }
         else
         {

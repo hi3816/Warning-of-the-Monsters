@@ -15,7 +15,6 @@ public class StageManager : SingletonBase<StageManager>
     [SerializeField] private GameObject optionPanel;
 
     public StageSO stageSO { get; private set; }
-    [SerializeField] private StageSO[] stageSOs;
 
     [Header("Stat")]
 
@@ -35,7 +34,6 @@ public class StageManager : SingletonBase<StageManager>
     [SerializeField] private Toggle sfxToggle; 
 
     private SoundManager soundManager;
-    private StageDataLoader stageDataLoader;
 
     protected override void Awake()
     {
@@ -55,18 +53,15 @@ public class StageManager : SingletonBase<StageManager>
     // stage에 대한 정보 초기화
     private void SetStageStat()
     {
-        // 모든 StageSO 가져오기
-        stageDataLoader = GetComponent<StageDataLoader>();
-        stageSOs = stageDataLoader.SetStageSOs();
-        
         // 현재 Stage의 Stat 설정
-        stageSO = stageSOs[stageIdx];
+        stageSO = DataManager.Instance.GetStageByIndex(stageIdx);
         totalWave = stageSO.wave;
         currWave = 0;
         currHealth = stageSO.health;
         currGold = stageSO.gold;
     }
 
+    // Stage 및 하위 오브젝트 캐싱
     private void SetStageObject()
     {
         // 스테이지 동적 로드

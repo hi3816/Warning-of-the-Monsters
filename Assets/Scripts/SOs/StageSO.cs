@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class StageSO : ScriptableObject
 {
-    public int wave; // ½ºÅ×ÀÌÁöº° ¿şÀÌºê
-    public int health; // ½ºÅ×ÀÌÁöº° Ã¼·Â
-    public int gold; // ½ºÅ×ÀÌÁöº° ±âº» °ñµå
-    public float interWaveDelay; // ¸ó½ºÅÍ Ã³Ä¡°¡ ³¡³ª°í ³­ ÈÄÀÇ ´ÙÀ½ ¿şÀÌºê±îÁöÀÇ Áö¿¬ ½Ã°£
+    public int wave; // ìŠ¤í…Œì´ì§€ë³„ ì›¨ì´ë¸Œ
+    public int health; // ìŠ¤í…Œì´ì§€ë³„ ì²´ë ¥
+    public int gold; // ìŠ¤í…Œì´ì§€ë³„ ê¸°ë³¸ ê³¨ë“œ
+    public float interWaveDelay; // ëª¬ìŠ¤í„° ì²˜ì¹˜ê°€ ëë‚˜ê³  ë‚œ í›„ì˜ ë‹¤ìŒ ì›¨ì´ë¸Œê¹Œì§€ì˜ ì§€ì—° ì‹œê°„
 }

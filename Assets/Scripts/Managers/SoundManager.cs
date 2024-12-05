@@ -37,7 +37,7 @@ public class SoundManager : SingletonBase<SoundManager>
     [SerializeField][Range(0f, 1f)] private float sfxPitchVariance; // 높은 음이 나옴
 
     public bool IsPlayBGM { get; private set; } // BGM 출력 설정 (On / Off)
-    public bool IsPlaySFX { get; private set; }// SFX 출력 설정 (On / Off)
+    public bool IsPlaySFX { get; private set; } // SFX 출력 설정 (On / Off)
 
     protected override void Awake()
     {
@@ -47,9 +47,9 @@ public class SoundManager : SingletonBase<SoundManager>
         IsPlayBGM = true;
         IsPlaySFX = true;
 
-        DontDestroyOnLoad(gameObject);
         SetBgmDictionary();
         SetSfxDictionary();
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
