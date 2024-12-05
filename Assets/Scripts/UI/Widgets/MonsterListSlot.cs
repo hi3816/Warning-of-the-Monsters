@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class MonsterListSlot : MonoBehaviour
 {
-    [SerializeField]
-    private Image slotImage;
 
-    public void setSlotImage(Sprite monsterSprite)
+    public void SelectListSlot()
     {
-        slotImage.sprite = monsterSprite;
+        Sprite sprite = transform.GetChild(0).GetComponent<Image>().sprite;
+
+        UIManager.Instance.OnClickListSlot?.Invoke(sprite);
     }
 }
