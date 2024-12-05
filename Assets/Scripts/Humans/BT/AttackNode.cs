@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class AttackNode : INode
 {
     private HumanController _humanController;
@@ -16,6 +18,7 @@ public class AttackNode : INode
         }
         if (_humanController.CanAttack())
         {
+            Debug.LogAssertion("Attack Check");
             _humanController.PerformAttack(); // 공격 수행
         }
         return NodeState.Success; 
