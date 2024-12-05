@@ -60,6 +60,7 @@ namespace Stage_Data
 		public System.Int32 wave;
 		public System.Int32 health;
 		public System.Int32 gold;
+		public System.Single waveStartDelay;
 		public System.Single interWaveDelay;
   
 

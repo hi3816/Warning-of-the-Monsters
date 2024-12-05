@@ -1,9 +1,5 @@
-using JetBrains.Annotations;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class StageManager : SingletonBase<StageManager>
 {
@@ -21,7 +17,7 @@ public class StageManager : SingletonBase<StageManager>
     [SerializeField] private int totalWave; // 전체 웨이브 수
     [SerializeField] private int currWave; // 현재 웨이브
     [SerializeField] private int currHealth; // 현재 체력
-    public float currGold; // 현재 골드
+    [SerializeField] public float CurrGold { get; private set; }// 현재 골드
 
     [Header("Stage")]
 
@@ -29,25 +25,16 @@ public class StageManager : SingletonBase<StageManager>
     [SerializeField] private int stageIdx;
     [SerializeField] private StartBattleButtonController startBattleBtnController;
 
-    [Header("ToggleButton")]
-    [SerializeField] private Toggle bgmToggle;
-    [SerializeField] private Toggle sfxToggle; 
-
     private SoundManager soundManager;
 
     protected override void Awake()
     {
         base.Awake();
         soundManager = SoundManager.Instance;
+        soundManager.PlayBGM(BgmType.Stage);
         SetStageStat();
         SetStageObject();
-        SetToggleIsOn();
         ChangeUI();
-    }
-
-    private void Start()
-    {
-        soundManager.PlayBGM(BgmType.Stage);
     }
 
     // stage에 대한 정보 초기화
@@ -58,7 +45,7 @@ public class StageManager : SingletonBase<StageManager>
         totalWave = stageSO.wave;
         currWave = 0;
         currHealth = stageSO.health;
-        currGold = stageSO.gold;
+        CurrGold = stageSO.gold;
     }
 
     // Stage 및 하위 오브젝트 캐싱
@@ -72,26 +59,12 @@ public class StageManager : SingletonBase<StageManager>
         startBattleBtnController = stage.GetComponentInChildren<StartBattleButtonController>();
     }
 
-    // ToggleButton 초기화
-    private void SetToggleIsOn()
-    {
-        bgmToggle.isOn = soundManager.IsPlayBGM;
-        sfxToggle.isOn = soundManager.IsPlaySFX;
-    }
-
     // UI 변경(웨이브, 체력, 골드)
     private void ChangeUI()
     {
         waveTxt.text = $"Wave {currWave} / {totalWave}";
         healthTxt.text = currHealth.ToString();
-        goldTxt.text = currGold.ToString();
-    }
-
-    // health 변경
-    public void ChangeHealth(int health)
-    {
-        currHealth += health;
-        ChangeUI();
+        goldTxt.text = CurrGold.ToString();
     }
 
     // Wave 업데이트
@@ -109,19 +82,24 @@ public class StageManager : SingletonBase<StageManager>
         return (currWave == totalWave);
     }
 
+    // health 변경
+    public void ChangeHealth(int health)
+    {
+        currHealth += health;
+        ChangeUI();
+    }
+
+    public void ChangeGold(int gold)
+    {
+        CurrGold += gold;
+        ChangeUI();
+    }
+
     // StopPanel 활성화
     public void ShowOptionPanel()
     {
         optionPanel.SetActive(true);
         Time.timeScale = 0f;
-    }
-
-    // Retry 버튼 클릭
-    public void ClickRetryButton()
-    {
-        optionPanel.SetActive(false);
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("StageScene");
     }
 
     // 테스트 버튼 클릭
