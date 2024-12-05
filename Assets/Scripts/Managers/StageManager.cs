@@ -15,9 +15,9 @@ public class StageManager : SingletonBase<StageManager>
     [Header("Stat")]
 
     [SerializeField] private int totalWave; // 전체 웨이브 수
-    [SerializeField] private int currWave; // 현재 웨이브
-    [SerializeField] private int currHealth; // 현재 체력
-    [SerializeField] public float CurrGold { get; private set; }// 현재 골드
+    [SerializeField] public int CurrWave { get; private set; } // 현재 웨이브
+    [SerializeField] public int CurrHealth { get; private set; } // 현재 체력
+    [SerializeField] public float CurrGold { get; private set; } // 현재 골드
 
     [Header("Stage")]
 
@@ -43,8 +43,8 @@ public class StageManager : SingletonBase<StageManager>
         // 현재 Stage의 Stat 설정
         stageSO = DataManager.Instance.GetStageByIndex(stageIdx);
         totalWave = stageSO.wave;
-        currWave = 0;
-        currHealth = stageSO.health;
+        CurrWave = 0;
+        CurrHealth = stageSO.health;
         CurrGold = stageSO.gold;
     }
 
@@ -62,8 +62,8 @@ public class StageManager : SingletonBase<StageManager>
     // UI 변경(웨이브, 체력, 골드)
     private void ChangeUI()
     {
-        waveTxt.text = $"Wave {currWave} / {totalWave}";
-        healthTxt.text = currHealth.ToString();
+        waveTxt.text = $"Wave {CurrWave} / {totalWave}";
+        healthTxt.text = CurrHealth.ToString();
         goldTxt.text = CurrGold.ToString();
     }
 
@@ -71,21 +71,21 @@ public class StageManager : SingletonBase<StageManager>
     public void UpdateWave()
     {
         // 전체 웨이브가 끝나면 return
-        if (currWave >= totalWave) return;
-        currWave++;
+        if (CurrWave >= totalWave) return;
+        CurrWave++;
         ChangeUI();
     }
 
     // 현재 스테이지의 모든 웨이브가 끝났는지 확인
     public bool CheckEndStage()
     {
-        return (currWave == totalWave);
+        return (CurrWave == totalWave);
     }
 
     // health 변경
     public void ChangeHealth(int health)
     {
-        currHealth += health;
+        CurrHealth += health;
         ChangeUI();
     }
 

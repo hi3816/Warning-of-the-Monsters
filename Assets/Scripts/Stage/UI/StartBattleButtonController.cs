@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem.Composites;
 using UnityEngine.UI;
 
 public class StartBattleButtonController : MonoBehaviour
@@ -50,10 +49,13 @@ public class StartBattleButtonController : MonoBehaviour
         currWaveStartDelayTime = 0f;
         timeCircleImage.fillAmount = 0f;
         ButtonDisable();
-        if (coroutine != null) StopCoroutine(coroutine);
-        coroutine = StartCoroutine(CoInterWaveDelay());
 
-        StageManager.Instance.UpdateWave();
+        if (!CheckClear())
+        {
+            if (coroutine != null) StopCoroutine(coroutine);
+            coroutine = StartCoroutine(CoInterWaveDelay());
+            StageManager.Instance.UpdateWave();
+        }
     }
 
     // 다음 웨이브 시간 계산
@@ -70,11 +72,10 @@ public class StartBattleButtonController : MonoBehaviour
         timeCircleImage.fillAmount = currWaveStartDelayTime / waveStartDelay;
     }
 
-
     // 웨이브가 끝났을 때
     public void EndWave()
     {
-        if (!CheckClear())
+        if (!CheckClear() && !button.enabled)
         {
             ButtonEnable();
             if(coroutine != null) StopCoroutine(coroutine);
@@ -87,22 +88,19 @@ public class StartBattleButtonController : MonoBehaviour
     {
         if (StageManager.Instance.CheckEndStage())
         {
+            // 클리어 조건 추가
             Time.timeScale = 0f;
             SoundManager.Instance.StopBGM();
             return true;
             // 클리어 팝업 추가
         }
-        else
-        {
-            ChangeStartBattleBtn();
-            return false;
-        }
+        return false;
     }
 
     private void ButtonEnable()
     {
         button.enabled = true;
-        foreach(Image image in images)
+        foreach (Image image in images)
         {
             image.enabled = true;
         }
