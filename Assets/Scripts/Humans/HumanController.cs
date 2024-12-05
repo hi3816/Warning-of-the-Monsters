@@ -13,7 +13,8 @@ public class HumanController : MonoBehaviour
     public bool IsAttacked;
 
     private float lastAttackTime;
-
+    private bool isReturning = false;
+    
     private void Awake()
     {
         human = GetComponent<Human>();
@@ -29,8 +30,13 @@ public class HumanController : MonoBehaviour
     {
         agent.ResetPath();
         agent.SetDestination(target);
+        // Debug.LogWarning(agent.remainingDistance);
+        // Debug.LogWarning(agent.stoppingDistance);
         bool flag = agent.remainingDistance <= agent.stoppingDistance;
         //return agent.remainingDistance <= agent.stoppingDistance;
+        if (!flag)
+            StartCoroutine(ReturnHumanProcess());
+            //StartCoroutine(HumanManager.Instance.ReturnHumanProcess());
         return flag;
     }
 
@@ -41,7 +47,6 @@ public class HumanController : MonoBehaviour
     {
         agent.ResetPath();
         agent.SetDestination(formationPosition);
-        animator.SetBool("IsSet", true);
         return false;
     }
 
@@ -73,7 +78,10 @@ public class HumanController : MonoBehaviour
     
     public bool HasTargetMonster()
     {
-        return human.targetMonster != null;
+        bool hasTarget = human.targetMonster != null;
+        if (!hasTarget)
+            animator.SetBool("IsBattle", false);
+        return hasTarget;
     }
 
     public bool IsWaveStarted()
@@ -84,6 +92,8 @@ public class HumanController : MonoBehaviour
     // 공포 수치 증가시키는 메서드
     public void IncreaseFear(float amount)
     {
+        animator.SetTrigger("Surprise");
+
         human.FearLevel += amount;
         Debug.LogWarning($"Fear: {human.FearLevel}");
         // 최대 공포 수치 넘지 않도록 조정
@@ -119,10 +129,15 @@ public class HumanController : MonoBehaviour
             StartCoroutine(ReturnHumanProcess());
         }
     }
-
+    
     private IEnumerator ReturnHumanProcess()
     {
-        yield return new WaitForSeconds(3.0f);
-        PoolManager.Instance.ReturnToPool("Human", this.gameObject);
+        if (!isReturning)
+        {
+            Debug.LogAssertion("Returning human process");
+            isReturning = true;
+            yield return new WaitForSeconds(1.0f);
+            PoolManager.Instance.ReturnToPool("Human", this.gameObject);
+        }
     }
 }

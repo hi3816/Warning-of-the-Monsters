@@ -12,9 +12,7 @@ public class SetFormationNode : INode
     public NodeState Evaluate()
     {
         // Debug.Log($"Evaluating {this.GetType().Name}");
-
-        _humanController.animator.SetBool("IsAttacked", true);
-
+        _humanController.animator.SetBool("IsBattle", true);
         // 타켓 몬스터의 위치로 계속해서 이동
         Vector3 formationPosition = _humanController.human.targetMonster.transform.position;
         _humanController.MoveToFormationPosition(formationPosition);

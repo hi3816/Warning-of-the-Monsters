@@ -18,7 +18,7 @@ public class AttackNode : INode
         }
         if (_humanController.CanAttack())
         {
-            Debug.LogAssertion("Attack Check");
+            //Debug.LogAssertion("Attack Check");
             _humanController.PerformAttack(); // 공격 수행
         }
         return NodeState.Success; 

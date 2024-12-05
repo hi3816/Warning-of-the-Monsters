@@ -10,6 +10,7 @@ public class Human : MonoBehaviour
 
     public bool IsWaveStarted { get; set; }
     public float FearLevel { get; set; }
+    public int WaveIdx { get; set; }
 
     private void Awake()
     {

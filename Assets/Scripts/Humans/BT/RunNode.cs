@@ -16,6 +16,7 @@ public class RunNode : INode
         // Debug.Log($"Evaluating {this.GetType().Name}");
         if (_humanController.IsFearMaxed())
         {
+            _humanController.animator.SetTrigger("Run");
             _humanController.ArriveToDestination(_spawnPosition);
             return NodeState.Running;
         }

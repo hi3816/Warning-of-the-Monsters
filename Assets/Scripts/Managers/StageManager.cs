@@ -24,6 +24,8 @@ public class StageManager : SingletonBase<StageManager>
     [SerializeField] private GameObject stage;
     [SerializeField] private int stageIdx;
     [SerializeField] private StartBattleButtonController startBattleBtnController;
+    
+    public int CurrWave { get => currWave; }
 
     private SoundManager soundManager;
 
