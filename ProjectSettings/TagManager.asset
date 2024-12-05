@@ -8,6 +8,7 @@ TagManager:
   - DestinationPoint
   - MonsterSpawnPoint
   - Human
+  - EndPoint
   layers:
   - Default
   - TransparentFX

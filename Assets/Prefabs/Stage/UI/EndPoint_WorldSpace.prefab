@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3170906167201086852}
   m_Layer: 5
   m_Name: EndPoint_WorldSpace
-  m_TagString: DestinationPoint
+  m_TagString: EndPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,9 +73,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.46451092, y: 0}
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 63.418987
 --- !u!50 &8691749512058458335
 Rigidbody2D:
   serializedVersion: 4

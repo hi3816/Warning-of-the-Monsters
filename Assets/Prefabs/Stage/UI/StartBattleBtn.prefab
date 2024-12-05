@@ -311,7 +311,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1160516218018638187}
-        m_TargetAssemblyTypeName: ContactStartButton, Assembly-CSharp
+        m_TargetAssemblyTypeName: StartBattleButtonController, Assembly-CSharp
         m_MethodName: StartWave
         m_Mode: 1
         m_Arguments:

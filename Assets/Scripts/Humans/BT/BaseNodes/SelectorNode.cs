@@ -5,7 +5,11 @@ using System.Collections.Generic;
 public class SelectorNode : INode
 {
     private List<INode> _children = new List<INode>();
-
+    
+    public SelectorNode(List<INode> children)
+    {
+        _children = children ?? new List<INode>();
+    }
     public void AddChild(INode child)
     {
         _children.Add(child);

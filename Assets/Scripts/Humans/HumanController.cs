@@ -1,5 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class HumanController : MonoBehaviour
@@ -24,8 +27,11 @@ public class HumanController : MonoBehaviour
 
     public bool ArriveToDestination(Vector3 target)
     {
+        agent.ResetPath();
         agent.SetDestination(target);
-        return agent.remainingDistance <= agent.stoppingDistance;
+        bool flag = agent.remainingDistance <= agent.stoppingDistance;
+        //return agent.remainingDistance <= agent.stoppingDistance;
+        return flag;
     }
 
     // 유닛이 대형을 정비하는 메서드
@@ -34,8 +40,7 @@ public class HumanController : MonoBehaviour
     public bool MoveToFormationPosition(Vector3 formationPosition)
     {
         agent.ResetPath();
-        // formationPosition = agent.transform.position;   // TestCode: SetFormation -> AttackSquence로 바로 전환
-        // return agent.remainingDistance > agent.stoppingDistance;
+        agent.SetDestination(formationPosition);
         animator.SetBool("IsSet", true);
         return false;
     }
@@ -55,30 +60,10 @@ public class HumanController : MonoBehaviour
     // 몬스터 공격하는 메서드
     public void PerformAttack()
     {
-        //lastAttackTime = Time.time; // 마지막 공격 시각 갱신
-        //if (human.targetMonster == null) return;
-        //if (human.targetMonster != null)    // 타겟으로 하는 몬스터 있으면
-        {
-            // 몬스터 피로도를 최소 ~ 최대 피로도 영향 수치 내에서 랜덤 값으로 증가
-            // TODO: Monster.cs에서 접근 제한 수정되면 주석 해제
-            animator.SetTrigger("Attack");
-            //Debug.LogAssertion("Human attacked Monster");
-            /* TestCode */
-            // 공격 여러번하면 몬스터 피로도 올라가고 20(임의의 값) 이상이면 타겟 몬스터 null로 만들기
-           // human.targetMonster.CurrentFatigue += Random.Range(human.humanData.minFatigueInflicted, human.humanData.maxFatigueInflicted);
-           //  Debug.LogAssertion($"MonsterFatigue:{human.targetMonster.CurrentFatigue}");
-           //  if (human.targetMonster.CurrentFatigue >= 20)
-           //      human.targetMonster = null;
-           float randValue = Random.Range(human.humanData.minFatigueInflicted, human.humanData.maxFatigueInflicted);
-           human.targetMonster.IncreaseFatigue(randValue);
-           lastAttackTime = Time.time;
-        }
-    }
-
-    // 몬스터가 공격범위 내에 있는지 확인
-    public bool MonsterInRange(float attackRange)
-    {
-        return human.targetMonster != null && Vector3.Distance(transform.position, human.targetMonster.transform.position) <= attackRange;
+        animator.SetTrigger("Attack");
+        float randValue = Random.Range(human.humanData.minFatigueInflicted, human.humanData.maxFatigueInflicted);
+        human.targetMonster.IncreaseFatigue(randValue);
+        lastAttackTime = Time.time;
     }
 
     public void SetTargetMonster(Monster monster)
@@ -125,5 +110,19 @@ public class HumanController : MonoBehaviour
             IncreaseFear(10);   // 공포 수치 증가
             animator.SetTrigger("Surprise");
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("EndPoint"))
+        {
+            StartCoroutine(ReturnHumanProcess());
+        }
+    }
+
+    private IEnumerator ReturnHumanProcess()
+    {
+        yield return new WaitForSeconds(3.0f);
+        PoolManager.Instance.ReturnToPool("Human", this.gameObject);
     }
 }
