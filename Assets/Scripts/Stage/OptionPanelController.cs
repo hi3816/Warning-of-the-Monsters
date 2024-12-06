@@ -70,6 +70,6 @@ public class OptionPanelController : MonoBehaviour
     {
         gameObject.SetActive(false);
         Time.timeScale = 1f;
-        SceneManager.LoadScene("StageScene");
+        SceneManager.LoadScene("MainScene");
     }
 }
