@@ -25,8 +25,6 @@ public class StageManager : SingletonBase<StageManager>
     [SerializeField] private int stageIdx;
     [SerializeField] private StartBattleButtonController startBattleBtnController;
     
-    public int CurrWave { get => currWave; }
-
     private SoundManager soundManager;
 
     protected override void Awake()

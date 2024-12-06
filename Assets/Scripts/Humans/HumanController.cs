@@ -11,11 +11,12 @@ public class HumanController : MonoBehaviour
     public Human human;
     public Animator animator;
     private NavMeshAgent agent;
+    private Vector3 oldTarget;
     public bool IsAttacked;
 
     private float lastAttackTime;
     private bool isReturning = false;
-
+    
     public TextMeshProUGUI nodeTxt;
     
     private void Awake()
@@ -31,15 +32,17 @@ public class HumanController : MonoBehaviour
 
     public bool ArriveToDestination(Vector3 target)
     {
-        agent.ResetPath();
-        agent.SetDestination(target);
-        // Debug.LogWarning(agent.remainingDistance);
-        // Debug.LogWarning(agent.stoppingDistance);
-        bool flag = agent.remainingDistance <= agent.stoppingDistance;
-        //return agent.remainingDistance <= agent.stoppingDistance;
+        if (oldTarget != target)
+        {
+            oldTarget = target;
+            NavMeshPath path = new NavMeshPath();
+            agent.CalculatePath(target, path);
+            agent.SetPath(path);
+        }
+
+        bool flag = agent.hasPath;
         if (!flag)
             StartCoroutine(ReturnHumanProcess());
-            //StartCoroutine(HumanManager.Instance.ReturnHumanProcess());
         return flag;
     }
 
