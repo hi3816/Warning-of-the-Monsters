@@ -5,19 +5,16 @@ public class StageManager : SingletonBase<StageManager>
 {
     [Header("UI")]
 
-    [SerializeField] private TextMeshProUGUI waveTxt;
-    [SerializeField] private TextMeshProUGUI healthTxt;
-    [SerializeField] private TextMeshProUGUI goldTxt;
     [SerializeField] private GameObject optionPanel;
+    [SerializeField] private GameObject stageInfo;
+    [SerializeField] private StageInfoController stageInfoController;
 
     public StageSO stageSO { get; private set; }
 
-    [Header("Stat")]
-
-    [SerializeField] private int totalWave; // 전체 웨이브 수
-    [SerializeField] public int CurrWave { get; private set; } // 현재 웨이브
-    [SerializeField] public int CurrHealth { get; private set; } // 현재 체력
-    [SerializeField] public float CurrGold { get; private set; } // 현재 골드
+    public int totalWave { get; private set; } // 전체 웨이브 수
+    public int CurrWave { get; private set; } // 현재 웨이브
+    public int CurrHealth { get; private set; } // 현재 체력
+    public float CurrGold { get; private set; } // 현재 골드
 
     [Header("Stage")]
 
@@ -32,13 +29,12 @@ public class StageManager : SingletonBase<StageManager>
         base.Awake();
         soundManager = SoundManager.Instance;
         soundManager.PlayBGM(BgmType.Stage);
-        SetStageStat();
+        SetStageInfo();
         SetStageObject();
-        ChangeUI();
     }
 
     // stage에 대한 정보 초기화
-    private void SetStageStat()
+    private void SetStageInfo()
     {
         // 현재 Stage의 Stat 설정
         stageSO = DataManager.Instance.GetStageByIndex(stageIdx);
@@ -46,6 +42,8 @@ public class StageManager : SingletonBase<StageManager>
         CurrWave = 0;
         CurrHealth = stageSO.health;
         CurrGold = stageSO.gold;
+        stageIdx = DataManager.Instance.selectedStageIdx;
+        stageInfoController = stageInfo.GetComponent<StageInfoController>();
     }
 
     // Stage 및 하위 오브젝트 캐싱
@@ -59,21 +57,13 @@ public class StageManager : SingletonBase<StageManager>
         startBattleBtnController = stage.GetComponentInChildren<StartBattleButtonController>();
     }
 
-    // UI 변경(웨이브, 체력, 골드)
-    private void ChangeUI()
-    {
-        waveTxt.text = $"Wave {CurrWave} / {totalWave}";
-        healthTxt.text = CurrHealth.ToString();
-        goldTxt.text = CurrGold.ToString();
-    }
-
     // Wave 업데이트
     public void UpdateWave()
     {
         // 전체 웨이브가 끝나면 return
         if (CurrWave >= totalWave) return;
         CurrWave++;
-        ChangeUI();
+        stageInfoController.ChangeUI();
     }
 
     // 현재 스테이지의 모든 웨이브가 끝났는지 확인
@@ -86,13 +76,13 @@ public class StageManager : SingletonBase<StageManager>
     public void ChangeHealth(int health)
     {
         CurrHealth += health;
-        ChangeUI();
+        stageInfoController.ChangeUI();
     }
 
     public void ChangeGold(int gold)
     {
         CurrGold += gold;
-        ChangeUI();
+        stageInfoController.ChangeUI();
     }
 
     // StopPanel 활성화

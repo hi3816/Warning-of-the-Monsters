@@ -150,11 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38499651fd279ee48820749720232c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveTxt: {fileID: 3350438687879148}
-  healthTxt: {fileID: 8023629456091528223}
-  goldTxt: {fileID: 1543629079589151352}
   optionPanel: {fileID: 2417726098624762811}
-  totalWave: 0
+  stageInfo: {fileID: 6207528262063605471}
+  stageInfoController: {fileID: 0}
   stage: {fileID: 0}
   stageIdx: 0
   startBattleBtnController: {fileID: 0}
@@ -170,8 +168,9 @@ GameObject:
   - component: {fileID: 6171034232733144997}
   - component: {fileID: 5937001173591912959}
   - component: {fileID: 6177668224861450536}
+  - component: {fileID: 7646393019276754035}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: StageInfoCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -262,6 +261,21 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7646393019276754035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6207528262063605471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e39a935b5a7bf84e8c3d822710e5003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthTxt: {fileID: 8023629456091528223}
+  goldTxt: {fileID: 1543629079589151352}
+  waveTxt: {fileID: 3350438687879148}
 --- !u!1001 &2929908651231534964
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -354,22 +368,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: HPBar
       objectReference: {fileID: 0}
-    - target: {fileID: 5183792840769921899, guid: 1f0ac0cf8dc1dc24580c3e560007136b, type: 3}
-      propertyPath: m_fontSize
-      value: 28
-      objectReference: {fileID: 0}
-    - target: {fileID: 5183792840769921899, guid: 1f0ac0cf8dc1dc24580c3e560007136b, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: eeb6e4a1156544e48b265a0de4753658, type: 2}
-    - target: {fileID: 5183792840769921899, guid: 1f0ac0cf8dc1dc24580c3e560007136b, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 28
-      objectReference: {fileID: 0}
-    - target: {fileID: 5183792840769921899, guid: 1f0ac0cf8dc1dc24580c3e560007136b, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -5070498466862533057, guid: eeb6e4a1156544e48b265a0de4753658, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -696,22 +694,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GoldBar
       objectReference: {fileID: 0}
-    - target: {fileID: 8913631125958569286, guid: de73b1b9d83dd8348be3d268b40ab4c3, type: 3}
-      propertyPath: m_fontSize
-      value: 28
-      objectReference: {fileID: 0}
-    - target: {fileID: 8913631125958569286, guid: de73b1b9d83dd8348be3d268b40ab4c3, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: eeb6e4a1156544e48b265a0de4753658, type: 2}
-    - target: {fileID: 8913631125958569286, guid: de73b1b9d83dd8348be3d268b40ab4c3, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 28
-      objectReference: {fileID: 0}
-    - target: {fileID: 8913631125958569286, guid: de73b1b9d83dd8348be3d268b40ab4c3, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -5070498466862533057, guid: eeb6e4a1156544e48b265a0de4753658, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -821,22 +803,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8240451965117447507, guid: 3b72e423033d097489b444316af6ee7a, type: 3}
-      propertyPath: m_fontSize
-      value: 28
-      objectReference: {fileID: 0}
-    - target: {fileID: 8240451965117447507, guid: 3b72e423033d097489b444316af6ee7a, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: eeb6e4a1156544e48b265a0de4753658, type: 2}
-    - target: {fileID: 8240451965117447507, guid: 3b72e423033d097489b444316af6ee7a, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 28
-      objectReference: {fileID: 0}
-    - target: {fileID: 8240451965117447507, guid: 3b72e423033d097489b444316af6ee7a, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -5070498466862533057, guid: eeb6e4a1156544e48b265a0de4753658, type: 2}
     - target: {fileID: 8781680096068768741, guid: 3b72e423033d097489b444316af6ee7a, type: 3}
       propertyPath: m_Name
       value: WaveBar
