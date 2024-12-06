@@ -20,7 +20,7 @@ namespace Monster_Data
     public partial class Upgrade_Data : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<Upgrade_Data> loadedList, Dictionary<int, Upgrade_Data> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<Upgrade_Data> loadedList, Dictionary<float, Upgrade_Data> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "114x3sY4Qf5iKh3tkf2GXsqlNufwgEc13JmaLskbTBxo"; // it is file id
@@ -29,7 +29,7 @@ namespace Monster_Data
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<int, Upgrade_Data> Upgrade_DataMap = new Dictionary<int, Upgrade_Data>();  
+        public static Dictionary<float, Upgrade_Data> Upgrade_DataMap = new Dictionary<float, Upgrade_Data>();  
         public static List<Upgrade_Data> Upgrade_DataList = new List<Upgrade_Data>();   
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Monster_Data
         /// Get Upgrade_Data Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<int, Upgrade_Data>  GetDictionary()
+        public static Dictionary<float, Upgrade_Data>  GetDictionary()
         {{
            if (isLoaded == false) Load();
            return Upgrade_DataMap;
@@ -56,7 +56,7 @@ namespace Monster_Data
 
 /* Fields. */
 
-		public System.Int32 monster_id;
+		public System.Single monster_id;
 		public System.Int32 upgrade_level;
 		public System.String name;
 		public System.Single fatigue;
@@ -90,7 +90,7 @@ namespace Monster_Data
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<Upgrade_Data>, Dictionary<int, Upgrade_Data>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<Upgrade_Data>, Dictionary<float, Upgrade_Data>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -118,8 +118,8 @@ namespace Monster_Data
                
 
 
-    public static (List<Upgrade_Data> list, Dictionary<int, Upgrade_Data> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<int, Upgrade_Data> Map = new Dictionary<int, Upgrade_Data>();
+    public static (List<Upgrade_Data> list, Dictionary<float, Upgrade_Data> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<float, Upgrade_Data> Map = new Dictionary<float, Upgrade_Data>();
             List<Upgrade_Data> List = new List<Upgrade_Data>();     
             TypeMap.Init();
             FieldInfo[] fields = typeof(Upgrade_Data).GetFields(BindingFlags.Public | BindingFlags.Instance);

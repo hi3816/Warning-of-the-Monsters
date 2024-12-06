@@ -35,17 +35,28 @@ public class MonsterSpawner : MonoBehaviour
             return;
         }
         
-        GameObject monster = PoolManager.Instance.SpawnFromPool(selectedMonsterData.poolTag, spawnPosition, Quaternion.identity);
-        if (monster != null)
+        if (stageManager.CurrGold >= selectedMonsterData.requiredCoins)
         {
-            monster.transform.position = spawnPosition;
-            monster.SetActive(true);
-            
-            var monsterComponent = monster.GetComponent<Monster>();
-            if (monsterComponent != null)
+            stageManager.ChangeGold(-selectedMonsterData.requiredCoins);
+            GameObject monster = PoolManager.Instance.SpawnFromPool(selectedMonsterData.poolTag, spawnPosition, Quaternion.identity);
+            if (monster != null)
             {
-                monsterComponent.data = selectedMonsterData;
-                monsterComponent.Reset();
+                monster.transform.position = spawnPosition;
+                monster.SetActive(true);
+
+                var monsterComponent = monster.GetComponent<Monster>();
+                if (monsterComponent != null)
+                {
+                    monsterComponent.data = selectedMonsterData;
+                    monsterComponent.Reset();
+                }
+                
+                // 나중에 big 몬스터인지 small 몬스터인지 반별하는 조건 추가
+                SoundManager.Instance.PlaySFX(SfxType.SpawnSmallMonster);
+            }
+            else
+            {
+                print("You do not have enough gold to spawn monster");
             }
         }
     }
@@ -64,17 +75,10 @@ public class MonsterSpawner : MonoBehaviour
                 {
                     if (MonsterManager.Instance.SelectedMonsterId != 0)
                     {
-                        if (stageManager.CurrGold >= selectedMonsterData.requiredCoins)
+                        if (!IsSpawnPointOccupied(spawnPoint.position, 0.5f) && stageManager.CurrGold >= selectedMonsterData.requiredCoins)
                         {
-                            stageManager.ChangeGold(-selectedMonsterData.requiredCoins);
                             Vector3 spawnPosition = spawnPoint.position;
                             SpawnMonster(spawnPosition, selectedMonsterData);
-                            // 나중에 big 몬스터인지 small 몬스터인지 반별하는 조건 추가
-                            SoundManager.Instance.PlaySFX(SfxType.SpawnSmallMonster);
-                        }
-                        else
-                        {
-                            print("You do not have enough gold to spawn monster");
                         }
                     }
                 }
