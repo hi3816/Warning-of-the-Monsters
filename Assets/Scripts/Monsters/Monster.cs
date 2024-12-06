@@ -22,6 +22,7 @@ public abstract class Monster : MonoBehaviour
     public int currentUpgradeLevel = 0;
     private float _lastScareTime;
     public float currentFatigue; //현재 피로도
+    private Coroutine coroutine;
     
     public void Upgrade(Monster_Data.Upgrade_Data upgradeData)
     {
@@ -106,7 +107,7 @@ public abstract class Monster : MonoBehaviour
 
             case MonsterState.ReturningVillage:
                 _animator.SetTrigger("Return");
-                StartCoroutine(FadeOutAndReturnToPool());
+                coroutine = StartCoroutine(FadeOutAndReturnToPool());
                 break;
         }
     }
@@ -182,7 +183,7 @@ public abstract class Monster : MonoBehaviour
     
     private void ReturnToVillage()
     {
-        StopAllCoroutines();
+        if (coroutine != null) StopCoroutine(coroutine);
         StartCoroutine(FadeOutAndReturnToPool());
     }
 
@@ -218,7 +219,7 @@ public abstract class Monster : MonoBehaviour
     
     public void Reset()
     {
-        StopAllCoroutines();
+        if (coroutine != null) StopCoroutine(coroutine);
         currentFatigue = 0f;
         _targetHumanList.Clear();
         _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 1f);
