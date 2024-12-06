@@ -1,12 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem.Composites;
 using UnityEngine.UI;
 
 public class StartBattleButtonController : MonoBehaviour
 {
     [SerializeField] private Image timeCircleImage;
-    [SerializeField] private HumanSpawner humanSpawner;
 
     private bool isWaveStart = true; // 웨이브가 시작했는지 확인
     private float waveStartDelay; // 현재 웨이브 시작하기 전 지연 시간
@@ -28,9 +26,6 @@ public class StartBattleButtonController : MonoBehaviour
         
         button = GetComponent<Button>();
         images = GetComponentsInChildren<Image>();
-        
-        if (humanSpawner == null)
-            humanSpawner = FindObjectOfType<HumanSpawner>();
     }
 
     private void Update()
@@ -54,12 +49,13 @@ public class StartBattleButtonController : MonoBehaviour
         currWaveStartDelayTime = 0f;
         timeCircleImage.fillAmount = 0f;
         ButtonDisable();
-        if (coroutine != null) StopCoroutine(coroutine);
-        coroutine = StartCoroutine(CoInterWaveDelay());
 
-        StageManager.Instance.UpdateWave();
-        
-        humanSpawner.StartSpawningHumans(StageManager.Instance.CurrWave );
+        if (!CheckClear())
+        {
+            if (coroutine != null) StopCoroutine(coroutine);
+            coroutine = StartCoroutine(CoInterWaveDelay());
+            StageManager.Instance.UpdateWave();
+        }
     }
 
     // 다음 웨이브 시간 계산
@@ -76,11 +72,10 @@ public class StartBattleButtonController : MonoBehaviour
         timeCircleImage.fillAmount = currWaveStartDelayTime / waveStartDelay;
     }
 
-
     // 웨이브가 끝났을 때
     public void EndWave()
     {
-        if (!CheckClear())
+        if (!CheckClear() && !button.enabled)
         {
             ButtonEnable();
             if(coroutine != null) StopCoroutine(coroutine);
@@ -93,22 +88,19 @@ public class StartBattleButtonController : MonoBehaviour
     {
         if (StageManager.Instance.CheckEndStage())
         {
+            // 클리어 조건 추가
             Time.timeScale = 0f;
             SoundManager.Instance.StopBGM();
             return true;
             // 클리어 팝업 추가
         }
-        else
-        {
-            ChangeStartBattleBtn();
-            return false;
-        }
+        return false;
     }
 
     private void ButtonEnable()
     {
         button.enabled = true;
-        foreach(Image image in images)
+        foreach (Image image in images)
         {
             image.enabled = true;
         }

@@ -110,7 +110,10 @@ public class HumanController : MonoBehaviour
     // 최대 공포 수치 넘었는지 확인
     public bool IsFearMaxed()
     {
-        return human.FearLevel >= human.humanData.maxFear;
+        bool isFearMaxed = human.FearLevel >= human.humanData.maxFear;
+        if (isFearMaxed)
+            StartCoroutine(ReturnHumanProcess());
+        return isFearMaxed;
     }
 
     // 몬스터의 겁주기에 반응하는 메서드(피격 로직)
