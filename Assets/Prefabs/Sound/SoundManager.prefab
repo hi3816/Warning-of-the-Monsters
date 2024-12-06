@@ -47,6 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmList:
+  - bgmType: 0
+    clip: {fileID: 8300000, guid: 2de6f55f5b5d4654d869d8511b793fde, type: 3}
+  - bgmType: 1
+    clip: {fileID: 8300000, guid: 6fc0d1125a15c9840823d9333d45f620, type: 3}
   - bgmType: 2
     clip: {fileID: 8300000, guid: 02c32ca8d4a617e469782da7e91041d1, type: 3}
   SfxList:
@@ -59,8 +63,8 @@ MonoBehaviour:
   - sfxType: 3
     clip: {fileID: 8300000, guid: 129df4fd2d7e0a04c92da179da8deab5, type: 3}
   bgmVolume: 0.063
-  sfxVolume: 1
-  sfxPitchVariance: 0.524
+  sfxVolume: 0.278
+  sfxPitchVariance: 0.278
 --- !u!82 &1947102430599819499
 AudioSource:
   m_ObjectHideFlags: 0

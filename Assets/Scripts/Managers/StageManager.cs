@@ -44,6 +44,7 @@ public class StageManager : SingletonBase<StageManager>
         CurrGold = stageSO.gold;
         stageIdx = DataManager.Instance.selectedStageIdx;
         stageInfoController = stageInfo.GetComponent<StageInfoController>();
+        stageInfoController.ChangeUI();
     }
 
     // Stage 및 하위 오브젝트 캐싱
