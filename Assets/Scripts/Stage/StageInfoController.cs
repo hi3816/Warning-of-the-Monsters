@@ -12,7 +12,6 @@ public class StageInfoController : MonoBehaviour
     private void Awake()
     {
         stageManager = StageManager.Instance;
-        ChangeUI();
     }
 
     // UI 변경(웨이브, 체력, 골드)

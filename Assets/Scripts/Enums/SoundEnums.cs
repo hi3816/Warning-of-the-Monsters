@@ -1,10 +1,13 @@
+using GoogleSheet.Core.Type;
+
 public enum BgmType
 {
     Intro, // 인트로씬
-    Robby, // 로비씬
+    Lobby, // 로비씬
     Stage, // 스테이지씬
 }
 
+[UGS(typeof(SfxType))]
 //SFX 종류들
 public enum SfxType
 {

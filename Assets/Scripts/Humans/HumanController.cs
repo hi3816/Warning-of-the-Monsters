@@ -99,6 +99,7 @@ public class HumanController : MonoBehaviour
     public void IncreaseFear(float amount)
     {
         animator.SetTrigger("Surprise");
+        SoundManager.Instance.PlaySFX(SfxType.SurprisingHuman);
         //nodeTxt.text = "Surprise";
 
         human.FearLevel += amount;
