@@ -78,6 +78,8 @@ public class OptionPanelController : MonoBehaviour
     {
         gameObject.SetActive(false);
         Time.timeScale = 1f;
+        PoolManager.Instance.DeleteAllPools();
+        PoolManager.Instance.AddPoolS(SoundManager.Instance.poolconfigs);
         SceneManager.LoadScene("LobbyScene");
     }
 }

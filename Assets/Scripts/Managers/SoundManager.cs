@@ -41,6 +41,8 @@ public class SoundManager : SingletonBase<SoundManager>
     public bool IsPlayBGM { get; private set; } // BGM 출력 설정 (On / Off)
     public bool IsPlaySFX { get; private set; } // SFX 출력 설정 (On / Off)
 
+    public PoolManager.PoolConfig[] poolconfigs;
+
     protected override void Awake()
     {
         audioBgm = GetComponent<AudioSource>();
