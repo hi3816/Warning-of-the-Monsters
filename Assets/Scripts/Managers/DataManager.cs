@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class DataManager : SingletonBase<DataManager>
 {
     private StageSO[] _stageSOs;
     private TestSO[] _testSOs;
+    private Dictionary<SfxType, float> _individualSfxVolumeDict;
 
     public int selectedStageIdx;
 
@@ -20,6 +22,7 @@ public class DataManager : SingletonBase<DataManager>
         //data캐싱
         _stageSOs = SetStageSOs();
         _testSOs = SetTestSOs();
+        _individualSfxVolumeDict = SetIndividualSfxVolumeDict();
     }
 
     private TestSO[] SetTestSOs()
@@ -55,7 +58,20 @@ public class DataManager : SingletonBase<DataManager>
 
         return stageSOs;
     }
-    
+
+    private Dictionary<SfxType, float> SetIndividualSfxVolumeDict()
+    {
+        List<SfxVolume_Data.SfxVolume_Data> sfxVolumeDataList = SfxVolume_Data.SfxVolume_Data.GetList();
+
+        Dictionary<SfxType, float> individualSfxVolumeDict = new Dictionary<SfxType, float> ();
+        for (int i = 0; i < sfxVolumeDataList.Count; i++)
+        {
+            individualSfxVolumeDict.Add(sfxVolumeDataList[i].SfxType, sfxVolumeDataList[i].volume);
+        }
+
+        return individualSfxVolumeDict;
+    }
+
     public TestSO[] GetTestSprite()
     {
         if (_testSOs == null)
@@ -71,6 +87,15 @@ public class DataManager : SingletonBase<DataManager>
             _stageSOs = SetStageSOs();
         }
         return _stageSOs[idx];
+    }
+
+    public Dictionary<SfxType, float> GetIndvidualSfxVolumeDict()
+    {
+        if(_individualSfxVolumeDict == null)
+        {
+            _individualSfxVolumeDict = SetIndividualSfxVolumeDict();
+        }
+        return _individualSfxVolumeDict;
     }
 
     //StageData Cache Clearing
@@ -96,6 +121,15 @@ public class DataManager : SingletonBase<DataManager>
                 ScriptableObject.Destroy(so);
             }
             _testSOs = null;
+        }
+    }
+
+    public void ClearIndividualVolumeDict()
+    {
+        if(_individualSfxVolumeDict != null)
+        {
+            _individualSfxVolumeDict.Clear();
+            _individualSfxVolumeDict = null;
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -32,8 +33,10 @@ public class SoundManager : SingletonBase<SoundManager>
     [SerializeField][Range(0f, 1f)] private float bgmVolume;
 
     // SFX 볼륨 및 음 높낮이 조절
-    [SerializeField][Range(0f, 1f)] private float sfxVolume;
+    [SerializeField][Range(0f, 1f)] private float globalSfxVolume;
     [SerializeField][Range(0f, 1f)] private float sfxPitchVariance; // 높은 음이 나옴
+
+    private Dictionary<SfxType, float> individualSfxVolumeDict;
 
     public bool IsPlayBGM { get; private set; } // BGM 출력 설정 (On / Off)
     public bool IsPlaySFX { get; private set; } // SFX 출력 설정 (On / Off)
@@ -48,6 +51,7 @@ public class SoundManager : SingletonBase<SoundManager>
 
         SetBgmDictionary();
         SetSfxDictionary();
+        SetSfxVolumeDictionary();
         DontDestroyOnLoad(gameObject);
     }
 
@@ -85,6 +89,21 @@ public class SoundManager : SingletonBase<SoundManager>
         }
     }
 
+    private void SetSfxVolumeDictionary()
+    {
+        individualSfxVolumeDict = DataManager.Instance.GetIndvidualSfxVolumeDict();
+        
+        foreach(SfxType key in sfxDict.Keys)
+        {
+            // 해당 키값이 없을 때 개별 볼륨을 1.0 으로 초기화
+            // 즉 전체 Sfx 볼륨과 일치
+            if (!individualSfxVolumeDict.ContainsKey(key))
+            {
+                individualSfxVolumeDict.Add(key, 1.0f);
+            }
+        }
+    }
+
     // 배경 음악 시작
     public void PlayBGM(BgmType bgmType)
     {
@@ -111,7 +130,8 @@ public class SoundManager : SingletonBase<SoundManager>
             GameObject obj = PoolManager.Instance.SpawnFromPool(sfxType.ToString());
             obj.SetActive(true);
             SfxSoundSource soundSource = obj.GetComponent<SfxSoundSource>();
-            soundSource.Play(sfxDict[sfxType], sfxType, sfxVolume, sfxPitchVariance);
+            Debug.Log($"global {globalSfxVolume}, individual {individualSfxVolumeDict[sfxType]}");
+            soundSource.Play(sfxDict[sfxType], sfxType, globalSfxVolume * individualSfxVolumeDict[sfxType], sfxPitchVariance);
         }
     }
 
