@@ -130,7 +130,6 @@ public class SoundManager : SingletonBase<SoundManager>
             GameObject obj = PoolManager.Instance.SpawnFromPool(sfxType.ToString());
             obj.SetActive(true);
             SfxSoundSource soundSource = obj.GetComponent<SfxSoundSource>();
-            Debug.Log($"global {globalSfxVolume}, individual {individualSfxVolumeDict[sfxType]}");
             soundSource.Play(sfxDict[sfxType], sfxType, globalSfxVolume * individualSfxVolumeDict[sfxType], sfxPitchVariance);
         }
     }

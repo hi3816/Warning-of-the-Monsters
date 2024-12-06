@@ -75,7 +75,7 @@ public class StagePopup : UIBase
     {
         DataManager.Instance.selectedStageIdx = _stageIdx;
 
-        SceneManager.LoadScene("StageScene");
+        SceneManager.LoadScene("MainScene");
     }
 
     private void ShowSelectMonster()
