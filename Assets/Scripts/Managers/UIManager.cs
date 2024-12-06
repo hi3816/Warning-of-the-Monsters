@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -8,6 +9,8 @@ public class UIManager : SingletonBase<UIManager>
 {
     public float ScreenWidth = 1920;
     public float ScreenHeight = 1080;
+
+    public Action<Sprite> OnClickListSlot;
 
     private List<UIBase> uiList = new List<UIBase>();
 

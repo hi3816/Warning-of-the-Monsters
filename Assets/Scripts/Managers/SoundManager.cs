@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
 public class SoundManager : SingletonBase<SoundManager>
 {
@@ -41,7 +40,6 @@ public class SoundManager : SingletonBase<SoundManager>
 
     protected override void Awake()
     {
-        base.Awake();
         audioBgm = GetComponent<AudioSource>();
         audioBgm.volume = bgmVolume;
         audioBgm.loop = true;

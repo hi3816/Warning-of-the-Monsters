@@ -13,12 +13,20 @@ public class HumanBT : MonoBehaviour
     {
         _humanController = TryGetComponent<HumanController>(out _humanController)
             ? _humanController : gameObject.AddComponent<HumanController>();
-        spawnPoint = GameObject.FindWithTag("HumanSpawnPoint").transform.position;
+        if (GameObject.FindWithTag("HumanSpawnPoint") != null)
+        {
+            spawnPoint = GameObject.FindWithTag("HumanSpawnPoint").transform.position;
+        }
         if (spawnPoint == null)
         {
             Debug.LogAssertion("Could not find spawn point");
         }
-        targetPoint = GameObject.FindWithTag("DestinationPoint").transform.position;
+
+        if (GameObject.FindWithTag("DestinationPoint") != null)
+        {
+            targetPoint = GameObject.FindWithTag("DestinationPoint").transform.position;
+
+        }
         if (targetPoint == null)
         {
             Debug.LogAssertion("Could not find destination point");
