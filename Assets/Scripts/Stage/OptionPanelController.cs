@@ -72,4 +72,12 @@ public class OptionPanelController : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainScene");
     }
+
+    // Exit 버튼 클릭
+    public void ClickExitButton()
+    {
+        gameObject.SetActive(false);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("LobbyScene");
+    }
 }

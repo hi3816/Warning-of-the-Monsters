@@ -523,6 +523,7 @@ MonoBehaviour:
   human: {fileID: 0}
   animator: {fileID: 0}
   IsAttacked: 0
+  nodeTxt: {fileID: 0}
 --- !u!212 &6278384457196110265
 SpriteRenderer:
   m_ObjectHideFlags: 0
