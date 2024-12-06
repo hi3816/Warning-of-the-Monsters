@@ -63,7 +63,7 @@ MonoBehaviour:
   - sfxType: 3
     clip: {fileID: 8300000, guid: 129df4fd2d7e0a04c92da179da8deab5, type: 3}
   bgmVolume: 0.063
-  sfxVolume: 0.278
+  globalSfxVolume: 0.263
   sfxPitchVariance: 0.278
 --- !u!82 &1947102430599819499
 AudioSource:

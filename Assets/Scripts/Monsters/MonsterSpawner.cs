@@ -79,6 +79,12 @@ public class MonsterSpawner : MonoBehaviour
                         {
                             Vector3 spawnPosition = spawnPoint.position;
                             SpawnMonster(spawnPosition, selectedMonsterData);
+                            // 나중에 big 몬스터인지 small 몬스터인지 판별하는 조건 추가
+                            SoundManager.Instance.PlaySFX(SfxType.SpawnSmallMonster);
+                        }
+                        else
+                        {
+                            print("You do not have enough gold to spawn monster");
                         }
                     }
                 }
