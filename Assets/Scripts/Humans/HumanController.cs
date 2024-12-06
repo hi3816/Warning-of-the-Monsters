@@ -1,8 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(NavMeshAgent))]
@@ -13,11 +13,13 @@ public class HumanController : MonoBehaviour
     private NavMeshAgent agent;
     private Vector3 oldTarget;
     public bool IsAttacked;
+    private float maxFear;
 
     private float lastAttackTime;
     private bool isReturning = false;
     
     public TextMeshProUGUI nodeTxt;
+    public Image fearGauge;
     
     private void Awake()
     {
@@ -28,6 +30,12 @@ public class HumanController : MonoBehaviour
         {
             Debug.LogAssertion("Human Animator not found");
         }
+        maxFear = human.humanData.maxFear;
+    }
+
+    private void Update()
+    {
+        fearGauge.fillAmount = human.FearLevel / maxFear;
     }
 
     public bool ArriveToDestination(Vector3 target)
@@ -104,10 +112,11 @@ public class HumanController : MonoBehaviour
 
         human.FearLevel += amount;
         Debug.LogWarning($"Fear: {human.FearLevel}");
+        //fearGauge.fillAmount = human.FearLevel / maxFear;
         // 최대 공포 수치 넘지 않도록 조정
         if (IsFearMaxed())
         {
-            human.FearLevel = human.humanData.maxFear;
+            human.FearLevel = maxFear;
         }
     }
 

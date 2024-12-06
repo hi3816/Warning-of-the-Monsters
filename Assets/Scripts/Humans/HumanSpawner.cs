@@ -5,7 +5,7 @@ public class HumanSpawner : MonoBehaviour
 {
     private Human _human;
     private WaitForSeconds _spawnDelay = new WaitForSeconds(1.0f);  // 인간 스폰 되는 간격
-    private int spawnPerWave = 10;  // 웨이브 당 인간 스폰 수 조정값
+    private int spawnPerWave = 2;  // 웨이브 당 인간 스폰 수 조정값
     
     public void StartSpawningHumans(int waveIdx)
     {
