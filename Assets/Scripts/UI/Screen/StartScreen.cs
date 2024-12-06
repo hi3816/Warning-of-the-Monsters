@@ -13,6 +13,6 @@ public class StartScreen : UIBase
 
     public void OnButtonClicked()
     {
-        SceneManager.LoadScene("LobySceneTest");
+        SceneManager.LoadScene("LobbyScene");
     }
 }

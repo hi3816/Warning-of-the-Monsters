@@ -583,34 +583,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6878031166308799935, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6878031166308799935, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6878031166308799935, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 6791379470646966425}
-    - target: {fileID: 6878031166308799935, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6878031166308799935, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ClickExitButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 6878031166308799935, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: OptionPanelController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 6878031166308799935, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 8179583286680606036, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
       propertyPath: m_Name
       value: OptionPanel
@@ -625,17 +597,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8179583286680606036, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
   m_PrefabInstance: {fileID: 5768771076375545583}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6791379470646966425 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1022626214531268214, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
-  m_PrefabInstance: {fileID: 5768771076375545583}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2417726098624762811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7403ff48613f094cb914b1f29a0a453, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &6844172430550077108 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1077952586408790107, guid: 6c79a483e42894248a84927fde4258e0, type: 3}
