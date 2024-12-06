@@ -59,11 +59,6 @@ public class StageManager : SingletonBase<StageManager>
         startBattleBtnController = stage.GetComponentInChildren<StartBattleButtonController>();
     }
 
-    public void SetStageIdx(int idx)
-    {
-        stageIdx = idx;
-    }
-
     // UI 변경(웨이브, 체력, 골드)
     private void ChangeUI()
     {
