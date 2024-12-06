@@ -3,26 +3,73 @@ using UnityEngine;
 
 public class MonsterDataManager : MonoBehaviour
 {
+    public static MonsterDataManager Instance { get; private set; }
     private List<MonsterSO> _monsterSOs;
+    
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     
     public MonsterSO[] LoadMonsterData()
     {
         List<Monster_Data.Monster_Data> monsterDataList = Monster_Data.Monster_Data.GetList();
+        List<Monster_Data.Upgrade_Data> upgradeDataList = Monster_Data.Upgrade_Data.GetList();
 
         _monsterSOs = new List<MonsterSO>();
+
         foreach (var monsterData in monsterDataList)
         {
-            MonsterSO monsterSo = ScriptableObject.CreateInstance<MonsterSO>();
-            monsterSo.id = monsterData.id;
-            monsterSo.poolTag = monsterData.name;
-            monsterSo.fatigue = monsterData.fatigue;
-            monsterSo.fearInflicted = monsterData.fearInflicted;
-            monsterSo.cooldown = monsterData.cooldown;
-            monsterSo.humanScaringRange = monsterData.humanScaringRange;
-            monsterSo.requiredCoins = monsterData.requiredCoins;
+            MonsterSO baseMonsterSo = ScriptableObject.CreateInstance<MonsterSO>();
+            baseMonsterSo.id = monsterData.id;
+            baseMonsterSo.upgradeLevel = 0;
+            baseMonsterSo.poolTag = monsterData.name;
+            baseMonsterSo.fatigue = monsterData.fatigue;
+            baseMonsterSo.fearInflicted = monsterData.fearInflicted;
+            baseMonsterSo.cooldown = monsterData.cooldown;
+            baseMonsterSo.humanScaringRange = monsterData.humanScaringRange;
+            baseMonsterSo.requiredCoins = monsterData.requiredCoins;
 
-            _monsterSOs.Add(monsterSo);
+            _monsterSOs.Add(baseMonsterSo);
+
+            foreach (var upgradeData in upgradeDataList)
+            {
+                if (monsterData.id == Mathf.FloorToInt(upgradeData.monster_id))
+                {
+                    MonsterSO upgradedMonsterSo = ScriptableObject.CreateInstance<MonsterSO>();
+                    upgradedMonsterSo.monsterId = upgradeData.monster_id;
+                    upgradedMonsterSo.upgradeLevel = upgradeData.upgrade_level;
+                    upgradedMonsterSo.poolTag = monsterData.name + "_Upgrade" + upgradeData.upgrade_level;
+                    upgradedMonsterSo.fatigue = upgradeData.fatigue;
+                    upgradedMonsterSo.fearInflicted = upgradeData.fearInflicted;
+                    upgradedMonsterSo.cooldown = upgradeData.cooldown;
+                    upgradedMonsterSo.humanScaringRange = monsterData.humanScaringRange;
+                    upgradedMonsterSo.requiredCoins = upgradeData.requiredCoins;
+
+                    _monsterSOs.Add(upgradedMonsterSo);
+                }
+            }
         }
         return _monsterSOs.ToArray();
+    }
+    
+    public Monster_Data.Upgrade_Data GetUpgradeData(int monsterId, int upgradeLevel)
+    {
+        var upgrades = Monster_Data.Upgrade_Data.GetList();
+        foreach (var upgrade in upgrades)
+        {
+            if (upgrade.monster_id == monsterId && upgrade.upgrade_level == upgradeLevel)
+            {
+                return upgrade;
+            }
+        }
+        return null;
     }
 }
