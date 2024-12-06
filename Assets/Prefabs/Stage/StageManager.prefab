@@ -156,6 +156,16 @@ MonoBehaviour:
   stage: {fileID: 0}
   stageIdx: 0
   startBattleBtnController: {fileID: 0}
+  poolConfigs:
+  - tag: SpawnSmallMonster
+    prefab: {fileID: 664224834642801451, guid: 8e4212d74cab36540a47066b2bdec95d, type: 3}
+    size: 20
+  - tag: SpawnBigMonster
+    prefab: {fileID: 664224834642801451, guid: 8e4212d74cab36540a47066b2bdec95d, type: 3}
+    size: 20
+  - tag: SurprisingHuman
+    prefab: {fileID: 664224834642801451, guid: 8e4212d74cab36540a47066b2bdec95d, type: 3}
+    size: 20
 --- !u!1 &6207528262063605471
 GameObject:
   m_ObjectHideFlags: 0

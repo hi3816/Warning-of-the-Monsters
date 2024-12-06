@@ -355,69 +355,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1605738391
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1605738393}
-  - component: {fileID: 1605738392}
-  m_Layer: 0
-  m_Name: PoolManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1605738392
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605738391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39d8faa4bfad71948a8d68329f413d81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  poolConfigs:
-  - tag: Click
-    prefab: {fileID: 664224834642801451, guid: 8e4212d74cab36540a47066b2bdec95d, type: 3}
-    size: 20
-  - tag: SpawnSmallMonster
-    prefab: {fileID: 664224834642801451, guid: 8e4212d74cab36540a47066b2bdec95d, type: 3}
-    size: 20
-  - tag: SpawnBigMonster
-    prefab: {fileID: 664224834642801451, guid: 8e4212d74cab36540a47066b2bdec95d, type: 3}
-    size: 20
-  - tag: SurprisingHuman
-    prefab: {fileID: 664224834642801451, guid: 8e4212d74cab36540a47066b2bdec95d, type: 3}
-    size: 20
-  - tag: Demon
-    prefab: {fileID: 7674980571249262148, guid: 7685c4643fb174fd587dafc1460f6be2, type: 3}
-    size: 20
-  - tag: Human
-    prefab: {fileID: 2330070577731405459, guid: 499e5e11e4fc0f444b2364c66ab115d3, type: 3}
-    size: 20
---- !u!4 &1605738393
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605738391}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4787403991618610147
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -429,10 +366,6 @@ PrefabInstance:
     - target: {fileID: 6135383653608635039, guid: f1169e7c6725c3346a617b118d9dd690, type: 3}
       propertyPath: m_Name
       value: StageManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 6189230936703999801, guid: f1169e7c6725c3346a617b118d9dd690, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7066214383474598609, guid: f1169e7c6725c3346a617b118d9dd690, type: 3}
       propertyPath: m_LocalPosition.x
@@ -474,10 +407,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7390258755801773858, guid: f1169e7c6725c3346a617b118d9dd690, type: 3}
-      propertyPath: stageIdx
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -490,5 +419,4 @@ SceneRoots:
   - {fileID: 1474706499}
   - {fileID: 4787403991618610147}
   - {fileID: 164274070}
-  - {fileID: 1605738393}
   - {fileID: 270721947}
