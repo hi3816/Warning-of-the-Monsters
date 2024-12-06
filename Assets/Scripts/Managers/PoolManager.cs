@@ -20,6 +20,7 @@ public class PoolManager : SingletonBase<PoolManager>
     {
         base.Awake();
         InitializePools();
+        DontDestroyOnLoad(gameObject);
     }
 
     private void InitializePools()
@@ -57,6 +58,15 @@ public class PoolManager : SingletonBase<PoolManager>
         });
 
         _pools.Add(tag, objectPool);    // 풀 딕셔너리에 새로운 오브젝트 풀 추가
+    }
+
+    public void AddPoolS(PoolConfig[] pools)
+    {
+        foreach(PoolConfig pool in pools)
+        {
+            poolConfigs.Add(pool);
+            CreatePool(pool.tag, pool.prefab, pool.size);
+        }
     }
 
     // Transform 설정하는 SpawnFromPool

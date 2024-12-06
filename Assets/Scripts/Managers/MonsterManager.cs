@@ -9,9 +9,12 @@ public class MonsterManager : SingletonBase<MonsterManager>
     private Dictionary<int, MonsterSO> _monstersById = new Dictionary<int, MonsterSO>();
     private int _selectedMonsterId;
     public int SelectedMonsterId => _selectedMonsterId;
+
+    [SerializeField] private PoolManager.PoolConfig[] poolConfigs; // 몬스터 풀
     
     private void Start()
     {
+        PoolManager.Instance.AddPoolS(poolConfigs);
         LoadMonsterData();
         SelectMonster(1); //for testing
     }

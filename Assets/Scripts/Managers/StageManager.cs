@@ -1,3 +1,4 @@
+using System.Diagnostics.Tracing;
 using TMPro;
 using UnityEngine;
 
@@ -21,12 +22,16 @@ public class StageManager : SingletonBase<StageManager>
     [SerializeField] private GameObject stage;
     [SerializeField] private int stageIdx;
     [SerializeField] private StartBattleButtonController startBattleBtnController;
-    
+
+    [Header("Sfx Pools")]
+    [SerializeField] private PoolManager.PoolConfig[] poolConfigs;
+
     private SoundManager soundManager;
 
     protected override void Awake()
     {
         base.Awake();
+        PoolManager.Instance.AddPoolS(poolConfigs);
         soundManager = SoundManager.Instance;
         soundManager.PlayBGM(BgmType.Stage);
         SetStageInfo();
