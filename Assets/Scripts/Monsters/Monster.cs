@@ -19,8 +19,18 @@ public abstract class Monster : MonoBehaviour
     private Animator _animator;
     private MonsterState _monsterState;
     public float fadeDuration = 0.5f;
+    public int currentUpgradeLevel = 0;
     private float _lastScareTime;
     public float currentFatigue; //현재 피로도
+    
+    public void Upgrade(Monster_Data.Upgrade_Data upgradeData)
+    {
+        currentUpgradeLevel = upgradeData.upgrade_level;
+        data.fatigue = upgradeData.fatigue;
+        data.fearInflicted = upgradeData.fearInflicted;
+        data.cooldown = upgradeData.cooldown;
+        data.requiredCoins = upgradeData.requiredCoins;
+    }
     
     private void Awake()
     {
@@ -37,10 +47,6 @@ public abstract class Monster : MonoBehaviour
         {
             case MonsterState.Idle:
                 UpdateAnimatorParameters(Vector2.zero);
-                if (nearestHuman != null)
-                {
-                    SetState(MonsterState.Scaring);
-                }
                 break;
             case MonsterState.Scaring:
                 if (nearestHuman != null)
@@ -138,6 +144,7 @@ public abstract class Monster : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (_monsterState == MonsterState.ReturningVillage) return;
         if (other.CompareTag("Human"))
         {
             HumanController human = other.GetComponent<HumanController>();
@@ -217,4 +224,11 @@ public abstract class Monster : MonoBehaviour
         _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 1f);
         SetState(MonsterState.Idle);
     }
+    
+    // public void ResetToBaseState()
+    // {
+    //     currentUpgradeLevel = 0;
+    //     data = MonsterDataManager.Instance.GetBaseMonsterData(data.id);
+    //     transform.localScale = Vector3.one;
+    // }
 }
