@@ -9,6 +9,7 @@ public class IdleNode : INode
 
     public NodeState Evaluate()
     {
+        _humanController.nodeTxt.text = "Idle";
         // Debug.Log($"Evaluating {this.GetType().Name}");
         if (!_humanController.IsWaveStarted())  // 웨이브 시작 전이면
         {

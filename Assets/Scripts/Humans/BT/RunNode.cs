@@ -13,9 +13,11 @@ public class RunNode : INode
 
     public NodeState Evaluate()
     {
+        _humanController.nodeTxt.text = "Run";
         // Debug.Log($"Evaluating {this.GetType().Name}");
         if (_humanController.IsFearMaxed())
         {
+            _humanController.animator.SetTrigger("Run");
             _humanController.ArriveToDestination(_spawnPosition);
             return NodeState.Running;
         }

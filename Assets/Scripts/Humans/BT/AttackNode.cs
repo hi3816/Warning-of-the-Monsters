@@ -11,6 +11,7 @@ public class AttackNode : INode
 
     public NodeState Evaluate()
     {
+        _humanController.nodeTxt.text = "Attack";
         // Debug.Log($"Evaluating {this.GetType().Name}");
         if (!_humanController.HasTargetMonster())   // 타겟몬스터 없어지면
         {
@@ -18,7 +19,7 @@ public class AttackNode : INode
         }
         if (_humanController.CanAttack())
         {
-            Debug.LogAssertion("Attack Check");
+            //Debug.LogAssertion("Attack Check");
             _humanController.PerformAttack(); // 공격 수행
         }
         return NodeState.Success; 

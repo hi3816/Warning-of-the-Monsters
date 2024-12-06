@@ -263,7 +263,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2823574123480220013, guid: 79489871a0af74485806a1c6a122dd7a, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79489871a0af74485806a1c6a122dd7a, type: 3}
@@ -596,6 +597,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2202199022085419930, guid: 9e88b509184bd6a4ba91ff287e6a8348, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5946197456775107438, guid: 9e88b509184bd6a4ba91ff287e6a8348, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -641,7 +646,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2202199022085419930, guid: 9e88b509184bd6a4ba91ff287e6a8348, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e88b509184bd6a4ba91ff287e6a8348, type: 3}

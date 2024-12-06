@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -10,10 +11,14 @@ public class HumanController : MonoBehaviour
     public Human human;
     public Animator animator;
     private NavMeshAgent agent;
+    private Vector3 oldTarget;
     public bool IsAttacked;
 
     private float lastAttackTime;
-
+    private bool isReturning = false;
+    
+    public TextMeshProUGUI nodeTxt;
+    
     private void Awake()
     {
         human = GetComponent<Human>();
@@ -27,10 +32,17 @@ public class HumanController : MonoBehaviour
 
     public bool ArriveToDestination(Vector3 target)
     {
-        agent.ResetPath();
-        agent.SetDestination(target);
-        bool flag = agent.remainingDistance <= agent.stoppingDistance;
-        //return agent.remainingDistance <= agent.stoppingDistance;
+        if (oldTarget != target)
+        {
+            oldTarget = target;
+            NavMeshPath path = new NavMeshPath();
+            agent.CalculatePath(target, path);
+            agent.SetPath(path);
+        }
+
+        bool flag = agent.hasPath;
+        if (!flag)
+            StartCoroutine(ReturnHumanProcess());
         return flag;
     }
 
@@ -41,7 +53,6 @@ public class HumanController : MonoBehaviour
     {
         agent.ResetPath();
         agent.SetDestination(formationPosition);
-        animator.SetBool("IsSet", true);
         return false;
     }
 
@@ -73,7 +84,10 @@ public class HumanController : MonoBehaviour
     
     public bool HasTargetMonster()
     {
-        return human.targetMonster != null;
+        bool hasTarget = human.targetMonster != null;
+        if (!hasTarget)
+            animator.SetBool("IsBattle", false);
+        return hasTarget;
     }
 
     public bool IsWaveStarted()
@@ -84,6 +98,9 @@ public class HumanController : MonoBehaviour
     // 공포 수치 증가시키는 메서드
     public void IncreaseFear(float amount)
     {
+        animator.SetTrigger("Surprise");
+        //nodeTxt.text = "Surprise";
+
         human.FearLevel += amount;
         Debug.LogWarning($"Fear: {human.FearLevel}");
         // 최대 공포 수치 넘지 않도록 조정
@@ -96,7 +113,10 @@ public class HumanController : MonoBehaviour
     // 최대 공포 수치 넘었는지 확인
     public bool IsFearMaxed()
     {
-        return human.FearLevel >= human.humanData.maxFear;
+        bool isFearMaxed = human.FearLevel >= human.humanData.maxFear;
+        if (isFearMaxed)
+            StartCoroutine(ReturnHumanProcess());
+        return isFearMaxed;
     }
 
     // 몬스터의 겁주기에 반응하는 메서드(피격 로직)
@@ -119,10 +139,15 @@ public class HumanController : MonoBehaviour
             StartCoroutine(ReturnHumanProcess());
         }
     }
-
+    
     private IEnumerator ReturnHumanProcess()
     {
-        yield return new WaitForSeconds(3.0f);
-        PoolManager.Instance.ReturnToPool("Human", this.gameObject);
+        if (!isReturning)
+        {
+            Debug.Log("Returning human process");
+            isReturning = true;
+            yield return new WaitForSeconds(1.0f);
+            PoolManager.Instance.ReturnToPool("Human", this.gameObject);
+        }
     }
 }

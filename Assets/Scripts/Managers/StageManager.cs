@@ -21,7 +21,7 @@ public class StageManager : SingletonBase<StageManager>
     [SerializeField] private GameObject stage;
     [SerializeField] private int stageIdx;
     [SerializeField] private StartBattleButtonController startBattleBtnController;
-
+    
     private SoundManager soundManager;
 
     protected override void Awake()
