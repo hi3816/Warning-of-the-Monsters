@@ -53,6 +53,8 @@ public class SoundManager : SingletonBase<SoundManager>
         SetSfxDictionary();
         SetSfxVolumeDictionary();
         DontDestroyOnLoad(gameObject);
+
+        Application.targetFrameRate = 60;
     }
 
     private void Update()
