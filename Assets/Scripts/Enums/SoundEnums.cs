@@ -1,7 +1,7 @@
 public enum BgmType
 {
     Intro, // 인트로씬
-    Robby, // 로비씬
+    Lobby, // 로비씬
     Stage, // 스테이지씬
 }
 

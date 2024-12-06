@@ -8,5 +8,7 @@ public class TestScene : MonoBehaviour
     void Start()
     {
         UIManager.Instance.Show<StartScreen>();
+        SoundManager.Instance.StopBGM();
+        SoundManager.Instance.PlayBGM(BgmType.Intro);
     }
 }
