@@ -132,7 +132,7 @@ public abstract class Monster : MonoBehaviour
             if (Time.time - _lastScareTime > data.cooldown)
             {
                 _lastScareTime = Time.time;
-                human.IncreaseFear(data.fearInflicted);
+                human.human.IncreaseFear(data.fearInflicted);
                 human.SetTargetMonster(this);
             }
         }
@@ -162,7 +162,7 @@ public abstract class Monster : MonoBehaviour
         if (other.CompareTag("Human"))
         {
             HumanController human = other.GetComponent<HumanController>();
-            human.SetTargetMonster(null);
+            human.targetMonster = null;
             if (human != null && _targetHumanList.Contains(human))
             {
                 _targetHumanList.Remove(human);
@@ -193,7 +193,7 @@ public abstract class Monster : MonoBehaviour
         {
             if (human != null)
             {
-                human.SetTargetMonster(null);
+                human.targetMonster = null;
             }
         }
         

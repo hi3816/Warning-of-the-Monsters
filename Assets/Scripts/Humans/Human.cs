@@ -1,12 +1,13 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Human : MonoBehaviour
 {
     public HumanSO humanData;
-    public Monster targetMonster;
 
-    private NavMeshAgent agent;
+    public Image fearGauge;
 
     public bool IsWaveStarted { get; set; }
     public float FearLevel { get; set; }
@@ -16,15 +17,25 @@ public class Human : MonoBehaviour
     {
         // 리소스 폴더에서 SO 데이터 로드
         humanData = CustomUtil.ResourceLoad<HumanSO>("SO/Human/HumanSO_0");
-        // 카메라 상에 캐릭터가 보이도록 축과 회전값 조정
-        agent = TryGetComponent<NavMeshAgent>(out agent) ? agent : gameObject.AddComponent<NavMeshAgent>();
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
     }
 
     private void OnEnable()
     {
         IsWaveStarted = true;
         FearLevel = 0;
+        fearGauge.fillAmount = 0;
+    }
+
+    public bool IsFearMaxed()
+    {
+        return FearLevel >= humanData.maxFear;
+    }
+
+    public void IncreaseFear(float fearInflicted)
+    {
+        if (IsFearMaxed()) return;
+        
+        FearLevel += math.min(FearLevel + fearInflicted, humanData.maxFear);
+        fearGauge.fillAmount = FearLevel / humanData.maxFear;
     }
 }

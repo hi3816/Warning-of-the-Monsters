@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -5,159 +6,112 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(NavMeshAgent))]
+public interface IHumanState
+{
+    void EnterState();
+    void UpdateState();
+    void ExitState();
+}
+
 public class HumanController : MonoBehaviour
 {
     public Human human;
-    public Animator animator;
-    private NavMeshAgent agent;
-    private Vector3 oldTarget;
-    public bool IsAttacked;
-    private float maxFear;
+    private IHumanState _currentState;
+    public NavMeshAgent agent;
 
-    private float lastAttackTime;
-    private bool isReturning = false;
+    public Transform spawnPoint;
+    public Transform endPoint;
+    public Monster targetMonster;
+
+    private bool isReturning;
+    private float _lastAttackTime;
+    private float maxFear;
+    public bool IsBattle => targetMonster != null;
     
-    public TextMeshProUGUI nodeTxt;
-    public Image fearGauge;
-    
+    public TextMeshProUGUI stateText;
+
     private void Awake()
     {
         human = GetComponent<Human>();
-        agent = GetComponent<NavMeshAgent>();
-        animator = GetComponentInChildren<Animator>();  // 자식 오브젝트(MainSprite)의 애니메이터 가져오기
-        if (animator == null)
-        {
-            Debug.LogAssertion("Human Animator not found");
-        }
+        // 카메라 상에 캐릭터가 보이도록 축과 회전값 조정
+        agent = TryGetComponent<NavMeshAgent>(out agent) ? agent : gameObject.AddComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        
         maxFear = human.humanData.maxFear;
+    }
+
+    private void OnEnable()
+    {
+        spawnPoint = GameObject.FindGameObjectWithTag("HumanSpawnPoint").transform;
+        gameObject.transform.position = spawnPoint.position;
+        if (spawnPoint == null)
+        {
+            Debug.LogWarning("Cannot find spawn point");
+        }
+        endPoint = GameObject.FindGameObjectWithTag("DestinationPoint").transform;
+        if (endPoint == null)
+        {
+            Debug.LogWarning("Cannot find end point");
+        }
+        isReturning = false;
+        TransitionToState(new WalkState(this));
     }
 
     private void Update()
     {
-        fearGauge.fillAmount = human.FearLevel / maxFear;
+        _currentState?.UpdateState();
     }
 
-    public bool ArriveToDestination(Vector3 target)
+    public void TransitionToState(IHumanState newState)
     {
-        if (oldTarget != target)
-        {
-            oldTarget = target;
-            NavMeshPath path = new NavMeshPath();
-            agent.CalculatePath(target, path);
-            agent.SetPath(path);
-        }
-
-        bool flag = agent.hasPath;
-        if (!flag)
-            StartCoroutine(ReturnHumanProcess());
-        return flag;
+        _currentState?.ExitState();
+        _currentState = newState;
+        _currentState.EnterState();
     }
 
-    // 유닛이 대형을 정비하는 메서드
-    // TODO: 인간 유닛이 몬스터 기준으로 어떻게 이동할지 로직 추가
-    // 현재는 그냥 타겟 위치로 이동하는 메서드와 동일
-    public bool MoveToFormationPosition(Vector3 formationPosition)
-    {
-        agent.ResetPath();
-        agent.SetDestination(formationPosition);
-        return false;
-    }
-
-    // 현재 방향에서 몬스터 방향으로 바라보게 하는 메서드(에임 맞추기)
-    // TODO: 대형 맞춘 위치 기준으로 방향 설정
-    public void RotateTowardsMonster(Vector3 monsterPosition)
-    {
-    }
-
-    // 공격 쿨타임 다 채워졌는지 확인
     public bool CanAttack()
     {
-        return human.targetMonster != null && Time.time - lastAttackTime > human.humanData.cooldown;
+        return Time.time >= _lastAttackTime + human.humanData.cooldown;
     }
 
-    // 몬스터 공격하는 메서드
     public void PerformAttack()
     {
-        animator.SetTrigger("Attack");
+        if (targetMonster == null) return;
+        
         float randValue = Random.Range(human.humanData.minFatigueInflicted, human.humanData.maxFatigueInflicted);
-        human.targetMonster.IncreaseFatigue(randValue);
-        lastAttackTime = Time.time;
+        targetMonster.IncreaseFatigue(randValue);
+        _lastAttackTime = Time.time;
     }
 
-    public void SetTargetMonster(Monster monster)
+    public void SetTargetMonster(Monster newTarget)
     {
-        human.targetMonster = monster;
+        targetMonster = newTarget;
+    }
+
+    public void ResetTarget()
+    {
+        targetMonster = null;
     }
     
-    public bool HasTargetMonster()
+    public void StopMoving()
     {
-        bool hasTarget = human.targetMonster != null;
-        if (!hasTarget)
-            animator.SetBool("IsBattle", false);
-        return hasTarget;
+        if (agent != null)
+            agent.ResetPath();
     }
 
-    public bool IsWaveStarted()
+    public void ReturnHumanToPool()
     {
-        return human.IsWaveStarted;
-    }
-
-    // 공포 수치 증가시키는 메서드
-    public void IncreaseFear(float amount)
-    {
-        animator.SetTrigger("Surprise");
-        SoundManager.Instance.PlaySFX(SfxType.SurprisingHuman);
-        //nodeTxt.text = "Surprise";
-
-        human.FearLevel += amount;
-        Debug.LogWarning($"Fear: {human.FearLevel}");
-        //fearGauge.fillAmount = human.FearLevel / maxFear;
-        // 최대 공포 수치 넘지 않도록 조정
-        if (IsFearMaxed())
-        {
-            human.FearLevel = maxFear;
-        }
-    }
-
-    // 최대 공포 수치 넘었는지 확인
-    public bool IsFearMaxed()
-    {
-        bool isFearMaxed = human.FearLevel >= human.humanData.maxFear;
-        if (isFearMaxed)
-            StartCoroutine(ReturnHumanProcess());
-        return isFearMaxed;
-    }
-
-    // 몬스터의 겁주기에 반응하는 메서드(피격 로직)
-    public void ReactToScaring()
-    {
-        if (human.targetMonster != null)
-        {
-            Debug.Log("ReactToScaring");
-            //IncreaseFear(human.targetMonster.data.fearInflicted);   // 공포 수치 증가
-            // TestCode 임시로 값 부여
-            IncreaseFear(10);   // 공포 수치 증가
-            animator.SetTrigger("Surprise");
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("EndPoint"))
-        {
-            StartCoroutine(ReturnHumanProcess());
-        }
+        if (isReturning) return;
+        
+        isReturning = true;
+        StartCoroutine(ReturnHumanProcess());
     }
     
     private IEnumerator ReturnHumanProcess()
     {
-        if (!isReturning)
-        {
-            Debug.Log("Returning human process");
-            isReturning = true;
-            yield return new WaitForSeconds(1.0f);
-            PoolManager.Instance.ReturnToPool("Human", this.gameObject);
-        }
+        Debug.Log("Returning human process");
+        yield return new WaitForSeconds(1.0f);
+        PoolManager.Instance.ReturnToPool("Human", this.gameObject);
     }
 }

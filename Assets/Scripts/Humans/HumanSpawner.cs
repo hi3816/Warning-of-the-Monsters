@@ -21,10 +21,10 @@ public class HumanSpawner : MonoBehaviour
     private IEnumerator SpawnHumansCoroutine(int waveIdx)
     {
         int spawnedHumans = 0;
-        int countPerUnit = waveIdx + spawnPerWave;
+        int countPerUnit = waveIdx * spawnPerWave;
         while (spawnedHumans < countPerUnit)
         {
-            SpawnHuman(waveIdx * spawnPerWave);
+            SpawnHuman(waveIdx);
             spawnedHumans++;
             yield return _spawnDelay;
         }
