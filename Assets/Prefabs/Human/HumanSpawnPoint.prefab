@@ -47,4 +47,4 @@ MonoBehaviour:
   poolConfigs:
   - tag: Human
     prefab: {fileID: 2330070577731405459, guid: 499e5e11e4fc0f444b2364c66ab115d3, type: 3}
-    size: 20
+    size: 30

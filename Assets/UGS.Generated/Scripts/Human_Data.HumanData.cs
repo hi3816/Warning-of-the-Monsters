@@ -62,8 +62,8 @@ namespace Human_Data
 		public System.Single maxFatigueInflicted;
 		public System.Single cooldown;
 		public System.Single speed;
-		public System.Single lifeInflicted;
-		public System.Single coin;
+		public System.Int32 lifeInflicted;
+		public System.Int32 coin;
   
 
 #region fuctions

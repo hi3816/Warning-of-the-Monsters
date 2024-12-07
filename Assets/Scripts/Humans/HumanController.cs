@@ -1,117 +1,98 @@
-using System;
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
-using Random = UnityEngine.Random;
-
-public interface IHumanState
-{
-    void EnterState();
-    void UpdateState();
-    void ExitState();
-}
 
 public class HumanController : MonoBehaviour
 {
-    public Human human;
-    private IHumanState _currentState;
-    public NavMeshAgent agent;
+    public HumanSO humanData;
+    public NavMeshAgent agent { get; private set; }
+    public Transform SpawnPoint { get; private set; }
+    public Transform EndPoint { get; private set; }
+    public Transform TargetMonster { get; set; }
 
-    public Transform spawnPoint;
-    public Transform endPoint;
-    public Monster targetMonster;
-
-    private bool isReturning;
-    private float _lastAttackTime;
-    private float maxFear;
-    public bool IsBattle => targetMonster != null;
+    public HumanStateMachine _stateMachine;
     
-    public TextMeshProUGUI stateText;
+    public WalkHumanState WalkHumanState { get; private set; }
+    public RunHumanState RunHumanState { get; private set; }
+    public BattleHumanState BattleHumanState { get; private set; }
+    
+    private float _lastAttackTime;
+    private bool isReturning;
 
     private void Awake()
     {
-        human = GetComponent<Human>();
-        // 카메라 상에 캐릭터가 보이도록 축과 회전값 조정
-        agent = TryGetComponent<NavMeshAgent>(out agent) ? agent : gameObject.AddComponent<NavMeshAgent>();
+        humanData = CustomUtil.ResourceLoad<HumanSO>("SO/Human/HumanSO_0");
+        
+        SpawnPoint = GameObject.FindGameObjectWithTag("HumanSpawnPoint").transform;
+        EndPoint = GameObject.FindGameObjectWithTag("DestinationPoint").transform;
+        if (EndPoint == null)
+            Debug.LogWarning("Endpoint not found");
+        
+        agent = GetComponent<NavMeshAgent>();
+        if (agent == null)
+            Debug.LogError("No NavMeshAgent found");
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         
-        maxFear = human.humanData.maxFear;
+        _stateMachine = new HumanStateMachine();
+        WalkHumanState = new WalkHumanState(this, _stateMachine);
+        RunHumanState = new RunHumanState(this, _stateMachine);
+        BattleHumanState = new BattleHumanState(this, _stateMachine);
     }
 
     private void OnEnable()
     {
-        spawnPoint = GameObject.FindGameObjectWithTag("HumanSpawnPoint").transform;
-        gameObject.transform.position = spawnPoint.position;
-        if (spawnPoint == null)
-        {
-            Debug.LogWarning("Cannot find spawn point");
-        }
-        endPoint = GameObject.FindGameObjectWithTag("DestinationPoint").transform;
-        if (endPoint == null)
-        {
-            Debug.LogWarning("Cannot find end point");
-        }
+        agent.enabled = false;
+        transform.position = SpawnPoint.position;
+        ClearTargetMonster();
         isReturning = false;
-        TransitionToState(new WalkState(this));
+        Debug.LogWarning($"HumanContorller:{transform.position}");
+        agent.enabled = true;
+        agent.ResetPath();
+        _stateMachine.ChangeState(WalkHumanState);
     }
 
     private void Update()
     {
-        _currentState?.UpdateState();
-    }
-
-    public void TransitionToState(IHumanState newState)
-    {
-        _currentState?.ExitState();
-        _currentState = newState;
-        _currentState.EnterState();
-    }
-
-    public bool CanAttack()
-    {
-        return Time.time >= _lastAttackTime + human.humanData.cooldown;
-    }
-
-    public void PerformAttack()
-    {
-        if (targetMonster == null) return;
-        
-        float randValue = Random.Range(human.humanData.minFatigueInflicted, human.humanData.maxFatigueInflicted);
-        targetMonster.IncreaseFatigue(randValue);
-        _lastAttackTime = Time.time;
-    }
-
-    public void SetTargetMonster(Monster newTarget)
-    {
-        targetMonster = newTarget;
-    }
-
-    public void ResetTarget()
-    {
-        targetMonster = null;
+        _stateMachine.CurrentHumanState?.Update();
     }
     
-    public void StopMoving()
+    public bool CanAttack()
     {
-        if (agent != null)
-            agent.ResetPath();
+        return Time.time >= _lastAttackTime + humanData.cooldown;
+    }
+    
+    public void PerformAttack()
+    {
+        if (TargetMonster == null) return;
+        
+        float randValue = Random.Range(humanData.minFatigueInflicted, humanData.maxFatigueInflicted);
+        TargetMonster.GetComponent<Monster>().IncreaseFatigue(randValue);
+        _lastAttackTime = Time.time;
+    }
+    
+    public void SetTargetMonster(Transform monster)
+    {
+        TargetMonster = monster;
     }
 
-    public void ReturnHumanToPool()
+    public void ClearTargetMonster()
+    {
+        TargetMonster = null;
+    }
+    
+    public void ReturnHumanToPool(float delay)
     {
         if (isReturning) return;
         
         isReturning = true;
-        StartCoroutine(ReturnHumanProcess());
+        StartCoroutine(ReturnHumanProcess(delay));
     }
     
-    private IEnumerator ReturnHumanProcess()
+    private IEnumerator ReturnHumanProcess(float delay)
     {
         Debug.Log("Returning human process");
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(delay);
         PoolManager.Instance.ReturnToPool("Human", this.gameObject);
     }
 }

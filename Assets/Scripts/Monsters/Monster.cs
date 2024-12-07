@@ -14,7 +14,7 @@ public enum MonsterState
 public abstract class Monster : MonoBehaviour
 {
     public MonsterSO data;
-    private List<HumanController> _targetHumanList = new List<HumanController>();
+    private List<Human> _targetHumanList = new List<Human>();
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
     private MonsterState _monsterState;
@@ -125,17 +125,31 @@ public abstract class Monster : MonoBehaviour
     
     private void Scaring()
     {
-        foreach (HumanController human in _targetHumanList)
+        // 단일 공격
+        foreach (Human human in _targetHumanList)
         {
             if (human == null) continue;
-
+        
             if (Time.time - _lastScareTime > data.cooldown)
             {
+                human.IncreaseFear(data.fearInflicted);
+                //human.controller.SetTargetMonster(transform);
                 _lastScareTime = Time.time;
-                human.human.IncreaseFear(data.fearInflicted);
-                human.SetTargetMonster(this);
             }
         }
+
+        // 범위 공격
+        // if (Time.time - _lastScareTime > data.cooldown)
+        // {
+        //     foreach (Human human in _targetHumanList)
+        //     {
+        //         if (human == null) continue;
+        //
+        //         human.IncreaseFear(data.fearInflicted);
+        //         //human.controller.SetTargetMonster(transform);
+        //     }
+        //     _lastScareTime = Time.time;
+        // }
         
         if (_targetHumanList.Count == 0)
         {
@@ -148,10 +162,11 @@ public abstract class Monster : MonoBehaviour
         if (_monsterState == MonsterState.ReturningVillage) return;
         if (other.CompareTag("Human"))
         {
-            HumanController human = other.GetComponent<HumanController>();
+            Human human = other.GetComponent<Human>();
             if (human != null && !_targetHumanList.Contains(human))
             {
                 _targetHumanList.Add(human);
+                human.controller.SetTargetMonster(transform);
                 SetState(MonsterState.Scaring);
             }
         }
@@ -161,8 +176,8 @@ public abstract class Monster : MonoBehaviour
     {
         if (other.CompareTag("Human"))
         {
-            HumanController human = other.GetComponent<HumanController>();
-            human.targetMonster = null;
+            Human human = other.GetComponent<Human>();
+            human.controller.ClearTargetMonster();
             if (human != null && _targetHumanList.Contains(human))
             {
                 _targetHumanList.Remove(human);
@@ -193,7 +208,7 @@ public abstract class Monster : MonoBehaviour
         {
             if (human != null)
             {
-                human.targetMonster = null;
+                human.controller.ClearTargetMonster();
             }
         }
         

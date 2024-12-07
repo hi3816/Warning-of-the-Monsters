@@ -1,41 +1,50 @@
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.AI;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class Human : MonoBehaviour
 {
-    public HumanSO humanData;
+    private HumanSO humanData;
+    public float FearLevel { get; private set; }
+    public float MaxFear { get; private set; }
+    public int LifeInflicted { get; private set; }
+    public int Coin { get; private set; }
 
-    public Image fearGauge;
-
-    public bool IsWaveStarted { get; set; }
-    public float FearLevel { get; set; }
     public int WaveIdx { get; set; }
+
+    public Image FearGauge;
+    public HumanController controller;
 
     private void Awake()
     {
-        // 리소스 폴더에서 SO 데이터 로드
         humanData = CustomUtil.ResourceLoad<HumanSO>("SO/Human/HumanSO_0");
+        controller = GetComponent<HumanController>();
+        MaxFear = humanData.maxFear;
+        LifeInflicted = humanData.lifeInflicted;
+        Coin = humanData.coin;
     }
 
     private void OnEnable()
     {
-        IsWaveStarted = true;
         FearLevel = 0;
-        fearGauge.fillAmount = 0;
+        FearGauge.fillAmount = 0;
     }
 
-    public bool IsFearMaxed()
+    public void IncreaseFear(float amount)
     {
-        return FearLevel >= humanData.maxFear;
+        FearLevel = Mathf.Min(FearLevel + amount, MaxFear); 
+        FearGauge.fillAmount = FearLevel / MaxFear;
+        Debug.LogWarning($"Fear: {FearLevel}");
+        if (FearLevel >= MaxFear)
+        {
+            controller.ReturnHumanToPool(3.0f);
+            controller._stateMachine.ChangeState(controller.RunHumanState);
+            StageManager.Instance.ChangeGold(Coin);
+        }
     }
 
-    public void IncreaseFear(float fearInflicted)
+    public void ResetFear()
     {
-        if (IsFearMaxed()) return;
-        
-        FearLevel += math.min(FearLevel + fearInflicted, humanData.maxFear);
-        fearGauge.fillAmount = FearLevel / humanData.maxFear;
+        FearLevel = 0;
     }
 }

@@ -16,7 +16,7 @@ MonoBehaviour:
   maxFear: 20
   minFatigueInflicted: 1
   maxFatigueInflicted: 4
-  cooldown: 2
+  cooldown: 3
   speed: 3
   lifeInflicted: 1
   coin: 3
