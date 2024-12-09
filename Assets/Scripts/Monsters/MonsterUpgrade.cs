@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class MonsterUpgrade : MonoBehaviour
 {
-    MonsterUpgradeUI monsterUpgradeUI;
+    [SerializeField] private MonsterUpgradeUI monsterUpgradeUI;
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)) // When player clicks
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
@@ -17,6 +17,13 @@ public class MonsterUpgrade : MonoBehaviour
                 if (clickedMonster != null)
                 {
                     monsterUpgradeUI.Show(clickedMonster);
+                }
+            }
+            else
+            {
+                if (!RectTransformUtility.RectangleContainsScreenPoint(monsterUpgradeUI.uiPanel.GetComponent<RectTransform>(), Input.mousePosition, Camera.main))
+                {
+                    monsterUpgradeUI.Hide();
                 }
             }
         }

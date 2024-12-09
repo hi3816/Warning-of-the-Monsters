@@ -5,30 +5,21 @@ using UnityEngine.UI;
 public class MonsterUpgradeUI : MonoBehaviour
 {
     [SerializeField] private StageManager stageManager;
-    [SerializeField] private Canvas canvas;
-    [SerializeField] private TextMeshProUGUI currentStatsText;
+    [SerializeField] private Canvas upgradeCanvas;
     [SerializeField] private TextMeshProUGUI upgradeStatsText;
     [SerializeField] private TextMeshProUGUI upgradeCostText;
     [SerializeField] private Button upgradeButton;
+    public GameObject uiPanel;
     private Monster selectedMonster;
 
     public void Show(Monster monster)
     {
-        gameObject.SetActive(true);
         selectedMonster = monster;
+        upgradeCanvas.gameObject.SetActive(true);
         
         Vector3 worldPosition = selectedMonster.transform.position;
-        Vector3 screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
+        uiPanel.transform.position = worldPosition + new Vector3(0, 1, -1);
 
-        // Position the UI element at the screen position above the monster
-        transform.position = screenPosition + new Vector3(0, 100, 0); // Adjust 100 as needed to position above the monster
-
-        // Show current stats
-        currentStatsText.text = $"Fatigue: {monster.data.fatigue}\n" +
-                                $"Fear Inflicted: {monster.data.fearInflicted}\n" +
-                                $"Cooldown: {monster.data.cooldown}";
-
-        // Show upgrade stats
         var nextUpgrade = MonsterDataManager.Instance.GetUpgradeData(selectedMonster.data.id, selectedMonster.currentUpgradeLevel + 1);
         if (nextUpgrade != null)
         {
@@ -36,7 +27,6 @@ public class MonsterUpgradeUI : MonoBehaviour
                                     $"Fear Inflicted: {nextUpgrade.fearInflicted}\n" +
                                     $"Cooldown: {nextUpgrade.cooldown}";
             upgradeCostText.text = $"Cost: {nextUpgrade.requiredCoins}";
-
             upgradeButton.interactable = true;
         }
         else
@@ -56,12 +46,16 @@ public class MonsterUpgradeUI : MonoBehaviour
         {
             stageManager.ChangeGold(-(int)nextUpgrade.requiredCoins);
             selectedMonster.Upgrade(nextUpgrade);
-
-            gameObject.SetActive(false);
+            upgradeCanvas.gameObject.SetActive(false);
         }
         else
         {
             print("Not enough gold to upgrade!");
         }
+    }
+    
+    public void Hide()
+    {
+        upgradeCanvas.gameObject.SetActive(false);
     }
 }

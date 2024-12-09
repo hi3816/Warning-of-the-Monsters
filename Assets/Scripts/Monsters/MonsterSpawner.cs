@@ -63,6 +63,11 @@ public class MonsterSpawner : MonoBehaviour
     
     void Update()
     {
+        if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+        
         if (Input.GetMouseButtonDown(0)) //when player touch
         {
             Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
