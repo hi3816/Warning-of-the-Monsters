@@ -20,7 +20,7 @@ public class PopupMonsterSpawner : MonsterSpawner
             Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             touchPosition.z = 0f;
 
-            foreach (Transform spawnPoint in _spawnPoints)
+            foreach (Transform spawnPoint in SpawnPoints)
             {
                 if (Vector2.Distance(touchPosition, spawnPoint.position) < 0.5f)
                 {
