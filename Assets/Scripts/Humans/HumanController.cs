@@ -72,6 +72,42 @@ public class HumanController : MonoBehaviour
     private void Update()
     {
         StateMachine.CurrentHumanState?.Update();   // 상태 머신에서 현재 상태를 계속 갱신
+        if (TargetMonster != null)
+        {
+            // Debug.LogWarning($"next pos:{TargetMonster.position}");
+            // Debug.LogWarning($"cur agent:{Agent.transform.position}");
+            // Debug.LogWarning($"cur pos:{transform.position}");
+            DirectionChangeToMonster(TargetMonster.position);
+        }
+        else
+        {
+            // Debug.LogWarning($"next agent:{Agent.nextPosition}");
+            // Debug.LogWarning($"cur agent:{Agent.transform.position}");
+            // Debug.LogWarning($"cur pos:{transform.position}");
+            DirectionChangeToDestination();
+        }
+    }
+
+    private void DirectionChangeToMonster(Vector3 targetPosition)
+    {
+        Vector2 direction = ((Vector2)targetPosition - (Vector2)transform.position).normalized;
+        animator.SetFloat("Horizontal", direction.x);
+        animator.SetFloat("Vertical", direction.y);
+    }
+    
+    private void DirectionChangeToDestination()
+    {
+        NavMeshHit hit;
+        if (Agent.FindClosestEdge(out hit))
+        { 
+            Vector2 dir = ((Vector2)hit.position - (Vector2)transform.position).normalized;
+            Debug.LogWarning($"next pos:{hit.position}");
+            Debug.LogWarning($"cur pos:{transform.position}");
+            Debug.LogWarning($"dir:{dir}");
+            
+            animator.SetFloat("Horizontal", dir.x);
+            animator.SetFloat("Vertical", dir.y);
+        }
     }
     
     // 쿨타임 계산하여 공격 가능한 상태인지 확인하는 메서드

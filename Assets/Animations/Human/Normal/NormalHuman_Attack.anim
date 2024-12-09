@@ -1,12 +1,5 @@
 %YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
 --- !u!74 &7400000
-AnimationClip:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: NormalHuman_Attack
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0

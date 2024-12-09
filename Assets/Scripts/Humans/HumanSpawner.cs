@@ -22,6 +22,7 @@ public class HumanSpawner : MonoBehaviour
     {
         int spawnedHumans = 0;
         int countPerUnit = waveIdx * _spawnPerWave;
+        //int countPerUnit = 1;
         while (spawnedHumans < countPerUnit)
         {
             SpawnHuman(waveIdx);
