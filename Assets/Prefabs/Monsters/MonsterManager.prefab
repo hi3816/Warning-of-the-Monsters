@@ -48,10 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterDataManager: {fileID: 665823340007014865}
-  poolConfigs:
-  - tag: Demon
-    prefab: {fileID: 7674980571249262148, guid: 7685c4643fb174fd587dafc1460f6be2, type: 3}
-    size: 20
+  poolConfigs: []
 --- !u!114 &665823340007014865
 MonoBehaviour:
   m_ObjectHideFlags: 0

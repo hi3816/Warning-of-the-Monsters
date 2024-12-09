@@ -62,4 +62,4 @@ MonoBehaviour:
     size: 20
   - tag: Demon
     prefab: {fileID: 7674980571249262148, guid: 7685c4643fb174fd587dafc1460f6be2, type: 3}
-    size: 9
+    size: 20

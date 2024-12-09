@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MonsterUpgrade : MonoBehaviour
 {
@@ -19,12 +20,10 @@ public class MonsterUpgrade : MonoBehaviour
                     monsterUpgradeUI.Show(clickedMonster);
                 }
             }
-            else
+            else if (!EventSystem.current.IsPointerOverGameObject())
             {
-                if (!RectTransformUtility.RectangleContainsScreenPoint(monsterUpgradeUI.uiPanel.GetComponent<RectTransform>(), Input.mousePosition, Camera.main))
-                {
-                    monsterUpgradeUI.Hide();
-                }
+                monsterUpgradeUI.Hide();
+
             }
         }
     }

@@ -16,7 +16,19 @@ public class MonsterUpgradeUI : MonoBehaviour
     {
         selectedMonster = monster;
         upgradeCanvas.gameObject.SetActive(true);
-        
+        UpdateUI();
+    }
+    
+    public void OnUpgradeButtonClick()
+    {
+        if (selectedMonster != null)
+        { 
+            UpgradeMonster();
+        }
+    }
+
+    void UpdateUI()
+    {
         Vector3 worldPosition = selectedMonster.transform.position;
         uiPanel.transform.position = worldPosition + new Vector3(0, 1, -1);
 

@@ -6,12 +6,12 @@ public class MonsterSpawner : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private StageManager stageManager;
     private Monster _monster;
-    private Transform[] _spawnPoints;
+    protected Transform[] SpawnPoints;
     
     private void Start()
     {
         GameObject[] spawnPointObjects = GameObject.FindGameObjectsWithTag("MonsterSpawnPoint"); //NO FIND...
-        _spawnPoints = spawnPointObjects.Select(go => go.transform).ToArray();
+        SpawnPoints = spawnPointObjects.Select(go => go.transform).ToArray();
     }
     
     private bool IsSpawnPointOccupied(Vector3 spawnPosition, float checkRadius)
@@ -27,7 +27,7 @@ public class MonsterSpawner : MonoBehaviour
         return false;
     }
     
-    private void SpawnMonster(Vector3 spawnPosition, MonsterSO selectedMonsterData)
+    protected void SpawnMonster(Vector3 spawnPosition, MonsterSO selectedMonsterData)
     {
         if (IsSpawnPointOccupied(spawnPosition, 0.5f))
         {
@@ -73,7 +73,7 @@ public class MonsterSpawner : MonoBehaviour
             Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             touchPosition.z = 0f;
             
-            foreach (Transform spawnPoint in _spawnPoints)
+            foreach (Transform spawnPoint in SpawnPoints)
             {
                 MonsterSO selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
                 if (Vector2.Distance(touchPosition, spawnPoint.position) < 0.5f)
