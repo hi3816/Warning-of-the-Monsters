@@ -11,6 +11,7 @@ public class DataManager : SingletonBase<DataManager>
     private StageSO[] _stageSOs;
     private TestSO[] _testSOs;
     private Dictionary<SfxType, float> _individualSfxVolumeDict;
+    private SkillSO[] _skillSOs;
 
     public int selectedStageIdx;
 
@@ -23,6 +24,7 @@ public class DataManager : SingletonBase<DataManager>
         _stageSOs = SetStageSOs();
         _testSOs = SetTestSOs();
         _individualSfxVolumeDict = SetIndividualSfxVolumeDict();
+        _skillSOs = SetSkillSOs();
     }
 
     private TestSO[] SetTestSOs()
@@ -72,6 +74,25 @@ public class DataManager : SingletonBase<DataManager>
         return individualSfxVolumeDict;
     }
 
+    private SkillSO[] SetSkillSOs()
+    {
+        List<Skill_Data.Skill_Data> skillData = Skill_Data.Skill_Data.GetList();
+
+        SkillSO[] skillSOs = new SkillSO[skillData.Count];
+        for (int i = 0; i < skillSOs.Length; i++)
+        {
+            skillSOs[i] = ScriptableObject.CreateInstance<SkillSO>();
+            skillSOs[i].id = skillData[i].id;
+            skillSOs[i].skillName = skillData[i].SkillName;
+            skillSOs[i].power = skillData[i].power;
+            skillSOs[i].range = skillData[i].range;
+            skillSOs[i].collDown = skillData[i].colldown;
+            skillSOs[i].duration = skillData[i].duration;
+        }
+
+        return skillSOs;
+    }
+
     public TestSO[] GetTestSprite()
     {
         if (_testSOs == null)
@@ -80,6 +101,7 @@ public class DataManager : SingletonBase<DataManager>
         }
         return _testSOs;
     }
+
     public StageSO GetStageByIndex(int idx)
     {
         if (_stageSOs == null)
@@ -96,6 +118,15 @@ public class DataManager : SingletonBase<DataManager>
             _individualSfxVolumeDict = SetIndividualSfxVolumeDict();
         }
         return _individualSfxVolumeDict;
+    }
+
+    public SkillSO GetSkillByIndex(int idx)
+    {
+        if (_skillSOs == null)
+        {
+            _skillSOs = SetSkillSOs();
+        }
+        return _skillSOs[idx];
     }
 
     //StageData Cache Clearing
@@ -130,6 +161,18 @@ public class DataManager : SingletonBase<DataManager>
         {
             _individualSfxVolumeDict.Clear();
             _individualSfxVolumeDict = null;
+        }
+    }
+
+    public void ClearSkillData()
+    {
+        if (_skillSOs != null)
+        {
+            foreach (var so in _skillSOs)
+            {
+                ScriptableObject.Destroy(so);
+            }
+            _skillSOs = null;
         }
     }
 }
