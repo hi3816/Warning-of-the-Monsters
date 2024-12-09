@@ -14,7 +14,7 @@ public class MonsterSpawner : MonoBehaviour
         SpawnPoints = spawnPointObjects.Select(go => go.transform).ToArray();
     }
     
-    private bool IsSpawnPointOccupied(Vector3 spawnPosition, float checkRadius)
+    protected bool IsSpawnPointOccupied(Vector3 spawnPosition, float checkRadius)
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(spawnPosition, checkRadius, LayerMask.GetMask("Monster"));
         foreach (var collider in colliders)
