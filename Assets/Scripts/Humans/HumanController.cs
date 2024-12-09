@@ -101,9 +101,9 @@ public class HumanController : MonoBehaviour
         if (Agent.FindClosestEdge(out hit))
         { 
             Vector2 dir = ((Vector2)hit.position - (Vector2)transform.position).normalized;
-            Debug.LogWarning($"next pos:{hit.position}");
-            Debug.LogWarning($"cur pos:{transform.position}");
-            Debug.LogWarning($"dir:{dir}");
+            // Debug.LogWarning($"next pos:{hit.position}");
+            // Debug.LogWarning($"cur pos:{transform.position}");
+            // Debug.LogWarning($"dir:{dir}");
             
             animator.SetFloat("Horizontal", dir.x);
             animator.SetFloat("Vertical", dir.y);
