@@ -38,6 +38,13 @@ public class PopupMonsterSpawner : MonsterSpawner
 
     private void ShowMonsterSelectionPopup(Vector2 position)
     {
+        //IsSpawnPointOccupied의 접근제한자를 protected로 만들어야 사용가능.
+        //if (IsSpawnPointOccupied(_pendingSpawnPosition, 0.5f))
+        //{
+        //    print("Spawn point is already occupied by another monster.");
+        //    return;
+        //}
+
         if (monsterSelectionPopup != null)
         {
             monsterSelectionPopup.transform.position = position;
@@ -45,11 +52,14 @@ public class PopupMonsterSpawner : MonsterSpawner
         }
     }
 
-    public void OnMonsterSelected(MonsterSO selectedMonsterData)
+    public void OnMonsterSelected()
     {
         // 몬스터 선택 후 부모 클래스의 SpawnMonster 호출
-        if (_pendingSpawnPoint != null && selectedMonsterData != null)
+        if (_pendingSpawnPoint != null 
+            //&& selectedMonsterData != null
+            )
         {
+            MonsterSO selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
             base.SpawnMonster(_pendingSpawnPosition, selectedMonsterData);
 
             // 팝업 닫기
