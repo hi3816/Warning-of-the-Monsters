@@ -5,7 +5,7 @@ public class HumanSpawner : MonoBehaviour
 {
     private Human _human;
     private WaitForSeconds _spawnDelay = new WaitForSeconds(1.5f);  // 인간 스폰 되는 간격
-    private int spawnPerWave = 3;  // 웨이브 당 인간 스폰 수 조정값
+    private int _spawnPerWave = 3;  // 웨이브 당 인간 스폰 수 조정값
     [SerializeField] private PoolManager.PoolConfig[] poolConfigs; // 인간 풀
 
     private void Awake()
@@ -21,7 +21,7 @@ public class HumanSpawner : MonoBehaviour
     private IEnumerator SpawnHumansCoroutine(int waveIdx)
     {
         int spawnedHumans = 0;
-        int countPerUnit = waveIdx * spawnPerWave;
+        int countPerUnit = waveIdx * _spawnPerWave;
         while (spawnedHumans < countPerUnit)
         {
             SpawnHuman(waveIdx);

@@ -9,6 +9,7 @@ public class HumanController : MonoBehaviour
     private float _minFatigueInflicted;
     private float _maxFatigueInflicted;
     
+    public Animator animator;
     public NavMeshAgent Agent { get; private set; }
     public Transform SpawnPoint { get; private set; }
     public Transform EndPoint { get; private set; }
@@ -36,9 +37,12 @@ public class HumanController : MonoBehaviour
         if (EndPoint == null)
             Debug.LogWarning("Endpoint not found");
         
+        animator = GetComponentInChildren<Animator>();
+        if (animator == null)
+            Debug.LogAssertion("Animator not found");
         Agent = GetComponent<NavMeshAgent>();
         if (Agent == null)
-            Debug.LogError("No NavMeshAgent found");
+            Debug.LogError("NavMeshAgent not found");
         // Sprite가 화면상에 보이도록 조정
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
@@ -60,6 +64,9 @@ public class HumanController : MonoBehaviour
         Agent.enabled = true;
         Agent.ResetPath();  // 경로 초기화
         StateMachine.ChangeState(WalkHumanState);   // 걷는 상태로 전환
+        // 애니메이션 초기화
+        animator.SetBool("IsBattle", false);
+        animator.SetBool("IsRun", false);
     }
 
     private void Update()

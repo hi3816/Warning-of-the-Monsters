@@ -41,6 +41,11 @@ public class Human : MonoBehaviour
     // 인간의 공포 수치를 올리는 메서드
     public void IncreaseFear(float amount)
     {
+        // 놀라는 효과음과 애니메이션 실행
+        SoundManager.Instance.PlaySFX(SfxType.SurprisingHuman);
+        controller.animator.SetTrigger("Surprise");
+        controller.animator.SetBool("IsRun", true);
+        
         _fearLevel = Mathf.Min(_fearLevel + amount, _maxFear); // 최대값 넘지 않도록 제한
         fearGauge.fillAmount = _fearLevel / _maxFear;   // UI 갱신
         // Debug.Log($"Fear: {_fearLevel}");

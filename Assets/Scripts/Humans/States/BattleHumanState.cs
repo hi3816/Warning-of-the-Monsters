@@ -11,6 +11,7 @@ public class BattleHumanState : IHumanState
 
     public void Enter()
     {
+        _human.animator.SetBool("IsBattle", true);
         _human.Agent.SetDestination(_human.TargetMonster.position);
     }
 
