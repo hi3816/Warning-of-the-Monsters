@@ -513,8 +513,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b64fec6aceb79d448de67d9dd0f34e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FearGauge: {fileID: 7221225698854853108}
   controller: {fileID: 2711220336945300611}
+  fearGauge: {fileID: 7221225698854853108}
 --- !u!195 &5045224751481305426
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -550,7 +550,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   humanData: {fileID: 11400000, guid: 92908ec9f67dd2e4294f30b593a8913e, type: 2}
-  isArrived: 0
 --- !u!50 &5493669602540388708
 Rigidbody2D:
   serializedVersion: 4

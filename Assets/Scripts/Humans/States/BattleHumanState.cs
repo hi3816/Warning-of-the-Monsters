@@ -1,10 +1,7 @@
-using UnityEngine;
-
 public class BattleHumanState : IHumanState
 {
-    private readonly HumanController _human;
-    private readonly HumanStateMachine _stateMachine;
-    private float _attackCooldown = 2f;
+    private HumanController _human;
+    private HumanStateMachine _stateMachine;
 
     public BattleHumanState(HumanController human, HumanStateMachine stateMachine)
     {
@@ -14,26 +11,26 @@ public class BattleHumanState : IHumanState
 
     public void Enter()
     {
-        _human.agent.SetDestination(_human.TargetMonster.position);
+        _human.Agent.SetDestination(_human.TargetMonster.position);
     }
 
     public void Update()
     {
-        if (_human.TargetMonster == null)
+        if (_human.TargetMonster == null)   // 타겟 몬스터가 없으면
         {
-            _stateMachine.ChangeState(_human.WalkHumanState);
+            _stateMachine.ChangeState(_human.WalkHumanState);   // 걷기 상태로 전환
             return;
         }
 
-        if (_human.CanAttack())
+        if (_human.CanAttack()) // 공격 가능한 상태면
         {
-            _human.PerformAttack();
+            _human.PerformAttack(); // 공격을 실행
         }
     }
 
     public void Exit()
     {
-        _human.agent.ResetPath();
+        _human.Agent.ResetPath();
     }
     
 }

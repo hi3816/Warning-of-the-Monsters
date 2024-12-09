@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class HumanBaseHumanState : IHumanState
 {
     protected HumanStateMachine stateMachine;

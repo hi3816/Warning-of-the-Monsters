@@ -16,9 +16,4 @@ public class HumanStateMachine
     }
 
     public IHumanState CurrentHumanState => _currentHumanState;
-
-    public void Initialize(IHumanState startingHumanState)
-    {
-        ChangeState(startingHumanState);
-    }
 }
