@@ -44,13 +44,13 @@ public class Human : MonoBehaviour
         // 놀라는 효과음과 애니메이션 실행
         SoundManager.Instance.PlaySFX(SfxType.SurprisingHuman);
         controller.animator.SetTrigger("Surprise");
-        controller.animator.SetBool("IsRun", true);
         
         _fearLevel = Mathf.Min(_fearLevel + amount, _maxFear); // 최대값 넘지 않도록 제한
         fearGauge.fillAmount = _fearLevel / _maxFear;   // UI 갱신
         // Debug.Log($"Fear: {_fearLevel}");
         if (_fearLevel >= _maxFear) // 갱신된 값이 최대값보다 크면
         {
+            controller.animator.SetBool("IsRun", true);
             controller.ReturnHumanToPool(3.0f); // 인간을 풀로 반환
             controller.StateMachine.ChangeState(controller.RunHumanState); // 도망 상태로 전환
             StageManager.Instance.ChangeGold(_coin);    // 스테이지 보유 재화 갱신
