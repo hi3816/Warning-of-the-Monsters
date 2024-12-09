@@ -60,7 +60,7 @@ namespace Skill_Data
 		public SkillName SkillName;
 		public System.Single power;
 		public System.Single range;
-		public System.Single colldown;
+		public System.Single cooldown;
 		public System.Single duration;
   
 

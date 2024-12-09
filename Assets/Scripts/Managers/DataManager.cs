@@ -86,7 +86,7 @@ public class DataManager : SingletonBase<DataManager>
             skillSOs[i].skillName = skillData[i].SkillName;
             skillSOs[i].power = skillData[i].power;
             skillSOs[i].range = skillData[i].range;
-            skillSOs[i].collDown = skillData[i].colldown;
+            skillSOs[i].cooldown = skillData[i].cooldown;
             skillSOs[i].duration = skillData[i].duration;
         }
 
