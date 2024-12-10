@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics.Tracing;
 using TMPro;
 using UnityEngine;
@@ -27,6 +28,8 @@ public class StageManager : SingletonBase<StageManager>
     [SerializeField] private PoolManager.PoolConfig[] poolConfigs;
 
     private SoundManager soundManager;
+    
+    public Action OnGameOver;
 
     protected override void Awake()
     {
@@ -83,6 +86,8 @@ public class StageManager : SingletonBase<StageManager>
     {
         CurrHealth += health;
         stageInfoController.ChangeUI();
+        if (CurrHealth <= 0)
+            OnGameOver?.Invoke();
     }
 
     public void ChangeGold(int gold)

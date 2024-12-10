@@ -49,6 +49,8 @@ public class StartBattleButtonController : MonoBehaviour
     // StartBattleBtn 클릭
     public void StartWave()
     {
+        if (HumanManager.Instance.isLastWave) return;
+        
         isWaveStart = true;
         currWaveStartDelayTime = 0f;
         timeCircleImage.fillAmount = 0f;
@@ -95,7 +97,7 @@ public class StartBattleButtonController : MonoBehaviour
         if (StageManager.Instance.CheckEndStage())
         {
             // 클리어 조건 추가
-            Time.timeScale = 0f;
+            // Time.timeScale = 0f;
             SoundManager.Instance.StopBGM();
             return true;
             // 클리어 팝업 추가

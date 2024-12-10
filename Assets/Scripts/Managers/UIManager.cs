@@ -30,6 +30,17 @@ public class UIManager : SingletonBase<UIManager>
         
         return (T)ui;
     }
+    
+    public T Show<T>(string path) where T : UIBase
+    {
+        string uiName = typeof(T).ToString();
+        UIBase go = Resources.Load<UIBase>(path + uiName);
+        var ui = Load<T>(go, uiName);
+        uiList.Add(ui);
+        ui.Opened();
+        
+        return (T)ui;
+    }
 
     private T Load<T>(UIBase prefab, string uiName) where T : UIBase
     {

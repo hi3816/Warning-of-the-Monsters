@@ -140,6 +140,7 @@ public class HumanController : MonoBehaviour
     {
         // Debug.Log("Returning human process");
         yield return new WaitForSeconds(delay);
+        HumanManager.Instance.RemoveHumanList();
         PoolManager.Instance.ReturnToPool("Human", this.gameObject);
     }
 }
