@@ -6,9 +6,20 @@ using UnityEngine.EventSystems;
 
 public class PopupMonsterSpawner : MonsterSpawner
 {
+    private Dictionary<int, int> _selectedMonsterList;
     [SerializeField] private GameObject monsterSelectionPopup; // 몬스터 선택 팝업 UI
     private Vector3 _pendingSpawnPosition; // 선택된 스폰 위치
     private Transform _pendingSpawnPoint; // 선택된 스폰 포인트
+
+    private void Awake()
+    {
+        _selectedMonsterList = DataManager.Instance.SelectedMonsterData;
+        Debug.Log("들어온 데이터 확인");
+        foreach (var Data in _selectedMonsterList)
+        {
+            Debug.Log($"{Data.Key} , {Data.Value}");
+        }
+    }
 
     void Update()
     {
@@ -38,12 +49,11 @@ public class PopupMonsterSpawner : MonsterSpawner
 
     private void ShowMonsterSelectionPopup(Vector2 position)
     {
-        //IsSpawnPointOccupied의 접근제한자를 protected로 만들어야 사용가능.
-        //if (IsSpawnPointOccupied(_pendingSpawnPosition, 0.5f))
-        //{
-        //    print("Spawn point is already occupied by another monster.");
-        //    return;
-        //}
+        if (IsSpawnPointOccupied(_pendingSpawnPosition, 0.5f))
+        {
+            print("Spawn point is already occupied by another monster.");
+            return;
+        }
 
         if (monsterSelectionPopup != null)
         {

@@ -13,6 +13,8 @@ public class DataManager : SingletonBase<DataManager>
     private Dictionary<SfxType, float> _individualSfxVolumeDict;
     private SkillSO[] _skillSOs;
 
+    public Dictionary<int, int> SelectedMonsterData;
+
     public int selectedStageIdx;
 
     protected override void Awake()
@@ -109,6 +111,15 @@ public class DataManager : SingletonBase<DataManager>
             _stageSOs = SetStageSOs();
         }
         return _stageSOs[idx];
+    }
+
+    public Dictionary<int, int> GetSelectedMonstersData()
+    {
+        if (SelectedMonsterData == null)
+        {
+            Debug.Log("선택된 몬스터 정보를 가져오지 못했습니다.");
+        }
+        return SelectedMonsterData;
     }
 
     public Dictionary<SfxType, float> GetIndvidualSfxVolumeDict()

@@ -5,8 +5,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.U2D;
 using UnityEngine.UI;
-using UnityEngine.Windows;
-using static UnityEngine.EventSystems.EventTrigger;
 
 
 public class StagePopup : UIBase
@@ -27,12 +25,12 @@ public class StagePopup : UIBase
     public List<GameObject> monsterSelectedSlots;
     
     private int _crrSlotIdx;
-    private Dictionary<string, int> _selectListData = new Dictionary<string, int>();
 
     [Header("MonsterList")]
     public GameObject monsterListSlot;
     public Transform monsterListScroll;
-    
+    Dictionary<int, int> SelectedListData = new Dictionary<int, int>();
+
     private TestSO[] _testSOs;
     private Dictionary<string, int> _monsterListData;
     private SpriteAtlas _sprites;
@@ -73,8 +71,10 @@ public class StagePopup : UIBase
 
     private void LoadGameScene()
     {
-        DataManager.Instance.selectedStageIdx = _stageIdx;
-
+        if (SelectedListData.Count != 4) { Debug.Log("몬스터를 모두 선택하세요"); return; }
+        DataManager.Instance.selectedStageIdx = _stageIdx;              //선택된 스테이지
+        DataManager.Instance.SelectedMonsterData = SelectedListData;    //선택된 몬스터
+        
         SceneManager.LoadScene("MainScene");
     }
 
@@ -111,9 +111,34 @@ public class StagePopup : UIBase
 
     public void SelectListSlot(Sprite listSlotSprite)
     {
-        UpdateSelectedSlot(listSlotSprite);
-
         string name = listSlotSprite.name.Replace("(Clone)","").Trim();
+        //이미 슬롯이 채워져있을 시 채워져있는 몬스터를 삭제해주는 로직.
+        if (SelectedListData.ContainsKey(_crrSlotIdx))
+        {
+            SelectedListData.Remove(_crrSlotIdx);
+        }
+        
+        //선택한 몬스터 데이터를 SelectedListData에 넣어줌.
+        foreach (var Data in _monsterListData) 
+        {
+            if (Data.Key == name) 
+            {
+                if (SelectedListData.ContainsValue(Data.Value))
+                {
+                    Debug.Log("이미 선택한 몬스터입니다!!");
+                    return;
+                }
+                SelectedListData.Add(_crrSlotIdx, Data.Value); 
+            }
+        }
+
+        //디버그용
+        foreach (var Data in SelectedListData)
+        {
+            Debug.Log($"{Data.Key} , {Data.Value}");
+        }
+
+        UpdateSelectedSlot(listSlotSprite);
     }
 
     private void UpdateSelectedSlot(Sprite listSlotSprite)
