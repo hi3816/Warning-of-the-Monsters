@@ -3,12 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.U2D;
 
 public class PopupMonsterSpawner : MonsterSpawner
 {
     [SerializeField] private GameObject monsterSelectionPopup; // 몬스터 선택 팝업 UI
+    [SerializeField] private List<GameObject> slot;
     private Vector3 _pendingSpawnPosition; // 선택된 스폰 위치
     private Transform _pendingSpawnPoint; // 선택된 스폰 포인트
+
+    private Dictionary<int, int> _selectedMonsterList;
+
+    private void Awake()
+    {
+        _selectedMonsterList = DataManager.Instance.SelectedMonsterData;
+        Debug.Log("들어온 데이터 확인");
+        foreach (var Data in _selectedMonsterList)
+        {
+            Debug.Log($"{Data.Key} , {Data.Value}");
+        }
+    }
 
     void Update()
     {
@@ -38,12 +52,11 @@ public class PopupMonsterSpawner : MonsterSpawner
 
     private void ShowMonsterSelectionPopup(Vector2 position)
     {
-        //IsSpawnPointOccupied의 접근제한자를 protected로 만들어야 사용가능.
-        //if (IsSpawnPointOccupied(_pendingSpawnPosition, 0.5f))
-        //{
-        //    print("Spawn point is already occupied by another monster.");
-        //    return;
-        //}
+        if (IsSpawnPointOccupied(_pendingSpawnPosition, 0.5f))
+        {
+            print("Spawn point is already occupied by another monster.");
+            return;
+        }
 
         if (monsterSelectionPopup != null)
         {
@@ -66,6 +79,21 @@ public class PopupMonsterSpawner : MonsterSpawner
             if (monsterSelectionPopup != null)
             {
                 monsterSelectionPopup.SetActive(false);
+            }
+        }
+    }
+
+    private void SetMonsterSprite()
+    {
+        TestSO[] _testSOs = DataManager.Instance.GetTestSprite();
+        SpriteAtlas _sprites = Resources.Load<SpriteAtlas>("UI/UISprites/MonsterList");
+
+        for (int i = 0; i < _testSOs.Length; i++)
+        {
+            if (_selectedMonsterList.ContainsValue(_testSOs[i].id))
+            {
+                //_selectedMonsterList.
+                //var sprite = slot[].GetComponent<SpriteAtlas>();
             }
         }
     }
