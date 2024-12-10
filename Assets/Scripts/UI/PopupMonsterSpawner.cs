@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.U2D;
 
 public class PopupMonsterSpawner : MonsterSpawner
 {
-    private Dictionary<int, int> _selectedMonsterList;
     [SerializeField] private GameObject monsterSelectionPopup; // 몬스터 선택 팝업 UI
+    [SerializeField] private List<GameObject> slot;
     private Vector3 _pendingSpawnPosition; // 선택된 스폰 위치
     private Transform _pendingSpawnPoint; // 선택된 스폰 포인트
+
+    private Dictionary<int, int> _selectedMonsterList;
 
     private void Awake()
     {
@@ -76,6 +79,21 @@ public class PopupMonsterSpawner : MonsterSpawner
             if (monsterSelectionPopup != null)
             {
                 monsterSelectionPopup.SetActive(false);
+            }
+        }
+    }
+
+    private void SetMonsterSprite()
+    {
+        TestSO[] _testSOs = DataManager.Instance.GetTestSprite();
+        SpriteAtlas _sprites = Resources.Load<SpriteAtlas>("UI/UISprites/MonsterList");
+
+        for (int i = 0; i < _testSOs.Length; i++)
+        {
+            if (_selectedMonsterList.ContainsValue(_testSOs[i].id))
+            {
+                //_selectedMonsterList.
+                //var sprite = slot[].GetComponent<SpriteAtlas>();
             }
         }
     }
