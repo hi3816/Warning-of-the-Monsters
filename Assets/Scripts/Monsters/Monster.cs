@@ -23,6 +23,8 @@ public abstract class Monster : MonoBehaviour
     private float _lastScareTime;
     public float currentFatigue; //현재 피로도
     private Coroutine coroutine;
+    private Collider2D _collider;
+    public MonsterUpgradeUI upgradeUI;
     
     public void Upgrade(Monster_Data.Upgrade_Data upgradeData)
     {
@@ -37,7 +39,16 @@ public abstract class Monster : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
+        _collider = GetComponent<Collider2D>();
         SetState(MonsterState.Idle);
+    }
+    
+    private void OnMouseDown()
+    {
+        if (upgradeUI != null)
+        {
+            upgradeUI.Show(this);
+        }
     }
     
     protected virtual void Update()

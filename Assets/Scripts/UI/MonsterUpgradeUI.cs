@@ -11,20 +11,12 @@ public class MonsterUpgradeUI : MonoBehaviour
     [SerializeField] private Button upgradeButton;
     public GameObject uiPanel;
     private Monster selectedMonster;
-
+    
     public void Show(Monster monster)
     {
         selectedMonster = monster;
         upgradeCanvas.gameObject.SetActive(true);
         UpdateUI();
-    }
-    
-    public void OnUpgradeButtonClick()
-    {
-        if (selectedMonster != null)
-        { 
-            UpgradeMonster();
-        }
     }
 
     void UpdateUI()
@@ -58,7 +50,14 @@ public class MonsterUpgradeUI : MonoBehaviour
         {
             stageManager.ChangeGold(-(int)nextUpgrade.requiredCoins);
             selectedMonster.Upgrade(nextUpgrade);
-            upgradeCanvas.gameObject.SetActive(false);
+            if (MonsterDataManager.Instance.GetUpgradeData(selectedMonster.data.id, selectedMonster.currentUpgradeLevel + 1) == null)
+            {
+                upgradeCanvas.gameObject.SetActive(false);
+            }
+            else
+            {
+                UpdateUI();
+            }
         }
         else
         {
