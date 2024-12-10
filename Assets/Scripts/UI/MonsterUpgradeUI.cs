@@ -12,25 +12,6 @@ public class MonsterUpgradeUI : MonoBehaviour
     public GameObject uiPanel;
     private Monster selectedMonster;
     
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Collider2D collider = selectedMonster.GetComponent<Collider2D>();
-            
-            if (collider != null && collider.OverlapPoint(mousePosition))
-            {
-                Show(selectedMonster);
-            }
-            else
-            {
-                Hide();
-            }
-        }
-    }
-
-    
     public void Show(Monster monster)
     {
         selectedMonster = monster;
@@ -69,7 +50,14 @@ public class MonsterUpgradeUI : MonoBehaviour
         {
             stageManager.ChangeGold(-(int)nextUpgrade.requiredCoins);
             selectedMonster.Upgrade(nextUpgrade);
-            upgradeCanvas.gameObject.SetActive(false);
+            if (MonsterDataManager.Instance.GetUpgradeData(selectedMonster.data.id, selectedMonster.currentUpgradeLevel + 1) == null)
+            {
+                upgradeCanvas.gameObject.SetActive(false);
+            }
+            else
+            {
+                UpdateUI();
+            }
         }
         else
         {
