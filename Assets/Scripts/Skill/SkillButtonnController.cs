@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SkillButtonnController : MonoBehaviour
 {
@@ -19,9 +21,22 @@ public class SkillButtonnController : MonoBehaviour
     private float remainingCooldown; // 남아있는 쿨타임
     [SerializeField] private TextMeshProUGUI coolDownText; // 남은 쿨타임을 보여줄 Text
 
+    private Dictionary<SkillName, Sprite> skillSpriteDict = new Dictionary<SkillName, Sprite>();
+    
+    [System.Serializable]
+    private class SkillSpritePair
+    {
+        public SkillName skillName;
+        public Sprite sprite;
+    }
+    [SerializeField] private List<SkillSpritePair> skillSpritePairList;
+    [SerializeField] private Image skillImage;
+
     private void Awake()
     {
+        SetSprite();
         skillSO = DataManager.Instance.GetSkillByIndex(skillIdx);
+        skillImage.sprite = skillSpriteDict[skillSO.skillName];
         skillCoolDown = new WaitForSeconds(skillSO.cooldown); // 스킬 쿨타임과 동기화
         remainingCooldown = 0f;
     }
@@ -48,6 +63,19 @@ public class SkillButtonnController : MonoBehaviour
             {
                 remainingCooldown = 0f;
                 coolDownText.enabled = false;
+            }
+        }
+    }
+
+    private void SetSprite()
+    {
+        if (skillSpritePairList == null) return;
+
+        foreach (SkillSpritePair pair in skillSpritePairList)
+        {
+            if(!skillSpriteDict.ContainsKey(pair.skillName))
+            {
+                skillSpriteDict.Add(pair.skillName, pair.sprite);
             }
         }
     }
