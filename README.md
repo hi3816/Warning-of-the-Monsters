@@ -47,7 +47,6 @@
 2024.11.25 - 
 
 ## 주요기능
-
 - 로비 씬
 스테이지 선택: 플레이할 스테이지를 선택하세요.
 몬스터 선택: 스테이지 시작 전 4마리의 몬스터를 선택하세요. 선택한 몬스터는 전투에 사용할 수 있습니다.
@@ -62,8 +61,11 @@
 패배 조건: 인간이 몬스터 마을로 진입하면 플레이어 체력이 줄어듭니다. 체력이 0이 되면 게임이 종료됩니다.
 
 ## 기능설명
-
 (기능설명 표 및 기능설명)
+
+```bash
+(코드 넣기)
+```
 
 ## UML
 
@@ -86,37 +88,37 @@
 
 ## 발표자료
 
-팀 노션: <https://gorgeous-mousepad-03c.notion.site/7-14942b67318780e79804d46f90aecb77?pvs=4>
+[팀 노션](https://gorgeous-mousepad-03c.notion.site/7-14942b67318780e79804d46f90aecb77?pvs=4)
 
 
-WireFrame: <https://www.figma.com/board/7LOSL81sfmvUHM4C1jvtXd/Warning-of-the-Monsters?node-id=0-1&t=t2NWAwBbt9yvN3Az-1>
+[WireFrame](https://www.figma.com/board/7LOSL81sfmvUHM4C1jvtXd/Warning-of-the-Monsters?node-id=0-1&t=t2NWAwBbt9yvN3Az-1)
 
 
-영상: <>
+[영상](영상주소 여기 입력)
 
 
-PPT: <>
+[PPT](ppt주소 여기 입력)
 
 
 ## 라이선스
 
 
-타일: <https://www.gamedevmarket.net/asset/fantasy-rpg-tileset-pack-3541>, <https://www.gamedevmarket.net/asset/50-pixel-art-textures>
+[타일1](https://www.gamedevmarket.net/asset/fantasy-rpg-tileset-pack-3541), [타일2](https://www.gamedevmarket.net/asset/50-pixel-art-textures) 
 
 
-사람: <https://www.gamedevmarket.net/asset/over-80-rpg-characters-w-animations-3540>
+[사람](https://www.gamedevmarket.net/asset/over-80-rpg-characters-w-animations-3540)
 
 
-몬스터: <https://www.gamedevmarket.net/asset/faction-expansion-woodland-folk>, <https://www.gamedevmarket.net/asset/monsters-time-fantasy-rpg-sprite-pack-4391>, <https://www.gamedevmarket.net/asset/fantasy-rpg-monster-pack>, 
+[몬스터1](https://www.gamedevmarket.net/asset/faction-expansion-woodland-folk), [몬스터2](https://www.gamedevmarket.net/asset/monsters-time-fantasy-rpg-sprite-pack-4391), [몬스터3](https://www.gamedevmarket.net/asset/fantasy-rpg-monster-pack) 
 
 
-UI: <https://www.gamedevmarket.net/asset/rpg-ui-pack>
+[UI](https://www.gamedevmarket.net/asset/rpg-ui-pack)
 
 
-기타 오브젝트: <>
+[기타 오브젝트](링크 여기 입력)
 
 
-글씨체: <https://noonnu.cc/font_page/800>
+[글씨체](https://noonnu.cc/font_page/800)
 
 
-사운드: <https://www.gamedevmarket.net/user/external/purchases?query=sound>
+[사운드](https://www.gamedevmarket.net/user/external/purchases?query=sound)
