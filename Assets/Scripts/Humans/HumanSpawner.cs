@@ -21,8 +21,8 @@ public class HumanSpawner : MonoBehaviour
     private IEnumerator SpawnHumansCoroutine(int waveIdx)
     {
         int spawnedHumans = 0;
-        int countPerUnit = waveIdx * _spawnPerWave;
-        //int countPerUnit = 1;
+        //int countPerUnit = waveIdx * _spawnPerWave;
+        int countPerUnit = 1;
         while (spawnedHumans < countPerUnit)
         {
             SpawnHuman(waveIdx);
@@ -34,7 +34,7 @@ public class HumanSpawner : MonoBehaviour
     private void SpawnHuman(int waveIdx)
     {
         GameObject obj = PoolManager.Instance.SpawnFromPool("Human", transform.position, Quaternion.identity);
-        Debug.LogWarning($"HumanSpawner:{transform.position}");
+        //Debug.LogWarning($"HumanSpawner:{transform.position}");
         Human human = obj.GetComponent<Human>();
         human.WaveIdx = waveIdx;
     }
