@@ -122,4 +122,4 @@
 [글씨체](https://noonnu.cc/font_page/800)
 
 
-[사운드](https://www.gamedevmarket.net/user/external/purchases?query=sound)
+[사운드](https://www.gamedevmarket.net/asset/2000-game-sound-effects)
