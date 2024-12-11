@@ -61,33 +61,33 @@ public class MonsterSpawner : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
-        {
-            return;
-        }
-
-        if (Input.GetMouseButtonDown(0)) //when player touch
-        {
-            Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            touchPosition.z = 0f;
-
-            foreach (Transform spawnPoint in SpawnPoints)
-            {
-                MonsterSO selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
-                if (Vector2.Distance(touchPosition, spawnPoint.position) < 0.5f)
-                {
-                    if (MonsterManager.Instance.SelectedMonsterId != 0)
-                    {
-                        if (!IsSpawnPointOccupied(spawnPoint.position, 0.5f) && stageManager.CurrGold >= selectedMonsterData.requiredCoins)
-                        {
-                            Vector3 spawnPosition = spawnPoint.position;
-                            SpawnMonster(spawnPosition, selectedMonsterData);
-                        }
-                    }
-                }
-            }
-        }
-    }
+    // void Update()
+    // {
+    //     if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+    //     {
+    //         return;
+    //     }
+    //
+    //     if (Input.GetMouseButtonDown(0)) //when player touch
+    //     {
+    //         Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //         touchPosition.z = 0f;
+    //
+    //         foreach (Transform spawnPoint in SpawnPoints)
+    //         {
+    //             MonsterSO selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
+    //             if (Vector2.Distance(touchPosition, spawnPoint.position) < 0.5f)
+    //             {
+    //                 if (MonsterManager.Instance.SelectedMonsterId != 0)
+    //                 {
+    //                     if (!IsSpawnPointOccupied(spawnPoint.position, 0.5f) && stageManager.CurrGold >= selectedMonsterData.requiredCoins)
+    //                     {
+    //                         Vector3 spawnPosition = spawnPoint.position;
+    //                         SpawnMonster(spawnPosition, selectedMonsterData);
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 }

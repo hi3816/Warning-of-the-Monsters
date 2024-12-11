@@ -199,6 +199,7 @@ public abstract class Monster : MonoBehaviour
     public void IncreaseFatigue(float value)
     {
         currentFatigue += value;
+        _animator.SetTrigger("Hit");
         Debug.Log($"Monster curFatigue: {currentFatigue}");
         if (currentFatigue >= data.fatigue)
         {
