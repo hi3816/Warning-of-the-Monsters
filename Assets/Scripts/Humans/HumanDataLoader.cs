@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,7 +6,7 @@ public class HumanDataLoader : SingletonBase<HumanDataLoader>
 {
     private HumanSO[] _humanSOs;
 
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();
         _humanSOs = SetHumanSOs();
@@ -40,5 +41,14 @@ public class HumanDataLoader : SingletonBase<HumanDataLoader>
             _humanSOs = SetHumanSOs();
         }
         return _humanSOs[idx];
+    }
+
+    public HumanSO GetHumanByName(GameObject go)
+    {
+        go.name = go.name.Replace("(Clone)", "");
+        int id = (int)((HumanType)Enum.Parse(typeof(HumanType), go.name));
+        HumanSO humanData = GetHumanByIndex(id);
+
+        return humanData;
     }
 }
