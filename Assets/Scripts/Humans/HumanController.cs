@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -56,7 +55,10 @@ public class HumanController : MonoBehaviour
     {
         // 초기화 설정
         Agent.enabled = false;
-        transform.position = SpawnPoint.position;   // 시작 위치 설정
+        //transform.position = SpawnPoint.position;   // 시작 위치 설정
+        if (StageManager.Instance.SpawnPoint == null) 
+            return;
+        transform.position = StageManager.Instance.SpawnPoint.position;   // 시작 위치 설정
         // Debug.Log($"HumanContorller:{transform.position}");
         ClearTargetMonster();   // 타겟 몬스터 삭제
         Agent.enabled = true;

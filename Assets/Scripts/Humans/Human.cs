@@ -43,6 +43,7 @@ public class Human : MonoBehaviour
         _fearLevel = 0;
         fearGauge.fillAmount = 0;
         _isReturning = false;   // 반환하고 있지 않은 상태로 전환
+        controller.enabled = true;
     }
 
     // 인간의 공포 수치를 올리는 메서드

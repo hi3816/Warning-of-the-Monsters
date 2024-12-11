@@ -13,7 +13,7 @@ public class HumanSpawner : MonoBehaviour
     private void Awake()
     {
         PoolManager.Instance.AddPoolS(poolConfigs);
-        Debug.Log(WaveDataLoader.Instance.WaveDataList);
+        //Debug.Log(WaveDataLoader.Instance.WaveDataList);
     }
 
     public void StartSpawningHumans(int waveIdx)

@@ -23,6 +23,8 @@ public class StageManager : SingletonBase<StageManager>
     [SerializeField] private GameObject stage;
     [SerializeField] private int stageIdx;
     [SerializeField] private StartBattleButtonController startBattleBtnController;
+    public Transform SpawnPoint { get; private set; }
+    public Transform EndPoint { get; private set; }
 
     [Header("Sfx Pools")]
     [SerializeField] private PoolManager.PoolConfig[] poolConfigs;
@@ -39,6 +41,7 @@ public class StageManager : SingletonBase<StageManager>
         soundManager.PlayBGM(BgmType.Stage);
         SetStageInfo();
         SetStageObject();
+        SetPointInfo();
     }
 
     // stage에 대한 정보 초기화
@@ -64,6 +67,17 @@ public class StageManager : SingletonBase<StageManager>
 
         // startBattleBtn에 interWaveDelay필드에 값 저장하기 위해 StageSO 세팅 후에 캐싱
         startBattleBtnController = stage.GetComponentInChildren<StartBattleButtonController>();
+    }
+
+    // 스테이지의 시작점과 종료지점 캐싱
+    private void SetPointInfo()
+    {
+        SpawnPoint = GameObject.FindGameObjectWithTag("HumanSpawnPoint").transform;
+        if (SpawnPoint == null)
+            Debug.LogAssertion("Spawnpoint not found");
+        EndPoint = GameObject.FindGameObjectWithTag("DestinationPoint").transform;
+        if (EndPoint == null)
+            Debug.LogAssertion("Endpoint not found");
     }
 
     // Wave 업데이트
