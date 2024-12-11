@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class SkillButtonnController : MonoBehaviour
 {
     private SkillSO skillSO; // 스킬 데이터
-    [SerializeField] private int skillIdx; // 스킬 인덱스
+    [SerializeField] public int SkillIdx { get; private set; } // 스킬 인덱스
 
     // 현재 쿨타임이 걸려 있는가 true : 스킬 사용 불가, false : 스킬 사용 가능
     private bool isOnCoolDown = false;
@@ -35,14 +35,16 @@ public class SkillButtonnController : MonoBehaviour
     [SerializeField] private List<SkillSpritePair> skillSpritePairList; // Inspector에서 Sprite 넣기 위해 사용하는 List
     [SerializeField] private Image skillImage; // skillSprite가 들어갈 Image 컴포넌트
 
+    [SerializeField] private PoolManager.PoolConfig[] poolConfigs;
     private void Awake()
     {
-        skillSO = DataManager.Instance.GetSkillByIndex(skillIdx);
+        skillSO = DataManager.Instance.GetSkillByIndex(SkillIdx);
         skillCoolDown = new WaitForSeconds(skillSO.cooldown); // 스킬 쿨타임과 동기화
         timeSinceSkill = 0f;
         parentButton = GetComponent<Button>();
         SetSprite();
         SetSkillImage();
+        PoolManager.Instance.AddPoolS(poolConfigs);
     }
 
     private void Update()
@@ -56,7 +58,6 @@ public class SkillButtonnController : MonoBehaviour
             {
                 // skillImage는 Raycast Target 제외해 놔서 인식 안됨
                 isClickSkillButton = false;
-                Debug.Log("Use Skill");
                 UseSkill();
             }
         }
@@ -91,7 +92,7 @@ public class SkillButtonnController : MonoBehaviour
     private void SetSkillImage()
     {
         skillImage.sprite = skillSpriteDict[skillSO.skillName];
-        skillRangeImageRect.sizeDelta = new Vector2(skillSO.range, skillSO.range); // 범위 설정
+        skillRangeImageRect.sizeDelta = new Vector2(skillSO.range * 0.5f, skillSO.range * 0.5f); // 범위 설정
     }
 
     // 스킬 버튼을 클릭했을 때
@@ -122,7 +123,15 @@ public class SkillButtonnController : MonoBehaviour
         isOnCoolDown = true;
         skillRangeImage.SetActive(false);
         cancelBtn.SetActive(false);
-        Debug.Log("스킬 사용");
+
+        GameObject obj = PoolManager.Instance.SpawnFromPool(skillSO.skillName.ToString());
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        worldPosition.z = 0f; // Z축 값 고정
+        obj.transform.position = worldPosition;
+        Skill skill = obj.GetComponent<Skill>();
+        skill.StartSkill();
+        obj.SetActive(true);
+
         if (coroutine != null) StopCoroutine(coroutine);
         coroutine = StartCoroutine(CoSkillCool());
     }
@@ -135,7 +144,7 @@ public class SkillButtonnController : MonoBehaviour
         blackImage.fillAmount = 0f;
     }
 
-    // 쿨타임 Text 변경
+    // 쿨타임 이미지 변경
     private void ChangeCooldownText()
     {
         float remainingTime = skillSO.cooldown - timeSinceSkill;
