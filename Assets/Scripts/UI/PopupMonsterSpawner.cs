@@ -1,27 +1,29 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using UnityEngine.U2D;
 
 public class PopupMonsterSpawner : MonsterSpawner
 {
     [SerializeField] private GameObject monsterSelectionPopup; // 몬스터 선택 팝업 UI
-    [SerializeField] private List<GameObject> slot;
     private Vector3 _pendingSpawnPosition; // 선택된 스폰 위치
     private Transform _pendingSpawnPoint; // 선택된 스폰 포인트
 
-    private Dictionary<int, int> _selectedMonsterList;
+    private Dictionary<int, (int monsterId, string monsterName)> _selectedMonsterList;
+    [SerializeField] private List<GameObject> _slots;
 
     private void Awake()
     {
         _selectedMonsterList = DataManager.Instance.SelectedMonsterData;
+
+        if (_selectedMonsterList == null) return;
         Debug.Log("들어온 데이터 확인");
         foreach (var Data in _selectedMonsterList)
         {
             Debug.Log($"{Data.Key} , {Data.Value}");
         }
+
+        SetMonsterSprite();
     }
 
     void Update()
@@ -65,8 +67,12 @@ public class PopupMonsterSpawner : MonsterSpawner
         }
     }
 
-    public void OnMonsterSelected()
+    public void OnMonsterSelected(int slotIdx)
     {
+        if (_selectedMonsterList.TryGetValue(slotIdx, out var monsterInfo))
+        {
+            Debug.Log($"{slotIdx} \n {monsterInfo}");
+        }
         // 몬스터 선택 후 부모 클래스의 SpawnMonster 호출
         if (_pendingSpawnPoint != null 
             //&& selectedMonsterData != null
@@ -85,15 +91,14 @@ public class PopupMonsterSpawner : MonsterSpawner
 
     private void SetMonsterSprite()
     {
-        TestSO[] _testSOs = DataManager.Instance.GetTestSprite();
         SpriteAtlas _sprites = Resources.Load<SpriteAtlas>("UI/UISprites/MonsterList");
 
-        for (int i = 0; i < _testSOs.Length; i++)
+        for (int i = 0; i < _slots.Count; i++)
         {
-            if (_selectedMonsterList.ContainsValue(_testSOs[i].id))
+            if (_selectedMonsterList.TryGetValue(i, out var monsterData))
             {
-                //_selectedMonsterList.
-                //var sprite = slot[].GetComponent<SpriteAtlas>();
+                var slotImg = _slots[i].transform.GetChild(0).GetComponent<Image>();
+                slotImg.sprite = _sprites.GetSprite(monsterData.monsterName);
             }
         }
     }
