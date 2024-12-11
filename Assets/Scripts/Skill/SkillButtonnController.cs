@@ -58,7 +58,6 @@ public class SkillButtonnController : MonoBehaviour
             {
                 // skillImage는 Raycast Target 제외해 놔서 인식 안됨
                 isClickSkillButton = false;
-                Debug.Log("Use Skill");
                 UseSkill();
             }
         }
