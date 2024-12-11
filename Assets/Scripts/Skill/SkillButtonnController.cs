@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class SkillButtonnController : MonoBehaviour
 {
     private SkillSO skillSO; // 스킬 데이터
-    [SerializeField] private int skillIdx; // 스킬 인덱스
+    [SerializeField] public int SkillIdx { get; private set; } // 스킬 인덱스
 
     // 현재 쿨타임이 걸려 있는가 true : 스킬 사용 불가, false : 스킬 사용 가능
     private bool isOnCoolDown = false;
@@ -38,7 +38,7 @@ public class SkillButtonnController : MonoBehaviour
     [SerializeField] private PoolManager.PoolConfig[] poolConfigs;
     private void Awake()
     {
-        skillSO = DataManager.Instance.GetSkillByIndex(skillIdx);
+        skillSO = DataManager.Instance.GetSkillByIndex(SkillIdx);
         skillCoolDown = new WaitForSeconds(skillSO.cooldown); // 스킬 쿨타임과 동기화
         timeSinceSkill = 0f;
         parentButton = GetComponent<Button>();
@@ -93,7 +93,7 @@ public class SkillButtonnController : MonoBehaviour
     private void SetSkillImage()
     {
         skillImage.sprite = skillSpriteDict[skillSO.skillName];
-        skillRangeImageRect.sizeDelta = new Vector2(skillSO.range, skillSO.range); // 범위 설정
+        skillRangeImageRect.sizeDelta = new Vector2(skillSO.range * 0.5f, skillSO.range * 0.5f); // 범위 설정
     }
 
     // 스킬 버튼을 클릭했을 때
@@ -126,9 +126,11 @@ public class SkillButtonnController : MonoBehaviour
         cancelBtn.SetActive(false);
 
         GameObject obj = PoolManager.Instance.SpawnFromPool(skillSO.skillName.ToString());
-        obj.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        worldPosition.z = 0f; // Z축 값 고정
+        obj.transform.position = worldPosition;
         Skill skill = obj.GetComponent<Skill>();
-        skill.SetTag(skillSO.skillName.ToString());
+        skill.StartSkill();
         obj.SetActive(true);
 
         if (coroutine != null) StopCoroutine(coroutine);

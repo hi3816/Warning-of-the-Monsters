@@ -12,6 +12,7 @@ public class MonsterSpawner : MonoBehaviour
     {
         GameObject[] spawnPointObjects = GameObject.FindGameObjectsWithTag("MonsterSpawnPoint"); //NO FIND...
         SpawnPoints = spawnPointObjects.Select(go => go.transform).ToArray();
+        stageManager = StageManager.Instance;
     }
     
     protected bool IsSpawnPointOccupied(Vector3 spawnPosition, float checkRadius)
@@ -51,7 +52,7 @@ public class MonsterSpawner : MonoBehaviour
                     monsterComponent.Reset();
                 }
                 
-                // 나중에 big 몬스터인지 small 몬스터인지 반별하는 조건 추가
+                // 나중에 big 몬스터인지 small 몬스터인지 판별하는 조건 추가
                 SoundManager.Instance.PlaySFX(SfxType.SpawnSmallMonster);
             }
             else
