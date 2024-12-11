@@ -13,7 +13,7 @@ public class DataManager : SingletonBase<DataManager>
     private Dictionary<SfxType, float> _individualSfxVolumeDict;
     private SkillSO[] _skillSOs;
 
-    public Dictionary<int, int> SelectedMonsterData;
+    public Dictionary<int, (int,string)> SelectedMonsterData;
 
     public int selectedStageIdx;
 
@@ -113,7 +113,7 @@ public class DataManager : SingletonBase<DataManager>
         return _stageSOs[idx];
     }
 
-    public Dictionary<int, int> GetSelectedMonstersData()
+    public Dictionary<int, (int, string)> GetSelectedMonstersData()
     {
         if (SelectedMonsterData == null)
         {

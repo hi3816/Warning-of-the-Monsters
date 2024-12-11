@@ -29,7 +29,7 @@ public class StagePopup : UIBase
     [Header("MonsterList")]
     public GameObject monsterListSlot;
     public Transform monsterListScroll;
-    Dictionary<int, int> SelectedListData = new Dictionary<int, int>();
+    Dictionary<int, (int MonsterId, string MonsterName)> _selectedListData = new Dictionary<int, (int, string)>();
 
     private TestSO[] _testSOs;
     private Dictionary<string, int> _monsterListData;
@@ -71,9 +71,9 @@ public class StagePopup : UIBase
 
     private void LoadGameScene()
     {
-        if (SelectedListData.Count != 4) { Debug.Log("몬스터를 모두 선택하세요"); return; }
+        if (_selectedListData.Count != 4) { Debug.Log("몬스터를 모두 선택하세요"); return; }
         DataManager.Instance.selectedStageIdx = _stageIdx;              //선택된 스테이지
-        DataManager.Instance.SelectedMonsterData = SelectedListData;    //선택된 몬스터
+        DataManager.Instance.SelectedMonsterData = _selectedListData;    //선택된 몬스터
         
         SceneManager.LoadScene("MainScene");
     }
@@ -113,27 +113,30 @@ public class StagePopup : UIBase
     {
         string name = listSlotSprite.name.Replace("(Clone)","").Trim();
         //이미 슬롯이 채워져있을 시 채워져있는 몬스터를 삭제해주는 로직.
-        if (SelectedListData.ContainsKey(_crrSlotIdx))
+        if (_selectedListData.ContainsKey(_crrSlotIdx))
         {
-            SelectedListData.Remove(_crrSlotIdx);
+            _selectedListData.Remove(_crrSlotIdx);
         }
-        
-        //선택한 몬스터 데이터를 SelectedListData에 넣어줌.
+
+        //선택한 몬스터 데이터를 _selectedListData 넣어줌.
         foreach (var Data in _monsterListData) 
         {
             if (Data.Key == name) 
             {
-                if (SelectedListData.ContainsValue(Data.Value))
+                foreach (var data in _selectedListData)
                 {
-                    Debug.Log("이미 선택한 몬스터입니다!!");
-                    return;
+                    if (data.Value.MonsterId == Data.Value)
+                    {
+                        Debug.Log("이미 선택한 몬스터입니다!!");
+                        return;
+                    }
                 }
-                SelectedListData.Add(_crrSlotIdx, Data.Value); 
+                _selectedListData.Add(_crrSlotIdx, (Data.Value, Data.Key)); 
             }
         }
 
         //디버그용
-        foreach (var Data in SelectedListData)
+        foreach (var Data in _selectedListData)
         {
             Debug.Log($"{Data.Key} , {Data.Value}");
         }
