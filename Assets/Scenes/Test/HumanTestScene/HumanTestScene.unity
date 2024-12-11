@@ -545,9 +545,6 @@ MonoBehaviour:
   - tag: Demon
     prefab: {fileID: 7674980571249262148, guid: 7685c4643fb174fd587dafc1460f6be2, type: 3}
     size: 20
-  - tag: Human
-    prefab: {fileID: 2330070577731405459, guid: 499e5e11e4fc0f444b2364c66ab115d3, type: 3}
-    size: 20
 --- !u!4 &1605738393
 Transform:
   m_ObjectHideFlags: 0

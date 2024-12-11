@@ -17,7 +17,7 @@ public class RunHumanState : IHumanState
         // 도망 상태에서 스폰 지점에 도착하면
         if (_human.Agent.remainingDistance <= _human.Agent.stoppingDistance)
         {
-            _human.ReturnHumanToPool(0.1f); // 풀로 반환
+            //_human.ReturnHumanToPool(0.1f); // 풀로 반환
         }
     }
 

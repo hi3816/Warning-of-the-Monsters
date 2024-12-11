@@ -57,9 +57,8 @@ namespace Wave_Data
 /* Fields. */
 
 		public System.Int32 waveIdx;
-		public System.Int32 humanId;
-		public System.Int32 count;
-		public System.Int32 totalCount;
+		public System.Collections.Generic.List<Int32> humanId;
+		public System.Collections.Generic.List<Int32> count;
   
 
 #region fuctions

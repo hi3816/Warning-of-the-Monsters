@@ -21,7 +21,6 @@ public class HumanController : MonoBehaviour
     public BattleHumanState BattleHumanState { get; private set; }
     
     private float _lastAttackTime;
-    private bool _isReturning;  // 풀에 반환중인 상태인지 체크
 
     private void Awake()
     {
@@ -60,7 +59,6 @@ public class HumanController : MonoBehaviour
         transform.position = SpawnPoint.position;   // 시작 위치 설정
         // Debug.Log($"HumanContorller:{transform.position}");
         ClearTargetMonster();   // 타겟 몬스터 삭제
-        _isReturning = false;   // 반환하고 있지 않은 상태로 전환
         Agent.enabled = true;
         Agent.ResetPath();  // 경로 초기화
         StateMachine.ChangeState(WalkHumanState);   // 걷는 상태로 전환
@@ -112,7 +110,6 @@ public class HumanController : MonoBehaviour
         {
             Debug.LogWarning("TargetMonster not found");
         }
-        // TargetMonster.GetComponent<Monster>().IncreaseFatigue(randValue);
         _lastAttackTime = Time.time;    // 마지막 공격 시각 갱신
     }
     
@@ -126,21 +123,5 @@ public class HumanController : MonoBehaviour
         TargetMonster = null;
     }
     
-    // 지연시간 이후에 인간을 풀로 반환하는 메서드
-    public void ReturnHumanToPool(float delay)
-    {
-        if (_isReturning) return;   // 풀로 반환하는 중이면 실행 x
-        
-        _isReturning = true;
-        StartCoroutine(ReturnHumanProcess(delay));
-    }
-    
-    // 지연시간 이후에 인간을 풀로 반환하는 코루틴
-    private IEnumerator ReturnHumanProcess(float delay)
-    {
-        // Debug.Log("Returning human process");
-        yield return new WaitForSeconds(delay);
-        HumanManager.Instance.RemoveHumanList();
-        PoolManager.Instance.ReturnToPool("Human", this.gameObject);
-    }
+
 }

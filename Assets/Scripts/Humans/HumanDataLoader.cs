@@ -1,46 +1,44 @@
-using UnityEngine;
-using UnityEditor;
 using System.Collections.Generic;
-using Human_Data;
+using UnityEngine;
 
-public class HumanDataLoader : MonoBehaviour
+public class HumanDataLoader : SingletonBase<HumanDataLoader>
 {
-    [MenuItem("Tools/Update HumanSO from JSON")]
-    public static void UpdateHumanSOFromJSON()
+    private HumanSO[] _humanSOs;
+
+    private void Awake()
     {
-        // JSON 파일 리스트로 로드
+        base.Awake();
+        _humanSOs = SetHumanSOs();
+    }
+    
+    private HumanSO[] SetHumanSOs()
+    {
         List<Human_Data.HumanData> humanDataList = Human_Data.HumanData.GetList();
-        
-        string savePath = "Assets/Resources/SO/Human/";  // SO 저장할 경로 설정
 
-        foreach (HumanData humanData in humanDataList)
+        HumanSO[] humanSOs = new HumanSO[humanDataList.Count];
+        for (int i = 0; i < humanSOs.Length; i++)
         {
-            // 경로에 SO 있는지 확인하고 없으면 새로 생성
-            string soPath = $"{savePath}HumanSO_{humanData.id}.asset";
-            HumanSO humanSO = AssetDatabase.LoadAssetAtPath<HumanSO>(soPath);
-            if (humanSO == null)
-            {
-                humanSO = ScriptableObject.CreateInstance<HumanSO>();
-                AssetDatabase.CreateAsset(humanSO, soPath);
-            }
-
-            // 새로운 값으로 갱신
-            humanSO.id = humanData.id;
-            humanSO.maxFear = humanData.maxFear;
-            humanSO.minFatigueInflicted = humanData.minFatigueInflicted;
-            humanSO.maxFatigueInflicted = humanData.maxFatigueInflicted;
-            humanSO.cooldown = humanData.cooldown;
-            humanSO.speed = humanData.speed;
-            humanSO.lifeInflicted = humanData.lifeInflicted;
-            humanSO.coin = humanData.coin;
-
-            EditorUtility.SetDirty(humanSO);    // 에디터에 반영
+            humanSOs[i] = ScriptableObject.CreateInstance<HumanSO>();
+            humanSOs[i].name = $"HumanSO{i + 1}";
+            humanSOs[i].id = humanDataList[i].id;
+            humanSOs[i].maxFear = humanDataList[i].maxFear;
+            humanSOs[i].minFatigueInflicted = humanDataList[i].minFatigueInflicted;
+            humanSOs[i].maxFatigueInflicted = humanDataList[i].maxFatigueInflicted;
+            humanSOs[i].cooldown = humanDataList[i].cooldown;
+            humanSOs[i].speed = humanDataList[i].speed;
+            humanSOs[i].lifeInflicted = humanDataList[i].lifeInflicted;
+            humanSOs[i].coin = humanDataList[i].coin;
         }
 
-        // 에셋에 변경 내용 적용
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
-
-        Debug.LogAssertion("HumanSO assets updated successfully!");
+        return humanSOs;
+    }
+    
+    public HumanSO GetHumanByIndex(int idx)
+    {
+        if (_humanSOs == null)
+        {
+            _humanSOs = SetHumanSOs();
+        }
+        return _humanSOs[idx];
     }
 }

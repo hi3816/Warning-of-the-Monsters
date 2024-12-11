@@ -408,7 +408,7 @@ Animator:
   m_GameObject: {fileID: 1759230578926842857}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2490721ad1ca45047b5a32320e85b140, type: 2}
+  m_Controller: {fileID: 22100000, guid: a08a964ef5e3d4f429489ee72059a43a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -513,6 +513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b64fec6aceb79d448de67d9dd0f34e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  humanData: {fileID: 11400000, guid: ecba04785b0d79d48830c9ca140cb322, type: 2}
   controller: {fileID: 2711220336945300611}
   fearGauge: {fileID: 7221225698854853108}
 --- !u!195 &5045224751481305426

@@ -22,7 +22,7 @@ public class ObjectPool : MonoBehaviour
         // 풀 딕셔너리에 이미 해당 태그와 일치하는 풀 있으면 리턴(중복 풀 생성 방지)
         if (_poolDictionary.ContainsKey(pool.Tag))
         {
-            Debug.LogAssertion($"Pool with tag {pool.Tag} already exists.");
+            Debug.Log($"Pool with tag {pool.Tag} already exists.");
             return;
         }
         
@@ -33,6 +33,8 @@ public class ObjectPool : MonoBehaviour
             {
                 // 게임오브젝트 프리팹에서 생성하고 비활성화
                 GameObject obj = Instantiate(pool.Prefab, transform);
+                obj.name = pool.Tag;
+                // obj.name = pool.Tag + i;
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);    // 큐 구조의 오브젝트풀에 생성된 게임오브젝트 추가
             }
@@ -46,7 +48,7 @@ public class ObjectPool : MonoBehaviour
         // 풀 딕셔너리에 해당 태그와 일치하는 풀이 있는지 확인
         if (!_poolDictionary.ContainsKey(tag))
         {
-            Debug.LogAssertion($"Pool with tag {tag} doesn't exist.");
+            Debug.Log($"Pool with tag {tag} doesn't exist.");
             return null;
         }
 

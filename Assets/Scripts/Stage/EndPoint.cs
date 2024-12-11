@@ -7,9 +7,9 @@ public class EndPoint : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Human"))
         {
             // HumanSO.lifeInflicted 값으로 깍기
-            int lifeInflicted = collision.gameObject.GetComponent<Human>().LifeInflicted;
-            StageManager.Instance.ChangeHealth(-lifeInflicted);
-            collision.gameObject.GetComponent<HumanController>().ReturnHumanToPool(0.5f);
+            Human human = collision.gameObject.GetComponent<Human>();
+            StageManager.Instance.ChangeHealth(-human.LifeInflicted);
+            human.ReturnHumanToPool(0.5f);
             // Debug.Log("Enemy Collision");
         }
     }

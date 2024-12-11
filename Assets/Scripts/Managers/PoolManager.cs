@@ -36,7 +36,7 @@ public class PoolManager : SingletonBase<PoolManager>
         // 풀 딕셔너리에 이미 해당 태그와 일치하는 풀 있으면 리턴(중복 풀 생성 방지)
         if (_pools.ContainsKey(tag))
         {
-            Debug.LogAssertion($"Pool with tag {tag} already exists.");
+            Debug.Log($"Pool with tag {tag} already exists.");
             return;
         }
 
@@ -75,7 +75,7 @@ public class PoolManager : SingletonBase<PoolManager>
         // 태그와 일치하는 풀이 있는지 유효성 검사
         if (!_pools.ContainsKey(tag))
         {
-            Debug.LogAssertion($"Pool with tag {tag} doesn't exist.");
+            Debug.Log($"Pool with tag {tag} doesn't exist.");
             return null;
         }
 
@@ -95,7 +95,7 @@ public class PoolManager : SingletonBase<PoolManager>
         // 태그와 일치하는 풀이 있는지 유효성 검사
         if (!_pools.ContainsKey(tag))
         {
-            Debug.LogAssertion($"Pool with tag {tag} doesn't exist.");
+            Debug.Log($"Pool with tag {tag} doesn't exist.");
             return null;
         }
 
@@ -109,7 +109,7 @@ public class PoolManager : SingletonBase<PoolManager>
         // 태그와 일치하는 풀이 있는지 유효성 검사
         if (!_pools.ContainsKey(tag))
         {
-            Debug.LogAssertion($"Pool with tag {tag} doesn't exist.");
+            Debug.Log($"Pool with tag {tag} doesn't exist.");
             return;
         }
         obj.SetActive(false);   // 오브젝트 비활성화
@@ -121,7 +121,7 @@ public class PoolManager : SingletonBase<PoolManager>
         // 태그와 일치하는 풀이 있는지 유효성 검사
         if (!_pools.ContainsKey(tag))
         {
-            Debug.LogAssertion($"Pool with tag {tag} doesn't exist.");
+            Debug.Log($"Pool with tag {tag} doesn't exist.");
             return;
         }
 
@@ -131,7 +131,7 @@ public class PoolManager : SingletonBase<PoolManager>
         // 인자로 들어온 tag가 PoolConfig의 tag와 일치하면 해당 PoolConfig 삭제
         poolConfigs.RemoveAll(config => config.tag == tag);
 
-        Debug.LogAssertion($"Pool with tag {tag} deleted successfully.");
+        Debug.Log($"Pool with tag {tag} deleted successfully.");
         
         EditorUtility.SetDirty(this);   // Asset 상태 갱신 에디터에 전달
     }
@@ -150,7 +150,7 @@ public class PoolManager : SingletonBase<PoolManager>
         _pools.Clear();         // 풀 딕셔너리에서 모든 항목 삭제
         poolConfigs.Clear();    // 풀 설정 리스트에서 모든 항목 삭제
 
-        Debug.LogAssertion("All pools have been deleted.");
+        Debug.Log("All pools have been deleted.");
 
         EditorUtility.SetDirty(this);   // Asset 상태 갱신 에디터에 전달
     }
