@@ -16,7 +16,7 @@ public class MonsterManager : SingletonBase<MonsterManager>
     {
         PoolManager.Instance.AddPoolS(poolConfigs);
         LoadMonsterData();
-        SelectMonster(1); //for testing
+        SelectMonster(_selectedMonsterId);
     }
     
     private void LoadMonsterData()

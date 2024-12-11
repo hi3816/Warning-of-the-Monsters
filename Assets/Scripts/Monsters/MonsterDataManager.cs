@@ -63,15 +63,10 @@ public class MonsterDataManager : MonoBehaviour
     public Monster_Data.Upgrade_Data GetUpgradeData(int monsterId, int upgradeLevel)
     {
         var upgrades = Monster_Data.Upgrade_Data.GetList();
-        Debug.Log($"Number of upgrades loaded: {upgrades.Count}");
-
         foreach (var upgrade in upgrades)
         {
             int baseMonsterId = Mathf.FloorToInt(upgrade.monster_id); //base id (1, 2, etc.)
             int upgradePart = (int)((upgrade.monster_id - baseMonsterId) * 10); //upgrade level (1, 2, etc.)
-            
-            Debug.Log($"Looking for baseMonsterId: {monsterId}, upgradeLevel: {upgradeLevel} (Current: {baseMonsterId}, Upgrade: {upgradePart})");
-
             if (baseMonsterId == monsterId && upgradePart == upgradeLevel)
             {
                 return upgrade;

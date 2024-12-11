@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Demon
   m_EditorClassIdentifier: 
   id: 1
+  monsterId: 0
+  upgradeLevel: 0
   poolTag: Demon
-  fatigue: 40
+  fatigue: 0
   fearInflicted: 0
   cooldown: 0
   humanScaringRange: 0

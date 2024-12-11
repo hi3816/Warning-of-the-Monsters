@@ -956,7 +956,10 @@ MonoBehaviour:
   skillIdx: 0
   skillRangeImage: {fileID: 909231260090269868}
   skillRangeImageRect: {fileID: 8433153954219142791}
-  coolDownText: {fileID: 3586995581708702634}
+  cancelBtn: {fileID: 0}
+  blackImage: {fileID: 0}
+  skillSpritePairList: []
+  skillImage: {fileID: 0}
 --- !u!223 &2032675856127269878
 Canvas:
   m_ObjectHideFlags: 0
