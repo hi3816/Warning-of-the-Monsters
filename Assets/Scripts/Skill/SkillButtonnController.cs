@@ -35,6 +35,7 @@ public class SkillButtonnController : MonoBehaviour
     [SerializeField] private List<SkillSpritePair> skillSpritePairList; // Inspector에서 Sprite 넣기 위해 사용하는 List
     [SerializeField] private Image skillImage; // skillSprite가 들어갈 Image 컴포넌트
 
+    [SerializeField] private PoolManager.PoolConfig[] poolConfigs;
     private void Awake()
     {
         skillSO = DataManager.Instance.GetSkillByIndex(skillIdx);
@@ -43,6 +44,7 @@ public class SkillButtonnController : MonoBehaviour
         parentButton = GetComponent<Button>();
         SetSprite();
         SetSkillImage();
+        PoolManager.Instance.AddPoolS(poolConfigs);
     }
 
     private void Update()
@@ -122,7 +124,13 @@ public class SkillButtonnController : MonoBehaviour
         isOnCoolDown = true;
         skillRangeImage.SetActive(false);
         cancelBtn.SetActive(false);
-        Debug.Log("스킬 사용");
+
+        GameObject obj = PoolManager.Instance.SpawnFromPool(skillSO.skillName.ToString());
+        obj.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Skill skill = obj.GetComponent<Skill>();
+        skill.SetTag(skillSO.skillName.ToString());
+        obj.SetActive(true);
+
         if (coroutine != null) StopCoroutine(coroutine);
         coroutine = StartCoroutine(CoSkillCool());
     }
@@ -135,7 +143,7 @@ public class SkillButtonnController : MonoBehaviour
         blackImage.fillAmount = 0f;
     }
 
-    // 쿨타임 Text 변경
+    // 쿨타임 이미지 변경
     private void ChangeCooldownText()
     {
         float remainingTime = skillSO.cooldown - timeSinceSkill;
