@@ -23,13 +23,13 @@ public class GameManager : SingletonBase<GameManager>
 
     private void GameClear()
     {
-        // Time.timeScale = 0;
+        Time.timeScale = 0;
         UIManager.Instance.Show<WinPopup>("UI/UIPopup/");
     }
     
     private void GameOver()
     {
-        // Time.timeScale = 0;
+        Time.timeScale = 0;
         UIManager.Instance.Show<LosePopup>("UI/UIPopup/");
     }
 }

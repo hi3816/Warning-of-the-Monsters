@@ -14,7 +14,7 @@ public class WaveDataLoader : SingletonBase<WaveDataLoader>
     public Dictionary<int, List<WaveData>> WaveDataDict = new Dictionary<int, List<WaveData>>();
     public List<WaveData> WaveDataList;
 
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();
 

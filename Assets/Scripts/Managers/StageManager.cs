@@ -45,6 +45,11 @@ public class StageManager : SingletonBase<StageManager>
         SetPointInfo();
     }
 
+    private void OnEnable()
+    {
+        Time.timeScale = 1;
+    }
+
     // stage에 대한 정보 초기화
     private void SetStageInfo()
     {
@@ -102,7 +107,10 @@ public class StageManager : SingletonBase<StageManager>
         CurrHealth += health;
         stageInfoController.ChangeUI();
         if (CurrHealth <= 0)
+        {
+            CurrHealth = 0;            
             OnGameOver?.Invoke();
+        }
     }
 
     public void ChangeGold(int gold)

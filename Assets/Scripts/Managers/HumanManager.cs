@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public enum HumanType
 {
@@ -14,7 +15,7 @@ public class HumanManager : SingletonBase<HumanManager>
         set
         {
             _countPerWave = value;
-            //Debug.Log(CountPerWave);
+            Debug.Log($"LastCnt:{CountPerWave}");
         }
     }
     public bool isLastWave;
