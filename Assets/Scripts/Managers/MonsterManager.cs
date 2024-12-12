@@ -34,7 +34,7 @@ public class MonsterManager : SingletonBase<MonsterManager>
         }
     }
 
-    private void SelectMonster(int id)
+    public void SelectMonster(int id)
     {
         if (_monstersById.ContainsKey(id))
         {

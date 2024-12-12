@@ -5,6 +5,7 @@ public class MonsterDataManager : MonoBehaviour
 {
     public static MonsterDataManager Instance { get; private set; }
     private List<MonsterSO> _monsterSOs;
+    private Dictionary<string, Monster_Data.Minion_Data> _minionDataDictionary;
     
     private void Awake()
     {
@@ -21,8 +22,10 @@ public class MonsterDataManager : MonoBehaviour
     public MonsterSO[] LoadMonsterData()
     {
         List<Monster_Data.Monster_Data> monsterDataList = Monster_Data.Monster_Data.GetList();
+        List<Monster_Data.Minion_Data> minionDataList = Monster_Data.Minion_Data.GetList();
         List<Monster_Data.Upgrade_Data> upgradeDataList = Monster_Data.Upgrade_Data.GetList();
-
+        
+        _minionDataDictionary = new Dictionary<string, Monster_Data.Minion_Data>();
         _monsterSOs = new List<MonsterSO>();
 
         foreach (var monsterData in monsterDataList)
@@ -57,6 +60,25 @@ public class MonsterDataManager : MonoBehaviour
                 }
             }
         }
+
+        foreach (var minionData in minionDataList)
+        {
+            if (!_minionDataDictionary.ContainsKey(minionData.name))
+            {
+                _minionDataDictionary[minionData.name] = minionData;
+            }
+            
+            MonsterSO minionMonsterSo = ScriptableObject.CreateInstance<MonsterSO>();
+            minionMonsterSo.minionId = minionData.minion_id;
+            minionMonsterSo.poolTag = minionData.name;
+            minionMonsterSo.fatigue = minionData.fatigue;
+            minionMonsterSo.fearInflicted = minionData.fearInflicted;
+            minionMonsterSo.cooldown = minionData.cooldown;
+            minionMonsterSo.humanScaringRange = minionData.humanScaringRange;
+            minionMonsterSo.speed = minionData.speed;
+            
+            _monsterSOs.Add(minionMonsterSo);
+        }
         return _monsterSOs.ToArray();
     }
     
@@ -73,5 +95,15 @@ public class MonsterDataManager : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public Monster_Data.Minion_Data GetMinionData(string minionTag)
+    {
+        if (_minionDataDictionary.TryGetValue(minionTag, out var minionData))
+        {
+            return minionData;
+        }
+        return null;
+        
     }
 }

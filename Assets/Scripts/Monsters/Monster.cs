@@ -16,14 +16,13 @@ public abstract class Monster : MonoBehaviour
     public MonsterSO data;
     private List<Human> _targetHumanList = new List<Human>();
     private SpriteRenderer _spriteRenderer;
-    private Animator _animator;
-    private MonsterState _monsterState;
+    protected Animator Animator;
+    protected MonsterState MonsterState;
     public float fadeDuration = 0.5f;
     public int currentUpgradeLevel = 0;
-    private float _lastScareTime;
+    protected float LastScareTime;
     public float currentFatigue; //현재 피로도
     private Coroutine coroutine;
-    private Collider2D _collider;
     public MonsterUpgradeUI upgradeUI;
     
     public void Upgrade(Monster_Data.Upgrade_Data upgradeData)
@@ -35,11 +34,10 @@ public abstract class Monster : MonoBehaviour
         data.requiredCoins = upgradeData.requiredCoins;
     }
     
-    private void Awake()
+    protected virtual void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _animator = GetComponent<Animator>();
-        _collider = GetComponent<Collider2D>();
+        Animator = GetComponent<Animator>();
         SetState(MonsterState.Idle);
     }
     
@@ -55,7 +53,7 @@ public abstract class Monster : MonoBehaviour
     {
         Transform nearestHuman = GetNearestHuman();
         
-        switch (_monsterState)
+        switch (MonsterState)
         {
             case MonsterState.Idle:
                 UpdateAnimatorParameters(Vector2.zero);
@@ -78,7 +76,7 @@ public abstract class Monster : MonoBehaviour
         }
     }
     
-    private Transform GetNearestHuman()
+    protected Transform GetNearestHuman()
     {
         Collider2D[] detectedHumans = Physics2D.OverlapCircleAll(transform.position, data.humanScaringRange, LayerMask.GetMask("Human"));
         if (detectedHumans.Length > 0)
@@ -100,24 +98,24 @@ public abstract class Monster : MonoBehaviour
         return null;
     }
 
-    private void SetState(MonsterState state)
+    protected virtual void SetState(MonsterState state)
     {
-        if (_monsterState == state) return;
+        if (MonsterState == state) return;
         
-        _monsterState = state;
+        MonsterState = state;
         
-        switch (_monsterState)
+        switch (MonsterState)
         {
             case MonsterState.Idle:
-                _animator.SetBool("Scare", false);
+                Animator.SetBool("Scare", false);
                 break;
 
             case MonsterState.Scaring:
-                _animator.SetBool("Scare", true);
+                Animator.SetBool("Scare", true);
                 break;
 
             case MonsterState.ReturningVillage:
-                _animator.SetTrigger("Return");
+                Animator.SetTrigger("Return");
                 coroutine = StartCoroutine(FadeOutAndReturnToPool());
                 break;
         }
@@ -125,27 +123,27 @@ public abstract class Monster : MonoBehaviour
     
     private void UpdateAnimatorParameters(Vector2 direction)
     {
-        if (_animator == null) return;
+        if (Animator == null) return;
 
-        _animator.SetFloat("Horizontal", direction.x);
-        _animator.SetFloat("Vertical", direction.y);
+        Animator.SetFloat("Horizontal", direction.x);
+        Animator.SetFloat("Vertical", direction.y);
         
         bool isScaring = direction != Vector2.zero;
-        _animator.SetBool("Scare", isScaring);
+        Animator.SetBool("Scare", isScaring);
     }
     
-    private void Scaring()
+    protected virtual void Scaring()
     {
         // 단일 공격
         foreach (Human human in _targetHumanList)
         {
             if (human == null) continue;
         
-            if (Time.time - _lastScareTime > data.cooldown)
+            if (Time.time - LastScareTime > data.cooldown)
             {
                 human.IncreaseFear(data.fearInflicted);
                 //human.controller.SetTargetMonster(transform);
-                _lastScareTime = Time.time;
+                LastScareTime = Time.time;
             }
         }
 
@@ -170,7 +168,7 @@ public abstract class Monster : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (_monsterState == MonsterState.ReturningVillage) return;
+        if (MonsterState == MonsterState.ReturningVillage) return;
         if (other.CompareTag("Human"))
         {
             Human human = other.GetComponent<Human>();
@@ -199,7 +197,7 @@ public abstract class Monster : MonoBehaviour
     public void IncreaseFatigue(float value)
     {
         currentFatigue += value;
-        _animator.SetTrigger("Hit");
+        Animator.SetTrigger("Hit");
         Debug.Log($"Monster curFatigue: {currentFatigue}");
         if (currentFatigue >= data.fatigue)
         {

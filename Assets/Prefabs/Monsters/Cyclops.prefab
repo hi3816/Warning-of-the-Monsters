@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3008566466287750555}
   - component: {fileID: 8025097851069029778}
   - component: {fileID: 2400284206175671139}
+  - component: {fileID: 3260350519231483050}
   m_Layer: 6
   m_Name: Cyclops
   m_TagString: Monster
@@ -181,6 +182,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3260350519231483050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5747528317129110511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b361450e71f4c89b2dea0c650c3315, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: b51709d1abb9346bdb32a3c2152dea90, type: 2}
+  fadeDuration: 0.5
+  currentUpgradeLevel: 0
+  currentFatigue: 0
+  upgradeUI: {fileID: 0}
 --- !u!1 &8522708831465093010
 GameObject:
   m_ObjectHideFlags: 0
