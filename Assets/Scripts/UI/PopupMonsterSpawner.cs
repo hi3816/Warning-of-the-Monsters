@@ -78,6 +78,7 @@ public class PopupMonsterSpawner : MonsterSpawner
             //&& selectedMonsterData != null
             )
         {
+            MonsterManager.Instance.SelectMonster(1);
             MonsterSO selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
             base.SpawnMonster(_pendingSpawnPosition, selectedMonsterData);
 
@@ -91,7 +92,7 @@ public class PopupMonsterSpawner : MonsterSpawner
 
     private void SetMonsterSprite()
     {
-        SpriteAtlas _sprites = Resources.Load<SpriteAtlas>("UI/UISprites/MonsterList");
+        SpriteAtlas _sprites = Resources.Load<SpriteAtlas>("UI/UISprites/MonsterSprites");
 
         for (int i = 0; i < _slots.Count; i++)
         {
