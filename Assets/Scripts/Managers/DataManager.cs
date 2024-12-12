@@ -1,9 +1,4 @@
-using JetBrains.Annotations;
-using System.Collections;
 using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DataManager : SingletonBase<DataManager>
@@ -12,6 +7,7 @@ public class DataManager : SingletonBase<DataManager>
     private TestSO[] _testSOs;
     private Dictionary<SfxType, float> _individualSfxVolumeDict;
     private SkillSO[] _skillSOs;
+    private MonsterSO[] _monsterSOs;
 
     public Dictionary<int, (int,string)> SelectedMonsterData;
 
@@ -27,6 +23,7 @@ public class DataManager : SingletonBase<DataManager>
         _testSOs = SetTestSOs();
         _individualSfxVolumeDict = SetIndividualSfxVolumeDict();
         _skillSOs = SetSkillSOs();
+        _monsterSOs = SetMonsterSOs();
     }
 
     private TestSO[] SetTestSOs()
@@ -61,6 +58,25 @@ public class DataManager : SingletonBase<DataManager>
         }
 
         return stageSOs;
+    }
+
+    private MonsterSO[] SetMonsterSOs()
+    {
+        List<Monster_Data.Monster_Data> monsterDataList = Monster_Data.Monster_Data.GetList();
+
+        MonsterSO[] monsterSOs = new MonsterSO[monsterDataList.Count];
+        for (int i = 0; i < monsterSOs.Length; i++)
+        {
+            monsterSOs[i] = ScriptableObject.CreateInstance<MonsterSO>(); // 인스턴스 생성
+            monsterSOs[i].id = monsterDataList[i].id;
+            monsterSOs[i].poolTag = monsterDataList[i].name;
+            monsterSOs[i].fatigue = monsterDataList[i].fatigue;
+            monsterSOs[i].fearInflicted = monsterDataList[i].fearInflicted;
+            monsterSOs[i].cooldown = monsterDataList[i].cooldown;
+            monsterSOs[i].humanScaringRange = monsterDataList[i].humanScaringRange;
+            monsterSOs[i].requiredCoins = monsterDataList[i].requiredCoins;
+        }
+        return monsterSOs;
     }
 
     private Dictionary<SfxType, float> SetIndividualSfxVolumeDict()
@@ -111,6 +127,15 @@ public class DataManager : SingletonBase<DataManager>
             _stageSOs = SetStageSOs();
         }
         return _stageSOs[idx];
+    }
+
+    public MonsterSO[] GetMonsterSOs()
+    {
+        if (_monsterSOs == null)
+        {
+            _monsterSOs = SetMonsterSOs();
+        }
+        return _monsterSOs;
     }
 
     public Dictionary<int, (int, string)> GetSelectedMonstersData()
