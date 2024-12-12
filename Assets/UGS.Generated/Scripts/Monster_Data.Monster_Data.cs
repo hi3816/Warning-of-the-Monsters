@@ -63,6 +63,7 @@ namespace Monster_Data
 		public System.Single cooldown;
 		public System.Single humanScaringRange;
 		public System.Int32 requiredCoins;
+		public System.Int32 maxLevel;
   
 
 #region fuctions

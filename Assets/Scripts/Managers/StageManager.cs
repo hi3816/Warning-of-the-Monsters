@@ -21,8 +21,9 @@ public class StageManager : SingletonBase<StageManager>
     [Header("Stage")]
 
     [SerializeField] private GameObject stage;
-    [SerializeField] private int stageIdx;
     [SerializeField] private StartBattleButtonController startBattleBtnController;
+    
+    private int stageIdx;
     public Transform SpawnPoint { get; private set; }
     public Transform EndPoint { get; private set; }
 
