@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Reflection;
+using UnityEngine;
 
 public class WaveData
 {
@@ -8,30 +11,56 @@ public class WaveData
 }
 public class WaveDataLoader : SingletonBase<WaveDataLoader>
 {
+    public Dictionary<int, List<WaveData>> WaveDataDict = new Dictionary<int, List<WaveData>>();
     public List<WaveData> WaveDataList;
 
     private void Awake()
     {
         base.Awake();
-        WaveDataList = SetWaveData();
+
+        WaveDataDict.Add(0, SetWaveDataListFromStage(Wave_Data.Stage1.GetList()));
+        WaveDataDict.Add(1, SetWaveDataListFromStage(Wave_Data.Stage2.GetList()));
     }
     
-    private List<WaveData> SetWaveData()
+    private List<WaveData> SetWaveDataListFromStage<T>(List<T> waveDatas)
     {
-        List<Wave_Data.Stage1> rawWaveData = Wave_Data.Stage1.GetList();
         List<WaveData> waveDataList = new List<WaveData>();
 
-        int waveCount = rawWaveData.Count;
-        for (int i = 0; i < waveCount; i++)
+        foreach (var waveData in waveDatas)
         {
-            WaveData data = new WaveData();
-            data.WaveIdx = i;
-            data.HumanID = new List<int>(rawWaveData[i].humanId);
-            data.Count = new List<int>(rawWaveData[i].count);
-            waveDataList.Add(data);
+            WaveData newData = CreateWaveData(waveData);
+            if (newData != null)
+            {
+                waveDataList.Add(newData);
+            }
         }
 
         return waveDataList;
     }
-
+    private WaveData CreateWaveData<T>(T waveData)
+    {
+        if (waveData is Wave_Data.Stage1 stage1Data)
+        {
+            return new WaveData
+            {
+                WaveIdx = stage1Data.waveIdx,
+                HumanID = new List<int>(stage1Data.humanId),
+                Count = new List<int>(stage1Data.count)
+            };
+        }
+        else if (waveData is Wave_Data.Stage2 stage2Data)
+        {
+            return new WaveData
+            {
+                WaveIdx = stage2Data.waveIdx,
+                HumanID = new List<int>(stage2Data.humanId),
+                Count = new List<int>(stage2Data.count)
+            };
+        }
+        else
+        {
+            Debug.LogAssertion($"Unsupported type {typeof(T).Name}");
+            return null;
+        }
+    }
 }

@@ -7,14 +7,13 @@ public class HumanController : MonoBehaviour
 {
     private HumanSO _humanData;
     private int _id;
+    private float _speed;
     private float _cooldown;
     private float _minFatigueInflicted;
     private float _maxFatigueInflicted;
     
     public Animator animator;
     public NavMeshAgent Agent { get; private set; }
-    public Transform SpawnPoint { get; private set; }
-    public Transform EndPoint { get; private set; }
     public Transform TargetMonster { get; private set; }
 
     public HumanStateMachine StateMachine;
@@ -27,16 +26,10 @@ public class HumanController : MonoBehaviour
     private void Awake()
     {
         _humanData = HumanDataLoader.Instance.GetHumanByName(gameObject);
+        _speed = _humanData.speed;
         _cooldown = _humanData.cooldown;
         _minFatigueInflicted = _humanData.minFatigueInflicted;
         _maxFatigueInflicted = _humanData.maxFatigueInflicted;
-        
-        SpawnPoint = GameObject.FindGameObjectWithTag("HumanSpawnPoint").transform;
-        if (SpawnPoint == null)
-            Debug.LogAssertion("Spawnpoint not found");
-        EndPoint = GameObject.FindGameObjectWithTag("DestinationPoint").transform;
-        if (EndPoint == null)
-            Debug.LogWarning("Endpoint not found");
         
         animator = GetComponentInChildren<Animator>();
         if (animator == null)
@@ -47,6 +40,7 @@ public class HumanController : MonoBehaviour
         // Sprite가 화면상에 보이도록 조정
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
+        Agent.speed = _speed;
         
         StateMachine = new HumanStateMachine();
         WalkHumanState = new WalkHumanState(this, StateMachine);
@@ -58,11 +52,8 @@ public class HumanController : MonoBehaviour
     {
         // 초기화 설정
         Agent.enabled = false;
-        //transform.position = SpawnPoint.position;   // 시작 위치 설정
-        if (StageManager.Instance.SpawnPoint == null) 
-            return;
+        if (StageManager.Instance.SpawnPoint == null) return;
         transform.position = StageManager.Instance.SpawnPoint.position;   // 시작 위치 설정
-        // Debug.Log($"HumanContorller:{transform.position}");
         ClearTargetMonster();   // 타겟 몬스터 삭제
         Agent.enabled = true;
         Agent.ResetPath();  // 경로 초기화
@@ -127,6 +118,4 @@ public class HumanController : MonoBehaviour
     {
         TargetMonster = null;
     }
-    
-
 }

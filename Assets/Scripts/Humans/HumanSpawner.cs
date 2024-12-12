@@ -17,7 +17,7 @@ public class HumanSpawner : MonoBehaviour
     
     private void Start()
     {
-        _waveData = WaveDataLoader.Instance.WaveDataList;
+        _waveData = WaveDataLoader.Instance.WaveDataDict[DataManager.Instance.selectedStageIdx];
     }
     
     public void StartSpawningHumans(int waveIdx)
