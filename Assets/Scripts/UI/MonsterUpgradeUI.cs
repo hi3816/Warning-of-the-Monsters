@@ -48,7 +48,7 @@ public class MonsterUpgradeUI : MonoBehaviour
         var nextUpgrade = MonsterDataManager.Instance.GetUpgradeData(selectedMonster.data.id, selectedMonster.currentUpgradeLevel + 1);
         if (nextUpgrade != null && stageManager.CurrGold >= nextUpgrade.requiredCoins)
         {
-            stageManager.ChangeGold(-(int)nextUpgrade.requiredCoins);
+            stageManager.ChangeGold(-nextUpgrade.requiredCoins);
             selectedMonster.Upgrade(nextUpgrade);
             if (MonsterDataManager.Instance.GetUpgradeData(selectedMonster.data.id, selectedMonster.currentUpgradeLevel + 1) == null)
             {
