@@ -5,9 +5,7 @@ using Random = UnityEngine.Random;
 
 public class summonerMonster : Monster //졸개들을 불러 인간을 막는 몬스터(=병영타워)
 {
-    [Header("Summoning Settings")]
     private Transform[] summonPositions;
-
     private Dictionary<string, int> _minionToSummon;
 
     private void Start()
@@ -21,48 +19,27 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
 
         if (data.poolTag == "Lich")
         {
-            _minionToSummon.Add("Skeleton", 3);
-            _minionToSummon.Add("Bar", 2);
+            _minionToSummon.Add("Skeleton", 2);
+            _minionToSummon.Add("Bat", 1);
         }
 
-        //add other summonermonster later
+        //add other summoner monster later
     }
 
-    protected override void Update()
+    protected override void Scaring()
     {
-        base.Update();
-        switch (MonsterState)
+        if (Time.time - LastScareTime >= data.cooldown)
         {
-            case MonsterState.Summoning:
-                if (IsHumanClose() && Time.time - LastScareTime >= data.cooldown)
-                {
-                    SummonMinions();
-                }
-
-                break;
+            SummonMinions();
+            LastScareTime = Time.time;
         }
-    }
-
-    protected override void SetState(MonsterState state)
-    {
-        base.SetState(state);
-        switch (MonsterState)
+        
+        if (_targetHumanList.Count == 0)
         {
-            case MonsterState.Summoning:
-                Animator.SetBool("Summon", true);
-                break;
+            SetState(MonsterState.Idle);
         }
     }
-
-    private bool IsHumanClose()
-    {
-        Transform nearestHuman = GetNearestHuman();
-        if (nearestHuman == null) return false;
-
-        float distance = Vector3.Distance(transform.position, nearestHuman.position);
-        return distance <= data.humanScaringRange;
-    }
-
+    
     private void SummonMinions()
     {
         foreach (var minionEntry in _minionToSummon)
@@ -73,34 +50,25 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
             Monster_Data.Minion_Data minionData = MonsterDataManager.Instance.GetMinionData(minionTag);
             if (minionData != null)
             {
-                int summonedCount = 0;
-
-                foreach (Transform summonPosition in summonPositions)
+                for (int i = 0; i < count; i++)
                 {
-                    if (summonedCount >= count) break;
-                    Vector3 randomOffset = Random.insideUnitSphere * 2f;
+                    Vector3 randomOffset = Random.insideUnitSphere * 2.5f;
                     randomOffset.y = 0;
-                    Vector3 potentialSpawnPosition = summonPosition.position + randomOffset;
-
+                    Vector3 potentialSpawnPosition = transform.position + randomOffset;
                     if (NavMesh.SamplePosition(potentialSpawnPosition, out NavMeshHit hit, 2f, NavMesh.AllAreas))
                     {
-                        GameObject minion =
-                            PoolManager.Instance.SpawnFromPool(minionTag, hit.position, Quaternion.identity);
-
+                        GameObject minion = PoolManager.Instance.SpawnFromPool(minionTag, hit.position, Quaternion.identity);
                         if (minion != null)
                         {
                             Minion minionComponent = minion.GetComponent<Minion>();
                             if (minionComponent != null)
                             {
                                 minionComponent.InitializeMinion(minionData);
-                                summonedCount++;
-                            }
+                            } 
                         }
                     }
                 }
             }
-
-            LastScareTime = Time.time;
         }
     }
 }

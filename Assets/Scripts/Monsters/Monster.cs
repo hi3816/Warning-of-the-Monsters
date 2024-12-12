@@ -6,7 +6,6 @@ public enum MonsterState
 {
     Idle,
     Scaring, //scare human distance
-    Summoning, //for summonerMonster
     Walking, //for minion
     ReturningVillage
 }
@@ -14,7 +13,7 @@ public enum MonsterState
 public abstract class Monster : MonoBehaviour
 {
     public MonsterSO data;
-    private List<Human> _targetHumanList = new List<Human>();
+    protected List<Human> _targetHumanList = new List<Human>();
     private SpriteRenderer _spriteRenderer;
     protected Animator Animator;
     protected MonsterState MonsterState;

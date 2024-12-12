@@ -51,16 +51,16 @@ MonoBehaviour:
   poolConfigs:
   - tag: Demon
     prefab: {fileID: 7674980571249262148, guid: 7685c4643fb174fd587dafc1460f6be2, type: 3}
-    size: 20
+    size: 12
   - tag: Dragon
     prefab: {fileID: 3455932398467681148, guid: 132217ce7911044ecb739ca17d8c8c61, type: 3}
-    size: 20
+    size: 12
   - tag: Lich
     prefab: {fileID: 5380132030123303399, guid: fe818276475734e589ef2628bc5bf421, type: 3}
-    size: 20
+    size: 12
   - tag: Cyclops
     prefab: {fileID: 5747528317129110511, guid: 68744658c320e4a7392832bddf224566, type: 3}
-    size: 20
+    size: 12
   - tag: Skeleton
     prefab: {fileID: 8137456782942892047, guid: edf457ab2e1ae487e85fbc3db842ed6e, type: 3}
     size: 20
