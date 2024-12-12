@@ -62,6 +62,7 @@ namespace Monster_Data
 		public System.Single fearInflicted;
 		public System.Single cooldown;
 		public System.Single humanScaringRange;
+		public System.Single speed;
   
 
 #region fuctions

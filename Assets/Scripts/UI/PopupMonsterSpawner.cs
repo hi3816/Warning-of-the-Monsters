@@ -69,16 +69,15 @@ public class PopupMonsterSpawner : MonsterSpawner
 
     public void OnMonsterSelected(int slotIdx)
     {
-        if (_selectedMonsterList.TryGetValue(slotIdx, out var monsterInfo))
-        {
-            Debug.Log($"{slotIdx} \n {monsterInfo}");
-        }
         // 몬스터 선택 후 부모 클래스의 SpawnMonster 호출
         if (_pendingSpawnPoint != null 
             //&& selectedMonsterData != null
             )
         {
-            MonsterManager.Instance.SelectMonster(1);
+            if (_selectedMonsterList.TryGetValue(slotIdx, out var monsterInfo))
+            {
+                MonsterManager.Instance.SelectMonster(monsterInfo.monsterId);
+            }
             MonsterSO selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
             base.SpawnMonster(_pendingSpawnPosition, selectedMonsterData);
 
