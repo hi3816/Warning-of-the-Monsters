@@ -32,6 +32,7 @@ public class StagePopup : UIBase
     Dictionary<int, (int MonsterId, string MonsterName)> _selectedListData = new Dictionary<int, (int, string)>();
 
     private TestSO[] _testSOs;
+    private MonsterSO[] _monsterSOs;
     private Dictionary<string, int> _monsterListData;
     private SpriteAtlas _sprites;
 
@@ -87,11 +88,12 @@ public class StagePopup : UIBase
 
     private void SetMonsterScroll()
     {
-        _testSOs = DataManager.Instance.GetTestSprite();
-        _sprites = Resources.Load<SpriteAtlas>("UI/UISprites/MonsterList");
+        //_testSOs = DataManager.Instance.GetTestSprite();
+        _monsterSOs = DataManager.Instance.GetMonsterSOs();
+        _sprites = Resources.Load<SpriteAtlas>("UI/UISprites/MonsterSprites");
 
         _monsterListData = new Dictionary<string, int>();
-        for (int i = 0; i < _testSOs.Length; i++)
+        for (int i = 0; i < _monsterSOs.Length; i++)
         {
             GameObject Instance = Instantiate(monsterListSlot);
 
@@ -99,9 +101,9 @@ public class StagePopup : UIBase
             Instance.transform.localScale = Vector3.one;
 
             var sprite = Instance.transform.GetChild(0).GetComponent<Image>();
-            sprite.sprite = _sprites.GetSprite(_testSOs[i].testSpriteName);
+            sprite.sprite = _sprites.GetSprite(_monsterSOs[i].poolTag);
 
-            _monsterListData.Add(_testSOs[i].testSpriteName, _testSOs[i].id);
+            _monsterListData.Add(_monsterSOs[i].poolTag, _monsterSOs[i].id);
         }
     }
     public void SelectSlot(int slotIdx)
