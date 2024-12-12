@@ -14,13 +14,10 @@ public class SkillButtonnController : MonoBehaviour
     // 현재 쿨타임이 걸려 있는가 true : 스킬 사용 불가, false : 스킬 사용 가능
     private bool isOnCoolDown = false;
     private bool isClickSkillButton = false; // 현재 스킬 사용하도록 스킬버튼을 눌렀는지 여부
-    private Button parentButton;
     [SerializeField] private GameObject skillRangeImage; // 스킬의 범위를 볼 수 있는 오브젝트
     [SerializeField] private RectTransform skillRangeImageRect; // 스킬 범위를 설정할 RectTransform
     [SerializeField] private GameObject cancelBtn; // 취소 버튼
 
-    private Coroutine coroutine; // 스킬 쿨타임 코루틴
-    private WaitForSeconds skillCoolDown; // 스킬 쿨타임
     private float timeSinceSkill; // 스킬을 사용하고 난 후 경과 시간
     [SerializeField] private Image blackImage; // 쿨타임 표시할 이미지 (360도로 fillamount함)
 
@@ -39,9 +36,7 @@ public class SkillButtonnController : MonoBehaviour
     private void Awake()
     {
         skillSO = DataManager.Instance.GetSkillByIndex(SkillIdx);
-        skillCoolDown = new WaitForSeconds(skillSO.cooldown); // 스킬 쿨타임과 동기화
         timeSinceSkill = 0f;
-        parentButton = GetComponent<Button>();
         SetSprite();
         SetSkillImage();
         PoolManager.Instance.AddPoolS(poolConfigs);
@@ -65,10 +60,11 @@ public class SkillButtonnController : MonoBehaviour
         if (isOnCoolDown)
         {
             timeSinceSkill += Time.deltaTime;
-            ChangeCooldownText();
+            ChangeCooldownImage();
             
             if (timeSinceSkill >= skillSO.cooldown)
             {
+                isOnCoolDown = false;
                 timeSinceSkill = 0f;
             }
         }
@@ -131,21 +127,10 @@ public class SkillButtonnController : MonoBehaviour
         Skill skill = obj.GetComponent<Skill>();
         skill.StartSkill();
         obj.SetActive(true);
-
-        if (coroutine != null) StopCoroutine(coroutine);
-        coroutine = StartCoroutine(CoSkillCool());
-    }
-
-    // 스킬 사용 후 쿨타임 계산 코루틴
-    private IEnumerator CoSkillCool()
-    {
-        yield return skillCoolDown;
-        isOnCoolDown = false;
-        blackImage.fillAmount = 0f;
     }
 
     // 쿨타임 이미지 변경
-    private void ChangeCooldownText()
+    private void ChangeCooldownImage()
     {
         float remainingTime = skillSO.cooldown - timeSinceSkill;
         blackImage.fillAmount = (remainingTime / skillSO.cooldown);
