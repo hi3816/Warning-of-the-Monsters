@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5082bccd210b64d71be12c27a6701bce, type: 3}
   m_Name: Bat
   m_EditorClassIdentifier: 
-  id: 7
+  id: 0
+  minionId: 4
   monsterId: 0
   upgradeLevel: 0
   poolTag: Bat
@@ -20,4 +21,5 @@ MonoBehaviour:
   fearInflicted: 0
   cooldown: 0
   humanScaringRange: 0
+  speed: 0
   requiredCoins: 0

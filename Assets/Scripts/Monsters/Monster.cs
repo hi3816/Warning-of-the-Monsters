@@ -18,12 +18,12 @@ public abstract class Monster : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     protected Animator Animator;
     protected MonsterState MonsterState;
-    public float fadeDuration = 0.5f;
+    private float fadeDuration = 0.5f;
     public int currentUpgradeLevel = 0;
     protected float LastScareTime;
-    public float currentFatigue; //현재 피로도
+    private float currentFatigue; //현재 피로도
     private Coroutine coroutine;
-    public MonsterUpgradeUI upgradeUI;
+    private MonsterUpgradeUI upgradeUI;
     
     public void Upgrade(Monster_Data.Upgrade_Data upgradeData)
     {
