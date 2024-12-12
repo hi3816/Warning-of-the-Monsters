@@ -12,4 +12,5 @@ public class MonsterSO : ScriptableObject
     public float cooldown; //몬스터 놀래킴 쿨타임
     public float humanScaringRange; //적(인간)을 놀래킬 수 있는 범위
     public int requiredCoins; //필요재화
+    public int maxLevel; // 최대 레벨 -> 진화
 }
