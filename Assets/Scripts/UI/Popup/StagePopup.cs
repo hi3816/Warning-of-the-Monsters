@@ -114,11 +114,6 @@ public class StagePopup : UIBase
     public void SelectListSlot(Sprite listSlotSprite)
     {
         string name = listSlotSprite.name.Replace("(Clone)","").Trim();
-        //이미 슬롯이 채워져있을 시 채워져있는 몬스터를 삭제해주는 로직.
-        if (_selectedListData.ContainsKey(_crrSlotIdx))
-        {
-            _selectedListData.Remove(_crrSlotIdx);
-        }
 
         //선택한 몬스터 데이터를 _selectedListData 넣어줌.
         foreach (var Data in _monsterListData) 
@@ -130,17 +125,28 @@ public class StagePopup : UIBase
                     if (data.Value.MonsterId == Data.Value)
                     {
                         Debug.Log("이미 선택한 몬스터입니다!!");
+                        testText.text = "";
+                        foreach (var asdf in _selectedListData)
+                        {
+                            testText.text += $"{asdf.Key} : {asdf.Value}\n";
+                        }
                         return;
                     }
+                }
+                //이미 슬롯이 채워져있을 시 채워져있는 몬스터를 삭제해주는 로직.
+                if (_selectedListData.ContainsKey(_crrSlotIdx))
+                {
+                    _selectedListData.Remove(_crrSlotIdx);
                 }
                 _selectedListData.Add(_crrSlotIdx, (Data.Value, Data.Key)); 
             }
         }
 
+        testText.text = "";
         //디버그용
         foreach (var Data in _selectedListData)
         {
-            Debug.Log($"{Data.Key} , {Data.Value}");
+            testText.text += $"{Data.Key} : {Data.Value}\n";
         }
 
         UpdateSelectedSlot(listSlotSprite);
