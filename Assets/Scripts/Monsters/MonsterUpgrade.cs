@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 public class MonsterUpgrade : MonoBehaviour
 {
     [SerializeField] private MonsterUpgradeUI monsterUpgradeUI;
+    [SerializeField] private MonsterEvolutionUI evolutionUI;
 
     void Update()
     {
@@ -19,13 +20,21 @@ public class MonsterUpgrade : MonoBehaviour
                 Monster clickedMonster = hit.collider.GetComponentInParent<Monster>();
                 if (clickedMonster != null)
                 {
-                    monsterUpgradeUI.Show(clickedMonster);
+                    Debug.Log($"ClickedMonster MonsterID: {clickedMonster.data.monsterId}");
+                    if (clickedMonster.currentUpgradeLevel <= clickedMonster.data.maxLevel)
+                    {
+                        monsterUpgradeUI.Show(clickedMonster);
+                    }
+                    else
+                    {
+                        evolutionUI.Show(clickedMonster);
+                    }
                 }
             }
             else if(!EventSystem.current.IsPointerOverGameObject())
             {
                 monsterUpgradeUI.Hide();
-
+                evolutionUI.Hide();
             }
         }
     }

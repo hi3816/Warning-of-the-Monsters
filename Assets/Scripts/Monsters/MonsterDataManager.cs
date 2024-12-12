@@ -82,6 +82,11 @@ public class MonsterDataManager : MonoBehaviour
         return _monsterSOs.ToArray();
     }
     
+    public MonsterSO GetMonsterSOByIdx(int idx)
+    {
+        return _monsterSOs[idx];
+    }
+
     public Monster_Data.Upgrade_Data GetUpgradeData(int monsterId, int upgradeLevel)
     {
         var upgrades = Monster_Data.Upgrade_Data.GetList();
@@ -105,5 +110,20 @@ public class MonsterDataManager : MonoBehaviour
         }
         return null;
         
+    }
+
+    public Monster_Data.Evolution_Data GetEvolutionData(int monsterId, int upgradeLevel)
+    {
+        var evolutions = Monster_Data.Evolution_Data.GetList();
+        foreach (var evolution in evolutions)
+        {
+            int baseEvolutionId = Mathf.FloorToInt(evolution.evolution_id); // base id (1, 2, etc.)
+            int level = (int)((evolution.evolution_id - baseEvolutionId) * 10); // level (1, 2, etc.)
+            if (baseEvolutionId == monsterId && level == upgradeLevel)
+            {
+                return evolution;
+            }
+        }
+        return null;
     }
 }
