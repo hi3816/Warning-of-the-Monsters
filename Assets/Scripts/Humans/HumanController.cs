@@ -1,10 +1,12 @@
-using System.Collections;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class HumanController : MonoBehaviour
 {
     private HumanSO _humanData;
+    private int _id;
     private float _cooldown;
     private float _minFatigueInflicted;
     private float _maxFatigueInflicted;
@@ -24,7 +26,7 @@ public class HumanController : MonoBehaviour
 
     private void Awake()
     {
-        _humanData = CustomUtil.ResourceLoad<HumanSO>("SO/Human/HumanSO_0");
+        _humanData = HumanDataLoader.Instance.GetHumanByName(gameObject);
         _cooldown = _humanData.cooldown;
         _minFatigueInflicted = _humanData.minFatigueInflicted;
         _maxFatigueInflicted = _humanData.maxFatigueInflicted;
@@ -56,7 +58,10 @@ public class HumanController : MonoBehaviour
     {
         // 초기화 설정
         Agent.enabled = false;
-        transform.position = SpawnPoint.position;   // 시작 위치 설정
+        //transform.position = SpawnPoint.position;   // 시작 위치 설정
+        if (StageManager.Instance.SpawnPoint == null) 
+            return;
+        transform.position = StageManager.Instance.SpawnPoint.position;   // 시작 위치 설정
         // Debug.Log($"HumanContorller:{transform.position}");
         ClearTargetMonster();   // 타겟 몬스터 삭제
         Agent.enabled = true;

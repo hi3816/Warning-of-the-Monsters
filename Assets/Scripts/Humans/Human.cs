@@ -1,12 +1,11 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class Human : MonoBehaviour
 {
     [SerializeField] private HumanSO humanData;
-    private int id;
+    private int _id;
     private float _fearLevel;
     private float _maxFear;
     private int _coin;  // 놀랐을 때 떨어뜨리고 가는 재화량(처치 시 획득 재화량)
@@ -19,9 +18,7 @@ public class Human : MonoBehaviour
 
     private void Awake()
     {
-        // TestCode
-        id = 0;
-        humanData = HumanDataLoader.Instance.GetHumanByIndex(id);
+        humanData = HumanDataLoader.Instance.GetHumanByName(gameObject);
         _maxFear = humanData.maxFear;
         _coin = humanData.coin;
         LifeInflicted = humanData.lifeInflicted;
@@ -54,7 +51,6 @@ public class Human : MonoBehaviour
         
         _fearLevel = Mathf.Min(_fearLevel + amount, _maxFear); // 최대값 넘지 않도록 제한
         fearGauge.fillAmount = _fearLevel / _maxFear;   // UI 갱신
-        // Debug.Log($"Fear: {_fearLevel}");
         if (_fearLevel >= _maxFear) // 갱신된 값이 최대값보다 크면
         {
             controller.animator.SetBool("IsRun", true);
@@ -70,18 +66,15 @@ public class Human : MonoBehaviour
         if (_isReturning) return;   // 풀로 반환하는 중이면 실행 x
         
         _isReturning = true;
+        if (HumanManager.Instance.isLastWave)
+            HumanManager.Instance.SubHumanCount();
         StartCoroutine(ReturnHumanProcess(delay));
     }
     
     // 지연시간 이후에 인간을 풀로 반환하는 코루틴
     private IEnumerator ReturnHumanProcess(float delay)
     {
-        // Debug.Log("Returning human process");
         yield return new WaitForSeconds(delay);
-        //HumanManager.Instance.RemoveHumanList();
-        
-        //HumanManager.Instance.RemoveHumanList(SpawnedWaveIdx);
-        //PoolManager.Instance.ReturnToPool("Human", this.gameObject);
-        PoolManager.Instance.ReturnToPool(this.gameObject.name, this.gameObject);
+        PoolManager.Instance.ReturnToPool(gameObject.name, gameObject);
     }
 }

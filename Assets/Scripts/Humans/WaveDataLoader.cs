@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using Human_Data;
-using UnityEngine;
 
 public class WaveData
 {
@@ -22,6 +20,16 @@ public class WaveDataLoader : SingletonBase<WaveDataLoader>
     {
         List<Wave_Data.Stage1> rawWaveData = Wave_Data.Stage1.GetList();
         List<WaveData> waveDataList = new List<WaveData>();
+
+        int waveCount = rawWaveData.Count;
+        for (int i = 0; i < waveCount; i++)
+        {
+            WaveData data = new WaveData();
+            data.WaveIdx = i;
+            data.HumanID = new List<int>(rawWaveData[i].humanId);
+            data.Count = new List<int>(rawWaveData[i].count);
+            waveDataList.Add(data);
+        }
 
         return waveDataList;
     }

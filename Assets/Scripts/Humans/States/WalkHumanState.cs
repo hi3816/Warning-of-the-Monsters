@@ -12,7 +12,8 @@ public class WalkHumanState : IHumanState
     public void Enter()
     {
         _human.animator.SetBool("IsBattle", false);
-        _human.Agent.SetDestination(_human.EndPoint.position);
+        //_human.Agent.SetDestination(_human.EndPoint.position);
+        _human.Agent.SetDestination(StageManager.Instance.EndPoint.position);
     }
 
     public void Update()
