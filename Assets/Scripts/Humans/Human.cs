@@ -40,6 +40,12 @@ public class Human : MonoBehaviour
         _fearLevel = 0;
         fearGauge.fillAmount = 0;
         _isReturning = false;   // 반환하고 있지 않은 상태로 전환
+        
+        // 게임 종료 이벤트 발생하면 풀로 바로 반환
+        HumanManager.Instance.OnGameClear -= () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
+        HumanManager.Instance.OnGameClear += () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
+        StageManager.Instance.OnGameOver -= () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
+        StageManager.Instance.OnGameOver += () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
     }
 
     // 인간의 공포 수치를 올리는 메서드
@@ -68,7 +74,9 @@ public class Human : MonoBehaviour
         _isReturning = true;
         if (HumanManager.Instance.isLastWave)
             HumanManager.Instance.SubHumanCount();
-        StartCoroutine(ReturnHumanProcess(delay));
+        
+        if (gameObject.activeInHierarchy)   // Scene에 활성화 상태일 때만 실행
+            StartCoroutine(ReturnHumanProcess(delay));
     }
     
     // 지연시간 이후에 인간을 풀로 반환하는 코루틴

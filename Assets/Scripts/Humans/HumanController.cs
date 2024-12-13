@@ -62,7 +62,7 @@ public class HumanController : MonoBehaviour
         animator.SetBool("IsBattle", false);
         animator.SetBool("IsRun", false);
     }
-
+    
     private void Update()
     {
         StateMachine.CurrentHumanState?.Update();   // 상태 머신에서 현재 상태를 계속 갱신
