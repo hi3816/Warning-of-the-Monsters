@@ -10,14 +10,27 @@ public class WaveData
 public class WaveDataLoader : SingletonBase<WaveDataLoader>
 {
     public Dictionary<int, List<WaveData>> WaveDataDict = new Dictionary<int, List<WaveData>>();
-    public List<WaveData> WaveDataList;
 
     protected override void Awake()
     {
         base.Awake();
-
-        WaveDataDict.Add(0, SetWaveDataListFromStage(Wave_Data.Stage1.GetList()));
-        WaveDataDict.Add(1, SetWaveDataListFromStage(Wave_Data.Stage2.GetList()));
+        DontDestroyOnLoad(this);
+    }
+    
+    public void SetWaveDataIdxStage(int stageIdx)
+    {
+        switch (stageIdx)
+        {
+            case 0:
+                WaveDataDict.Add(0, SetWaveDataListFromStage(Wave_Data.Stage1.GetList()));
+                break;
+            case 1:
+                WaveDataDict.Add(1, SetWaveDataListFromStage(Wave_Data.Stage2.GetList()));
+                break;
+            default:
+                Debug.LogAssertion("Wrong stage index. WaveData unloaded.");
+                break;
+        }
     }
     
     private List<WaveData> SetWaveDataListFromStage<T>(List<T> waveDatas)

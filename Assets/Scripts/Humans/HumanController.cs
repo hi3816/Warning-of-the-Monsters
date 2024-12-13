@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -25,12 +24,14 @@ public class HumanController : MonoBehaviour
 
     private void Awake()
     {
+        // 데이터 세팅
         _humanData = HumanDataLoader.Instance.GetHumanByName(gameObject);
         _speed = _humanData.speed;
         _cooldown = _humanData.cooldown;
         _minFatigueInflicted = _humanData.minFatigueInflicted;
         _maxFatigueInflicted = _humanData.maxFatigueInflicted;
         
+        // 애니메이터 & NavMeshAgent 세팅
         animator = GetComponentInChildren<Animator>();
         if (animator == null)
             Debug.LogAssertion("Animator not found");
@@ -42,6 +43,7 @@ public class HumanController : MonoBehaviour
         Agent.updateUpAxis = false;
         Agent.speed = _speed;
         
+        // 상태머신 세팅
         StateMachine = new HumanStateMachine();
         WalkHumanState = new WalkHumanState(this, StateMachine);
         RunHumanState = new RunHumanState(this);
