@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +6,7 @@ public class MonsterDataManager : MonoBehaviour
     public static MonsterDataManager Instance { get; private set; }
     private Dictionary<string, Monster_Data.Minion_Data> _minionDataDictionary;
     private MonsterSO[] baseMonsterSOs;
+    private MonsterSO[] minionSOs;
 
     private void Awake()
     {
@@ -20,6 +20,7 @@ public class MonsterDataManager : MonoBehaviour
         }
 
         SetBaseMonsterSOs();
+        SetMinionData();
     }
 
     private void SetBaseMonsterSOs()
@@ -43,6 +44,28 @@ public class MonsterDataManager : MonoBehaviour
         }
 
         baseMonsterSOs = baseMonsterSOList.ToArray();
+    }
+
+    private void SetMinionData()
+    {
+        List<MonsterSO> minionSOList = new List<MonsterSO>();
+        List<Monster_Data.Minion_Data> minionDataList = Monster_Data.Minion_Data.GetList();
+        _minionDataDictionary = new Dictionary<string, Monster_Data.Minion_Data>();
+
+        foreach (var minionData in minionDataList)
+        {
+            MonsterSO minionSO = ScriptableObject.CreateInstance<MonsterSO>();
+            minionSO.minionId = minionData.minion_id;
+            minionSO.poolTag = minionData.name;
+            minionSO.fearInflicted = minionData.fearInflicted;
+            minionSO.cooldown = minionData.cooldown;
+            minionSO.humanScaringRange = minionData.humanScaringRange;
+            minionSO.speed = minionData.speed;
+            
+            minionSOList.Add(minionSO);
+            _minionDataDictionary[minionData.name] = minionData;
+        }
+        minionSOs = minionSOList.ToArray();
     }
 
     public MonsterSO[] GetBaseMonsterSOs()

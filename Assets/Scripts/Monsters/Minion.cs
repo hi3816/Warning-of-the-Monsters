@@ -14,6 +14,9 @@ public class Minion : Monster //졸개
         data.cooldown = minionData.cooldown;
         data.humanScaringRange = minionData.humanScaringRange;
         data.speed = minionData.speed;
+        
+        _navMeshAgent.speed = minionData.speed;
+        SetState(MonsterState.Walking);
     }
     
     protected override void Awake()
@@ -25,11 +28,9 @@ public class Minion : Monster //졸개
     protected override void Update()
     {
         base.Update();
-        switch (MonsterState)
+        if (MonsterState == MonsterState.Walking)
         {
-            case MonsterState.Walking:
-                WalkTowardsNearestHuman();
-                break;
+            WalkTowardsNearestHuman();
         }
     }
 
@@ -50,7 +51,10 @@ public class Minion : Monster //졸개
         if (nearestHuman != null)
         {
             _navMeshAgent.SetDestination(nearestHuman.position);
-            transform.position += nearestHuman.position * (_minionData.speed * Time.deltaTime);
+        }
+        else
+        {
+            SetState(MonsterState.Idle);
         }
     }
 }

@@ -33,8 +33,8 @@ public class HumanDataLoader : SingletonBase<HumanDataLoader>
 
         return humanSOs;
     }
-    
-    public HumanSO GetHumanByIndex(int idx)
+
+    private HumanSO GetHumanByIndex(int idx)
     {
         if (_humanSOs == null)
         {

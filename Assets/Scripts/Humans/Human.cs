@@ -72,8 +72,7 @@ public class Human : MonoBehaviour
         if (_isReturning) return;   // 풀로 반환하는 중이면 실행 x
         
         _isReturning = true;
-        if (HumanManager.Instance.isLastWave)
-            HumanManager.Instance.SubHumanCount();
+        HumanManager.Instance.SubHumanCount(SpawnedWaveIdx);    // 스폰된 웨이브에서 인간 카운트 횟수 차감
         
         if (gameObject.activeInHierarchy)   // Scene에 활성화 상태일 때만 실행
             StartCoroutine(ReturnHumanProcess(delay));
