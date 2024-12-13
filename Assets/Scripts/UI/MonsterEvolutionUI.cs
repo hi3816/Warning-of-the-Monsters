@@ -74,11 +74,8 @@ public class MonsterEvolutionUI : MonoBehaviour
 
         for (int i = 0; i < typeImages.Length; i++)
         {
-            foreach (Sprite sprite in sprites)
-            {
-                typeImages[i].sprite = sprite;
-                Debug.Log($"sprite {sprite}");
-            }
+            typeImages[i].sprite = sprites[i];
+            Debug.Log($"sprite {sprites[i]}");
         }
     }
 }

@@ -30,11 +30,11 @@ public class WinPopup : UIBase
     private void LoadGameScene()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("StageScene");
+        SceneManager.LoadScene("MainScene");
     }
     private void LoadNextStage()
     {
-        Debug.Log("´ÙÀ½ ½ºÅ×ÀÌÁö ·Îµå");
+        Debug.Log("ë‹¤ìŒ ìŠ¤í…Œì´ì§€ ë¡œë“œ");
     }
 
     private void ShowResultInfo()
@@ -74,7 +74,7 @@ public class WinPopup : UIBase
             FilledStar2.SetActive(false);
             FilledStar3.SetActive(false);
         }
-        else { Debug.LogError("starsCountÁ¤º¸°¡ ¾ø½À´Ï´Ù"); }
+        else { Debug.LogError("starsCountì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤"); }
     }
 
 }
