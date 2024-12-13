@@ -125,7 +125,7 @@ public class PopupMonsterSpawner : MonsterSpawner
 
     private bool IsMonsterSelectable(MonsterSO data)
     {
-        return stageManager.CurrGold >= data.requiredCoins;
+        return StageManager.CurrGold >= data.requiredCoins;
     }
 
 }
