@@ -4,7 +4,7 @@ using UnityEngine;
 public class MonsterSpawner : MonoBehaviour
 {
     [SerializeField] private Transform spawnPoint;
-    [SerializeField] private StageManager stageManager;
+    protected StageManager StageManager;
     private Monster _monster;
     protected Transform[] SpawnPoints;
     
@@ -12,7 +12,7 @@ public class MonsterSpawner : MonoBehaviour
     {
         GameObject[] spawnPointObjects = GameObject.FindGameObjectsWithTag("MonsterSpawnPoint"); //NO FIND...
         SpawnPoints = spawnPointObjects.Select(go => go.transform).ToArray();
-        stageManager = StageManager.Instance;
+        StageManager = StageManager.Instance;
     }
     
     protected bool IsSpawnPointOccupied(Vector3 spawnPosition, float checkRadius)
@@ -36,9 +36,9 @@ public class MonsterSpawner : MonoBehaviour
             return;
         }
         
-        if (stageManager.CurrGold >= selectedMonsterData.requiredCoins)
+        if (StageManager.CurrGold >= selectedMonsterData.requiredCoins)
         {
-            stageManager.ChangeGold(-selectedMonsterData.requiredCoins);
+            StageManager.ChangeGold(-selectedMonsterData.requiredCoins);
             GameObject monster = PoolManager.Instance.SpawnFromPool(selectedMonsterData.poolTag, spawnPosition, Quaternion.identity);
             if (monster != null)
             {

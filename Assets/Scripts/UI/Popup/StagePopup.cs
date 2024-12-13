@@ -40,7 +40,11 @@ public class StagePopup : UIBase
     [SerializeField] TextMeshProUGUI stageInfoTxt;
     [SerializeField] TextMeshProUGUI enemyInfoTxt;
 
-    [SerializeField] TextMeshProUGUI testText;
+    [SerializeField] TextMeshProUGUI warningTxt;
+    [SerializeField] TextMeshProUGUI testTxt;
+    
+    [SerializeField] Image[] arrowPoint;
+    [SerializeField] Sprite arrowImg;
 
     private enum Display
     {
@@ -63,6 +67,7 @@ public class StagePopup : UIBase
 
         SetMonsterScroll();
         SetStageInfo(_stageIdx);
+        SelectSlot(_crrSlotIdx);
     }
 
     public void SetStageIdx(int Idx)
@@ -72,7 +77,11 @@ public class StagePopup : UIBase
 
     private void LoadGameScene()
     {
-        if (_selectedListData.Count != 4) { Debug.Log("몬스터를 모두 선택하세요"); return; }
+        if (_selectedListData.Count != 4) 
+        {
+            warningTxt.text = "몬스터를 모두 선택하세요";
+            return; 
+        }
         DataManager.Instance.selectedStageIdx = _stageIdx;              //선택된 스테이지
         DataManager.Instance.SelectedMonsterData = _selectedListData;    //선택된 몬스터
         
@@ -109,6 +118,15 @@ public class StagePopup : UIBase
     public void SelectSlot(int slotIdx)
     {
         _crrSlotIdx = slotIdx;
+        for (int i = 0; i < arrowPoint.Length; i++) 
+        {
+            arrowPoint[i].sprite = null;
+            Color color1 = new Color(1, 1, 1, 0);
+            arrowPoint[i].color = color1;
+        }
+        arrowPoint[slotIdx].sprite = arrowImg;
+        Color color = new Color(1, 1, 1, 1);
+        arrowPoint[slotIdx].color = color;
     }
 
     public void SelectListSlot(Sprite listSlotSprite)
@@ -124,11 +142,12 @@ public class StagePopup : UIBase
                 {
                     if (data.Value.MonsterId == Data.Value)
                     {
-                        Debug.Log("이미 선택한 몬스터입니다!!");
-                        testText.text = "";
+                        warningTxt.text = "This monster \r\nis already selected!";
+
+                        testTxt.text = "";
                         foreach (var asdf in _selectedListData)
                         {
-                            testText.text += $"{asdf.Key} : {asdf.Value}\n";
+                            testTxt.text += $"{asdf.Key} : {asdf.Value}\n";
                         }
                         return;
                     }
@@ -138,17 +157,16 @@ public class StagePopup : UIBase
                 {
                     _selectedListData.Remove(_crrSlotIdx);
                 }
-                _selectedListData.Add(_crrSlotIdx, (Data.Value, Data.Key)); 
+                _selectedListData.Add(_crrSlotIdx, (Data.Value, Data.Key));
+                warningTxt.text = "";
+
+                testTxt.text = "";
+                foreach (var asdf in _selectedListData)
+                {
+                    testTxt.text += $"{asdf.Key} : {asdf.Value}\n";
+                }
             }
         }
-
-        testText.text = "";
-        //디버그용
-        foreach (var Data in _selectedListData)
-        {
-            testText.text += $"{Data.Key} : {Data.Value}\n";
-        }
-
         UpdateSelectedSlot(listSlotSprite);
     }
 

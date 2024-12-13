@@ -53,13 +53,14 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
                 for (int i = 0; i < count; i++)
                 {
                     Vector3 randomOffset = Random.insideUnitSphere * 2.5f;
-                    randomOffset.y = 0;
-                    Vector3 potentialSpawnPosition = transform.position + randomOffset;
-                    if (NavMesh.SamplePosition(potentialSpawnPosition, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+                    randomOffset.y = 1f;
+                    Vector3 spawnPosition = transform.position + randomOffset;
+                    if (NavMesh.SamplePosition(spawnPosition, out NavMeshHit hit, 2f, NavMesh.AllAreas))
                     {
                         GameObject minion = PoolManager.Instance.SpawnFromPool(minionTag, hit.position, Quaternion.identity);
                         if (minion != null)
                         {
+                            minion.SetActive(true);
                             Minion minionComponent = minion.GetComponent<Minion>();
                             if (minionComponent != null)
                             {
