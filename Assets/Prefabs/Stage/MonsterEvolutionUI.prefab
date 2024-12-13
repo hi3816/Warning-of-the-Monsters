@@ -54,7 +54,7 @@ MonoBehaviour:
   - monsterID: 3
     evolutionType: 0000000001000000
     sprite:
-    - {fileID: -1210167003, guid: f431c97fa86f04b71a5fcef4523216af, type: 3}
+    - {fileID: -25973780, guid: 886d2515b62574ddd8ea57a33e8f4d1b, type: 3}
     - {fileID: -836478897, guid: ee3b1593359fe4572ac30031241282b7, type: 3}
   - monsterID: 4
     evolutionType: 0000000001000000
@@ -62,9 +62,10 @@ MonoBehaviour:
     - {fileID: -1894368055, guid: dfb5768969da549d693edca68e4aeefc, type: 3}
     - {fileID: -52652288, guid: a7696f9fa65294f1fb9f731f415064a8, type: 3}
   typeImages:
-  - {fileID: 5241848287497326549}
-  - {fileID: 1707827674236406370}
+  - {fileID: 4206382840657675322}
+  - {fileID: 8725468095119668430}
   evolutionUI: {fileID: 9182610671499987588}
+  ChangeSprite: {fileID: -836478897, guid: ee3b1593359fe4572ac30031241282b7, type: 3}
 --- !u!1 &510062162000177508
 GameObject:
   m_ObjectHideFlags: 0
