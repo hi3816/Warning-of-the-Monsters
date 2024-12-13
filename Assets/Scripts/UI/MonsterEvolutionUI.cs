@@ -60,7 +60,7 @@ public class MonsterEvolutionUI : MonoBehaviour
     {
         foreach(int key in evolutionSpriteDict.Keys)
         {
-            Debug.Log($"key:{key}, monsterID:{selectMonster.data.monsterId}");
+            Debug.Log($"key:{key}, monsterID: {selectMonster.data.monsterId}");
             if(key == (int)selectMonster.data.monsterId)
             {
                 SetEvolutionImage(key);       

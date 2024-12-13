@@ -58,7 +58,7 @@ namespace Monster_Data
 
 		public System.Single evolution_id;
 		public System.Int32 upgrade_level;
-		public System.String upgrade_type;
+		public SkillName SkillName;
 		public System.String name;
 		public System.Single fatigue;
 		public System.Single fearInflicted;

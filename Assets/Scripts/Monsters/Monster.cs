@@ -25,6 +25,7 @@ public abstract class Monster : MonoBehaviour
     
     public void Upgrade(Monster_Data.Upgrade_Data upgradeData)
     {
+        data.monsterId = upgradeData.monster_id;
         currentUpgradeLevel = upgradeData.upgrade_level;
         data.fatigue = upgradeData.fatigue;
         data.fearInflicted = upgradeData.fearInflicted;
@@ -34,7 +35,6 @@ public abstract class Monster : MonoBehaviour
     
     protected virtual void Awake()
     {
-        data = MonsterDataManager.Instance.GetMonsterSOByIdx(data.id);
         Debug.Log($"Awake data{data.monsterId}");
         _spriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();

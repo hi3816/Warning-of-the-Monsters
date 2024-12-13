@@ -23,7 +23,7 @@ public class MonsterManager : SingletonBase<MonsterManager>
     {
         if (monsterDataManager != null)
         {
-            MonsterSO[] monsters = monsterDataManager.LoadMonsterData();
+            MonsterSO[] monsters = monsterDataManager.GetBaseMonsterSOs();
             foreach (MonsterSO monster in monsters)
             {
                 if (!_monstersById.ContainsKey(monster.id))
