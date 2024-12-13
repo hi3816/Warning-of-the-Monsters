@@ -9,7 +9,6 @@ public class RunHumanState : IHumanState
 
     public void Enter()
     {
-        //_human.Agent.SetDestination(_human.SpawnPoint.position);
         _human.Agent.SetDestination(StageManager.Instance.SpawnPoint.position);
     }
 
