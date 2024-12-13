@@ -12,7 +12,9 @@ public class GameManager : SingletonBase<GameManager>
 
     private void OnEnable()
     {
+        HumanManager.Instance.OnGameClear -= GameClear;
         HumanManager.Instance.OnGameClear += GameClear;
+        StageManager.Instance.OnGameOver -= GameOver;
         StageManager.Instance.OnGameOver += GameOver;
     }
 
