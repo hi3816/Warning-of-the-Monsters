@@ -42,6 +42,9 @@ public class StagePopup : UIBase
 
     [SerializeField] TextMeshProUGUI warningTxt;
     [SerializeField] TextMeshProUGUI testTxt;
+    
+    [SerializeField] Image[] arrowPoint;
+    [SerializeField] Sprite arrowImg;
 
     private enum Display
     {
@@ -64,6 +67,7 @@ public class StagePopup : UIBase
 
         SetMonsterScroll();
         SetStageInfo(_stageIdx);
+        SelectSlot(_crrSlotIdx);
     }
 
     public void SetStageIdx(int Idx)
@@ -114,6 +118,15 @@ public class StagePopup : UIBase
     public void SelectSlot(int slotIdx)
     {
         _crrSlotIdx = slotIdx;
+        for (int i = 0; i < arrowPoint.Length; i++) 
+        {
+            arrowPoint[i].sprite = null;
+            Color color1 = new Color(1, 1, 1, 0);
+            arrowPoint[i].color = color1;
+        }
+        arrowPoint[slotIdx].sprite = arrowImg;
+        Color color = new Color(1, 1, 1, 1);
+        arrowPoint[slotIdx].color = color;
     }
 
     public void SelectListSlot(Sprite listSlotSprite)
