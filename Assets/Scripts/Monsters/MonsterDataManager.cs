@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -55,7 +56,7 @@ public class MonsterDataManager : MonoBehaviour
         foreach (var upgrade in upgrades)
         {
             int baseMonsterId = Mathf.FloorToInt(upgrade.monster_id); //base id (1, 2, etc.)
-            int upgradePart = (int)((upgrade.monster_id - baseMonsterId) * 10); //upgrade level (1, 2, etc.)
+            int upgradePart = Mathf.RoundToInt((upgrade.monster_id - baseMonsterId) * 10); //upgrade level (1, 2, etc.)
             if (baseMonsterId == monsterId && upgradePart == upgradeLevel)
             {
                 return upgrade;
@@ -80,7 +81,7 @@ public class MonsterDataManager : MonoBehaviour
         foreach (var evolution in evolutions)
         {
             int baseEvolutionId = Mathf.FloorToInt(evolution.evolution_id); // base id (1, 2, etc.)
-            int level = (int)((evolution.evolution_id - baseEvolutionId) * 10); // level (1, 2, etc.)
+            int level = Mathf.RoundToInt((evolution.evolution_id - baseEvolutionId) * 10); // level (1, 2, etc.)
             if (baseEvolutionId == monsterId && level == upgradeLevel)
             {
                 return evolution;

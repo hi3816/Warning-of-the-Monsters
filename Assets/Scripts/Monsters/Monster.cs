@@ -30,6 +30,7 @@ public abstract class Monster : MonoBehaviour
         data.fatigue = upgradeData.fatigue;
         data.fearInflicted = upgradeData.fearInflicted;
         data.cooldown = upgradeData.cooldown;
+        data.humanScaringRange = upgradeData.humanScaringRange;
         data.requiredCoins = upgradeData.requiredCoins;
     }
     
