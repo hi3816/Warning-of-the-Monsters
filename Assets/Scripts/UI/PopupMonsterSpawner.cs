@@ -11,6 +11,7 @@ public class PopupMonsterSpawner : MonsterSpawner
 
     private Dictionary<int, (int monsterId, string monsterName)> _selectedMonsterList;
     [SerializeField] private List<GameObject> _slots;
+    [SerializeField] private List<GameObject> _slotsOverlay;
 
     private void Awake()
     {
@@ -43,6 +44,9 @@ public class PopupMonsterSpawner : MonsterSpawner
                     // 스폰 포인트와 위치 저장
                     _pendingSpawnPosition = spawnPoint.position;
                     _pendingSpawnPoint = spawnPoint;
+
+                    //몬스터 비활성화 업데이트
+                    UpdateMonsterImgState();
 
                     // 몬스터 선택 팝업 활성화
                     ShowMonsterSelectionPopup(_pendingSpawnPosition);
@@ -102,4 +106,26 @@ public class PopupMonsterSpawner : MonsterSpawner
             }
         }
     }
+
+    private void UpdateMonsterImgState()
+    {
+        for (int i = 0; i < _slots.Count; i++)
+        {
+            if (_selectedMonsterList.TryGetValue(i, out var monsterInfo))
+            {
+                MonsterManager.Instance.SelectMonster(monsterInfo.monsterId);
+                MonsterSO selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
+
+                bool isAvailable = IsMonsterSelectable(selectedMonsterData);
+
+                _slotsOverlay[i].SetActive(!isAvailable);
+            }
+        }
+    }
+
+    private bool IsMonsterSelectable(MonsterSO data)
+    {
+        return stageManager.CurrGold >= data.requiredCoins;
+    }
+
 }
