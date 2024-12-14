@@ -59,10 +59,10 @@ public class Human : MonoBehaviour
         fearGauge.fillAmount = _fearLevel / _maxFear;   // UI 갱신
         if (_fearLevel >= _maxFear) // 갱신된 값이 최대값보다 크면
         {
-            controller.animator.SetBool("IsRun", true);
-            ReturnHumanToPool(3.0f); // 인간을 풀로 반환
+            controller.animator.SetBool("IsBattle", false);
             controller.StateMachine.ChangeState(controller.RunHumanState); // 도망 상태로 전환
             StageManager.Instance.ChangeGold(_coin);    // 스테이지 보유 재화 갱신
+            ReturnHumanToPool(3.0f); // 인간을 풀로 반환
         }
     }
     

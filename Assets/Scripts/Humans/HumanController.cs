@@ -62,7 +62,8 @@ public class HumanController : MonoBehaviour
         StateMachine.ChangeState(WalkHumanState);   // 걷는 상태로 전환
         // 애니메이션 초기화
         animator.SetBool("IsBattle", false);
-        animator.SetBool("IsRun", false);
+        // animator.SetBool("IsRun", false);
+        animator.speed = 1.0f;
     }
     
     private void Update()
