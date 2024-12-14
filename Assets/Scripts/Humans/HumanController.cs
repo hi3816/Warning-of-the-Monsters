@@ -39,7 +39,6 @@ public class HumanController : MonoBehaviour
         // Sprite가 화면상에 보이도록 조정
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
-        Agent.speed = _speed;
         
         // 상태머신 세팅
         StateMachine = new HumanStateMachine();
@@ -57,16 +56,17 @@ public class HumanController : MonoBehaviour
         ClearTargetMonster();   // 타겟 몬스터 삭제
         Agent.enabled = true;
         Agent.ResetPath();  // 경로 초기화
+        Agent.speed = _speed;   // 속도 초기화
         StateMachine.ChangeState(WalkHumanState);   // 걷는 상태로 전환
         // 애니메이션 초기화
         animator.SetBool("IsBattle", false);
-        // animator.SetBool("IsRun", false);
         animator.speed = 1.0f;
     }
     
     private void Update()
     {
         StateMachine.CurrentHumanState?.Update();   // 상태 머신에서 현재 상태를 계속 갱신
+        
         if (TargetMonster != null)  // 타겟 몬스터가 있으면
         {
             AnimationDirectionChange(TargetMonster.position);   // 몬스터 방향으로 회전

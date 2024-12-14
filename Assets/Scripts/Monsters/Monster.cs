@@ -168,7 +168,8 @@ public abstract class Monster : MonoBehaviour
             if (human != null && !_targetHumanList.Contains(human))
             {
                 _targetHumanList.Add(human);
-                human.controller.SetTargetMonster(transform);
+                if (!human.isReturning)
+                    human.controller.SetTargetMonster(transform);
                 SetState(MonsterState.Scaring);
             }
         }

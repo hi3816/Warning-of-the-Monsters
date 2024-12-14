@@ -4,23 +4,27 @@ public class BattleHumanState : IHumanState
 {
     private HumanController _human;
     private HumanStateMachine _stateMachine;
+    public int AvoidPriority { get; set; }
+
     private float _minFatigueInflicted;
     private float _maxFatigueInflicted;
-    
-    private float _lastAttackTime;
 
+    private float _lastAttackTime;
+    
     public BattleHumanState(HumanController human, HumanStateMachine stateMachine)
     {
         _human = human;
         _stateMachine = stateMachine;
         _minFatigueInflicted = _human.MinFatigueInflicted;
         _maxFatigueInflicted = _human.MaxFatigueInflicted;
+        AvoidPriority = 0;
     }
 
     public void Enter()
     {
         _human.animator.SetBool("IsBattle", true);
         _human.Agent.SetDestination(_human.TargetMonster.position);
+        _human.Agent.avoidancePriority = AvoidPriority;
     }
 
     public void Update()
