@@ -18,6 +18,7 @@ public class MonsterUpgrade : MonoBehaviour
             {
                 Debug.Log("Raycast hit: " + hit.collider.name);
                 Monster clickedMonster = hit.collider.GetComponentInParent<Monster>();
+
                 if (clickedMonster != null)
                 {
                     ShowUpgradeOrEvolutionUI(clickedMonster);
@@ -42,7 +43,7 @@ public class MonsterUpgrade : MonoBehaviour
             }
             else
             {
-                monsterUpgradeUI.Show(clickedMonster);
+                if(clickedMonster.currentUpgradeLevel < clickedMonster.data.maxLevel) monsterUpgradeUI.Show(clickedMonster);
             }
         }
     }

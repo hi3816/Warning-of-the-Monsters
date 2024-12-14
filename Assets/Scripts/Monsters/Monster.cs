@@ -23,20 +23,8 @@ public abstract class Monster : MonoBehaviour
     private float currentFatigue; //현재 피로도
     private Coroutine coroutine;
     
-    public void Upgrade(Monster_Data.Upgrade_Data upgradeData)
-    {
-        data.monsterId = upgradeData.monster_id;
-        currentUpgradeLevel = upgradeData.upgrade_level;
-        data.fatigue = upgradeData.fatigue;
-        data.fearInflicted = upgradeData.fearInflicted;
-        data.cooldown = upgradeData.cooldown;
-        data.humanScaringRange = upgradeData.humanScaringRange;
-        data.requiredCoins = upgradeData.requiredCoins;
-    }
-    
     protected virtual void Awake()
     {
-        Debug.Log($"Awake data{data.monsterId}");
         _spriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
         SetState(MonsterState.Idle);
@@ -68,7 +56,32 @@ public abstract class Monster : MonoBehaviour
                 break;
         }
     }
-    
+
+    public void Upgrade(Monster_Data.Upgrade_Data upgradeData)
+    {
+        data.monsterId = upgradeData.monster_id;
+        currentUpgradeLevel = upgradeData.upgrade_level;
+        data.name = upgradeData.name;
+        data.fatigue = upgradeData.fatigue;
+        data.fearInflicted = upgradeData.fearInflicted;
+        data.cooldown = upgradeData.cooldown;
+        data.humanScaringRange = upgradeData.humanScaringRange;
+        data.requiredCoins = upgradeData.requiredCoins;
+    }
+
+    public void Evolution(Monster_Data.Evolution_Data evolutionData)
+    {
+        data.monsterId = evolutionData.evolution_id;
+        currentUpgradeLevel = evolutionData.upgrade_level;
+        data.upgradeLevel = evolutionData.upgrade_level;
+        data.name = evolutionData.name;
+        data.fatigue = evolutionData.fatigue;
+        data.fearInflicted = evolutionData.fearInflicted;
+        data.cooldown = evolutionData.cooldown;
+        data.humanScaringRange = evolutionData.humanScaringRange;
+        data.requiredCoins = evolutionData.requiredCoins;
+    }
+
     protected Transform GetNearestHuman()
     {
         Collider2D[] detectedHumans = Physics2D.OverlapCircleAll(transform.position, data.humanScaringRange, LayerMask.GetMask("Human"));

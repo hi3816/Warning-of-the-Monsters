@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3956968898117708964}
   - component: {fileID: 2108668514673755449}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MonsterEvolutionUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,27 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 502be4ccb03de8749b38f54a4c12f560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  evolutionSpritePairList:
-  - monsterID: 2
-    evolutionType: 0000000001000000
-    sprite:
-    - {fileID: -1210167003, guid: f431c97fa86f04b71a5fcef4523216af, type: 3}
-    - {fileID: -395711653, guid: 0f484a2b4e6404620aaa3fc7e5182576, type: 3}
-  - monsterID: 3
-    evolutionType: 0000000001000000
-    sprite:
-    - {fileID: -25973780, guid: 886d2515b62574ddd8ea57a33e8f4d1b, type: 3}
-    - {fileID: -836478897, guid: ee3b1593359fe4572ac30031241282b7, type: 3}
-  - monsterID: 4
-    evolutionType: 0000000001000000
-    sprite:
-    - {fileID: -1894368055, guid: dfb5768969da549d693edca68e4aeefc, type: 3}
-    - {fileID: -52652288, guid: a7696f9fa65294f1fb9f731f415064a8, type: 3}
   typeImages:
   - {fileID: 4206382840657675322}
   - {fileID: 8725468095119668430}
   evolutionUI: {fileID: 9182610671499987588}
-  ChangeSprite: {fileID: -836478897, guid: ee3b1593359fe4572ac30031241282b7, type: 3}
+  poolConfigs:
+  - tag: BlackDragon
+    prefab: {fileID: 6895627808813204426, guid: 83e47b934ad47894aade0d785472f527, type: 3}
+    size: 12
+  - tag: RedDragon
+    prefab: {fileID: 6068172569154698469, guid: c25b4064d3dd58642bef081d6b7bae92, type: 3}
+    size: 12
+  typeButtonA: {fileID: 9187572315470756696}
+  typeButtonB: {fileID: 1963049473891608000}
 --- !u!1 &510062162000177508
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,7 +70,7 @@ GameObject:
   - component: {fileID: 4647681819900614879}
   - component: {fileID: 1707827674236406370}
   - component: {fileID: 1963049473891608000}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtypeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -199,7 +191,7 @@ GameObject:
   - component: {fileID: 5723327084106487328}
   - component: {fileID: 3476751994033663342}
   - component: {fileID: 4464256634814337865}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +326,7 @@ GameObject:
   - component: {fileID: 11598327283296303}
   - component: {fileID: 5241848287497326549}
   - component: {fileID: 9187572315470756696}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: AtypeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -384,7 +376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -443,7 +435,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5241848287497326549}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2108668514673755449}
+        m_TargetAssemblyTypeName: MonsterEvolutionUI, Assembly-CSharp
+        m_MethodName: ClickButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6021080594531439908
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,7 +459,7 @@ GameObject:
   - component: {fileID: 9117865203909068376}
   - component: {fileID: 479623733364797627}
   - component: {fileID: 4206382840657675322}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: AtypeImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -503,7 +507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -530,7 +534,7 @@ GameObject:
   - component: {fileID: 451145753081213703}
   - component: {fileID: 8527731262556263894}
   - component: {fileID: 6102219463406808348}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -664,7 +668,7 @@ GameObject:
   - component: {fileID: 8961511177547229814}
   - component: {fileID: 6170606735274604076}
   - component: {fileID: 8725468095119668430}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BtypeImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -712,7 +716,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -740,7 +744,7 @@ GameObject:
   - component: {fileID: 7431600703970118909}
   - component: {fileID: 8828602489485366172}
   - component: {fileID: 5042796929764698160}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: EvolutionCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -789,7 +793,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &8828602489485366172
 MonoBehaviour:

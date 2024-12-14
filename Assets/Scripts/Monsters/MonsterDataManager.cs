@@ -104,8 +104,24 @@ public class MonsterDataManager : MonoBehaviour
         foreach (var evolution in evolutions)
         {
             int baseEvolutionId = Mathf.FloorToInt(evolution.evolution_id); // base id (1, 2, etc.)
-            int level = Mathf.RoundToInt((evolution.evolution_id - baseEvolutionId) * 10); // level (1, 2, etc.)
+            int level = evolution.upgrade_level;
             if (baseEvolutionId == monsterId && level == upgradeLevel)
+            {
+                return evolution;
+            }
+        }
+        return null;
+    }
+
+    public Monster_Data.Evolution_Data GetEvolutionData(int monsterId, int upgradeLevel, EvolutionType evolutionType)
+    {
+        var evolutions = Monster_Data.Evolution_Data.GetList();
+        foreach (var evolution in evolutions)
+        {
+            int baseEvolutionId = Mathf.FloorToInt(evolution.evolution_id); // base id (1, 2, etc.)
+            int level = evolution.upgrade_level;
+            EvolutionType type = evolution.EvolutionType;
+            if (baseEvolutionId == monsterId && level == upgradeLevel && type == evolutionType)
             {
                 return evolution;
             }
