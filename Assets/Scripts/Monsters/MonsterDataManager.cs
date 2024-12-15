@@ -59,6 +59,7 @@ public class MonsterDataManager : MonoBehaviour
             minionSO.poolTag = minionData.name;
             minionSO.fearInflicted = minionData.fearInflicted;
             minionSO.cooldown = minionData.cooldown;
+            minionSO.humanDetectRange = minionData.humanDetectRange;
             minionSO.humanScaringRange = minionData.humanScaringRange;
             minionSO.speed = minionData.speed;
             

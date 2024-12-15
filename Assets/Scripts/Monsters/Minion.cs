@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,14 +10,14 @@ public class Minion : Monster //졸개
     public void InitializeMinion(Monster_Data.Minion_Data minionData)
     {
         _minionData = minionData;
-        data.fatigue = minionData.fatigue;
-        data.fearInflicted = minionData.fearInflicted;
-        data.cooldown = minionData.cooldown;
-        data.humanScaringRange = minionData.humanScaringRange;
-        data.speed = minionData.speed;
-        
+        _minionData.fatigue = minionData.fatigue;
+        _minionData.fearInflicted = minionData.fearInflicted;
+        _minionData.cooldown = minionData.cooldown;
+        _minionData.humanDetectRange = minionData.humanDetectRange;
+        _minionData.humanScaringRange = minionData.humanScaringRange;
+        _minionData.speed = minionData.speed;
         _navMeshAgent.speed = minionData.speed;
-        SetState(MonsterState.Walking);
+        SetState(MonsterState.Idle);
     }
     
     protected override void Awake()
@@ -30,7 +31,11 @@ public class Minion : Monster //졸개
     protected override void Update()
     {
         base.Update();
-        if (MonsterState == MonsterState.Walking)
+        if (MonsterState == MonsterState.Wondering)
+        {
+            SetState(MonsterState.Walking);
+        }
+        else if (MonsterState == MonsterState.Walking)
         {
             WalkTowardsNearestHuman();
         }
