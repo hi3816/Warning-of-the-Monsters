@@ -25,7 +25,6 @@ public class MonsterEvolutionUI : MonoBehaviour
     private void Awake()
     {
         stageManager = StageManager.Instance;
-        PoolManager.Instance.AddPoolS(poolConfigs);
         SetSprite();
         typeButtonA.onClick.AddListener(() => MonsterEvolution(EvolutionType.Atype));
         typeButtonB.onClick.AddListener(() => MonsterEvolution(EvolutionType.Btype));
@@ -35,6 +34,7 @@ public class MonsterEvolutionUI : MonoBehaviour
     {
         // DataManager.Instance.GetEvolutionData가 Awake에서는 동작 안함
         SetEvolutionData();
+        PoolManager.Instance.AddPoolS(poolConfigs);
     }
 
     private void SetSprite()
@@ -66,7 +66,7 @@ public class MonsterEvolutionUI : MonoBehaviour
 
     private void SetEvolutionData()
     {
-        for (int i = 0; i < poolConfigs.Length; i+=2)
+        for (int i = 0; i < poolConfigs.Length; i += 2)
         {
             Monster monster1 = poolConfigs[i].prefab.GetComponent<Monster>();
             Monster monster2 = poolConfigs[i + 1].prefab.GetComponent<Monster>();

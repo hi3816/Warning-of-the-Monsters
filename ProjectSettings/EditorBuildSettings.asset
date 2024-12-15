@@ -11,10 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game/LobbyScene.unity
     guid: 26760e465b456a14a92c8119bb391184
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Game/MainScene.unity
     guid: 6cbeba062c51e46fa99db6a9d183b427
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Test/StageScene/TestMainScene.unity
-    guid: bb7047aecdb1fd54bbc83df9e61f6036
+    guid: 083149e2224ddc348b9ae53089bcb0b7
   m_configObjects: {}
