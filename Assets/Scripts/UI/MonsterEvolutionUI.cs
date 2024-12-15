@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class MonsterEvolutionUI : MonoBehaviour
 {
-
     // Inspector에서 Sprite 넣기 위해 사용하는 List
     [SerializeField] private Image[] typeImages;
     [SerializeField] private GameObject evolutionUI;
@@ -135,6 +134,7 @@ public class MonsterEvolutionUI : MonoBehaviour
         }
     }
 
+    // 진화 프리팹 tag 가져오기
     private string GetMonsterEvolutionName(EvolutionType evolutionType)
     {
         for (int i = 0; i < poolConfigs.Length; i += 2)

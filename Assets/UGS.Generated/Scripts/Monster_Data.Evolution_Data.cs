@@ -59,9 +59,11 @@ namespace Monster_Data
 		public System.Single evolution_id;
 		public System.Int32 upgrade_level;
 		public EvolutionType EvolutionType;
+		public MonsterType MonsterType;
 		public System.String name;
 		public System.Single fatigue;
-		public System.Single fearInflicted;
+		public System.Single minFearInflicted;
+		public System.Single maxFearInflicted;
 		public System.Single cooldown;
 		public System.Single humanScaringRange;
 		public System.Int32 requiredCoins;

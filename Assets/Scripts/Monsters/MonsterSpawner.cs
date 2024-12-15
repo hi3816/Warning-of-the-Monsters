@@ -70,10 +70,11 @@ public class MonsterSpawner : MonoBehaviour
         data.currentLevel = so.upgradeLevel;
         data.poolTag = so.poolTag;
         data.fatigue = so.fatigue; 
-        data.fearInflicted = so.fearInflicted; 
+        data.minFearInflicted = so.minFearInflicted;
+        data.maxFearInflicted = so.maxFearInflicted;
         data.cooldown = so.cooldown; 
         data.humanScaringRange = so.humanScaringRange; 
-        data.speed = so.speed; 
+        data.walkSpeed = so.walkSpeed; 
         data.requiredCoins = so.requiredCoins; 
         data.maxLevel = so.maxLevel; 
     }

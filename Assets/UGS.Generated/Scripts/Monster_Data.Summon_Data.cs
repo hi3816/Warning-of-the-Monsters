@@ -17,57 +17,49 @@ using UnityEngine;
 namespace Monster_Data
 {
     [GoogleSheet.Attribute.TableStruct]
-    public partial class Monster_Data : ITable
+    public partial class Summon_Data : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<Monster_Data> loadedList, Dictionary<int, Monster_Data> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<Summon_Data> loadedList, Dictionary<float, Summon_Data> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "114x3sY4Qf5iKh3tkf2GXsqlNufwgEc13JmaLskbTBxo"; // it is file id
-        static string sheetID = "0"; // it is sheet id
+        static string sheetID = "1655354753"; // it is sheet id
         static UnityFileReader reader = new UnityFileReader();
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<int, Monster_Data> Monster_DataMap = new Dictionary<int, Monster_Data>();  
-        public static List<Monster_Data> Monster_DataList = new List<Monster_Data>();   
+        public static Dictionary<float, Summon_Data> Summon_DataMap = new Dictionary<float, Summon_Data>();  
+        public static List<Summon_Data> Summon_DataList = new List<Summon_Data>();   
 
         /// <summary>
-        /// Get Monster_Data List 
+        /// Get Summon_Data List 
         /// Auto Load
         /// </summary>
-        public static List<Monster_Data> GetList()
+        public static List<Summon_Data> GetList()
         {{
            if (isLoaded == false) Load();
-           return Monster_DataList;
+           return Summon_DataList;
         }}
 
         /// <summary>
-        /// Get Monster_Data Dictionary, keyType is your sheet A1 field type.
+        /// Get Summon_Data Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<int, Monster_Data>  GetDictionary()
+        public static Dictionary<float, Summon_Data>  GetDictionary()
         {{
            if (isLoaded == false) Load();
-           return Monster_DataMap;
+           return Summon_DataMap;
         }}
 
     
 
 /* Fields. */
 
-		public System.Int32 id;
-		public System.String name;
-		public System.Single fatigue;
-		public System.Single minFearInflicted;
-		public System.Single maxFearInflicted;
-		public System.Single cooldown;
-		public System.Single humanDetectRange;
-		public System.Single humanScaringRange;
-		public System.Int32 requiredCoins;
-		public System.Int32 maxLevel;
-		public System.Single walkspeed;
-		public MonsterType MonsterType;
+		public System.Single monster_id;
+		public EvolutionType EvolutionType;
+		public System.Collections.Generic.List<Int32> count;
+		public System.Collections.Generic.List<Int32> evolutionCount;
   
 
 #region fuctions
@@ -78,7 +70,7 @@ namespace Monster_Data
             if(isLoaded && forceReload == false)
             {
 #if UGS_DEBUG
-                 Debug.Log("Monster_Data is already loaded! if you want reload then, forceReload parameter set true");
+                 Debug.Log("Summon_Data is already loaded! if you want reload then, forceReload parameter set true");
 #endif
                  return;
             }
@@ -94,7 +86,7 @@ namespace Monster_Data
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<Monster_Data>, Dictionary<int, Monster_Data>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<Summon_Data>, Dictionary<float, Summon_Data>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -122,14 +114,14 @@ namespace Monster_Data
                
 
 
-    public static (List<Monster_Data> list, Dictionary<int, Monster_Data> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<int, Monster_Data> Map = new Dictionary<int, Monster_Data>();
-            List<Monster_Data> List = new List<Monster_Data>();     
+    public static (List<Summon_Data> list, Dictionary<float, Summon_Data> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<float, Summon_Data> Map = new Dictionary<float, Summon_Data>();
+            List<Summon_Data> List = new List<Summon_Data>();     
             TypeMap.Init();
-            FieldInfo[] fields = typeof(Monster_Data).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(Summon_Data).GetFields(BindingFlags.Public | BindingFlags.Instance);
             List<(string original, string propertyName, string type)> typeInfos = new List<(string, string, string)>(); 
             List<List<string>> rows = new List<List<string>>();
-            var sheet = jsonObject["Monster_Data"];
+            var sheet = jsonObject["Summon_Data"];
 
             foreach (var column in sheet.Keys)
             {
@@ -148,7 +140,7 @@ namespace Monster_Data
                         int rowCount = rows[0].Count;
                         for (int i = 0; i < rowCount; i++)
                         {
-                            Monster_Data instance = new Monster_Data();
+                            Summon_Data instance = new Summon_Data();
                             for (int j = 0; j < typeInfos.Count; j++)
                             {
                                 try
@@ -185,12 +177,12 @@ namespace Monster_Data
                               
                             }
                             List.Add(instance); 
-                            Map.Add(instance.id, instance);
+                            Map.Add(instance.monster_id, instance);
                         }
                         if(isLoaded == false || forceReload)
                         { 
-                            Monster_DataList = List;
-                            Monster_DataMap = Map;
+                            Summon_DataList = List;
+                            Summon_DataMap = Map;
                             isLoaded = true;
                         }
                     } 
@@ -200,10 +192,10 @@ namespace Monster_Data
 
  
 
-        public static void Write(Monster_Data data, System.Action<WriteObjectResult> onWriteCallback = null)
+        public static void Write(Summon_Data data, System.Action<WriteObjectResult> onWriteCallback = null)
         { 
             TypeMap.Init();
-            FieldInfo[] fields = typeof(Monster_Data).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(Summon_Data).GetFields(BindingFlags.Public | BindingFlags.Instance);
             var datas = new string[fields.Length];
             for (int i = 0; i < fields.Length; i++)
             {

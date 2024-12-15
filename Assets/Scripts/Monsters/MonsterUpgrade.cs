@@ -42,7 +42,7 @@ public class MonsterUpgrade : MonoBehaviour
             }
             else
             {
-                if(clickedMonster.data.currentLevel < clickedMonster.data.maxLevel) monsterUpgradeUI.Show(clickedMonster);
+                if(clickedMonster.data.currentLevel <= clickedMonster.data.maxLevel) monsterUpgradeUI.Show(clickedMonster);
             }
         }
     }

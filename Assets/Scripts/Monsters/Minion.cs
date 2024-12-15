@@ -1,23 +1,25 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Minion : Monster //졸개
 {
     private NavMeshAgent _navMeshAgent;
-    private Monster_Data.Minion_Data _minionData;
+    private Monster_Data.Monster_Data _minionData;
     
-    public void InitializeMinion(Monster_Data.Minion_Data minionData)
+    public void InitializeMinion(Monster_Data.Monster_Data minionData)
     {
         _minionData = minionData;
-        _minionData.fatigue = minionData.fatigue;
-        _minionData.fearInflicted = minionData.fearInflicted;
-        _minionData.cooldown = minionData.cooldown;
-        _minionData.humanDetectRange = minionData.humanDetectRange;
-        _minionData.humanScaringRange = minionData.humanScaringRange;
-        _minionData.speed = minionData.speed;
-        _navMeshAgent.speed = minionData.speed;
-        SetState(MonsterState.Idle);
+        data.fatigue = minionData.fatigue;
+        data.minFearInflicted = minionData.minFearInflicted;
+        data.maxFearInflicted = minionData.maxFearInflicted;
+        data.cooldown = minionData.cooldown;
+        data.humanDetectRange = minionData.humanDetectRange;
+        data.humanScaringRange = minionData.humanScaringRange;
+        data.walkSpeed = minionData.walkspeed;
+        _navMeshAgent.speed = minionData.walkspeed;
+        SetState(MonsterState.Walking);
     }
     
     protected override void Awake()

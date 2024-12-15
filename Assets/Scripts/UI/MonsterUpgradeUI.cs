@@ -28,7 +28,8 @@ public class MonsterUpgradeUI : MonoBehaviour
         if (nextUpgrade != null)
         {
             upgradeStatsText.text = $"Fatigue: {nextUpgrade.fatigue}\n" +
-                                    $"Fear Inflicted: {nextUpgrade.fearInflicted}\n" +
+                                    $"Min Fear Inflicted: {nextUpgrade.minFearInflicted}\n" +
+                                    $"Max Fear Inflicted: {nextUpgrade.maxFearInflicted}\n" + 
                                     $"Cooldown: {nextUpgrade.cooldown}";
             upgradeCostText.text = $"Cost: {nextUpgrade.requiredCoins}";
             upgradeButton.interactable = true;

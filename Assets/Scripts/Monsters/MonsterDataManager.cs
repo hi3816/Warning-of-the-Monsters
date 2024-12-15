@@ -4,7 +4,7 @@ using UnityEngine;
 public class MonsterDataManager : MonoBehaviour
 {
     public static MonsterDataManager Instance { get; private set; }
-    private Dictionary<string, Monster_Data.Minion_Data> _minionDataDictionary;
+    private Dictionary<string, Monster_Data.Monster_Data> _minionDataDictionary;
     private MonsterSO[] baseMonsterSOs;
     private MonsterSO[] minionSOs;
 
@@ -35,7 +35,8 @@ public class MonsterDataManager : MonoBehaviour
             baseMonsterSo.upgradeLevel = 0;
             baseMonsterSo.poolTag = monsterData.name;
             baseMonsterSo.fatigue = monsterData.fatigue;
-            baseMonsterSo.fearInflicted = monsterData.fearInflicted;
+            baseMonsterSo.minFearInflicted = monsterData.minFearInflicted;
+            baseMonsterSo.maxFearInflicted = monsterData.maxFearInflicted;
             baseMonsterSo.cooldown = monsterData.cooldown;
             baseMonsterSo.humanScaringRange = monsterData.humanScaringRange;
             baseMonsterSo.requiredCoins = monsterData.requiredCoins;
@@ -49,19 +50,20 @@ public class MonsterDataManager : MonoBehaviour
     private void SetMinionData()
     {
         List<MonsterSO> minionSOList = new List<MonsterSO>();
-        List<Monster_Data.Minion_Data> minionDataList = Monster_Data.Minion_Data.GetList();
-        _minionDataDictionary = new Dictionary<string, Monster_Data.Minion_Data>();
+        List<Monster_Data.Monster_Data> minionDataList = Monster_Data.Monster_Data.GetList();
+        _minionDataDictionary = new Dictionary<string, Monster_Data.Monster_Data>();
 
         foreach (var minionData in minionDataList)
         {
             MonsterSO minionSO = ScriptableObject.CreateInstance<MonsterSO>();
-            minionSO.minionId = minionData.minion_id;
+            minionSO.minionId = minionData.id;
             minionSO.poolTag = minionData.name;
-            minionSO.fearInflicted = minionData.fearInflicted;
+            minionSO.minFearInflicted = minionData.minFearInflicted;
+            minionSO.maxFearInflicted = minionData.minFearInflicted;
             minionSO.cooldown = minionData.cooldown;
             minionSO.humanDetectRange = minionData.humanDetectRange;
             minionSO.humanScaringRange = minionData.humanScaringRange;
-            minionSO.speed = minionData.speed;
+            minionSO.walkSpeed = minionData.walkspeed;
             
             minionSOList.Add(minionSO);
             _minionDataDictionary[minionData.name] = minionData;
@@ -89,7 +91,7 @@ public class MonsterDataManager : MonoBehaviour
         return null;
     }
 
-    public Monster_Data.Minion_Data GetMinionData(string minionTag)
+    public Monster_Data.Monster_Data GetMinionData(string minionTag)
     {
         if (_minionDataDictionary.TryGetValue(minionTag, out var minionData))
         {
@@ -99,6 +101,7 @@ public class MonsterDataManager : MonoBehaviour
         
     }
 
+    // 진화 데이터 확인 (EvolutionType 상관 없을 때)
     public Monster_Data.Evolution_Data GetEvolutionData(int monsterId, int upgradeLevel)
     {
         var evolutions = Monster_Data.Evolution_Data.GetList();
@@ -114,6 +117,7 @@ public class MonsterDataManager : MonoBehaviour
         return null;
     }
 
+    // 진화 데이터 확인 (EvolutionType 있을 때)
     public Monster_Data.Evolution_Data GetEvolutionData(int monsterId, int upgradeLevel, EvolutionType evolutionType)
     {
         var evolutions = Monster_Data.Evolution_Data.GetList();

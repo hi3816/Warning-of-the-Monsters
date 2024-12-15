@@ -71,7 +71,8 @@ public class DataManager : SingletonBase<DataManager>
             monsterSOs[i].id = monsterDataList[i].id;
             monsterSOs[i].poolTag = monsterDataList[i].name;
             monsterSOs[i].fatigue = monsterDataList[i].fatigue;
-            monsterSOs[i].fearInflicted = monsterDataList[i].fearInflicted;
+            monsterSOs[i].minFearInflicted = monsterDataList[i].minFearInflicted;
+            monsterSOs[i].maxFearInflicted = monsterDataList[i].maxFearInflicted;
             monsterSOs[i].cooldown = monsterDataList[i].cooldown;
             monsterSOs[i].humanScaringRange = monsterDataList[i].humanScaringRange;
             monsterSOs[i].requiredCoins = monsterDataList[i].requiredCoins;
