@@ -62,20 +62,20 @@ public class MonsterSpawner : MonoBehaviour
         }
     }
 
-    private void SetMonsterData(Monster.MonsterData data, MonsterSO so)
+    private void SetMonsterData(MonsterData data, MonsterSO so)
     {
-        data.Id = so.id;
-        data.MinionId = so.minionId;
-        data.MonsterId = so.monsterId;
-        data.CurrentLevel = so.upgradeLevel;
-        data.PoolTag = so.poolTag;
-        data.Fatigue = so.fatigue; 
-        data.FearInflicted = so.fearInflicted; 
-        data.Cooldown = so.cooldown; 
-        data.HumanScaringRange = so.humanScaringRange; 
-        data.Speed = so.speed; 
-        data.RequiredCoins = so.requiredCoins; 
-        data.MaxLevel = so.maxLevel; 
+        data.id = so.id;
+        data.minionId = so.minionId;
+        data.monsterId = so.monsterId;
+        data.currentLevel = so.upgradeLevel;
+        data.poolTag = so.poolTag;
+        data.fatigue = so.fatigue; 
+        data.fearInflicted = so.fearInflicted; 
+        data.cooldown = so.cooldown; 
+        data.humanScaringRange = so.humanScaringRange; 
+        data.speed = so.speed; 
+        data.requiredCoins = so.requiredCoins; 
+        data.maxLevel = so.maxLevel; 
     }
 
     // void Update()

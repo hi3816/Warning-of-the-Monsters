@@ -9,11 +9,11 @@ public class Minion : Monster //졸개
     public void InitializeMinion(Monster_Data.Minion_Data minionData)
     {
         _minionData = minionData;
-        data.Fatigue = minionData.fatigue;
-        data.FearInflicted = minionData.fearInflicted;
-        data.Cooldown = minionData.cooldown;
-        data.HumanScaringRange = minionData.humanScaringRange;
-        data.Speed = minionData.speed;
+        data.fatigue = minionData.fatigue;
+        data.fearInflicted = minionData.fearInflicted;
+        data.cooldown = minionData.cooldown;
+        data.humanScaringRange = minionData.humanScaringRange;
+        data.speed = minionData.speed;
         
         _navMeshAgent.speed = minionData.speed;
         SetState(MonsterState.Walking);
