@@ -23,6 +23,8 @@ public class Minion : Monster //졸개
     {
         base.Awake();
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _navMeshAgent.updateRotation = false;
+        _navMeshAgent.updateUpAxis = false;
     }
     
     protected override void Update()
