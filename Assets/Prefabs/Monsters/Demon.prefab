@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 9121791327739590645}
   - component: {fileID: 8054956389169251211}
   - component: {fileID: 5026531951356357806}
-  - component: {fileID: 4708487533338889949}
+  - component: {fileID: -6625820321076288632}
   - component: {fileID: 3483221263393832048}
   - component: {fileID: 448545139194975085}
   m_Layer: 6
@@ -177,8 +177,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!61 &4708487533338889949
-BoxCollider2D:
+--- !u!58 &-6625820321076288632
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -210,18 +210,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.96}
-    newSize: {x: 1.0666667, y: 1.6}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3, y: 3}
-  m_EdgeRadius: 0
+  m_Radius: 2
 --- !u!50 &3483221263393832048
 Rigidbody2D:
   serializedVersion: 4
@@ -261,8 +251,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b361450e71f4c89b2dea0c650c3315, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 48fd5faab8b20405d907d101bdf45166, type: 2}
-  fadeDuration: 0.5
-  currentUpgradeLevel: 0
-  currentFatigue: 0
-  upgradeUI: {fileID: 0}
+  data:
+    id: 0
+    minionId: 0
+    monsterId: 0
+    currentLevel: 0
+    poolTag: 
+    fatigue: 0
+    fearInflicted: 0
+    cooldown: 0
+    humanScaringRange: 0
+    speed: 0
+    requiredCoins: 0
+    maxLevel: 0
