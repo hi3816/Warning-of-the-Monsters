@@ -14,6 +14,7 @@ public class MonsterEvolutionUI : MonoBehaviour
     private GameObject selectMonsterObj;
 
     [SerializeField] private PoolManager.PoolConfig[] poolConfigs;
+    [SerializeField] private List<Monster> poolConfigMonsterList;
 
     private StageManager stageManager;
 
@@ -43,7 +44,7 @@ public class MonsterEvolutionUI : MonoBehaviour
         for (int i = 0; i < poolConfigs.Length; i+=2)
         {
             Monster monster = poolConfigs[i].prefab.GetComponent<Monster>();
-            int monsterID = monster.data.id;
+            int monsterID = monster.data.Id;
 
             foreach (int key in selectedMonsterData.Keys)
             {
@@ -67,9 +68,11 @@ public class MonsterEvolutionUI : MonoBehaviour
         for (int i = 0; i < poolConfigs.Length; i+=2)
         {
             Monster monster1 = poolConfigs[i].prefab.GetComponent<Monster>();
-            Monster monster2 = poolConfigs[i+1].prefab.GetComponent<Monster>();
-            monster1.Evolution(MonsterDataManager.Instance.GetEvolutionData(monster1.data.id, monster1.data.maxLevel, EvolutionType.Atype));
-            monster2.Evolution(MonsterDataManager.Instance.GetEvolutionData(monster2.data.id, monster2.data.maxLevel, EvolutionType.Btype));
+            Monster monster2 = poolConfigs[i + 1].prefab.GetComponent<Monster>();
+            monster1.Evolution(MonsterDataManager.Instance.GetEvolutionData(monster1.data.Id, monster1.data.MaxLevel, EvolutionType.Atype));
+            monster2.Evolution(MonsterDataManager.Instance.GetEvolutionData(monster2.data.Id, monster2.data.MaxLevel, EvolutionType.Btype));
+            poolConfigMonsterList.Add(monster1);
+            poolConfigMonsterList.Add(monster2);
         }
     }
 
@@ -101,14 +104,13 @@ public class MonsterEvolutionUI : MonoBehaviour
     // 진화 이미지 설정
     public void SetEnvolutionImageSprite()
     {
-        if (evolutionSpriteDict.ContainsKey(selectMonster.data.id))
+        if (evolutionSpriteDict.ContainsKey(selectMonster.data.Id))
         {
-            Sprite[] sprites = evolutionSpriteDict[selectMonster.data.id];
+            Sprite[] sprites = evolutionSpriteDict[selectMonster.data.Id];
 
             for (int i = 0; i < typeImages.Length; i++)
             {
                 typeImages[i].sprite = sprites[i];
-                Debug.Log($"sprite {sprites[i]}");
             }
         }
     }
@@ -117,13 +119,13 @@ public class MonsterEvolutionUI : MonoBehaviour
     private void MonsterEvolution(EvolutionType evolutionType)
     {
         if (selectMonster == null) return;
-        var evolution = MonsterDataManager.Instance.GetEvolutionData(selectMonster.data.id, selectMonster.currentUpgradeLevel + 1, evolutionType);
+        var evolution = MonsterDataManager.Instance.GetEvolutionData(selectMonster.data.Id, selectMonster.data.CurrentLevel + 1, evolutionType);
         if (evolution != null && stageManager.CurrGold >= evolution.requiredCoins)
         {
             stageManager.ChangeGold(-evolution.requiredCoins);
             string evolutionMonsterName = GetMonsterEvolutionName(evolutionType);
             PoolManager.Instance.SpawnFromPool(evolutionMonsterName, selectMonster.transform.position, Quaternion.identity).SetActive(true);
-            PoolManager.Instance.ReturnToPool(selectMonster.data.name, selectMonsterObj);
+            PoolManager.Instance.ReturnToPool(selectMonster.gameObject.name, selectMonsterObj);
             evolutionUI.gameObject.SetActive(false);
         }
         else
@@ -136,10 +138,11 @@ public class MonsterEvolutionUI : MonoBehaviour
     {
         for (int i = 0; i < poolConfigs.Length; i += 2)
         {
-            Monster monster = poolConfigs[i].prefab.GetComponent<Monster>();
-            int monsterID = monster.data.id;
+            Monster monster = poolConfigMonsterList[i];
+            Monster monster2 = poolConfigMonsterList[i + 1];
+            int monsterID = monster.data.Id;
 
-            if (monsterID == selectMonster.data.id)
+            if (monsterID == selectMonster.data.Id)
             {
                 if (evolutionType == EvolutionType.Atype)
                 {
@@ -147,7 +150,7 @@ public class MonsterEvolutionUI : MonoBehaviour
                 }
                 else if (evolutionType == EvolutionType.Btype)
                 {
-                    return poolConfigs[i+1].tag;
+                    return poolConfigs[i + 1].tag;
                 }
             }
         }

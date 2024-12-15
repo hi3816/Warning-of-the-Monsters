@@ -17,7 +17,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     {
         _minionToSummon = new Dictionary<string, int>();
 
-        if (data.poolTag == "Lich")
+        if (data.PoolTag == "Lich")
         {
             _minionToSummon.Add("Skeleton", 2);
             _minionToSummon.Add("Bat", 1);
@@ -28,7 +28,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
 
     protected override void Scaring()
     {
-        if (Time.time - LastScareTime >= data.cooldown)
+        if (Time.time - LastScareTime >= data.Cooldown)
         {
             SummonMinions();
             LastScareTime = Time.time;
