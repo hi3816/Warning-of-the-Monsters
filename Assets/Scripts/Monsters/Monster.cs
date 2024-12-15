@@ -15,18 +15,18 @@ public abstract class Monster : MonoBehaviour
     [System.Serializable]
     public class MonsterData
     {
-        public int Id { get; private set; }
-        public int MinionId { get; private set; }
-        public float MonsterId { get; private set; }
-        public int CurrentLevel { get; private set; }
-        public string PoolTag { get; private set; }
-        public float Fatigue { get; private set; } //몬스터 피로도바 최대치
-        public float FearInflicted { get; private set; } //적(인간)에게 주는 공포수치량
-        public float Cooldown { get; private set; } //몬스터 놀래킴 쿨타임
-        public float HumanScaringRange { get; private set; } //적(인간)을 놀래킬 수 있는 범위
-        public float Speed { get; private set; } //미니언 걷는 속도
-        public int RequiredCoins { get; private set; } //필요재화
-        public int MaxLevel { get; private set; } // 최대 레벨 -> 진화
+        public int Id { get; protected internal set; }
+        public int MinionId { get; protected internal set; }
+        public float MonsterId { get; protected internal set; }
+        public int CurrentLevel { get; protected internal set; }
+        public string PoolTag { get; protected internal set; }
+        public float Fatigue { get; protected internal set; } //몬스터 피로도바 최대치
+        public float FearInflicted { get; protected internal set; } //적(인간)에게 주는 공포수치량
+        public float Cooldown { get; protected internal set; } //몬스터 놀래킴 쿨타임
+        public float HumanScaringRange { get; protected internal set; } //적(인간)을 놀래킬 수 있는 범위
+        public float Speed { get; protected internal set; } //미니언 걷는 속도
+        public int RequiredCoins { get; protected internal set; } //필요재화
+        public int MaxLevel { get; protected internal set; } // 최대 레벨 -> 진화
     }
 
     public MonsterData data;
