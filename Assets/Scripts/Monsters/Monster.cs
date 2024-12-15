@@ -88,6 +88,7 @@ public abstract class Monster : MonoBehaviour
     {
         data.monsterId = evolutionData.evolution_id;
         data.currentLevel = evolutionData.upgrade_level;
+        data.poolTag = evolutionData.name;
         data.fatigue = evolutionData.fatigue;
         data.fearInflicted = evolutionData.fearInflicted;
         data.cooldown = evolutionData.cooldown;
