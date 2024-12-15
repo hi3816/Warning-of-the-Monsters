@@ -61,6 +61,7 @@ namespace Monster_Data
 		public System.Single fatigue;
 		public System.Single fearInflicted;
 		public System.Single cooldown;
+		public System.Single humanDetectRange;
 		public System.Single humanScaringRange;
 		public System.Single speed;
   

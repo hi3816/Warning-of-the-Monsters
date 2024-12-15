@@ -11,6 +11,7 @@ public class MonsterSO : ScriptableObject
     public float fatigue; //몬스터 피로도바 최대치
     public float fearInflicted; //적(인간)에게 주는 공포수치량
     public float cooldown; //몬스터 놀래킴 쿨타임
+    public float humanDetectRange;
     public float humanScaringRange; //적(인간)을 놀래킬 수 있는 범위
     public float speed; //미니언 걷는 속도
     public int requiredCoins; //필요재화

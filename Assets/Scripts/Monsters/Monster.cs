@@ -5,6 +5,7 @@ using UnityEngine;
 public enum MonsterState
 {
     Idle,
+    Wondering, //detect human distance
     Scaring, //scare human distance
     Walking, //for minion
     ReturningVillage
@@ -44,6 +45,14 @@ public abstract class Monster : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
         SetState(MonsterState.Idle);
+    }
+    
+    private void OnEnable()
+    {
+        HumanManager.Instance.OnGameClear -= () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
+        HumanManager.Instance.OnGameClear += () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
+        StageManager.Instance.OnGameOver -= () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
+        StageManager.Instance.OnGameOver += () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
     }
     
     protected virtual void Update()
