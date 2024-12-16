@@ -49,6 +49,11 @@ public abstract class Monster : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
         SetState(MonsterState.Idle);
+        
+        if (FatigueGauge == null)
+        {
+            FatigueGauge = gameObject.transform.Find("FatigueCanvas/FatigueGauge/Front").GetComponent<Image>();
+        }
     }
     
     private void OnEnable()
