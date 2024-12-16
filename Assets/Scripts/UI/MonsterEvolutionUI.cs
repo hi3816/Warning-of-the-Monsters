@@ -1,29 +1,30 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Playables.FrameData;
 
 public class MonsterEvolutionUI : MonoBehaviour
 {
-    // Inspector에서 Sprite 넣기 위해 사용하는 List
-    [SerializeField] private Image[] typeImages;
+    [Header("UI")]
     [SerializeField] private GameObject evolutionUI;
-
-    private Dictionary<float, Sprite[]> evolutionSpriteDict = new Dictionary<float, Sprite[]>(); // 진화 스프라이트 담을 Dict
-
-    private Monster selectMonster; // 현재 클릭한 몬스터의 Monster 클래스
-    private GameObject selectMonsterObj;
-
-    [SerializeField] private PoolManager.PoolConfig[] poolConfigs;
-    [SerializeField] private List<Monster> poolConfigMonsterList;
-
-    private StageManager stageManager;
-
+    [SerializeField] private Image[] typeImages;
+    [SerializeField] private TextMeshProUGUI[] requiredCoins;
     [SerializeField] private Button typeButtonA;
     [SerializeField] private Button typeButtonB;
 
+    [Header("Pool")]
+    [SerializeField] private PoolManager.PoolConfig[] poolConfigs;
+    [SerializeField] private List<Monster> poolConfigMonsterList;
+
+    // 진화 스프라이트, 필요재화 담을 Dictionary
+    private Dictionary<int, Sprite[]> evolutionSpriteDict = new Dictionary<int, Sprite[]>();
+    private Dictionary<int, int[]> evolutionResuiredCoinsDict = new Dictionary<int, int[]>();
+
+    private Monster selectMonster; // 현재 클릭한 몬스터
+
     private void Awake()
     {
-        stageManager = StageManager.Instance;
         SetSprite();
         typeButtonA.onClick.AddListener(() => MonsterEvolution(EvolutionType.Atype));
         typeButtonB.onClick.AddListener(() => MonsterEvolution(EvolutionType.Btype));
@@ -53,7 +54,7 @@ public class MonsterEvolutionUI : MonoBehaviour
                     Sprite sprite1 = poolConfigs[i].prefab.GetComponent<SpriteRenderer>().sprite;
                     Sprite sprite2 = poolConfigs[i+1].prefab.GetComponent<SpriteRenderer>().sprite;
                     Sprite[] spriteArr = { sprite1, sprite2 };
-                    
+
                     if (!evolutionSpriteDict.ContainsKey(monsterID))
                     {
                         evolutionSpriteDict.Add(monsterID, spriteArr);
@@ -73,18 +74,20 @@ public class MonsterEvolutionUI : MonoBehaviour
             monster2.Evolution(MonsterDataManager.Instance.GetEvolutionData(monster2.data.id, monster2.data.maxLevel, EvolutionType.Btype));
             poolConfigMonsterList.Add(monster1);
             poolConfigMonsterList.Add(monster2);
+
+            int[] requiredCoins = { monster1.data.requiredCoins, monster2.data.requiredCoins };
+            evolutionResuiredCoinsDict.Add(monster1.data.id, requiredCoins);
         }
     }
 
     public void Show(Monster monster)
     {
         selectMonster = monster;
-        selectMonsterObj = monster.gameObject;
         Vector3 worldPosition = monster.transform.position;
         evolutionUI.transform.position = worldPosition + Vector3.up;
         evolutionUI.SetActive(true);
-        ResetEvolutionImageSprite();
-        SetEnvolutionImageSprite();
+        ResetEvolutionPanel();
+        SetEvolutionPanel();
     }
 
     public void Hide()
@@ -92,17 +95,37 @@ public class MonsterEvolutionUI : MonoBehaviour
         evolutionUI.SetActive(false);
     }
 
+    private void ResetEvolutionPanel()
+    {
+        ResetEvolutionImageSprite();
+        ResetRequiredCoinsText();
+    }
+
+    private void SetEvolutionPanel()
+    {
+        SetEnvolutionImageSprite();
+        SetRequiredCoinsText();
+    }
+
     // 진화 sprite 초기화
     private void ResetEvolutionImageSprite()
     {
-        foreach(Image image in typeImages)
+        foreach (Image image in typeImages)
         {
             image.sprite = null;
         }
     }
 
+    private void ResetRequiredCoinsText()
+    {
+        foreach (TextMeshProUGUI text in requiredCoins)
+        {
+            text.text = null;
+        }
+    }
+
     // 진화 이미지 설정
-    public void SetEnvolutionImageSprite()
+    private void SetEnvolutionImageSprite()
     {
         if (evolutionSpriteDict.ContainsKey(selectMonster.data.id))
         {
@@ -111,8 +134,38 @@ public class MonsterEvolutionUI : MonoBehaviour
             for (int i = 0; i < typeImages.Length; i++)
             {
                 typeImages[i].sprite = sprites[i];
+                typeImages[i].color = GetPurchaseStatusColor(selectMonster.data.id, i);
             }
         }
+    }
+
+    private void SetRequiredCoinsText()
+    {
+        if (evolutionResuiredCoinsDict.ContainsKey(selectMonster.data.id))
+        {
+            int[] coins = evolutionResuiredCoinsDict[selectMonster.data.id];
+
+            for (int i = 0; i < requiredCoins.Length; i++)
+            {
+                requiredCoins[i].text = coins[i].ToString();
+                requiredCoins[i].color = GetPurchaseStatusColor(selectMonster.data.id, i);
+            }
+        }
+    }
+
+    // 구매 여부 확인 및 설정 Color 반환
+
+    private Color GetPurchaseStatusColor(int id, int idx)
+    {
+        int[] coins = evolutionResuiredCoinsDict[id];
+        if (StageManager.Instance.CurrGold >= coins[idx]) return Color.white;
+        else return Color.gray;
+    }
+
+    // 진화 전 몬스터 설명 띄우기
+    private void DescriptionMonsterEvolution(EvolutionType evolutionType)
+    {
+        MonsterEvolution(evolutionType);
     }
 
     // 진화 (프리팹 변경)
@@ -120,17 +173,13 @@ public class MonsterEvolutionUI : MonoBehaviour
     {
         if (selectMonster == null) return;
         var evolution = MonsterDataManager.Instance.GetEvolutionData(selectMonster.data.id, selectMonster.data.currentLevel + 1, evolutionType);
-        if (evolution != null && stageManager.CurrGold >= evolution.requiredCoins)
+        if (evolution != null && StageManager.Instance.CurrGold >= evolution.requiredCoins)
         {
-            stageManager.ChangeGold(-evolution.requiredCoins);
+            StageManager.Instance.ChangeGold(-evolution.requiredCoins);
             string evolutionMonsterName = GetMonsterEvolutionName(evolutionType);
-            PoolManager.Instance.SpawnFromPool(evolutionMonsterName, selectMonster.transform.position, Quaternion.identity).SetActive(true);
-            PoolManager.Instance.ReturnToPool(selectMonster.gameObject.name, selectMonsterObj);
+            PoolManager.Instance.SpawnFromPool(evolutionMonsterName, selectMonster.gameObject.transform.position, Quaternion.identity).SetActive(true);
+            PoolManager.Instance.ReturnToPool(selectMonster.gameObject.name, selectMonster.gameObject);
             evolutionUI.gameObject.SetActive(false);
-        }
-        else
-        {
-            print("Not enough gold to upgrade!");
         }
     }
 
@@ -140,7 +189,6 @@ public class MonsterEvolutionUI : MonoBehaviour
         for (int i = 0; i < poolConfigs.Length; i += 2)
         {
             Monster monster = poolConfigMonsterList[i];
-            Monster monster2 = poolConfigMonsterList[i + 1];
             int monsterID = monster.data.id;
 
             if (monsterID == selectMonster.data.id)

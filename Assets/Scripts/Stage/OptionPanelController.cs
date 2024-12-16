@@ -84,4 +84,11 @@ public class OptionPanelController : MonoBehaviour
         PoolManager.Instance.AddPoolS(SoundManager.Instance.poolconfigs);
         SceneManager.LoadScene("LobbyScene");
     }
+
+    // X 버튼 클릭
+    public void ClickContinueButton()
+    {
+        gameObject.SetActive(false);
+        Time.timeScale = 1f;
+    }
 }
