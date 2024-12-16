@@ -40,6 +40,9 @@
   <img src="https://contrib.rocks/image?repo=ESe0l/Warning-of-the-Monsters&refresh=true">
 </a>
 
+
+박은설: kongpark2019@gmail.com | 한승희: 6whiteowl6@gmail.com | 김찬우: kimcw212@gmail.com | 이지혜: wlgp2534@naver.com
+
 ## 개발기간
 2024.11.25 - 
 
