@@ -1,5 +1,3 @@
-using System;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,21 +5,7 @@ public class Minion : Monster //졸개
 {
     private NavMeshAgent _navMeshAgent;
     private Monster_Data.Monster_Data _minionData;
-    
-    public void InitializeMinion(Monster_Data.Monster_Data minionData)
-    {
-        _minionData = minionData;
-        data.fatigue = minionData.fatigue;
-        data.minFearInflicted = minionData.minFearInflicted;
-        data.maxFearInflicted = minionData.maxFearInflicted;
-        data.cooldown = minionData.cooldown;
-        data.humanDetectRange = minionData.humanDetectRange;
-        data.humanScaringRange = minionData.humanScaringRange;
-        data.walkSpeed = minionData.walkspeed;
-        _navMeshAgent.speed = minionData.walkspeed;
-        SetState(MonsterState.Walking);
-    }
-    
+
     protected override void Awake()
     {
         base.Awake();
@@ -29,7 +13,7 @@ public class Minion : Monster //졸개
         _navMeshAgent.updateRotation = false;
         _navMeshAgent.updateUpAxis = false;
     }
-    
+
     protected override void Update()
     {
         base.Update();
@@ -39,8 +23,24 @@ public class Minion : Monster //졸개
         }
         else if (MonsterState == MonsterState.Walking)
         {
-            WalkTowardsNearestHuman();
+            //WalkTowardsNearestHuman();
         }
+    }
+    
+    public void InitializeMinion(Monster_Data.Monster_Data minionData)
+    {
+        _minionData = minionData;
+        data.id = minionData.id;
+        data.fatigue = minionData.fatigue;
+        data.minFearInflicted = minionData.minFearInflicted;
+        data.maxFearInflicted = minionData.maxFearInflicted;
+        data.cooldown = minionData.cooldown;
+        data.humanDetectRange = minionData.humanDetectRange;
+        data.humanScaringRange = minionData.humanScaringRange;
+        data.walkSpeed = minionData.walkspeed;
+        data.maxLevel = minionData.maxLevel;
+        _navMeshAgent.speed = minionData.walkspeed;
+        SetState(MonsterState.Walking);
     }
 
     protected override void SetState(MonsterState state)
