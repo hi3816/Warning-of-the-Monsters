@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,7 +8,7 @@ public class SoundManager : SingletonBase<SoundManager>
     Dictionary<BgmType, AudioClip> bgmDict = new Dictionary<BgmType, AudioClip>();
     
     [System.Serializable]
-    public class BgmKeyValuePair
+    private class BgmKeyValuePair
     {
         public BgmType bgmType;
         public AudioClip clip;
@@ -20,7 +19,7 @@ public class SoundManager : SingletonBase<SoundManager>
     Dictionary<SfxType, AudioClip> sfxDict = new Dictionary<SfxType, AudioClip>();
 
     [System.Serializable]
-    public class SfxKeyValuePair
+    private class SfxKeyValuePair
     {
         public SfxType sfxType;
         public AudioClip clip;

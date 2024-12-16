@@ -5,41 +5,56 @@ using UnityEngine;
 public enum MonsterState
 {
     Idle,
+    Wondering, //detect human distance
     Scaring, //scare human distance
     Walking, //for minion
     ReturningVillage
 }
 
+[System.Serializable]
+public class MonsterData
+{
+    public int id;
+    public int minionId;
+    public float monsterId;
+    public int currentLevel;
+    public string poolTag;
+    public float fatigue; //몬스터 피로도바 최대치
+    public float minFearInflicted;
+    public float maxFearInflicted;
+    public float cooldown; //몬스터 놀래킴 쿨타임
+    public float humanDetectRange;
+    public float humanScaringRange; //적(인간)을 놀래킬 수 있는 범위
+    public float walkSpeed; //미니언 걷는 속도
+    public int requiredCoins; //필요재화
+    public int maxLevel; // 최대 레벨 -> 진화
+}
+
 public abstract class Monster : MonoBehaviour
 {
-    public MonsterSO data;
+    public MonsterData data;
     protected List<Human> _targetHumanList = new List<Human>();
     private SpriteRenderer _spriteRenderer;
     protected Animator Animator;
     protected MonsterState MonsterState;
     private float fadeDuration = 0.5f;
-    public int currentUpgradeLevel = 0;
     protected float LastScareTime;
     private float currentFatigue; //현재 피로도
     private Coroutine coroutine;
     
-    public void Upgrade(Monster_Data.Upgrade_Data upgradeData)
-    {
-        data.monsterId = upgradeData.monster_id;
-        currentUpgradeLevel = upgradeData.upgrade_level;
-        data.fatigue = upgradeData.fatigue;
-        data.fearInflicted = upgradeData.fearInflicted;
-        data.cooldown = upgradeData.cooldown;
-        data.humanScaringRange = upgradeData.humanScaringRange;
-        data.requiredCoins = upgradeData.requiredCoins;
-    }
-    
     protected virtual void Awake()
     {
-        Debug.Log($"Awake data{data.monsterId}");
         _spriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
         SetState(MonsterState.Idle);
+    }
+    
+    private void OnEnable()
+    {
+        HumanManager.Instance.OnGameClear -= () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
+        HumanManager.Instance.OnGameClear += () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
+        StageManager.Instance.OnGameOver -= () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
+        StageManager.Instance.OnGameOver += () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
     }
     
     protected virtual void Update()
@@ -68,7 +83,32 @@ public abstract class Monster : MonoBehaviour
                 break;
         }
     }
-    
+
+    public void Upgrade(Monster_Data.Upgrade_Data upgradeData)
+    {
+        data.monsterId = upgradeData.monster_id;
+        data.currentLevel = upgradeData.upgrade_level;
+        data.fatigue = upgradeData.fatigue;
+        data.minFearInflicted = upgradeData.minFearInflicted;
+        data.maxFearInflicted = upgradeData.maxFearInflicted;
+        data.cooldown = upgradeData.cooldown;
+        data.humanScaringRange = upgradeData.humanScaringRange;
+        data.requiredCoins = upgradeData.requiredCoins;
+    }
+
+    public void Evolution(Monster_Data.Evolution_Data evolutionData)
+    {
+        data.monsterId = evolutionData.evolution_id;
+        data.currentLevel = evolutionData.upgrade_level;
+        data.poolTag = evolutionData.name;
+        data.fatigue = evolutionData.fatigue;
+        data.minFearInflicted = evolutionData.minFearInflicted;
+        data.maxFearInflicted = evolutionData.maxFearInflicted;
+        data.cooldown = evolutionData.cooldown;
+        data.humanScaringRange = evolutionData.humanScaringRange;
+        data.requiredCoins = evolutionData.requiredCoins;
+    }
+
     protected Transform GetNearestHuman()
     {
         Collider2D[] detectedHumans = Physics2D.OverlapCircleAll(transform.position, data.humanScaringRange, LayerMask.GetMask("Human"));
@@ -134,7 +174,7 @@ public abstract class Monster : MonoBehaviour
         
             if (Time.time - LastScareTime > data.cooldown)
             {
-                human.IncreaseFear(data.fearInflicted);
+                human.IncreaseFear(Random.Range(data.minFearInflicted, data.maxFearInflicted));
                 //human.controller.SetTargetMonster(transform);
                 LastScareTime = Time.time;
             }
@@ -168,7 +208,8 @@ public abstract class Monster : MonoBehaviour
             if (human != null && !_targetHumanList.Contains(human))
             {
                 _targetHumanList.Add(human);
-                human.controller.SetTargetMonster(transform);
+                if (!human.isReturning)
+                    human.controller.SetTargetMonster(transform);
                 SetState(MonsterState.Scaring);
             }
         }

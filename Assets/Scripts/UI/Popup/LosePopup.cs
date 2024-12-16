@@ -19,10 +19,10 @@ public class LosePopup : UIBase
     }
     private void LoadGameScene()
     {
-        SceneManager.LoadScene("StageScene");
+        SceneManager.LoadScene("MainScene");
     }
     private void LoadLobby()
     {
-        SceneManager.LoadScene("LobySceneTest");
+        SceneManager.LoadScene("LobbyScene");
     }
 }

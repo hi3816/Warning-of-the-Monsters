@@ -1,16 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class summonerMonster : Monster //졸개들을 불러 인간을 막는 몬스터(=병영타워)
 {
     private Transform[] summonPositions;
     private Dictionary<string, int> _minionToSummon;
+    private CircleCollider2D collider;
 
     private void Start()
     {
         InitializeSummonableMinions();
+        collider = GetComponent<CircleCollider2D>();
     }
 
     private void InitializeSummonableMinions()
@@ -33,13 +36,13 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
             SummonMinions();
             LastScareTime = Time.time;
         }
-        
+
         if (_targetHumanList.Count == 0)
         {
             SetState(MonsterState.Idle);
         }
     }
-    
+
     private void SummonMinions()
     {
         foreach (var minionEntry in _minionToSummon)
@@ -47,28 +50,46 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
             string minionTag = minionEntry.Key;
             int count = minionEntry.Value;
 
-            Monster_Data.Minion_Data minionData = MonsterDataManager.Instance.GetMinionData(minionTag);
+            Monster_Data.Monster_Data minionData = MonsterDataManager.Instance.GetMinionData(minionTag);
             if (minionData != null)
             {
                 for (int i = 0; i < count; i++)
                 {
-                    Vector3 randomOffset = Random.insideUnitSphere * 2.5f;
-                    randomOffset.y = 1f;
-                    Vector3 spawnPosition = transform.position + randomOffset;
-                    if (NavMesh.SamplePosition(spawnPosition, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+                    int roof = 0;
+                    while (true)
                     {
-                        GameObject minion = PoolManager.Instance.SpawnFromPool(minionTag, hit.position, Quaternion.identity);
-                        if (minion != null)
+                        Vector3 randomOffset = Random.insideUnitSphere * collider.radius;
+                        Vector3 spawnPosition = transform.position + randomOffset;
+                        if (NavMesh.SamplePosition(spawnPosition, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
                         {
-                            minion.SetActive(true);
-                            Minion minionComponent = minion.GetComponent<Minion>();
-                            if (minionComponent != null)
-                            {
-                                minionComponent.InitializeMinion(minionData);
-                            } 
+                            MinionSetPosition(hit.position, minionTag, minionData);
+                            break;
+                        }
+                        else roof++;
+
+                        if (roof == 30)
+                        {
+                            MinionSetPosition(spawnPosition, minionTag, minionData);
+                            Debug.Log($"Hit Position {spawnPosition}");
+                            break;
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private void MinionSetPosition(Vector3 position, string minionTag, Monster_Data.Monster_Data minionData)
+    {
+        Debug.Log($"Hit Position {position}");
+        GameObject minion = PoolManager.Instance.SpawnFromPool(minionTag, position, Quaternion.identity);
+        if (minion != null)
+        {
+            minion.SetActive(true);
+            Minion minionComponent = minion.GetComponent<Minion>();
+            if (minionComponent != null)
+            {
+                minionComponent.InitializeMinion(minionData);
             }
         }
     }

@@ -84,7 +84,7 @@ public class StartBattleButtonController : MonoBehaviour
     // 웨이브가 끝났을 때
     public void EndWave()
     {
-        if (!CheckClear() && !button.enabled && HumanManager.Instance.isLastWave)
+        if (!CheckClear() && !button.enabled && !HumanManager.Instance.isLastWave)
         {
             ButtonEnable();
             if(coroutine != null) StopCoroutine(coroutine);

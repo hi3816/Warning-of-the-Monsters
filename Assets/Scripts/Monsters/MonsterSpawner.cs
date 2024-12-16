@@ -48,7 +48,7 @@ public class MonsterSpawner : MonoBehaviour
                 var monsterComponent = monster.GetComponent<Monster>();
                 if (monsterComponent != null)
                 {
-                    monsterComponent.data = selectedMonsterData;
+                    SetMonsterData(monsterComponent.data, selectedMonsterData);
                     monsterComponent.Reset();
                 }
                 
@@ -60,6 +60,23 @@ public class MonsterSpawner : MonoBehaviour
                 print("You do not have enough gold to spawn monster");
             }
         }
+    }
+
+    private void SetMonsterData(MonsterData data, MonsterSO so)
+    {
+        data.id = so.id;
+        data.minionId = so.minionId;
+        data.monsterId = so.monsterId;
+        data.currentLevel = so.upgradeLevel;
+        data.poolTag = so.poolTag;
+        data.fatigue = so.fatigue; 
+        data.minFearInflicted = so.minFearInflicted;
+        data.maxFearInflicted = so.maxFearInflicted;
+        data.cooldown = so.cooldown; 
+        data.humanScaringRange = so.humanScaringRange; 
+        data.walkSpeed = so.walkSpeed; 
+        data.requiredCoins = so.requiredCoins; 
+        data.maxLevel = so.maxLevel; 
     }
 
     // void Update()

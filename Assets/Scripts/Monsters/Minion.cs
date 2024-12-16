@@ -1,21 +1,24 @@
+using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Minion : Monster //졸개
 {
     private NavMeshAgent _navMeshAgent;
-    private Monster_Data.Minion_Data _minionData;
+    private Monster_Data.Monster_Data _minionData;
     
-    public void InitializeMinion(Monster_Data.Minion_Data minionData)
+    public void InitializeMinion(Monster_Data.Monster_Data minionData)
     {
         _minionData = minionData;
         data.fatigue = minionData.fatigue;
-        data.fearInflicted = minionData.fearInflicted;
+        data.minFearInflicted = minionData.minFearInflicted;
+        data.maxFearInflicted = minionData.maxFearInflicted;
         data.cooldown = minionData.cooldown;
+        data.humanDetectRange = minionData.humanDetectRange;
         data.humanScaringRange = minionData.humanScaringRange;
-        data.speed = minionData.speed;
-        
-        _navMeshAgent.speed = minionData.speed;
+        data.walkSpeed = minionData.walkspeed;
+        _navMeshAgent.speed = minionData.walkspeed;
         SetState(MonsterState.Walking);
     }
     
@@ -23,12 +26,18 @@ public class Minion : Monster //졸개
     {
         base.Awake();
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _navMeshAgent.updateRotation = false;
+        _navMeshAgent.updateUpAxis = false;
     }
     
     protected override void Update()
     {
         base.Update();
-        if (MonsterState == MonsterState.Walking)
+        if (MonsterState == MonsterState.Wondering)
+        {
+            SetState(MonsterState.Walking);
+        }
+        else if (MonsterState == MonsterState.Walking)
         {
             WalkTowardsNearestHuman();
         }

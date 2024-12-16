@@ -18,23 +18,31 @@ public class MonsterUpgrade : MonoBehaviour
             {
                 Debug.Log("Raycast hit: " + hit.collider.name);
                 Monster clickedMonster = hit.collider.GetComponentInParent<Monster>();
+
                 if (clickedMonster != null)
                 {
-                    Debug.Log($"ClickedMonster MonsterID: {clickedMonster.data.monsterId}");
-                    if (clickedMonster.currentUpgradeLevel <= clickedMonster.data.maxLevel)
-                    {
-                        monsterUpgradeUI.Show(clickedMonster);
-                    }
-                    else
-                    {
-                        evolutionUI.Show(clickedMonster);
-                    }
+                    ShowUpgradeOrEvolutionUI(clickedMonster);
                 }
             }
             else if(!EventSystem.current.IsPointerOverGameObject())
             {
                 monsterUpgradeUI.Hide();
                 evolutionUI.Hide();
+            }
+        }
+    }
+
+    private void ShowUpgradeOrEvolutionUI(Monster clickedMonster)
+    {
+        if (clickedMonster.data.currentLevel <= clickedMonster.data.maxLevel)
+        {
+            if (MonsterDataManager.Instance.GetEvolutionData(clickedMonster.data.id, clickedMonster.data.currentLevel + 1) != null)
+            {
+                evolutionUI.Show(clickedMonster);
+            }
+            else
+            {
+                if(clickedMonster.data.currentLevel <= clickedMonster.data.maxLevel) monsterUpgradeUI.Show(clickedMonster);
             }
         }
     }

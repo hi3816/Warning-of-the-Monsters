@@ -7,9 +7,9 @@ public class HumanController : MonoBehaviour
     private HumanSO _humanData;
     private int _id;
     private float _speed;
-    private float _cooldown;
-    private float _minFatigueInflicted;
-    private float _maxFatigueInflicted;
+    public float Cooldown { get; private set; }
+    public float MinFatigueInflicted { get; private set; }
+    public float MaxFatigueInflicted { get; private set; }
     
     public Animator animator;
     public NavMeshAgent Agent { get; private set; }
@@ -20,16 +20,14 @@ public class HumanController : MonoBehaviour
     public RunHumanState RunHumanState { get; private set; }
     public BattleHumanState BattleHumanState { get; private set; }
     
-    private float _lastAttackTime;
-
     private void Awake()
     {
         // 데이터 세팅
         _humanData = HumanDataLoader.Instance.GetHumanByName(gameObject);
         _speed = _humanData.speed;
-        _cooldown = _humanData.cooldown;
-        _minFatigueInflicted = _humanData.minFatigueInflicted;
-        _maxFatigueInflicted = _humanData.maxFatigueInflicted;
+        Cooldown = _humanData.cooldown;
+        MinFatigueInflicted = _humanData.minFatigueInflicted;
+        MaxFatigueInflicted = _humanData.maxFatigueInflicted;
         
         // 애니메이터 & NavMeshAgent 세팅
         animator = GetComponentInChildren<Animator>();
@@ -41,7 +39,6 @@ public class HumanController : MonoBehaviour
         // Sprite가 화면상에 보이도록 조정
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
-        Agent.speed = _speed;
         
         // 상태머신 세팅
         StateMachine = new HumanStateMachine();
@@ -59,15 +56,17 @@ public class HumanController : MonoBehaviour
         ClearTargetMonster();   // 타겟 몬스터 삭제
         Agent.enabled = true;
         Agent.ResetPath();  // 경로 초기화
+        Agent.speed = _speed;   // 속도 초기화
         StateMachine.ChangeState(WalkHumanState);   // 걷는 상태로 전환
         // 애니메이션 초기화
         animator.SetBool("IsBattle", false);
-        animator.SetBool("IsRun", false);
+        animator.speed = 1.0f;
     }
     
     private void Update()
     {
         StateMachine.CurrentHumanState?.Update();   // 상태 머신에서 현재 상태를 계속 갱신
+        
         if (TargetMonster != null)  // 타겟 몬스터가 있으면
         {
             AnimationDirectionChange(TargetMonster.position);   // 몬스터 방향으로 회전
@@ -84,31 +83,6 @@ public class HumanController : MonoBehaviour
         Vector2 direction = ((Vector2)targetPosition - (Vector2)transform.position).normalized;
         animator.SetFloat("Horizontal", direction.x);
         animator.SetFloat("Vertical", direction.y);
-    }
-    
-    // 쿨타임 계산하여 공격 가능한 상태인지 확인하는 메서드
-    public bool CanAttack()
-    {
-        return Time.time >= _lastAttackTime + _cooldown;
-    }
-    
-    // 몬스터의 피로도를 증가시키는 메서드
-    public void PerformAttack()
-    {
-        if (TargetMonster == null) return;  // 타겟 몬스터 없으면 바로 반환
-        
-        // 피로도 변동 수치 범위내의 랜덤 값을 몬스터에 적용
-        float randValue = Random.Range(_minFatigueInflicted, _maxFatigueInflicted);
-        Monster monster;
-        if (TargetMonster.gameObject.TryGetComponent(out monster))
-        {
-            monster.IncreaseFatigue(randValue);
-        }
-        else
-        {
-            Debug.LogWarning("TargetMonster not found");
-        }
-        _lastAttackTime = Time.time;    // 마지막 공격 시각 갱신
     }
     
     public void SetTargetMonster(Transform monster)

@@ -24,11 +24,12 @@ public class MonsterUpgradeUI : MonoBehaviour
         Vector3 worldPosition = selectedMonster.transform.position;
         uiPanel.transform.position = worldPosition + new Vector3(0, 1, -1);
 
-        var nextUpgrade = MonsterDataManager.Instance.GetUpgradeData(selectedMonster.data.id, selectedMonster.currentUpgradeLevel + 1);
+        var nextUpgrade = MonsterDataManager.Instance.GetUpgradeData(selectedMonster.data.id, selectedMonster.data.currentLevel + 1);
         if (nextUpgrade != null)
         {
             upgradeStatsText.text = $"Fatigue: {nextUpgrade.fatigue}\n" +
-                                    $"Fear Inflicted: {nextUpgrade.fearInflicted}\n" +
+                                    $"Min Fear Inflicted: {nextUpgrade.minFearInflicted}\n" +
+                                    $"Max Fear Inflicted: {nextUpgrade.maxFearInflicted}\n" + 
                                     $"Cooldown: {nextUpgrade.cooldown}";
             upgradeCostText.text = $"Cost: {nextUpgrade.requiredCoins}";
             upgradeButton.interactable = true;
@@ -45,12 +46,12 @@ public class MonsterUpgradeUI : MonoBehaviour
     {
         if (selectedMonster == null) return;
 
-        var nextUpgrade = MonsterDataManager.Instance.GetUpgradeData(selectedMonster.data.id, selectedMonster.currentUpgradeLevel + 1);
+        var nextUpgrade = MonsterDataManager.Instance.GetUpgradeData(selectedMonster.data.id, selectedMonster.data.currentLevel + 1);
         if (nextUpgrade != null && stageManager.CurrGold >= nextUpgrade.requiredCoins)
         {
             stageManager.ChangeGold(-nextUpgrade.requiredCoins);
             selectedMonster.Upgrade(nextUpgrade);
-            if (MonsterDataManager.Instance.GetUpgradeData(selectedMonster.data.id, selectedMonster.currentUpgradeLevel + 1) == null)
+            if (MonsterDataManager.Instance.GetUpgradeData(selectedMonster.data.id, selectedMonster.data.currentLevel + 1) == null)
             {
                 upgradeCanvas.gameObject.SetActive(false);
             }

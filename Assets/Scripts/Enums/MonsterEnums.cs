@@ -7,3 +7,12 @@ public enum EvolutionType // 몬스터 진화 타입
     Atype,
     Btype,
 }
+
+[UGS(typeof(MonsterType))]
+
+public enum MonsterType
+{
+    Stationary,
+    Summoner,
+    Minion,
+}

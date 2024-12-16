@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4686881292244861586}
   - component: {fileID: 6970811910973554025}
   - component: {fileID: 4793484059232736278}
-  - component: {fileID: 4840855327253061600}
+  - component: {fileID: -7682921080464665097}
   - component: {fileID: 4653200507118870805}
   - component: {fileID: 5271574812440545329}
   m_Layer: 6
@@ -97,8 +97,8 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8137456782942892047}
   m_Enabled: 1
-  m_AgentTypeID: -334000983
-  m_Radius: 0.32
+  m_AgentTypeID: 0
+  m_Radius: 0.00001
   m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
@@ -132,8 +132,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!61 &4840855327253061600
-BoxCollider2D:
+--- !u!58 &-7682921080464665097
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -165,18 +165,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
-    newSize: {x: 0.64, y: 0.64}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3, y: 3}
-  m_EdgeRadius: 0
+  m_Radius: 2
 --- !u!50 &4653200507118870805
 Rigidbody2D:
   serializedVersion: 4
@@ -216,5 +206,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 710f8232fc3bf4aaa9eabedb72089281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: fae458480a8cd4506990ccea3eca7991, type: 2}
-  currentUpgradeLevel: 0
+  data:
+    id: 0
+    minionId: 0
+    monsterId: 0
+    currentLevel: 0
+    poolTag: 
+    fatigue: 0
+    minFearInflicted: 0
+    maxFearInflicted: 0
+    cooldown: 0
+    humanDetectRange: 0
+    humanScaringRange: 0
+    walkSpeed: 0
+    requiredCoins: 0
+    maxLevel: 0

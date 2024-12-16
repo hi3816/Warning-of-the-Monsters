@@ -16,7 +16,7 @@ public class StageManager : SingletonBase<StageManager>
     public int totalWave { get; private set; } // 전체 웨이브 수
     public int CurrWave { get; private set; } // 현재 웨이브
     public int CurrHealth { get; private set; } // 현재 체력
-    public float CurrGold; // 현재 골드
+    public float CurrGold { get; private set; } // 현재 골드
 
     [Header("Stage")]
 
@@ -59,7 +59,8 @@ public class StageManager : SingletonBase<StageManager>
         totalWave = stageSO.wave;
         CurrWave = 0;
         CurrHealth = stageSO.health;
-        CurrGold = stageSO.gold;
+        //CurrGold = stageSO.gold;
+        CurrGold = 10000;
         stageInfoController = stageInfo.GetComponent<StageInfoController>();
         stageInfoController.ChangeUI();
     }
