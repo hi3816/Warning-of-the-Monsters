@@ -38,7 +38,7 @@ public abstract class Monster : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     protected Animator Animator;
     protected MonsterState MonsterState;
-    private float fadeDuration = 0.5f;
+    private float fadeDuration = 1.5f;
     protected float LastScareTime;
     private Coroutine coroutine;
 

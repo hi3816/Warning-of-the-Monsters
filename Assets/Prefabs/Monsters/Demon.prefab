@@ -146,7 +146,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 523736962, guid: e4625980812494fb6af76d37abe6f744, type: 3}
+  m_Sprite: {fileID: 773416975, guid: 2a2cb93612a484c71950ca5542225752, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -257,6 +257,7 @@ MonoBehaviour:
     monsterId: 0
     currentLevel: 0
     poolTag: 
+    currentFatigue: 0
     fatigue: 0
     minFearInflicted: 0
     maxFearInflicted: 0
