@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Playables.FrameData;
 
 public class MonsterEvolutionUI : MonoBehaviour
 {
@@ -133,6 +134,7 @@ public class MonsterEvolutionUI : MonoBehaviour
             for (int i = 0; i < typeImages.Length; i++)
             {
                 typeImages[i].sprite = sprites[i];
+                typeImages[i].color = GetPurchaseStatusColor(selectMonster.data.id, i);
             }
         }
     }
@@ -146,8 +148,24 @@ public class MonsterEvolutionUI : MonoBehaviour
             for (int i = 0; i < requiredCoins.Length; i++)
             {
                 requiredCoins[i].text = coins[i].ToString();
+                requiredCoins[i].color = GetPurchaseStatusColor(selectMonster.data.id, i);
             }
         }
+    }
+
+    // 구매 여부 확인 및 설정 Color 반환
+
+    private Color GetPurchaseStatusColor(int id, int idx)
+    {
+        int[] coins = evolutionResuiredCoinsDict[id];
+        if (StageManager.Instance.CurrGold >= coins[idx]) return Color.white;
+        else return Color.gray;
+    }
+
+    // 진화 전 몬스터 설명 띄우기
+    private void DescriptionMonsterEvolution(EvolutionType evolutionType)
+    {
+        MonsterEvolution(evolutionType);
     }
 
     // 진화 (프리팹 변경)
@@ -162,10 +180,6 @@ public class MonsterEvolutionUI : MonoBehaviour
             PoolManager.Instance.SpawnFromPool(evolutionMonsterName, selectMonster.gameObject.transform.position, Quaternion.identity).SetActive(true);
             PoolManager.Instance.ReturnToPool(selectMonster.gameObject.name, selectMonster.gameObject);
             evolutionUI.gameObject.SetActive(false);
-        }
-        else
-        {
-            print("Not enough gold to upgrade!");
         }
     }
 
