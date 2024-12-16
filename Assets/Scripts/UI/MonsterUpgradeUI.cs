@@ -27,17 +27,17 @@ public class MonsterUpgradeUI : MonoBehaviour
         var nextUpgrade = MonsterDataManager.Instance.GetUpgradeData(selectedMonster.data.id, selectedMonster.data.currentLevel + 1);
         if (nextUpgrade != null)
         {
-            upgradeStatsText.text = $"Fatigue: {nextUpgrade.fatigue}\n" +
-                                    $"Min Fear Inflicted: {nextUpgrade.minFearInflicted}\n" +
-                                    $"Max Fear Inflicted: {nextUpgrade.maxFearInflicted}\n" + 
-                                    $"Cooldown: {nextUpgrade.cooldown}";
-            upgradeCostText.text = $"Cost: {nextUpgrade.requiredCoins}";
+            upgradeStatsText.text = $"Fatigue: \t{nextUpgrade.fatigue}\n" +
+                                    $"Min Fear: \t{nextUpgrade.minFearInflicted}\n" +
+                                    $"Max Fear: \t{nextUpgrade.maxFearInflicted}\n" + 
+                                    $"Cooldown: \t{nextUpgrade.cooldown}";
+            upgradeCostText.text = $"{nextUpgrade.requiredCoins}";
             upgradeButton.interactable = true;
         }
         else
         {
             upgradeStatsText.text = "Max Upgrade Reached";
-            upgradeCostText.text = "";
+            upgradeCostText.text = "0";
             upgradeButton.interactable = false;
         }
     }

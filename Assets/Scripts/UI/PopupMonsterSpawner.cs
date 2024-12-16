@@ -107,6 +107,7 @@ public class PopupMonsterSpawner : MonsterSpawner
         }
     }
 
+    //몬스터 비활성화 업데이트
     private void UpdateMonsterImgState()
     {
         for (int i = 0; i < _slots.Count; i++)
@@ -116,6 +117,7 @@ public class PopupMonsterSpawner : MonsterSpawner
                 MonsterManager.Instance.SelectMonster(monsterInfo.monsterId);
                 MonsterSO selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
 
+                //선택가능 몬스터 검사
                 bool isAvailable = IsMonsterSelectable(selectedMonsterData);
 
                 _slotsOverlay[i].SetActive(!isAvailable);
