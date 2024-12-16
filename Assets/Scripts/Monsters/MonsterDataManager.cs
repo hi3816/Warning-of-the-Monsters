@@ -117,7 +117,7 @@ public class MonsterDataManager : MonoBehaviour
         return null;
     }
 
-    // 진화 데이터 확인 (EvolutionType 있을 때)
+    // 진화 데이터 확인 (EvolutionType 있을 때) -> 진화 버튼 클릭 시 확인용
     public Monster_Data.Evolution_Data GetEvolutionData(int monsterId, int upgradeLevel, EvolutionType evolutionType)
     {
         var evolutions = Monster_Data.Evolution_Data.GetList();

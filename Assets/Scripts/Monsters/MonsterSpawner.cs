@@ -65,7 +65,6 @@ public class MonsterSpawner : MonoBehaviour
     private void SetMonsterData(MonsterData data, MonsterSO so)
     {
         data.id = so.id;
-        data.minionId = so.minionId;
         data.monsterId = so.monsterId;
         data.currentLevel = so.upgradeLevel;
         data.poolTag = so.poolTag;
