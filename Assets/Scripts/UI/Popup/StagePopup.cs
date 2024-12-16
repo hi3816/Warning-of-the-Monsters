@@ -16,9 +16,11 @@ public class StagePopup : UIBase
     public GameObject btnGo;
 
     [Header("Display")]
-    public GameObject displaySelectMonster;
-    public GameObject displayStageInfo;
-    public GameObject displayStory;
+    [SerializeField] TextMeshProUGUI selectTitle;
+
+    [SerializeField] GameObject displaySelectMonster;
+    [SerializeField] GameObject displayStageInfo;
+    [SerializeField] GameObject displayStory;
     private int _stageIdx;
 
     [Header("MonsterSelectedSlot")]
@@ -37,14 +39,19 @@ public class StagePopup : UIBase
     private SpriteAtlas _sprites;
 
     [Header("disPlayStageInfo")]
-    [SerializeField] TextMeshProUGUI stageInfoTxt;
-    [SerializeField] TextMeshProUGUI enemyInfoTxt;
+    [SerializeField] TextMeshProUGUI titleTxt;
+    [SerializeField] TextMeshProUGUI stageInfoWave;
+    [SerializeField] TextMeshProUGUI stageInfoHealth;
+    [SerializeField] TextMeshProUGUI stageInfoGold;
 
+    [Header("disPlayStroy")]
+    [SerializeField] TextMeshProUGUI storyTxt;
+
+    [Header("etc")]
     [SerializeField] TextMeshProUGUI warningTxt;
     [SerializeField] TextMeshProUGUI testTxt;
     
     [SerializeField] Image[] arrowPoint;
-    [SerializeField] Sprite arrowImg;
 
     private enum Display
     {
@@ -68,6 +75,8 @@ public class StagePopup : UIBase
         SetMonsterScroll();
         SetStageInfo(_stageIdx);
         SelectSlot(_crrSlotIdx);
+
+        ShowSelectMonster();
     }
 
     public void SetStageIdx(int Idx)
@@ -93,6 +102,7 @@ public class StagePopup : UIBase
         HideSelectedDisplay(_currentDisplay);
         displaySelectMonster.SetActive(true);
         _currentDisplay = Display.SelectMonster;
+        selectTitle.text = "SELCECT MONSTER";
     }
 
     private void SetMonsterScroll()
@@ -120,11 +130,9 @@ public class StagePopup : UIBase
         _crrSlotIdx = slotIdx;
         for (int i = 0; i < arrowPoint.Length; i++) 
         {
-            arrowPoint[i].sprite = null;
             Color color1 = new Color(1, 1, 1, 0);
             arrowPoint[i].color = color1;
         }
-        arrowPoint[slotIdx].sprite = arrowImg;
         Color color = new Color(1, 1, 1, 1);
         arrowPoint[slotIdx].color = color;
     }
@@ -174,6 +182,7 @@ public class StagePopup : UIBase
     {
         var slotImg = monsterSelectedSlots[_crrSlotIdx].transform.GetChild(0).GetComponent<Image>();
         slotImg.sprite = listSlotSprite;
+        slotImg.color = new Color(1, 1, 1, 1);
     }
 
     private void ShowStageInfo()
@@ -181,22 +190,24 @@ public class StagePopup : UIBase
         HideSelectedDisplay(_currentDisplay);
         displayStageInfo.SetActive(true);
         _currentDisplay = Display.EnemyInfo;
+        selectTitle.text = "STAGE INFO";
     }
 
     public void SetStageInfo(int index)
     {
         //StageInfo Load
         StageSO stageSO = DataManager.Instance.GetStageByIndex(index);
-        stageInfoTxt.text = $"{stageSO.name}\n{stageSO.wave}\n{stageSO.health}";
-
-        //EnemyInfo Load
+        titleTxt.text = $"{stageSO.name}";
+        stageInfoWave.text = $"{stageSO.wave}";
+        stageInfoHealth.text = $"{stageSO.health}";
+        stageInfoGold.text = $"{stageSO.gold}";
     }
-
     private void ShowStory()
     {
         HideSelectedDisplay(_currentDisplay);
         displayStory.SetActive(true);
         _currentDisplay = Display.Story;
+        selectTitle.text = "STORY";
     }
 
     private void HideSelectedDisplay(Display display)
