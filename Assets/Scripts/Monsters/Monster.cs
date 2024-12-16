@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public enum MonsterState
 {
     Idle,
-    Wondering, //detect human distance
     Scaring, //scare human distance
     Walking, //for minion
     ReturningVillage
@@ -87,6 +86,7 @@ public abstract class Monster : MonoBehaviour
                 }
                 break;
             case MonsterState.ReturningVillage:
+                UpdateAnimatorParameters(StageManager.Instance.EndPoint.position);
                 ReturnToVillage();
                 break;
         }
@@ -144,7 +144,6 @@ public abstract class Monster : MonoBehaviour
         if (MonsterState == state) return;
         
         MonsterState = state;
-        
         switch (MonsterState)
         {
             case MonsterState.Idle:
@@ -156,7 +155,7 @@ public abstract class Monster : MonoBehaviour
                 break;
 
             case MonsterState.ReturningVillage:
-                Animator.SetTrigger("Return");
+                Animator.SetBool("Return", true);
                 coroutine = StartCoroutine(FadeOutAndReturnToPool());
                 break;
         }
@@ -240,7 +239,6 @@ public abstract class Monster : MonoBehaviour
     {
         data.currentFatigue += value;
         Animator.SetTrigger("Hit");
-        Debug.Log($"Monster curFatigue: {data.currentFatigue}");
         if (data.currentFatigue >= data.fatigue)
         {
             data.currentFatigue = data.fatigue;
@@ -293,11 +291,4 @@ public abstract class Monster : MonoBehaviour
         _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 1f);
         SetState(MonsterState.Idle);
     }
-    
-    // public void ResetToBaseState()
-    // {
-    //     currentUpgradeLevel = 0;
-    //     data = MonsterDataManager.Instance.GetBaseMonsterData(data.id);
-    //     transform.localScale = Vector3.one;
-    // }
 }

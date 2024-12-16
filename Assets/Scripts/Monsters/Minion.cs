@@ -17,13 +17,14 @@ public class Minion : Monster //졸개
     protected override void Update()
     {
         base.Update();
-        if (MonsterState == MonsterState.Wondering)
+        switch (MonsterState)
         {
-            SetState(MonsterState.Walking);
-        }
-        else if (MonsterState == MonsterState.Walking)
-        {
-            //WalkTowardsNearestHuman();
+         case MonsterState.Idle:
+             
+             break;
+         case MonsterState.Walking:
+             
+             break;
         }
     }
     
