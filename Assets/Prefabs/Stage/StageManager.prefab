@@ -64,7 +64,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &7714030633538687521
 MonoBehaviour:
@@ -155,7 +155,6 @@ MonoBehaviour:
   stageInfo: {fileID: 6207528262063605471}
   stageInfoController: {fileID: 0}
   stage: {fileID: 0}
-  stageIdx: 0
   startBattleBtnController: {fileID: 0}
   poolConfigs:
   - tag: SpawnSmallMonster
