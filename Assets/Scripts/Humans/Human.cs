@@ -27,7 +27,6 @@ public class Human : MonoBehaviour
         {
             controller = gameObject.AddComponent<HumanController>();
         }
-
         if (fearGauge == null)
         {
             fearGauge = gameObject.transform.Find("Canvas/FearGauge/Front").GetComponent<Image>();

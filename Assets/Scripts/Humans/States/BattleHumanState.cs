@@ -57,6 +57,7 @@ public class BattleHumanState : IHumanState
         if (_human.TargetMonster.gameObject.TryGetComponent(out monster))
         {
             monster.IncreaseFatigue(randValue);
+            _human.PlayAttackParticle();
         }
         else
         {
