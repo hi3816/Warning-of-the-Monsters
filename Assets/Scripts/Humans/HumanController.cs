@@ -15,6 +15,9 @@ public class HumanController : MonoBehaviour
     public NavMeshAgent Agent { get; private set; }
     public Transform TargetMonster { get; private set; }
 
+    public Transform HumanEffect;
+    public ParticleSystem AttackParticle;
+    
     public HumanStateMachine StateMachine;
     public WalkHumanState WalkHumanState { get; private set; }
     public RunHumanState RunHumanState { get; private set; }
@@ -39,6 +42,11 @@ public class HumanController : MonoBehaviour
         // Sprite가 화면상에 보이도록 조정
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
+
+        if (HumanEffect == null)
+            HumanEffect = transform.Find("Effects").transform;
+        if (AttackParticle == null)
+            AttackParticle = HumanEffect.gameObject.GetComponentInChildren<ParticleSystem>();
         
         // 상태머신 세팅
         StateMachine = new HumanStateMachine();
@@ -93,5 +101,16 @@ public class HumanController : MonoBehaviour
     public void ClearTargetMonster()
     {
         TargetMonster = null;
+    }
+    
+    public void PlayAttackParticle()
+    {
+        if (TargetMonster == null) return;
+        Vector3 directionToTarget = (gameObject.transform.position - TargetMonster.position).normalized;
+
+        float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg - 180;
+        HumanEffect.rotation = Quaternion.Euler(0, 0, angle);
+        
+        AttackParticle.Play();
     }
 }
