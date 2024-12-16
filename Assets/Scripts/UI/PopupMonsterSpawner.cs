@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.U2D;
+using TMPro;
+using System;
 
 public class PopupMonsterSpawner : MonsterSpawner
 {
@@ -12,6 +14,7 @@ public class PopupMonsterSpawner : MonsterSpawner
     private Dictionary<int, (int monsterId, string monsterName)> _selectedMonsterList;
     [SerializeField] private List<GameObject> _slots;
     [SerializeField] private List<GameObject> _slotsOverlay;
+    [SerializeField] private List<TextMeshProUGUI> _costTxts;
 
     private void Awake()
     {
@@ -118,15 +121,16 @@ public class PopupMonsterSpawner : MonsterSpawner
                 MonsterSO selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
 
                 //선택가능 몬스터 검사
-                bool isAvailable = IsMonsterSelectable(selectedMonsterData);
+                bool isAvailable = IsMonsterSelectable(i, selectedMonsterData);
 
                 _slotsOverlay[i].SetActive(!isAvailable);
             }
         }
     }
 
-    private bool IsMonsterSelectable(MonsterSO data)
+    private bool IsMonsterSelectable(int idx, MonsterSO data)
     {
+        _costTxts[idx].text = data.requiredCoins.ToString();
         return StageManager.CurrGold >= data.requiredCoins;
     }
 
