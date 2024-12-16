@@ -15,7 +15,6 @@ public enum MonsterState
 public class MonsterData
 {
     public int id;
-    public int minionId;
     public float monsterId;
     public int currentLevel;
     public string poolTag;

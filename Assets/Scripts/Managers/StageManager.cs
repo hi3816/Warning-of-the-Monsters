@@ -30,16 +30,13 @@ public class StageManager : SingletonBase<StageManager>
     [Header("Sfx Pools")]
     [SerializeField] private PoolManager.PoolConfig[] poolConfigs;
 
-    private SoundManager soundManager;
-    
     public Action OnGameOver;
 
     protected override void Awake()
     {
         base.Awake();
         PoolManager.Instance.AddPoolS(poolConfigs);
-        soundManager = SoundManager.Instance;
-        soundManager.PlayBGM(BgmType.Stage);
+        SoundManager.Instance.PlayBGM(BgmType.Stage);
         SetStageInfo();
         SetStageObject();
         SetPointInfo();

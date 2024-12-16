@@ -58,7 +58,9 @@ namespace Monster_Data
 
 		public System.Single monster_id;
 		public EvolutionType EvolutionType;
+		public System.Collections.Generic.List<String> minion;
 		public System.Collections.Generic.List<Int32> count;
+		public System.Collections.Generic.List<String> evolutionMinion;
 		public System.Collections.Generic.List<Int32> evolutionCount;
   
 

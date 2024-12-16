@@ -70,7 +70,6 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
                         if (roof == 30)
                         {
                             MinionSetPosition(spawnPosition, minionTag, minionData);
-                            Debug.Log($"Hit Position {spawnPosition}");
                             break;
                         }
                     }
@@ -81,8 +80,9 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
 
     private void MinionSetPosition(Vector3 position, string minionTag, Monster_Data.Monster_Data minionData)
     {
-        Debug.Log($"Hit Position {position}");
-        GameObject minion = PoolManager.Instance.SpawnFromPool(minionTag, position, Quaternion.identity);
+        Vector3 pos = position;
+        pos.z = 0f;
+        GameObject minion = PoolManager.Instance.SpawnFromPool(minionTag, pos, Quaternion.identity);
         if (minion != null)
         {
             minion.SetActive(true);

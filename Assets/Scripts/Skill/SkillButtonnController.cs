@@ -33,6 +33,7 @@ public class SkillButtonnController : MonoBehaviour
     [SerializeField] private Image skillImage; // skillSprite가 들어갈 Image 컴포넌트
 
     [SerializeField] private PoolManager.PoolConfig[] poolConfigs;
+
     private void Awake()
     {
         skillSO = DataManager.Instance.GetSkillByIndex(SkillIdx);
