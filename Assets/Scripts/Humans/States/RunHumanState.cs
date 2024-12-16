@@ -13,7 +13,7 @@ public class RunHumanState : IHumanState
     {
         _human.animator.speed *= 5;
         _human.Agent.SetDestination(StageManager.Instance.SpawnPoint.position);
-        _human.Agent.speed *= 1.5f;
+        _human.Agent.speed *= 2.0f;
         _human.Agent.avoidancePriority = AvoidPriority;
     }
 

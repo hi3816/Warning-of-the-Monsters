@@ -6,7 +6,7 @@ public class HumanSpawner : MonoBehaviour
 {
     private Human _human;
     private int _curWaveIdx;
-    private WaitForSeconds _spawnDelay = new WaitForSeconds(1.5f);  // 인간 스폰 되는 간격
+    private WaitForSeconds _spawnDelay = new WaitForSeconds(2.0f);  // 인간 스폰 되는 간격
     
     private List<WaveData> _waveData = new List<WaveData>();
     [SerializeField] private PoolManager.PoolConfig[] poolConfigs; // 인간 풀
