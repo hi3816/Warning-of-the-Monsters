@@ -19,6 +19,7 @@ public class MonsterData
     public float monsterId;
     public int currentLevel;
     public string poolTag;
+    public float currentFatigue; //현재 피로도
     public float fatigue; //몬스터 피로도바 최대치
     public float minFearInflicted;
     public float maxFearInflicted;
@@ -39,7 +40,6 @@ public abstract class Monster : MonoBehaviour
     protected MonsterState MonsterState;
     private float fadeDuration = 0.5f;
     protected float LastScareTime;
-    private float currentFatigue; //현재 피로도
     private Coroutine coroutine;
 
     public Image FatigueGauge;
@@ -233,15 +233,15 @@ public abstract class Monster : MonoBehaviour
     
     public void IncreaseFatigue(float value)
     {
-        currentFatigue += value;
+        data.currentFatigue += value;
         Animator.SetTrigger("Hit");
-        Debug.Log($"Monster curFatigue: {currentFatigue}");
-        if (currentFatigue >= data.fatigue)
+        Debug.Log($"Monster curFatigue: {data.currentFatigue}");
+        if (data.currentFatigue >= data.fatigue)
         {
-            currentFatigue = data.fatigue;
+            data.currentFatigue = data.fatigue;
             SetState(MonsterState.ReturningVillage);
         }
-        FatigueGauge.fillAmount = currentFatigue / data.fatigue;   // UI 갱신
+        FatigueGauge.fillAmount = data.currentFatigue / data.fatigue;   // UI 갱신
     }
     
     private void ReturnToVillage()
@@ -283,7 +283,7 @@ public abstract class Monster : MonoBehaviour
     public void Reset()
     {
         if (coroutine != null) StopCoroutine(coroutine);
-        currentFatigue = 0f;
+        data.currentFatigue = 0f;
         _targetHumanList.Clear();
         _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 1f);
         SetState(MonsterState.Idle);

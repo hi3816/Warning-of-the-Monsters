@@ -533,8 +533,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ef8f17af7296b844afed771d5ed6abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpeedButton2x: {fileID: 5727171958445238020}
-  SpeedButton3x: {fileID: 3920764907922305234}
+  speedButton2x: {fileID: 0}
+  speedButton3x: {fileID: 0}
 --- !u!1 &5165122634546650166
 GameObject:
   m_ObjectHideFlags: 0
@@ -892,18 +892,6 @@ PrefabInstance:
     - target: {fileID: 4571311766098079309, guid: 4268f8e89837d5d4db6e69633fc5c898, type: 3}
       propertyPath: m_SizeDelta.y
       value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 4571311766098079309, guid: 4268f8e89837d5d4db6e69633fc5c898, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.98586
-      objectReference: {fileID: 0}
-    - target: {fileID: 4571311766098079309, guid: 4268f8e89837d5d4db6e69633fc5c898, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.98586
-      objectReference: {fileID: 0}
-    - target: {fileID: 4571311766098079309, guid: 4268f8e89837d5d4db6e69633fc5c898, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.98586
       objectReference: {fileID: 0}
     - target: {fileID: 4571311766098079309, guid: 4268f8e89837d5d4db6e69633fc5c898, type: 3}
       propertyPath: m_LocalPosition.x
