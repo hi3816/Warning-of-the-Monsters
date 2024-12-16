@@ -121,7 +121,7 @@
 [UI](https://www.gamedevmarket.net/asset/rpg-ui-pack)
 
 
-[기타 오브젝트](링크 여기 입력)
+[이펙트](링크 여기 입력)
 
 
 [글씨체](https://noonnu.cc/font_page/800)
