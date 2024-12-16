@@ -98,7 +98,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 5562810807239344560}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.32
+  m_Radius: 0.00001
   m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
@@ -213,9 +213,11 @@ MonoBehaviour:
     currentLevel: 0
     poolTag: 
     fatigue: 0
-    fearInflicted: 0
+    minFearInflicted: 0
+    maxFearInflicted: 0
     cooldown: 0
+    humanDetectRange: 0
     humanScaringRange: 0
-    speed: 0
+    walkSpeed: 0
     requiredCoins: 0
     maxLevel: 0
