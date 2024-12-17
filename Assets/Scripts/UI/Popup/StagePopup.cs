@@ -227,4 +227,17 @@ public class StagePopup : UIBase
                 break;
         }
     }
+
+    public void ResetSelectedMonster()
+    {
+        foreach (var slot in monsterSelectedSlots)
+        {
+            //스프라이트 지워주기
+            var slotImg = slot.transform.GetChild(0).GetComponent<Image>();
+            slotImg.sprite = null;
+            slotImg.color = new Color(1, 1, 1, 0);
+        }
+        //정보 없애기
+        _selectedListData.Clear();
+    }
 }
