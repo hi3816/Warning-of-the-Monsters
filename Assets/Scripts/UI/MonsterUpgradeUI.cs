@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MonsterUpgradeUI : MonoBehaviour
@@ -9,6 +10,7 @@ public class MonsterUpgradeUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI upgradeStatsText;
     [SerializeField] private TextMeshProUGUI upgradeCostText;
     [SerializeField] private Button upgradeButton;
+    [SerializeField] private GameObject RangeIndicator;
     public GameObject uiPanel;
     private Monster selectedMonster;
     
@@ -16,6 +18,7 @@ public class MonsterUpgradeUI : MonoBehaviour
     {
         selectedMonster = monster;
         upgradeCanvas.gameObject.SetActive(true);
+        UpdateRangeIndicator();
         UpdateUI();
     }
 
@@ -66,8 +69,20 @@ public class MonsterUpgradeUI : MonoBehaviour
         }
     }
     
+    private void UpdateRangeIndicator()
+    {
+        if (selectedMonster == null || RangeIndicator == null) return;
+        RangeIndicator.gameObject.SetActive(true);
+        float range = selectedMonster.data.humanScaringRange;
+        selectedMonster.transform.localScale = new Vector3(range * 2, range * 2, 1);
+    }
+    
     public void Hide()
     {
         upgradeCanvas.gameObject.SetActive(false);
+        if (selectedMonster != null && RangeIndicator != null)
+        {
+            RangeIndicator.SetActive(false);
+        }
     }
 }

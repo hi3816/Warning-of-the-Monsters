@@ -201,6 +201,8 @@ MonoBehaviour:
     walkSpeed: 0
     requiredCoins: 0
     maxLevel: 3
+    monsterType: 0
+    summonerId: 0
 --- !u!114 &5697816560405013254
 MonoBehaviour:
   m_ObjectHideFlags: 0

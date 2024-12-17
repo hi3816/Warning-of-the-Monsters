@@ -76,7 +76,7 @@ public class Minion : Monster //졸개
                     _navMeshAgent.SetDestination(_summonerMonster.transform.position);
                     SetState(MonsterState.Walking);
                 }
-            } 
+            }
         }
         else
         {
