@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -12,13 +13,18 @@ public class GameController : MonoBehaviour
     
     private void GameClear()
     {
-        Time.timeScale = 0;
-        UIManager.Instance.Show<WinPopup>("UI/UIPopup/");
+        StartCoroutine(EndGame<WinPopup>());
     }
     
     private void GameOver()
     {
+        StartCoroutine(EndGame<LosePopup>());
+    }
+
+    private IEnumerator EndGame<T>() where T : UIBase
+    {
         Time.timeScale = 0;
-        UIManager.Instance.Show<LosePopup>("UI/UIPopup/");
+        yield return new WaitForSecondsRealtime(0.5f);
+        UIManager.Instance.Show<T>("UI/UIPopup/");
     }
 }
