@@ -6,7 +6,9 @@ public class MonsterSO : ScriptableObject
 {
     public int id;
     public float monsterId;
+    public int currentLevel;
     public int upgradeLevel;
+    public float currentFatigue;
     public string poolTag;
     public float fatigue; //몬스터 피로도바 최대치
     public float minFearInflicted; //적(인간)에게 주는 공포수치량

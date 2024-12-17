@@ -13,11 +13,20 @@ MonoBehaviour:
   m_Name: Demon
   m_EditorClassIdentifier: 
   id: 1
+  minionId: 0
   monsterId: 0
+  currentLevel: 0
   upgradeLevel: 0
+  currentFatigue: 0
   poolTag: Demon
   fatigue: 0
-  fearInflicted: 0
+  minFearInflicted: 0
+  maxFearInflicted: 0
   cooldown: 0
+  humanDetectRange: 0
   humanScaringRange: 0
+  walkSpeed: 0
   requiredCoins: 0
+  maxLevel: 2
+  monsterType: 0
+  summonerId: 0

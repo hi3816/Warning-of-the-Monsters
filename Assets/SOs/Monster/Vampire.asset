@@ -15,11 +15,18 @@ MonoBehaviour:
   id: 0
   minionId: 3
   monsterId: 0
+  currentLevel: 0
   upgradeLevel: 0
+  currentFatigue: 0
   poolTag: Vampire
   fatigue: 0
-  fearInflicted: 0
+  minFearInflicted: 0
+  maxFearInflicted: 0
   cooldown: 0
+  humanDetectRange: 0
   humanScaringRange: 0
-  speed: 0
+  walkSpeed: 0
   requiredCoins: 0
+  maxLevel: 3
+  monsterType: 0
+  summonerId: 3
