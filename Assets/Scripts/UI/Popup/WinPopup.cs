@@ -58,7 +58,7 @@ public class WinPopup : UIBase
             FilledStar2.SetActive(true);
             FilledStar3.SetActive(true);
         }
-        else if (starsCount <= 20)
+        else if (starsCount > 10 && starsCount <= 20)
         {
             //별 2개
             emptyStar1.SetActive(false);
