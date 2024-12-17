@@ -91,6 +91,8 @@ public class Human : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (isReturning) return;
+        
         // 도망가는 인간과 다른 상태의 인간이 서로 밀리지 않도록 회피 타입 변경
         if (other.CompareTag("Human"))  // 인간이 트리거되면
         {
@@ -99,6 +101,24 @@ public class Human : MonoBehaviour
             {
                 // 자신의 회피 타입을 None으로 설정, 서로 충돌하지 않고 지나치게 만듦
                 controller.Agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+            }
+        }
+
+        // 가장 가까이에 있는 몬스터 공격하도록 설정
+        if (other.CompareTag("Monster"))
+        {
+            if (controller.TargetMonster == null)   // 타겟 몬스터가 없으면
+            {
+                controller.SetTargetMonster(other.gameObject.transform);    // 트리거된 몬스터를 타겟 몬스터로 설정
+                return;
+            }
+            
+            // 타겟 몬스터가 있는 상태이면
+            float newDistance = (other.transform.position - transform.position).magnitude;
+            float distance = (controller.TargetMonster.position - transform.position).magnitude;    
+            if (newDistance < distance) // 새로 트리거된 몬스터가 기존 몬스터보다 가까우면
+            {
+                controller.SetTargetMonster(other.gameObject.transform);    // 타겟 몬스터 변경
             }
         }
     }

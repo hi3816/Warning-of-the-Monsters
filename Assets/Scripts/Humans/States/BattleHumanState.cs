@@ -9,6 +9,7 @@ public class BattleHumanState : IHumanState
     private float _minFatigueInflicted;
     private float _maxFatigueInflicted;
 
+    private Transform _oldTarget;
     private float _lastAttackTime;
     
     public BattleHumanState(HumanController human, HumanStateMachine stateMachine)
@@ -22,7 +23,8 @@ public class BattleHumanState : IHumanState
     public void Enter()
     {
         _human.animator.SetBool("IsBattle", true);
-        _human.Agent.SetDestination(_human.TargetMonster.position);
+        _oldTarget = _human.TargetMonster;
+        _human.Agent.SetDestination(_oldTarget.position);
         FixPosition();
     }
 
@@ -37,6 +39,13 @@ public class BattleHumanState : IHumanState
         if (!isFixed()) // 고정되어 있지 않으면
         {
             FixPosition();  // 위치 고정 상태로 만들기
+        }
+
+        if (_oldTarget != _human.TargetMonster) // 기존 타겟 몬스터가 변경되면
+        {
+            _oldTarget = _human.TargetMonster;
+            _human.Agent.ResetPath();
+            _human.Agent.SetDestination(_oldTarget.position);   // 새로운 타겟 몬스터 향하도록 설정
         }
 
         if (Time.time >= _lastAttackTime + _human.Cooldown) // 공격 가능한 상태면
