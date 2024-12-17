@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public enum MonsterState
 {
@@ -42,18 +44,13 @@ public abstract class Monster : MonoBehaviour
     protected float LastScareTime;
     private Coroutine coroutine;
 
-    public Image FatigueGauge;
+    public Action OnAttacked;
     
     protected virtual void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
         SetState(MonsterState.Idle);
-        
-        if (FatigueGauge == null)
-        {
-            FatigueGauge = gameObject.transform.Find("FatigueCanvas/FatigueGauge/Front").GetComponent<Image>();
-        }
     }
     
     private void OnEnable()
@@ -62,7 +59,6 @@ public abstract class Monster : MonoBehaviour
         HumanManager.Instance.OnGameClear += () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
         StageManager.Instance.OnGameOver -= () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
         StageManager.Instance.OnGameOver += () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
-        FatigueGauge.fillAmount = 0;
     }
     
     protected virtual void Update()
@@ -243,7 +239,7 @@ public abstract class Monster : MonoBehaviour
             data.currentFatigue = data.fatigue;
             SetState(MonsterState.ReturningVillage);
         }
-        FatigueGauge.fillAmount = data.currentFatigue / data.fatigue;   // UI 갱신
+        OnAttacked?.Invoke();
     }
     
     private void ReturnToVillage()

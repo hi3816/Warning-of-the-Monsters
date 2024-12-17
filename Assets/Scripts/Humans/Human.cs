@@ -1,27 +1,28 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
 
 public class Human : MonoBehaviour
 {
     [SerializeField] private HumanSO humanData;
     private int _id;
-    private float _fearLevel;
-    private float _maxFear;
     private int _coin;  // 놀랐을 때 떨어뜨리고 가는 재화량(처치 시 획득 재화량)
+    public float MaxFear { get; private set; }
+    public float FearLevel { get; private set; }
     public int LifeInflicted { get; private set; }
     public int SpawnedWaveIdx { get; set; }
     public bool isReturning { get; private set; }  // 풀에 반환중인 상태인지 체크
 
     public HumanController controller;
-    [SerializeField] private Image fearGauge;
+
+    public Action OnAttacked;
 
     private void Awake()
     {
         // 데이터 세팅
         humanData = HumanDataLoader.Instance.GetHumanByName(gameObject);
-        _maxFear = humanData.maxFear;
+        MaxFear = humanData.maxFear;
         _coin = humanData.coin;
         LifeInflicted = humanData.lifeInflicted;
         
@@ -29,17 +30,12 @@ public class Human : MonoBehaviour
         {
             controller = gameObject.AddComponent<HumanController>();
         }
-        if (fearGauge == null)
-        {
-            fearGauge = gameObject.transform.Find("Canvas/FearGauge/Front").GetComponent<Image>();
-        }
     }
 
     private void OnEnable()
     {
         // 활성화 시 매번 공포 수치와 UI 초기화
-        _fearLevel = 0;
-        fearGauge.fillAmount = 0;
+        FearLevel = 0;
         isReturning = false;   // 반환하고 있지 않은 상태로 전환
         
         // 게임 종료 이벤트 발생하면 풀로 바로 반환
@@ -58,9 +54,10 @@ public class Human : MonoBehaviour
         
         if (isReturning) return;    // 반환 중인 상태면 공포 수치 올리지 않고 리턴
         
-        _fearLevel = Mathf.Min(_fearLevel + amount, _maxFear); // 최대값 넘지 않도록 제한
-        fearGauge.fillAmount = _fearLevel / _maxFear;   // UI 갱신
-        if (_fearLevel >= _maxFear) // 갱신된 값이 최대값보다 크면
+        FearLevel = Mathf.Min(FearLevel + amount, MaxFear); // 최대값 넘지 않도록 제한
+        OnAttacked?.Invoke();
+        
+        if (FearLevel >= MaxFear) // 갱신된 값이 최대값보다 크면
         {
             controller.animator.SetBool("IsBattle", false);
             controller.ClearTargetMonster();
@@ -99,7 +96,7 @@ public class Human : MonoBehaviour
             Human human = other.gameObject.GetComponent<Human>();
             if (human.isReturning)  // 반환 중인 상태면
             {
-                // 자신의 회피 타입을 None으로 설정, 서로 충돌하지 않고 지나치게 만듦
+                // 자신의 회피 타입을 None으로 설정, 서로 충돌하지 않고 지나가게 만듦
                 controller.Agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
             }
         }
