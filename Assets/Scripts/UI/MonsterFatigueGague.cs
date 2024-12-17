@@ -6,7 +6,7 @@ public class MonsterFatigueGague : MonoBehaviour
     [SerializeField] private Monster _monster;
     [SerializeField] private Image MonsterFatigueGagueImg;
     
-    private float _maxFatigue;
+    private float _maxFatigue = 0;
     
     private void Awake()
     {
@@ -23,9 +23,16 @@ public class MonsterFatigueGague : MonoBehaviour
 
     private void OnEnable()
     {
-        UpdateFatigueGauge();
+        if (!Mathf.Approximately(_maxFatigue, 0f))
+            UpdateFatigueGauge();
         _monster.OnAttacked -= UpdateFatigueGauge;
         _monster.OnAttacked += UpdateFatigueGauge;
+    }
+    
+    private void Start()
+    {
+        _maxFatigue = _monster.data.fatigue;
+        UpdateFatigueGauge();
     }
 
     private void UpdateFatigueGauge()

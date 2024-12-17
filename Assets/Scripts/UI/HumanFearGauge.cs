@@ -6,7 +6,7 @@ public class HumanFearGauge : MonoBehaviour
     [SerializeField] private Human _human;
     [SerializeField] private Image HumanFearGagueImg;
 
-    private float _maxFear;
+    private float _maxFear = 0;
     
     private void Awake()
     {
@@ -18,16 +18,22 @@ public class HumanFearGauge : MonoBehaviour
         {
             HumanFearGagueImg = gameObject.transform.Find("Canvas/FearGauge/Front").GetComponent<Image>();
         }
-        _maxFear = _human.MaxFear;
     }
 
     private void OnEnable()
     {
-        UpdateFearGauge();
+        if (!Mathf.Approximately(_maxFear, 0f))
+            UpdateFearGauge();
         _human.OnAttacked -= UpdateFearGauge;
         _human.OnAttacked += UpdateFearGauge;
     }
 
+    private void Start()
+    {
+        _maxFear = _human.MaxFear;
+        UpdateFearGauge();
+    }
+    
     private void UpdateFearGauge()
     {
         HumanFearGagueImg.fillAmount = _human.FearLevel / _maxFear;
