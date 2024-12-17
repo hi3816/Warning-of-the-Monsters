@@ -244,8 +244,6 @@ public class MonsterEvolutionUI : MonoBehaviour
             GameObject evolutionMonster = PoolManager.Instance.SpawnFromPool(evolutionMonsterName, pos, Quaternion.identity);
             Monster monster = evolutionMonster.GetComponent<Monster>();
             monster.SetMonsterDataToMonsterData(GetMonsterEvolutionData(evolutionType).data);
-            monster.SetFatigue(selectMonster.data.currentFatigue);
-            monster.data.currentFatigue = 0f;
             evolutionUI.gameObject.SetActive(false);
         }
     }
