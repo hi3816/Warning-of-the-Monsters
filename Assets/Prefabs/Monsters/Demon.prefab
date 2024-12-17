@@ -257,7 +257,7 @@ MonoBehaviour:
     id: 1
     monsterId: 0
     currentLevel: 0
-    poolTag: 
+    poolTag: Demon
     currentFatigue: 0
     fatigue: 0
     minFearInflicted: 0
@@ -267,7 +267,7 @@ MonoBehaviour:
     humanScaringRange: 0
     walkSpeed: 0
     requiredCoins: 0
-    maxLevel: 0
+    maxLevel: 2
     monsterType: 0
     summonerId: 0
 --- !u!114 &5994807480925726627

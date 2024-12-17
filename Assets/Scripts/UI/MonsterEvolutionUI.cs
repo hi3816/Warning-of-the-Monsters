@@ -245,16 +245,7 @@ public class MonsterEvolutionUI : MonoBehaviour
             Monster monster = evolutionMonster.GetComponent<Monster>();
             monster.SetMonsterDataToMonsterData(GetMonsterEvolutionData(evolutionType).data);
             monster.SetFatigue(selectMonster.data.currentFatigue);
-            //else
-            //{
-            //    string evolutionMonsterName = selectMonster.gameObject.name;
-            //    GameObject evolutionMonster = PoolManager.Instance.SpawnFromPool(evolutionMonsterName, selectMonster.gameObject.transform.position, Quaternion.identity);
-            //    Monster monster = evolutionMonster.GetComponent<Monster>();
-            //    monster = GetMonsterEvolutionData(evolutionType);
-            //    float fatigue = selectMonster.data.currentFatigue;
-            //    monster.SetFatigue(fatigue);
-            //    PoolManager.Instance.ReturnToPool(selectMonster.gameObject.name, selectMonster.gameObject);
-            //}
+            monster.data.currentFatigue = 0f;
             evolutionUI.gameObject.SetActive(false);
         }
     }

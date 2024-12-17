@@ -13,11 +13,20 @@ MonoBehaviour:
   m_Name: Lich
   m_EditorClassIdentifier: 
   id: 3
+  minionId: 0
   monsterId: 0
+  currentLevel: 0
   upgradeLevel: 0
+  currentFatigue: 0
   poolTag: Lich
   fatigue: 0
-  fearInflicted: 0
+  minFearInflicted: 0
+  maxFearInflicted: 0
   cooldown: 0
+  humanDetectRange: 0
   humanScaringRange: 0
+  walkSpeed: 0
   requiredCoins: 0
+  maxLevel: 3
+  monsterType: 0
+  summonerId: 0

@@ -212,7 +212,7 @@ MonoBehaviour:
     id: 7
     monsterId: 0
     currentLevel: 0
-    poolTag: 
+    poolTag: Vampire
     currentFatigue: 0
     fatigue: 0
     minFearInflicted: 0
@@ -222,9 +222,9 @@ MonoBehaviour:
     humanScaringRange: 0
     walkSpeed: 0
     requiredCoins: 0
-    maxLevel: 0
-    monsterType: 0
-    summonerId: 0
+    maxLevel: 3
+    monsterType: 2
+    summonerId: 3
 --- !u!114 &2442583436384462644
 MonoBehaviour:
   m_ObjectHideFlags: 0

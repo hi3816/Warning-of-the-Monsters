@@ -10,17 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5082bccd210b64d71be12c27a6701bce, type: 3}
-  m_Name: Dragon
+  m_Name: BlackDragon
   m_EditorClassIdentifier: 
   id: 2
   minionId: 0
   monsterId: 2.31
+  currentLevel: 0
   upgradeLevel: 3
+  currentFatigue: 0
   poolTag: Dragon
   fatigue: 53
-  fearInflicted: 108
+  minFearInflicted: 0
+  maxFearInflicted: 0
   cooldown: 2
+  humanDetectRange: 0
   humanScaringRange: 4
-  speed: 0
+  walkSpeed: 0
   requiredCoins: 300
   maxLevel: 3
+  monsterType: 0
+  summonerId: 0

@@ -64,7 +64,7 @@ MonoBehaviour:
   summonerMonsters:
   - sprite: {fileID: -25973780, guid: 886d2515b62574ddd8ea57a33e8f4d1b, type: 3}
     monster: {fileID: 7125030679217324086, guid: fe818276475734e589ef2628bc5bf421, type: 3}
-  - sprite: {fileID: -836478897, guid: ee3b1593359fe4572ac30031241282b7, type: 3}
+  - sprite: {fileID: 813443917, guid: a0065b2588593468fb5855c269aa7b8d, type: 3}
     monster: {fileID: 7125030679217324086, guid: fe818276475734e589ef2628bc5bf421, type: 3}
   evolutionMonsterList: []
 --- !u!1 &1208973493108306354
