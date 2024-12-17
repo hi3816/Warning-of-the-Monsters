@@ -1,3 +1,4 @@
+using Monster_Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,6 +32,8 @@ public class MonsterData
     public float walkSpeed; //미니언 걷는 속도
     public int requiredCoins; //필요재화
     public int maxLevel; // 최대 레벨 -> 진화
+    public MonsterType monsterType;
+    public int summonerId;
 }
 
 public abstract class Monster : MonoBehaviour
@@ -51,6 +54,7 @@ public abstract class Monster : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
         SetState(MonsterState.Idle);
+        SetMonterSOToMonsterData(MonsterDataManager.Instance.GetBaseMonsterByIndex(data.id - 1));
     }
     
     private void OnEnable()
@@ -86,6 +90,30 @@ public abstract class Monster : MonoBehaviour
                 ReturnToVillage();
                 break;
         }
+    }
+
+    // 처음 데이터 저장
+    private void SetMonterSOToMonsterData(MonsterSO monsterSO)
+    {
+        data.id = monsterSO.id;
+        data.currentLevel = monsterSO.upgradeLevel;
+        data.poolTag = monsterSO.poolTag;
+        data.fatigue = monsterSO.fatigue;
+        data.minFearInflicted = monsterSO.minFearInflicted;
+        data.maxFearInflicted = monsterSO.maxFearInflicted;
+        data.cooldown = monsterSO.cooldown;
+        data.humanDetectRange = monsterSO.humanDetectRange;
+        data.humanScaringRange = monsterSO.humanScaringRange;
+        data.requiredCoins = monsterSO.requiredCoins;
+        data.maxLevel = monsterSO.maxLevel;
+        data.walkSpeed = monsterSO.walkSpeed;
+        data.monsterType = monsterSO.monsterType;
+    }
+
+    // 현재 데이터 변경
+    public void SetMonsterDataToMonsterData(MonsterData newMonsterData)
+    {
+        data = newMonsterData;
     }
 
     public void Upgrade(Monster_Data.Upgrade_Data upgradeData)
@@ -241,7 +269,13 @@ public abstract class Monster : MonoBehaviour
         }
         OnAttacked?.Invoke();
     }
-    
+
+    public void SetFatigue(float value)
+    {
+        data.currentFatigue = value;
+        FatigueGauge.fillAmount = data.currentFatigue / data.fatigue;   // UI 갱신
+    }
+
     private void ReturnToVillage()
     {
         if (coroutine != null) StopCoroutine(coroutine);

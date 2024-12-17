@@ -67,6 +67,12 @@ MonoBehaviour:
   - tag: Bat
     prefab: {fileID: 5562810807239344560, guid: 9de42ede550914879beb2c67d13d1c43, type: 3}
     size: 20
+  - tag: DeathKnight
+    prefab: {fileID: 1533141459934048252, guid: ad778e652ac4f4b9b8594d2ac7b554ed, type: 3}
+    size: 20
+  - tag: Vampire
+    prefab: {fileID: 9023978108766818284, guid: 264843ee98e1f49308cb774d77b4692e, type: 3}
+    size: 20
 --- !u!114 &665823340007014865
 MonoBehaviour:
   m_ObjectHideFlags: 0
