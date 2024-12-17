@@ -271,7 +271,6 @@ public abstract class Monster : MonoBehaviour
     public void SetFatigue(float value)
     {
         data.currentFatigue = value;
-        FatigueGauge.fillAmount = data.currentFatigue / data.fatigue;   // UI 갱신
     }
 
     private void ReturnToVillage()
