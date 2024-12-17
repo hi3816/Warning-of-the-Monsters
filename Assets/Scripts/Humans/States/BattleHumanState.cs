@@ -34,9 +34,9 @@ public class BattleHumanState : IHumanState
             return;
         }
 
-        if (!isFixed())
+        if (!isFixed()) // 고정되어 있지 않으면
         {
-            FixPosition();
+            FixPosition();  // 위치 고정 상태로 만들기
         }
 
         if (Time.time >= _lastAttackTime + _human.Cooldown) // 공격 가능한 상태면
@@ -76,8 +76,10 @@ public class BattleHumanState : IHumanState
         return _human.Agent.obstacleAvoidanceType != ObstacleAvoidanceType.NoObstacleAvoidance;
     }
 
+    // 다른 상태의 Agent에게 밀리지 않도록 고정시키기
     private void FixPosition()
     {
+        // 낮은 회피 품질로 설정 후 우선 순위 높임
         _human.Agent.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;
         _human.Agent.avoidancePriority = 0;
     }

@@ -11,8 +11,8 @@ public class WalkHumanState : IHumanState
 
     public void Enter()
     {
-        _human.animator.SetBool("IsBattle", false);
-        _human.Agent.SetDestination(StageManager.Instance.EndPoint.position);
+        _human.animator.SetBool("IsBattle", false); // 애니메이션 Walk로 전환
+        _human.Agent.SetDestination(StageManager.Instance.EndPoint.position);   // 거점으로 이동하게 설정
     }
 
     public void Update()

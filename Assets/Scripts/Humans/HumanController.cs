@@ -84,7 +84,7 @@ public class HumanController : MonoBehaviour
         }
     }
 
-    // 목표 지점 기준으로 애니메이션의 방향 전환하는 메서드
+    // 목표 지점 기준으로 애니메이션의 방향 전환
     private void AnimationDirectionChange(Vector3 targetPosition)
     {
         Vector2 direction = ((Vector2)targetPosition - (Vector2)transform.position).normalized;
@@ -102,13 +102,17 @@ public class HumanController : MonoBehaviour
         TargetMonster = null;
     }
     
+    // 타겟 몬스터가 있는 방향으로 파티클 실행
     public void PlayAttackParticle()
     {
-        if (TargetMonster == null) return;
-        Vector3 directionToTarget = (gameObject.transform.position - TargetMonster.position).normalized;
+        if (TargetMonster == null) return;  // 타겟 몬스터 없으면 리턴
+        
+        // 현재 위치에서 타겟 몬스터로의 방향 구하고 정규화
+        Vector3 directionToTarget = (TargetMonster.position - gameObject.transform.position).normalized;
 
-        float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg - 180;
-        HumanEffect.rotation = Quaternion.Euler(0, 0, angle);
+        // 방향 벡터 -> 라디안 -> 각도
+        float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+        HumanEffect.rotation = Quaternion.Euler(0, 0, angle);   // 파티클 부모 오브젝트를 계산된 각도로 회전
         
         AttackParticle.Play();
     }
