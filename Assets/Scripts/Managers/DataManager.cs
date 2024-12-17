@@ -49,7 +49,7 @@ public class DataManager : SingletonBase<DataManager>
         for (int i = 0; i < stageSOs.Length; i++)
         {
             stageSOs[i] = ScriptableObject.CreateInstance<StageSO>();
-            stageSOs[i].name = $"StageSO{i + 1}";
+            stageSOs[i].name = $"Stage{i + 1}";
             stageSOs[i].wave = stageDataList[i].wave;
             stageSOs[i].health = stageDataList[i].health;
             stageSOs[i].gold = stageDataList[i].gold;
