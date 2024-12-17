@@ -25,6 +25,9 @@ public class WinPopup : UIBase
     {
         btnRetry.onClick.AddListener(LoadGameScene);
         btnNextStage.onClick.AddListener(LoadNextStage);
+
+        Debug.Log($"{StageManager.Instance.CurrHealth}");
+        SetStars(StageManager.Instance.CurrHealth);
     }
 
     private void LoadGameScene()
@@ -44,8 +47,9 @@ public class WinPopup : UIBase
 
     public void SetStars(int starsCount)
     {
-        if (starsCount >= 3)
+        if (starsCount >= 20)
         {
+            //별 3개
             emptyStar1.SetActive(false);
             emptyStar2.SetActive(false);
             emptyStar3.SetActive(false);
@@ -54,8 +58,9 @@ public class WinPopup : UIBase
             FilledStar2.SetActive(true);
             FilledStar3.SetActive(true);
         }
-        if (starsCount == 2)
+        else if (starsCount <= 20)
         {
+            //별 2개
             emptyStar1.SetActive(false);
             emptyStar2.SetActive(false);
             emptyStar3.SetActive(true);
@@ -64,8 +69,9 @@ public class WinPopup : UIBase
             FilledStar2.SetActive(true);
             FilledStar3.SetActive(false);
         }
-        if (starsCount == 1)
+        else if (starsCount <= 10)
         {
+            //별 1개
             emptyStar1.SetActive(false);
             emptyStar2.SetActive(true);
             emptyStar3.SetActive(true);
@@ -74,7 +80,6 @@ public class WinPopup : UIBase
             FilledStar2.SetActive(false);
             FilledStar3.SetActive(false);
         }
-        else { Debug.LogError("starsCount정보가 없습니다"); }
     }
 
 }
