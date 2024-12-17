@@ -271,7 +271,7 @@ public abstract class Monster : MonoBehaviour
         data.currentFatigue = value;
     }
 
-    private void ReturnToVillage()
+    public void ReturnToVillage()
     {
         if (coroutine != null) StopCoroutine(coroutine);
         StartCoroutine(FadeOutAndReturnToPool());
