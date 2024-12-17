@@ -1,14 +1,15 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BattleHumanState : IHumanState
 {
     private HumanController _human;
     private HumanStateMachine _stateMachine;
-    public int AvoidPriority { get; set; }
 
     private float _minFatigueInflicted;
     private float _maxFatigueInflicted;
 
+    private Transform _oldTarget;
     private float _lastAttackTime;
     
     public BattleHumanState(HumanController human, HumanStateMachine stateMachine)
@@ -17,14 +18,14 @@ public class BattleHumanState : IHumanState
         _stateMachine = stateMachine;
         _minFatigueInflicted = _human.MinFatigueInflicted;
         _maxFatigueInflicted = _human.MaxFatigueInflicted;
-        AvoidPriority = 0;
     }
 
     public void Enter()
     {
         _human.animator.SetBool("IsBattle", true);
-        _human.Agent.SetDestination(_human.TargetMonster.position);
-        _human.Agent.avoidancePriority = AvoidPriority;
+        _oldTarget = _human.TargetMonster;
+        _human.Agent.SetDestination(_oldTarget.position);
+        FixPosition();
     }
 
     public void Update()
@@ -35,6 +36,18 @@ public class BattleHumanState : IHumanState
             return;
         }
 
+        if (!isFixed()) // 고정되어 있지 않으면
+        {
+            FixPosition();  // 위치 고정 상태로 만들기
+        }
+
+        if (_oldTarget != _human.TargetMonster) // 기존 타겟 몬스터가 변경되면
+        {
+            _oldTarget = _human.TargetMonster;
+            _human.Agent.ResetPath();
+            _human.Agent.SetDestination(_oldTarget.position);   // 새로운 타겟 몬스터 향하도록 설정
+        }
+
         if (Time.time >= _lastAttackTime + _human.Cooldown) // 공격 가능한 상태면
         {
             PerformAttack(); // 공격을 실행
@@ -43,6 +56,7 @@ public class BattleHumanState : IHumanState
 
     public void Exit()
     {
+        _human.Agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         _human.Agent.ResetPath();
     }
     
@@ -64,5 +78,18 @@ public class BattleHumanState : IHumanState
             Debug.LogWarning("TargetMonster not found");
         }
         _lastAttackTime = Time.time;    // 마지막 공격 시각 갱신
+    }
+
+    private bool isFixed()
+    {
+        return _human.Agent.obstacleAvoidanceType != ObstacleAvoidanceType.NoObstacleAvoidance;
+    }
+
+    // 다른 상태의 Agent에게 밀리지 않도록 고정시키기
+    private void FixPosition()
+    {
+        // 낮은 회피 품질로 설정 후 우선 순위 높임
+        _human.Agent.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;
+        _human.Agent.avoidancePriority = 0;
     }
 }

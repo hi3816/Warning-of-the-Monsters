@@ -1,6 +1,5 @@
 public interface IHumanState
 {
-    int AvoidPriority { get; set; }
     void Enter();
     void Update();
     void Exit();
