@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 1060867829, guid: 8e50d1851e7b94b6bb2f7a294a01edc4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    id: 0
+    id: 4
     monsterId: 0
     currentLevel: 0
     poolTag: 
@@ -200,7 +200,8 @@ MonoBehaviour:
     walkSpeed: 0
     requiredCoins: 0
     maxLevel: 0
-  FatigueGauge: {fileID: 7882962705209435894}
+    monsterType: 0
+    summonerId: 0
 --- !u!1 &8522708831465093010
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,14 +371,3 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 434464825468577490, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
   m_PrefabInstance: {fileID: 4899592876585421827}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7882962705209435894 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3358331907313085173, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
-  m_PrefabInstance: {fileID: 4899592876585421827}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

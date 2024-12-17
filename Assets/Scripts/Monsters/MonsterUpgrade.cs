@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -5,7 +6,7 @@ public class MonsterUpgrade : MonoBehaviour
 {
     [SerializeField] private MonsterUpgradeUI monsterUpgradeUI;
     [SerializeField] private MonsterEvolutionUI evolutionUI;
-
+    
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) // When player clicks
@@ -16,7 +17,6 @@ public class MonsterUpgrade : MonoBehaviour
 
             if (hit.collider != null)
             {
-                Debug.Log("Raycast hit: " + hit.collider.name);
                 Monster clickedMonster = hit.collider.GetComponentInParent<Monster>();
 
                 if (clickedMonster != null)
@@ -42,7 +42,10 @@ public class MonsterUpgrade : MonoBehaviour
             }
             else
             {
-                if(clickedMonster.data.currentLevel <= clickedMonster.data.maxLevel) monsterUpgradeUI.Show(clickedMonster);
+                if (clickedMonster.data.currentLevel <= clickedMonster.data.maxLevel)
+                {
+                    monsterUpgradeUI.Show(clickedMonster);
+                }
             }
         }
     }
