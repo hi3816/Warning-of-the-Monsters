@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class Human : MonoBehaviour
@@ -85,5 +86,17 @@ public class Human : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         PoolManager.Instance.ReturnToPool(gameObject.name, gameObject);
+    }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Human"))
+        {
+            Human human = other.gameObject.GetComponent<Human>();
+            if (human.isReturning)
+            {
+                controller.Agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+            }
+        }
     }
 }

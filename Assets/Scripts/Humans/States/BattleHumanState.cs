@@ -1,10 +1,10 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BattleHumanState : IHumanState
 {
     private HumanController _human;
     private HumanStateMachine _stateMachine;
-    public int AvoidPriority { get; set; }
 
     private float _minFatigueInflicted;
     private float _maxFatigueInflicted;
@@ -17,14 +17,13 @@ public class BattleHumanState : IHumanState
         _stateMachine = stateMachine;
         _minFatigueInflicted = _human.MinFatigueInflicted;
         _maxFatigueInflicted = _human.MaxFatigueInflicted;
-        AvoidPriority = 0;
     }
 
     public void Enter()
     {
         _human.animator.SetBool("IsBattle", true);
         _human.Agent.SetDestination(_human.TargetMonster.position);
-        _human.Agent.avoidancePriority = AvoidPriority;
+        FixPosition();
     }
 
     public void Update()
@@ -35,6 +34,11 @@ public class BattleHumanState : IHumanState
             return;
         }
 
+        if (!isFixed())
+        {
+            FixPosition();
+        }
+
         if (Time.time >= _lastAttackTime + _human.Cooldown) // 공격 가능한 상태면
         {
             PerformAttack(); // 공격을 실행
@@ -43,6 +47,7 @@ public class BattleHumanState : IHumanState
 
     public void Exit()
     {
+        _human.Agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         _human.Agent.ResetPath();
     }
     
@@ -64,5 +69,16 @@ public class BattleHumanState : IHumanState
             Debug.LogWarning("TargetMonster not found");
         }
         _lastAttackTime = Time.time;    // 마지막 공격 시각 갱신
+    }
+
+    private bool isFixed()
+    {
+        return _human.Agent.obstacleAvoidanceType != ObstacleAvoidanceType.NoObstacleAvoidance;
+    }
+
+    private void FixPosition()
+    {
+        _human.Agent.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;
+        _human.Agent.avoidancePriority = 0;
     }
 }
