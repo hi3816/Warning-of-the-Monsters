@@ -99,7 +99,7 @@ public class Human : MonoBehaviour
             Human human = other.gameObject.GetComponent<Human>();
             if (human.isReturning)  // 반환 중인 상태면
             {
-                // 자신의 회피 타입을 None으로 설정, 서로 충돌하지 않고 지나치게 만듦
+                // 자신의 회피 타입을 None으로 설정, 서로 충돌하지 않고 지나가게 만듦
                 controller.Agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
             }
         }

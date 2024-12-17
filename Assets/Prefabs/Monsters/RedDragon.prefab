@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -8221198319024446136}
   - component: {fileID: 4231885585667742825}
   - component: {fileID: 3948038140912665504}
+  - component: {fileID: 8062046377528113718}
   m_Layer: 6
   m_Name: RedDragon
   m_TagString: Monster
@@ -190,6 +191,7 @@ MonoBehaviour:
     monsterId: 0
     currentLevel: 0
     poolTag: Dragon
+    currentFatigue: 0
     fatigue: 0
     minFearInflicted: 0
     maxFearInflicted: 0
@@ -199,7 +201,20 @@ MonoBehaviour:
     walkSpeed: 0
     requiredCoins: 0
     maxLevel: 3
-  FatigueGauge: {fileID: 6443122541755601896}
+--- !u!114 &8062046377528113718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6068172569154698469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54d32dc344bf2354fbce5d8414206435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _monster: {fileID: 3948038140912665504}
+  MonsterFatigueGagueImg: {fileID: 6443122541755601896}
 --- !u!1 &7904827550483429528
 GameObject:
   m_ObjectHideFlags: 0

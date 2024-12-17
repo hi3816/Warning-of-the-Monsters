@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: -6625820321076288632}
   - component: {fileID: 3483221263393832048}
   - component: {fileID: 448545139194975085}
+  - component: {fileID: 5342529174922981345}
   m_Layer: 6
   m_Name: Demon
   m_TagString: Monster
@@ -257,6 +258,7 @@ MonoBehaviour:
     monsterId: 0
     currentLevel: 0
     poolTag: 
+    currentFatigue: 0
     fatigue: 0
     minFearInflicted: 0
     maxFearInflicted: 0
@@ -266,7 +268,20 @@ MonoBehaviour:
     walkSpeed: 0
     requiredCoins: 0
     maxLevel: 0
-  FatigueGauge: {fileID: 98289646363270729}
+--- !u!114 &5342529174922981345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7674980571249262148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54d32dc344bf2354fbce5d8414206435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _monster: {fileID: 448545139194975085}
+  MonsterFatigueGagueImg: {fileID: 98289646363270729}
 --- !u!1001 &3442440039816328380
 PrefabInstance:
   m_ObjectHideFlags: 0
