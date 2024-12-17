@@ -108,7 +108,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 0.64
+  m_Height: 0.00001
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -208,10 +208,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    id: 0
+    id: 5
     monsterId: 0
     currentLevel: 0
-    poolTag: 
+    poolTag: Skeleton
+    currentFatigue: 0
     fatigue: 0
     minFearInflicted: 0
     maxFearInflicted: 0
@@ -220,7 +221,9 @@ MonoBehaviour:
     humanScaringRange: 0
     walkSpeed: 0
     requiredCoins: 0
-    maxLevel: 0
+    maxLevel: 3
+    monsterType: 2
+    summonerId: 3
   FatigueGauge: {fileID: 8056062396161338151}
 --- !u!1001 &4708463943513113042
 PrefabInstance:

@@ -253,10 +253,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    id: 0
+    id: 1
     monsterId: 0
     currentLevel: 0
     poolTag: 
+    currentFatigue: 0
     fatigue: 0
     minFearInflicted: 0
     maxFearInflicted: 0
@@ -266,6 +267,8 @@ MonoBehaviour:
     walkSpeed: 0
     requiredCoins: 0
     maxLevel: 0
+    monsterType: 0
+    summonerId: 0
   FatigueGauge: {fileID: 98289646363270729}
 --- !u!1001 &3442440039816328380
 PrefabInstance:

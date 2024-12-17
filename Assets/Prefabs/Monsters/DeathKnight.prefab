@@ -99,7 +99,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1533141459934048252}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.64
+  m_Radius: 0.00001
   m_Speed: 1.2
   m_Acceleration: 8
   avoidancePriority: 50
@@ -108,7 +108,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1.28
+  m_Height: 0.00001
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -208,10 +208,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    id: 0
+    id: 6
     monsterId: 0
     currentLevel: 0
-    poolTag: 
+    poolTag: DeathKnight
+    currentFatigue: 0
     fatigue: 0
     minFearInflicted: 0
     maxFearInflicted: 0
@@ -220,7 +221,9 @@ MonoBehaviour:
     humanScaringRange: 0
     walkSpeed: 0
     requiredCoins: 0
-    maxLevel: 0
+    maxLevel: 3
+    monsterType: 2
+    summonerId: 3
   FatigueGauge: {fileID: 0}
 --- !u!1001 &3358445582772943247
 PrefabInstance:

@@ -186,10 +186,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    id: 0
+    id: 4
     monsterId: 0
     currentLevel: 0
     poolTag: 
+    currentFatigue: 0
     fatigue: 0
     minFearInflicted: 0
     maxFearInflicted: 0
@@ -199,6 +200,8 @@ MonoBehaviour:
     walkSpeed: 0
     requiredCoins: 0
     maxLevel: 0
+    monsterType: 0
+    summonerId: 0
   FatigueGauge: {fileID: 7882962705209435894}
 --- !u!1 &8522708831465093010
 GameObject:

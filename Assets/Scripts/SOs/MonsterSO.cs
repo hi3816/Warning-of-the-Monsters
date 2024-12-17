@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MonsterSO_", menuName = "MonsterSO_")]
@@ -17,4 +18,18 @@ public class MonsterSO : ScriptableObject
     public float walkSpeed; //미니언 걷는 속도
     public int requiredCoins; //필요재화
     public int maxLevel; // 최대 레벨 -> 진화
+    public MonsterType monsterType;
+    public int summonerId;
+}
+
+public class SummonSO : ScriptableObject
+{
+    public float monsterID;
+    public EvolutionType evolutionType;
+    public List<int> minionList;
+    public List<string> minionTagList;
+    public List<int> minionCountList;
+    public List<int> evolutionMinionIdList;
+    public List<string> evolutionMinionTagList;
+    public List<int> eovlutionMinionCountList;
 }
