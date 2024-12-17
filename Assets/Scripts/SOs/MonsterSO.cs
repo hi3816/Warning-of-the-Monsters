@@ -5,7 +5,6 @@ using UnityEngine;
 public class MonsterSO : ScriptableObject
 {
     public int id;
-    public int minionId;
     public float monsterId;
     public int upgradeLevel;
     public string poolTag;

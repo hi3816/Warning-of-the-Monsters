@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
 
 public class MonsterUpgradeUI : MonoBehaviour
 {
@@ -10,7 +10,7 @@ public class MonsterUpgradeUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI upgradeStatsText;
     [SerializeField] private TextMeshProUGUI upgradeCostText;
     [SerializeField] private Button upgradeButton;
-    [SerializeField] private GameObject RangeIndicator;
+    [SerializeField] private GameObject rangeIndicator;
     public GameObject uiPanel;
     private Monster selectedMonster;
     
@@ -71,18 +71,22 @@ public class MonsterUpgradeUI : MonoBehaviour
     
     private void UpdateRangeIndicator()
     {
-        if (selectedMonster == null || RangeIndicator == null) return;
-        RangeIndicator.gameObject.SetActive(true);
-        float range = selectedMonster.data.humanScaringRange;
-        selectedMonster.transform.localScale = new Vector3(range * 2, range * 2, 1);
+        if (selectedMonster == null || rangeIndicator == null) return;
+        if (selectedMonster != null)
+        {
+            float range = selectedMonster.data.humanScaringRange;
+            rangeIndicator.transform.localScale = new Vector3(range * 2, range * 2, 1);
+            rangeIndicator.transform.position = selectedMonster.transform.position;
+            rangeIndicator.gameObject.SetActive(true);
+        }
     }
     
     public void Hide()
     {
         upgradeCanvas.gameObject.SetActive(false);
-        if (selectedMonster != null && RangeIndicator != null)
+        if (selectedMonster != null && rangeIndicator != null)
         {
-            RangeIndicator.SetActive(false);
+            rangeIndicator.SetActive(false);
         }
     }
 }

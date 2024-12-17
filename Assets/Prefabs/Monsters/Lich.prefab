@@ -268,7 +268,7 @@ MonoBehaviour:
     walkSpeed: 0
     requiredCoins: 0
     maxLevel: 0
-    monsterType: 0
+    monsterType: 1
     summonerId: 0
 --- !u!114 &1164190097801783812
 MonoBehaviour:

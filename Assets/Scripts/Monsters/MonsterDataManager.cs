@@ -63,7 +63,6 @@ public class MonsterDataManager : MonoBehaviour
         foreach (var minionData in minionDataList)
         {
             MonsterSO minionSO = ScriptableObject.CreateInstance<MonsterSO>();
-            minionSO.minionId = minionData.id;
             minionSO.poolTag = minionData.name;
             minionSO.minFearInflicted = minionData.minFearInflicted;
             minionSO.maxFearInflicted = minionData.minFearInflicted;
