@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -1342887208629637695}
   - component: {fileID: 3548528354484527942}
   - component: {fileID: 4417598016390364303}
+  - component: {fileID: 5697816560405013254}
   m_Layer: 6
   m_Name: BlackDragon
   m_TagString: Monster
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 386802082, guid: 79886ce9da0624fca9759ae0cee1c5f8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -200,7 +201,20 @@ MonoBehaviour:
     walkSpeed: 0
     requiredCoins: 0
     maxLevel: 3
-  FatigueGauge: {fileID: 1184477269570837813}
+--- !u!114 &5697816560405013254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6895627808813204426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54d32dc344bf2354fbce5d8414206435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _monster: {fileID: 4417598016390364303}
+  MonsterFatigueGagueImg: {fileID: 1184477269570837813}
 --- !u!1 &7365598701330941879
 GameObject:
   m_ObjectHideFlags: 0

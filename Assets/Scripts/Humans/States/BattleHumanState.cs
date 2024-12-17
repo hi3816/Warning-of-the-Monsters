@@ -60,7 +60,7 @@ public class BattleHumanState : IHumanState
         _human.Agent.ResetPath();
     }
     
-    // 몬스터의 피로도를 증가시키는 메서드
+    // 몬스터의 피로도를 증가시키기
     public void PerformAttack()
     {
         if (_human.TargetMonster == null) return;  // 타겟 몬스터 없으면 바로 반환

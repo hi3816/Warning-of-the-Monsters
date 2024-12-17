@@ -1,3 +1,4 @@
+using Monster_Data;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public class MonsterDataManager : MonoBehaviour
     private Dictionary<string, Monster_Data.Monster_Data> _minionDataDictionary;
     private MonsterSO[] baseMonsterSOs;
     private MonsterSO[] minionSOs;
+    private SummonSO[] summonSOs;
+    private Dictionary<float, SummonSO> summonDataDict; 
 
     private void Awake()
     {
@@ -21,6 +24,7 @@ public class MonsterDataManager : MonoBehaviour
 
         SetBaseMonsterSOs();
         SetMinionData();
+        SetSummonDataDict();
     }
 
     private void SetBaseMonsterSOs()
@@ -38,9 +42,12 @@ public class MonsterDataManager : MonoBehaviour
             baseMonsterSo.minFearInflicted = monsterData.minFearInflicted;
             baseMonsterSo.maxFearInflicted = monsterData.maxFearInflicted;
             baseMonsterSo.cooldown = monsterData.cooldown;
+            baseMonsterSo.humanDetectRange = monsterData.humanDetectRange;
             baseMonsterSo.humanScaringRange = monsterData.humanScaringRange;
             baseMonsterSo.requiredCoins = monsterData.requiredCoins;
             baseMonsterSo.maxLevel = monsterData.maxLevel;
+            baseMonsterSo.walkSpeed = monsterData.walkspeed;
+            baseMonsterSo.monsterType = monsterData.MonsterType;
             baseMonsterSOList.Add(baseMonsterSo);
         }
 
@@ -71,9 +78,38 @@ public class MonsterDataManager : MonoBehaviour
         minionSOs = minionSOList.ToArray();
     }
 
+    private void SetSummonDataDict()
+    {
+        List<SummonSO> summonSOList = new List<SummonSO>();
+        List<Summon_Data> summonDataList = Summon_Data.GetList();
+        summonDataDict = new Dictionary<float, SummonSO>();
+
+        foreach (var summonData in summonDataList)
+        {
+            SummonSO summonSO = ScriptableObject.CreateInstance<SummonSO>();
+            summonSO.monsterID = summonData.monster_id;
+            summonSO.evolutionType = summonData.EvolutionType;
+            summonSO.minionList = summonData.minionMonsterId    ;
+            summonSO.minionTagList = summonData.minionTag;
+            summonSO.minionCountList = summonData.count;
+            summonSO.evolutionMinionIdList = summonData.evolutionMinionMonsterId;
+            summonSO.evolutionMinionTagList = summonData.evolutionMinionTag;
+            summonSO.eovlutionMinionCountList = summonData.evolutionCount;
+
+            summonSOList.Add(summonSO);
+            summonDataDict[summonSO.monsterID] = summonSO;
+        }
+        summonSOs = summonSOList.ToArray();
+    }
+
     public MonsterSO[] GetBaseMonsterSOs()
     {
         return baseMonsterSOs;
+    }
+
+    public MonsterSO GetBaseMonsterByIndex(int idx)
+    {
+        return baseMonsterSOs[idx];
     }
 
     public Monster_Data.Upgrade_Data GetUpgradeData(int monsterId, int upgradeLevel)
@@ -132,5 +168,10 @@ public class MonsterDataManager : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public SummonSO GetSummonData(float monsterId)
+    {
+        return summonDataDict[monsterId];
     }
 }

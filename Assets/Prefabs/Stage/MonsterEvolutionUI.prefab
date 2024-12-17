@@ -61,7 +61,12 @@ MonoBehaviour:
   - tag: RedDragon
     prefab: {fileID: 6068172569154698469, guid: c25b4064d3dd58642bef081d6b7bae92, type: 3}
     size: 12
-  poolConfigMonsterList: []
+  summonerMonsters:
+  - sprite: {fileID: -25973780, guid: 886d2515b62574ddd8ea57a33e8f4d1b, type: 3}
+    monster: {fileID: 7125030679217324086, guid: fe818276475734e589ef2628bc5bf421, type: 3}
+  - sprite: {fileID: -836478897, guid: ee3b1593359fe4572ac30031241282b7, type: 3}
+    monster: {fileID: 7125030679217324086, guid: fe818276475734e589ef2628bc5bf421, type: 3}
+  evolutionMonsterList: []
 --- !u!1 &1208973493108306354
 GameObject:
   m_ObjectHideFlags: 0
@@ -1341,7 +1346,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!114 &8828602489485366172
 MonoBehaviour:
