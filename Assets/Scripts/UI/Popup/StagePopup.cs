@@ -74,7 +74,7 @@ public class StagePopup : UIBase
 
         SetMonsterScroll();
         SetStageInfo(_stageIdx);
-        SelectSlot(_crrSlotIdx);
+        SelectSlotWithArrow(_crrSlotIdx);
 
         ShowSelectMonster();
     }
@@ -125,7 +125,7 @@ public class StagePopup : UIBase
             _monsterListData.Add(_monsterSOs[i].poolTag, _monsterSOs[i].id);
         }
     }
-    public void SelectSlot(int slotIdx)
+    public void SelectSlotWithArrow(int slotIdx)
     {
         _crrSlotIdx = slotIdx;
         for (int i = 0; i < arrowPoint.Length; i++) 
@@ -176,6 +176,13 @@ public class StagePopup : UIBase
             }
         }
         UpdateSelectedSlot(listSlotSprite);
+
+        //다음 선택으로
+        if (_crrSlotIdx < 3) 
+        {
+            _crrSlotIdx++;
+            SelectSlotWithArrow(_crrSlotIdx);
+        }
     }
 
     private void UpdateSelectedSlot(Sprite listSlotSprite)
