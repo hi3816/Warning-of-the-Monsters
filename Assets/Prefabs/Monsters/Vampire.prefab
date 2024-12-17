@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2540862217479548213}
   - component: {fileID: 4126552941358952570}
   - component: {fileID: -3380862154934517563}
+  - component: {fileID: 2442583436384462644}
   m_Layer: 6
   m_Name: Vampire
   m_TagString: Monster
@@ -224,6 +225,20 @@ MonoBehaviour:
     maxLevel: 0
     monsterType: 0
     summonerId: 0
+--- !u!114 &2442583436384462644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9023978108766818284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54d32dc344bf2354fbce5d8414206435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _monster: {fileID: -3380862154934517563}
+  MonsterFatigueGagueImg: {fileID: 4774921030082397393}
 --- !u!1001 &7843261138649951780
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -321,6 +336,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
+--- !u!114 &4774921030082397393 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3358331907313085173, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
+  m_PrefabInstance: {fileID: 7843261138649951780}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7700973976481155318 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 434464825468577490, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}

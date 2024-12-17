@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -6641667978593459783}
   - component: {fileID: 466191434519404997}
   - component: {fileID: 4980509511839114724}
+  - component: {fileID: 5374108763755123959}
   m_Layer: 6
   m_Name: Bat
   m_TagString: Monster
@@ -99,7 +100,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 5562810807239344560}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.00001
+  m_Radius: 0.1
   m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
@@ -224,6 +225,20 @@ MonoBehaviour:
     maxLevel: 0
     monsterType: 0
     summonerId: 0
+--- !u!114 &5374108763755123959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5562810807239344560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54d32dc344bf2354fbce5d8414206435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _monster: {fileID: 4980509511839114724}
+  MonsterFatigueGagueImg: {fileID: 2900504980589494874}
 --- !u!1001 &494156784039651503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -326,3 +341,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 434464825468577490, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
   m_PrefabInstance: {fileID: 494156784039651503}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2900504980589494874 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3358331907313085173, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
+  m_PrefabInstance: {fileID: 494156784039651503}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

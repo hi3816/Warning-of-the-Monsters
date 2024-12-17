@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -1967653771769548434}
   - component: {fileID: 2400284206175671139}
   - component: {fileID: 3260350519231483050}
+  - component: {fileID: 5498141064545422496}
   m_Layer: 6
   m_Name: Cyclops
   m_TagString: Monster
@@ -202,6 +203,20 @@ MonoBehaviour:
     maxLevel: 0
     monsterType: 0
     summonerId: 0
+--- !u!114 &5498141064545422496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5747528317129110511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54d32dc344bf2354fbce5d8414206435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _monster: {fileID: 3260350519231483050}
+  MonsterFatigueGagueImg: {fileID: 7882962705209435894}
 --- !u!1 &8522708831465093010
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,3 +386,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 434464825468577490, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
   m_PrefabInstance: {fileID: 4899592876585421827}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7882962705209435894 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3358331907313085173, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
+  m_PrefabInstance: {fileID: 4899592876585421827}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

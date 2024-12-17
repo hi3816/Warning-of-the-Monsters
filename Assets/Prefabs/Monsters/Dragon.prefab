@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2716198481114587320}
   - component: {fileID: 3054286507984989377}
   - component: {fileID: 4003722314765125764}
+  - component: {fileID: 5337656445457459390}
   m_Layer: 6
   m_Name: Dragon
   m_TagString: Monster
@@ -202,6 +203,20 @@ MonoBehaviour:
     maxLevel: 0
     monsterType: 0
     summonerId: 0
+--- !u!114 &5337656445457459390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3455932398467681148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54d32dc344bf2354fbce5d8414206435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _monster: {fileID: 4003722314765125764}
+  MonsterFatigueGagueImg: {fileID: 7662866569249781603}
 --- !u!1 &4376117939369180134
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,3 +386,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 434464825468577490, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
   m_PrefabInstance: {fileID: 4957558944904568214}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7662866569249781603 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3358331907313085173, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
+  m_PrefabInstance: {fileID: 4957558944904568214}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
