@@ -5,6 +5,9 @@ public class MonsterFatigueGague : MonoBehaviour
 {
     [SerializeField] private Monster _monster;
     [SerializeField] private Image MonsterFatigueGagueImg;
+    
+    private float _maxFatigue;
+    
     private void Awake()
     {
         if (_monster == null)
@@ -15,6 +18,7 @@ public class MonsterFatigueGague : MonoBehaviour
         {
             MonsterFatigueGagueImg = gameObject.transform.Find("FatigueCanvas/FatigueGauge/Front").GetComponent<Image>();
         }
+        _maxFatigue = _monster.data.fatigue;
     }
 
     private void OnEnable()
@@ -26,6 +30,6 @@ public class MonsterFatigueGague : MonoBehaviour
 
     private void UpdateFatigueGauge()
     {
-        MonsterFatigueGagueImg.fillAmount = _monster.data.currentFatigue / _monster.data.fatigue;
+        MonsterFatigueGagueImg.fillAmount = _monster.data.currentFatigue / _maxFatigue;
     }
 }
