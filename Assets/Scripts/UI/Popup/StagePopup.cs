@@ -178,11 +178,16 @@ public class StagePopup : UIBase
         UpdateSelectedSlot(listSlotSprite);
 
         //다음 선택으로
-        if (_crrSlotIdx < 3) 
+        if (_crrSlotIdx == 3)
+        {
+            SelectSlotWithArrow(0);
+        }
+        else 
         {
             _crrSlotIdx++;
             SelectSlotWithArrow(_crrSlotIdx);
         }
+
     }
 
     private void UpdateSelectedSlot(Sprite listSlotSprite)
