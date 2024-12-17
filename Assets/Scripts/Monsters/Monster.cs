@@ -1,9 +1,7 @@
-using Monster_Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public enum MonsterState
@@ -273,7 +271,7 @@ public abstract class Monster : MonoBehaviour
         data.currentFatigue = value;
     }
 
-    private void ReturnToVillage()
+    public void ReturnToVillage()
     {
         if (coroutine != null) StopCoroutine(coroutine);
         StartCoroutine(FadeOutAndReturnToPool());

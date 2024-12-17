@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
 
 public class MonsterUpgradeUI : MonoBehaviour
 {
@@ -9,9 +9,10 @@ public class MonsterUpgradeUI : MonoBehaviour
     [SerializeField] private Canvas upgradeCanvas;
     [SerializeField] private TextMeshProUGUI upgradeStatsText;
     [SerializeField] private TextMeshProUGUI upgradeCostText;
-    [SerializeField] private Button upgradeButton;
-    [SerializeField] private GameObject RangeIndicator;
+    [SerializeField] private Button upgradeButton; 
+    [SerializeField] private GameObject rangeIndicator;
     public GameObject uiPanel;
+    public Button sellButton;
     private Monster selectedMonster;
     
     public void Show(Monster monster)
@@ -71,18 +72,47 @@ public class MonsterUpgradeUI : MonoBehaviour
     
     private void UpdateRangeIndicator()
     {
-        if (selectedMonster == null || RangeIndicator == null) return;
-        RangeIndicator.gameObject.SetActive(true);
-        float range = selectedMonster.data.humanScaringRange;
-        selectedMonster.transform.localScale = new Vector3(range * 2, range * 2, 1);
+        if (selectedMonster == null || rangeIndicator == null) return;
+        if (selectedMonster != null)
+        {
+            float range = selectedMonster.data.humanScaringRange;
+            rangeIndicator.transform.localScale = new Vector3(range * 2, range * 2, 1);
+            rangeIndicator.transform.position = selectedMonster.transform.position;
+            rangeIndicator.gameObject.SetActive(true);
+        }
+    }
+    
+    public void SellMonster()
+    {
+        if (selectedMonster == null) return;
+        int totalSpent = CalculateTotalSpent(selectedMonster); //여태 얼마 사용했는지 계산
+        float refundPercentage = 0.35f; // 35% 환불
+        int refundAmount = Mathf.RoundToInt(totalSpent * refundPercentage);
+        stageManager.ChangeGold(refundAmount); //UI에 표시
+        selectedMonster.ReturnToVillage();
+        Hide();
+    }
+
+    private int CalculateTotalSpent(Monster selectedMonster) //몬스터 스폰 & 업그레이드에 사용한 비용 계산
+    {
+        int totalSpent = selectedMonster.data.requiredCoins; //몬스터 스폰 비용
+        for (int level = 1; level <= selectedMonster.data.currentLevel; level++) //몬스터 업그레이드 비용
+        { 
+            var upgradeData = MonsterDataManager.Instance.GetUpgradeData(selectedMonster.data.id, level);
+            if (upgradeData != null)
+            {
+                totalSpent += upgradeData.requiredCoins;
+            }
+        }
+        return totalSpent;
     }
     
     public void Hide()
     {
         upgradeCanvas.gameObject.SetActive(false);
-        if (selectedMonster != null && RangeIndicator != null)
+        if (selectedMonster != null && rangeIndicator != null)
         {
-            RangeIndicator.SetActive(false);
+            rangeIndicator.SetActive(false);
         }
     }
 }

@@ -428,6 +428,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 869321327580448260, guid: 9b566747ba98c4a2ca65409586e8a3a1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 869321327580448260, guid: 9b566747ba98c4a2ca65409586e8a3a1, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 869321327580448260, guid: 9b566747ba98c4a2ca65409586e8a3a1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 869321327580448260, guid: 9b566747ba98c4a2ca65409586e8a3a1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1654426208653903268, guid: 9b566747ba98c4a2ca65409586e8a3a1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -466,6 +482,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1654426208653903268, guid: 9b566747ba98c4a2ca65409586e8a3a1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2171194506867263773, guid: 9b566747ba98c4a2ca65409586e8a3a1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2171194506867263773, guid: 9b566747ba98c4a2ca65409586e8a3a1, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2171194506867263773, guid: 9b566747ba98c4a2ca65409586e8a3a1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2171194506867263773, guid: 9b566747ba98c4a2ca65409586e8a3a1, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5387458050322455932, guid: 9b566747ba98c4a2ca65409586e8a3a1, type: 3}

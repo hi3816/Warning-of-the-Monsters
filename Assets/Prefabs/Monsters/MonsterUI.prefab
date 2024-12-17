@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 4158769538921802904}
   - component: {fileID: 1465150423655070701}
   m_Layer: 5
-  m_Name: UpgradeButton (1)
+  m_Name: SellButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -425,7 +425,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5387458050322455932}
         m_TargetAssemblyTypeName: MonsterUpgradeUI, Assembly-CSharp
-        m_MethodName: UpgradeMonster
+        m_MethodName: SellMonster
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -645,8 +645,9 @@ MonoBehaviour:
   upgradeStatsText: {fileID: 1680155151738565009}
   upgradeCostText: {fileID: 3441067362080631250}
   upgradeButton: {fileID: 8379488673374121214}
-  RangeIndicator: {fileID: 0}
+  rangeIndicator: {fileID: 0}
   uiPanel: {fileID: 2830615643088655321}
+  sellButton: {fileID: 0}
 --- !u!1 &2949650378316373962
 GameObject:
   m_ObjectHideFlags: 0
@@ -1798,7 +1799,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Upgrade
+  m_text: Sell
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: eeb6e4a1156544e48b265a0de4753658, type: 2}
   m_sharedMaterial: {fileID: -5070498466862533057, guid: eeb6e4a1156544e48b265a0de4753658, type: 2}
