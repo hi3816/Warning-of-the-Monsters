@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 2716198481114587320}
   - component: {fileID: 3054286507984989377}
   - component: {fileID: 4003722314765125764}
-  - component: {fileID: -2712522518305455623}
   m_Layer: 6
   m_Name: Dragon
   m_TagString: Monster
@@ -79,8 +78,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
-  m_Sprite: {fileID: -209043022, guid: a724dfc7eefc643df8d9742e3608903d, type: 3}
+  m_SortingOrder: 3
+  m_Sprite: {fileID: -1197229128, guid: 0910fd15d61764445a46ed0d65ce5107, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -201,20 +200,7 @@ MonoBehaviour:
     walkSpeed: 0
     requiredCoins: 0
     maxLevel: 0
---- !u!114 &-2712522518305455623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3455932398467681148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54d32dc344bf2354fbce5d8414206435, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _monster: {fileID: 4003722314765125764}
-  MonsterFatigueGagueImg: {fileID: 7662866569249781603}
+  FatigueGauge: {fileID: 7662866569249781603}
 --- !u!1 &4376117939369180134
 GameObject:
   m_ObjectHideFlags: 0

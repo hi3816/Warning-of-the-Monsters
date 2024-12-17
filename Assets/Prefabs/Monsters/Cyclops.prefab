@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: -1967653771769548434}
   - component: {fileID: 2400284206175671139}
   - component: {fileID: 3260350519231483050}
-  - component: {fileID: 6964385259681878776}
   m_Layer: 6
   m_Name: Cyclops
   m_TagString: Monster
@@ -79,13 +78,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
-  m_Sprite: {fileID: -227617533, guid: 855cb22f1a9444b218cd65589620dc63, type: 3}
+  m_SortingOrder: 3
+  m_Sprite: {fileID: 1060867829, guid: 8e50d1851e7b94b6bb2f7a294a01edc4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.64, y: 1.28}
+  m_Size: {x: 0.6666667, y: 1.3333334}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -201,20 +200,7 @@ MonoBehaviour:
     walkSpeed: 0
     requiredCoins: 0
     maxLevel: 0
---- !u!114 &6964385259681878776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5747528317129110511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54d32dc344bf2354fbce5d8414206435, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _monster: {fileID: 3260350519231483050}
-  MonsterFatigueGagueImg: {fileID: 7882962705209435894}
+  FatigueGauge: {fileID: 7882962705209435894}
 --- !u!1 &8522708831465093010
 GameObject:
   m_ObjectHideFlags: 0
