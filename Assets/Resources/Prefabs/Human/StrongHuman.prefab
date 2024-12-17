@@ -222,6 +222,7 @@ GameObject:
   - component: {fileID: 638188332697755257}
   - component: {fileID: 5045224751481305426}
   - component: {fileID: 2711220336945300611}
+  - component: {fileID: 7214537761411527048}
   m_Layer: 7
   m_Name: StrongHuman
   m_TagString: Human
@@ -275,10 +276,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00024217367, y: -0.090188414}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -289,7 +290,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.265737, y: 0.55682546}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &638188332697755257
 MonoBehaviour:
@@ -327,7 +328,7 @@ NavMeshAgent:
   m_Height: 0.3
   m_BaseOffset: 0
   m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!114 &2711220336945300611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,6 +344,33 @@ MonoBehaviour:
   animator: {fileID: 0}
   HumanEffect: {fileID: 6891671784675212167}
   AttackParticle: {fileID: 3523100619770514844}
+--- !u!50 &7214537761411527048
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2330070577731405459}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &3451077610204719412
 PrefabInstance:
   m_ObjectHideFlags: 0

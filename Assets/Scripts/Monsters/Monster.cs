@@ -183,7 +183,6 @@ public abstract class Monster : MonoBehaviour
             if (Time.time - LastScareTime > data.cooldown)
             {
                 human.IncreaseFear(Random.Range(data.minFearInflicted, data.maxFearInflicted));
-                //human.controller.SetTargetMonster(transform);
                 LastScareTime = Time.time;
             }
         }
@@ -216,8 +215,6 @@ public abstract class Monster : MonoBehaviour
             if (human != null && !_targetHumanList.Contains(human))
             {
                 _targetHumanList.Add(human);
-                if (!human.isReturning)
-                    human.controller.SetTargetMonster(transform);
                 SetState(MonsterState.Scaring);
             }
         }
