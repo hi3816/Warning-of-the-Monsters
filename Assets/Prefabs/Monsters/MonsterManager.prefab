@@ -73,6 +73,9 @@ MonoBehaviour:
   - tag: Vampire
     prefab: {fileID: 9023978108766818284, guid: 264843ee98e1f49308cb774d77b4692e, type: 3}
     size: 20
+  - tag: Medusa
+    prefab: {fileID: 8609092479553512321, guid: 46ab9f2adc91548d192cca4380417f15, type: 3}
+    size: 12
 --- !u!114 &665823340007014865
 MonoBehaviour:
   m_ObjectHideFlags: 0
