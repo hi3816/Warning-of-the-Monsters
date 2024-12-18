@@ -38,14 +38,12 @@ public class MonsterUpgrade : MonoBehaviour
             if (MonsterDataManager.Instance.GetEvolutionData(clickedMonster.data.id, clickedMonster.data.currentLevel + 1) != null)
             {
                 evolutionUI.Show(clickedMonster);
-                monsterUpgradeUI.sellButton.gameObject.SetActive(true);
             }
             else
             {
                 if (clickedMonster.data.currentLevel <= clickedMonster.data.maxLevel)
                 {
                     monsterUpgradeUI.Show(clickedMonster);
-                    monsterUpgradeUI.sellButton.gameObject.SetActive(true);
                 }
             }
         }

@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 
 public class MonsterUpgradeUI : MonoBehaviour
@@ -9,9 +8,9 @@ public class MonsterUpgradeUI : MonoBehaviour
     [SerializeField] private Canvas upgradeCanvas;
     [SerializeField] private TextMeshProUGUI upgradeStatsText;
     [SerializeField] private TextMeshProUGUI upgradeCostText;
-    [SerializeField] private Button upgradeButton; 
     [SerializeField] private GameObject rangeIndicator;
     public GameObject uiPanel;
+    public Button upgradeButton;
     public Button sellButton;
     private Monster selectedMonster;
     
@@ -49,7 +48,7 @@ public class MonsterUpgradeUI : MonoBehaviour
     public void UpgradeMonster()
     {
         if (selectedMonster == null) return;
-
+        
         var nextUpgrade = MonsterDataManager.Instance.GetUpgradeData(selectedMonster.data.id, selectedMonster.data.currentLevel + 1);
         if (nextUpgrade != null && stageManager.CurrGold >= nextUpgrade.requiredCoins)
         {
@@ -62,6 +61,7 @@ public class MonsterUpgradeUI : MonoBehaviour
             else
             {
                 UpdateUI();
+                UpdateRangeIndicator();
             }
         }
         else
@@ -73,23 +73,24 @@ public class MonsterUpgradeUI : MonoBehaviour
     private void UpdateRangeIndicator()
     {
         if (selectedMonster == null || rangeIndicator == null) return;
-        if (selectedMonster != null)
-        {
-            float range = selectedMonster.data.humanScaringRange;
-            rangeIndicator.transform.localScale = new Vector3(range * 2, range * 2, 1);
-            rangeIndicator.transform.position = selectedMonster.transform.position;
-            rangeIndicator.gameObject.SetActive(true);
-        }
+        float range = selectedMonster.data.humanScaringRange;
+        rangeIndicator.transform.localScale = new Vector3(range * 2, range * 2, 1);
+        rangeIndicator.transform.position = selectedMonster.transform.position;
+        rangeIndicator.gameObject.SetActive(true);
     }
     
     public void SellMonster()
     {
         if (selectedMonster == null) return;
+        // upgradeButton.interactable = false;
+        // sellButton.interactable = false;
         int totalSpent = CalculateTotalSpent(selectedMonster); //여태 얼마 사용했는지 계산
         float refundPercentage = 0.35f; // 35% 환불
         int refundAmount = Mathf.RoundToInt(totalSpent * refundPercentage);
         stageManager.ChangeGold(refundAmount); //UI에 표시
-        selectedMonster.ReturnToVillage();
+        selectedMonster.gameObject.SetActive(false);
+        PoolManager.Instance.ReturnToPool(selectedMonster.data.poolTag, selectedMonster.gameObject);
+        // selectedMonster.ReturnToVillage();
         Hide();
     }
 
