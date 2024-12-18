@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 386802082, guid: 79886ce9da0624fca9759ae0cee1c5f8, type: 3}
+  m_Sprite: {fileID: -395711653, guid: 0f484a2b4e6404620aaa3fc7e5182576, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -188,18 +188,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     id: 2
-    monsterId: 0
-    currentLevel: 0
+    monsterId: 2.31
+    currentLevel: 3
     poolTag: Dragon
-    currentFatigue: 0
-    fatigue: 0
-    minFearInflicted: 0
-    maxFearInflicted: 0
-    cooldown: 0
+    currentFatigue: 22.278395
+    fatigue: 53
+    minFearInflicted: 76
+    maxFearInflicted: 140
+    cooldown: 2
     humanDetectRange: 0
-    humanScaringRange: 0
+    humanScaringRange: 4
     walkSpeed: 0
-    requiredCoins: 0
+    requiredCoins: 300
     maxLevel: 3
     monsterType: 0
     summonerId: 0
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d32dc344bf2354fbce5d8414206435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _monster: {fileID: 4417598016390364303}
+  monster: {fileID: 0}
   MonsterFatigueGagueImg: {fileID: 1184477269570837813}
 --- !u!1 &7365598701330941879
 GameObject:

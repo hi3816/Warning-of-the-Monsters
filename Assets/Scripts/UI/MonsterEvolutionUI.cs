@@ -237,14 +237,17 @@ public class MonsterEvolutionUI : MonoBehaviour
         if (evolution != null && StageManager.Instance.CurrGold >= evolution.requiredCoins)
         {
             StageManager.Instance.ChangeGold(-evolution.requiredCoins);
+
             string evolutionMonsterName = GetMonsterEvolutionName(evolutionType);
             float fatigue = selectMonster.data.currentFatigue;
             Vector3 pos = selectMonster.gameObject.transform.position;
             PoolManager.Instance.ReturnToPool(selectMonster.gameObject.name, selectMonster.gameObject);
             GameObject evolutionMonster = PoolManager.Instance.SpawnFromPool(evolutionMonsterName, pos, Quaternion.identity);
-            // 외형이 변하지 않는 경우를 대비해 추가
             Monster monster = evolutionMonster.GetComponent<Monster>();
-            monster.SetMonsterDataToMonsterData(GetMonsterEvolutionData(evolutionType).data);
+            monster.Evolution(MonsterDataManager.Instance.GetEvolutionData(monster.data.id, monster.data.maxLevel, evolutionType));
+            
+            // SO로 변경되면 추가하기
+            //monster.SetMonsterDataToMonsterData(GetMonsterEvolutionData(evolutionType).data);
             evolutionUI.gameObject.SetActive(false);
         }
     }
@@ -272,9 +275,10 @@ public class MonsterEvolutionUI : MonoBehaviour
         return null;
     }
 
+    // 미리 캐싱해둔 데이터 가져오기
     private Monster GetMonsterEvolutionData(EvolutionType evolutionType)
     {
-        for (int i = 0; i < evolutionMonsterList.Count; i+=2)
+        for (int i = 0; i < evolutionMonsterList.Count; i += 2)
         {
             Monster monster = evolutionMonsterList[i];
             int monsterID = monster.data.id;
