@@ -96,6 +96,7 @@ public abstract class Monster : MonoBehaviour
         data.id = monsterSO.id;
         data.currentLevel = monsterSO.upgradeLevel;
         data.poolTag = monsterSO.poolTag;
+        data.currentFatigue = 0f;
         data.fatigue = monsterSO.fatigue;
         data.minFearInflicted = monsterSO.minFearInflicted;
         data.maxFearInflicted = monsterSO.maxFearInflicted;
@@ -112,6 +113,7 @@ public abstract class Monster : MonoBehaviour
     public void SetMonsterDataToMonsterData(MonsterData newMonsterData)
     {
         data = newMonsterData;
+        data.currentFatigue = 0f;
     }
 
     public void Upgrade(Monster_Data.Upgrade_Data upgradeData)
