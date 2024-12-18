@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ogre_Hit
+  m_Name: Hellhound_Hit
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,7 +21,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 126978452, guid: b9a90930000264c2d896b06f04ab251b, type: 3}
+      value: {fileID: 822852096, guid: 78b40573d39684c23a48ff4f168afd3f, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,7 +44,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 126978452, guid: b9a90930000264c2d896b06f04ab251b, type: 3}
+    - {fileID: 822852096, guid: 78b40573d39684c23a48ff4f168afd3f, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
