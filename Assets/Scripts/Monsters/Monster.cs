@@ -36,11 +36,12 @@ public class MonsterData
 public abstract class Monster : MonoBehaviour
 {
     public MonsterData data;
-    protected List<Human> _targetHumanList = new List<Human>();
+    private MonsterUpgradeUI upgradeUI;
+    protected List<Human> TargetHumanList = new List<Human>();
     private SpriteRenderer _spriteRenderer;
     protected Animator Animator;
     protected MonsterState MonsterState;
-    private float fadeDuration = 1.5f;
+    private float fadeDuration = 1f;
     protected float LastScareTime;
     private Coroutine coroutine;
 
@@ -188,18 +189,15 @@ public abstract class Monster : MonoBehaviour
     private void UpdateAnimatorParameters(Vector2 direction)
     {
         if (Animator == null) return;
-
+        
         Animator.SetFloat("Horizontal", direction.x);
         Animator.SetFloat("Vertical", direction.y);
-        
-        bool isScaring = direction != Vector2.zero;
-        Animator.SetBool("Scare", isScaring);
     }
     
     protected virtual void Scaring()
     {
         // 단일 공격
-        foreach (Human human in _targetHumanList)
+        foreach (Human human in TargetHumanList)
         {
             if (human == null) continue;
         
@@ -223,7 +221,7 @@ public abstract class Monster : MonoBehaviour
         //     _lastScareTime = Time.time;
         // }
         
-        if (_targetHumanList.Count == 0)
+        if (TargetHumanList.Count == 0)
         {
             SetState(MonsterState.Idle);
         }
@@ -235,9 +233,9 @@ public abstract class Monster : MonoBehaviour
         if (other.CompareTag("Human"))
         {
             Human human = other.GetComponent<Human>();
-            if (human != null && !_targetHumanList.Contains(human))
+            if (human != null && !TargetHumanList.Contains(human))
             {
-                _targetHumanList.Add(human);
+                TargetHumanList.Add(human);
                 SetState(MonsterState.Scaring);
             }
         }
@@ -249,9 +247,9 @@ public abstract class Monster : MonoBehaviour
         {
             Human human = other.GetComponent<Human>();
             human.controller.ClearTargetMonster();
-            if (human != null && _targetHumanList.Contains(human))
+            if (human != null && TargetHumanList.Contains(human))
             {
-                _targetHumanList.Remove(human);
+                TargetHumanList.Remove(human);
             }
         }
     }
@@ -281,7 +279,7 @@ public abstract class Monster : MonoBehaviour
 
     private IEnumerator FadeOutAndReturnToPool()
     {
-        foreach (var human in _targetHumanList)
+        foreach (var human in TargetHumanList)
         {
             if (human != null)
             {
@@ -289,7 +287,7 @@ public abstract class Monster : MonoBehaviour
             }
         }
         
-        _targetHumanList.Clear();
+        TargetHumanList.Clear();
         
         // Fade out
         float startAlpha = _spriteRenderer.color.a;
@@ -304,7 +302,6 @@ public abstract class Monster : MonoBehaviour
         }
 
         _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 0f);
-        
         gameObject.SetActive(false);
         PoolManager.Instance.ReturnToPool(data.poolTag, gameObject);
     }
@@ -313,7 +310,7 @@ public abstract class Monster : MonoBehaviour
     {
         if (coroutine != null) StopCoroutine(coroutine);
         data.currentFatigue = 0f;
-        _targetHumanList.Clear();
+        TargetHumanList.Clear();
         _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 1f);
         SetState(MonsterState.Idle);
     }
