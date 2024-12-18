@@ -74,7 +74,7 @@ public class MonsterUpgradeUI : MonoBehaviour
     {
         if (selectedMonster == null || rangeIndicator == null) return;
         float range = selectedMonster.data.humanScaringRange;
-        rangeIndicator.transform.localScale = new Vector3(range * 2, range * 2, 1);
+        rangeIndicator.transform.localScale = new Vector3(range, range, 1);
         rangeIndicator.transform.position = selectedMonster.transform.position;
         rangeIndicator.gameObject.SetActive(true);
     }
