@@ -5,6 +5,7 @@ public enum HumanType
 {
     NormalHuman,
     StrongHuman,
+    SuperHuman,
 }
 public class HumanManager : SingletonBase<HumanManager>
 {
