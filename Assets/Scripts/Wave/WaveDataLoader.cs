@@ -30,6 +30,9 @@ public class WaveDataLoader : SingletonBase<WaveDataLoader>
             case 1:
                 WaveDataDict.Add(1, SetWaveDataListFromStage(Wave_Data.Stage2.GetList()));
                 break;
+            case 2:
+                WaveDataDict.Add(2, SetWaveDataListFromStage(Wave_Data.Stage3.GetList()));
+                break;
             default:
                 Debug.LogAssertion("Wrong stage index. WaveData unloaded.");
                 break;
@@ -73,6 +76,15 @@ public class WaveDataLoader : SingletonBase<WaveDataLoader>
                 WaveIdx = stage2Data.waveIdx,
                 HumanID = new List<int>(stage2Data.humanId),
                 Count = new List<int>(stage2Data.count)
+            };
+        }
+        else if (waveData is Wave_Data.Stage3 stage3Data)
+        {
+            return new WaveData
+            {
+                WaveIdx = stage3Data.waveIdx,
+                HumanID = new List<int>(stage3Data.humanId),
+                Count = new List<int>(stage3Data.count)
             };
         }
         else
