@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    id: 3
+    id: 5
     monsterId: 0
     currentLevel: 0
     poolTag: Lich
@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d32dc344bf2354fbce5d8414206435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _monster: {fileID: 7125030679217324086}
+  monster: {fileID: 0}
   MonsterFatigueGagueImg: {fileID: 8276213778608753920}
 --- !u!1001 &6647371901828769781
 PrefabInstance:

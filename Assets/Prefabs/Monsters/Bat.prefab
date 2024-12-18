@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    id: 8
+    id: 9
     monsterId: 0
     currentLevel: 0
     poolTag: Bat
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d32dc344bf2354fbce5d8414206435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _monster: {fileID: 4980509511839114724}
+  monster: {fileID: 0}
   MonsterFatigueGagueImg: {fileID: 2900504980589494874}
 --- !u!1001 &494156784039651503
 PrefabInstance:

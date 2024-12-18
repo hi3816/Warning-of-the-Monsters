@@ -583,7 +583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    id: 9
+    id: 3
     monsterId: 0
     currentLevel: 0
     poolTag: Medusa
@@ -611,5 +611,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d32dc344bf2354fbce5d8414206435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _monster: {fileID: 975375574619363947}
+  monster: {fileID: 0}
   MonsterFatigueGagueImg: {fileID: 5307919576837869032}

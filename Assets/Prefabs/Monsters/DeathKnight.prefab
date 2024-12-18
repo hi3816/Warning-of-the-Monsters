@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    id: 6
+    id: 7
     monsterId: 0
     currentLevel: 0
     poolTag: DeathKnight
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d32dc344bf2354fbce5d8414206435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _monster: {fileID: -1437158679666821263}
+  monster: {fileID: 0}
   MonsterFatigueGagueImg: {fileID: 186251859235706}
 --- !u!1001 &3358445582772943247
 PrefabInstance:

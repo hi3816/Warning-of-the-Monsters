@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    id: 5
+    id: 6
     monsterId: 0
     currentLevel: 0
     poolTag: Skeleton
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d32dc344bf2354fbce5d8414206435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _monster: {fileID: 5271574812440545329}
+  monster: {fileID: 0}
   MonsterFatigueGagueImg: {fileID: 8056062396161338151}
 --- !u!1001 &4708463943513113042
 PrefabInstance:

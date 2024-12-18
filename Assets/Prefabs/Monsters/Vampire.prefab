@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    id: 7
+    id: 8
     monsterId: 0
     currentLevel: 0
     poolTag: Vampire
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d32dc344bf2354fbce5d8414206435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _monster: {fileID: -3380862154934517563}
+  monster: {fileID: 0}
   MonsterFatigueGagueImg: {fileID: 4774921030082397393}
 --- !u!1001 &7843261138649951780
 PrefabInstance:
