@@ -242,6 +242,7 @@ public class MonsterEvolutionUI : MonoBehaviour
             Vector3 pos = selectMonster.gameObject.transform.position;
             PoolManager.Instance.ReturnToPool(selectMonster.gameObject.name, selectMonster.gameObject);
             GameObject evolutionMonster = PoolManager.Instance.SpawnFromPool(evolutionMonsterName, pos, Quaternion.identity);
+            // 외형이 변하지 않는 경우를 대비해 추가
             Monster monster = evolutionMonster.GetComponent<Monster>();
             monster.SetMonsterDataToMonsterData(GetMonsterEvolutionData(evolutionType).data);
             evolutionUI.gameObject.SetActive(false);

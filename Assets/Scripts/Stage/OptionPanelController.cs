@@ -68,20 +68,20 @@ public class OptionPanelController : MonoBehaviour
     // Retry 버튼 클릭
     public void ClickRetryButton()
     {
+        HumanManager.Instance.OnGameClear();
+        StageManager.Instance.OnGameOver();
         gameObject.SetActive(false);
         Time.timeScale = 1f;
-        PoolManager.Instance.DeleteAllPools();
-        PoolManager.Instance.AddPoolS(SoundManager.Instance.poolconfigs);
         SceneManager.LoadScene("MainScene");
     }
 
     // Exit 버튼 클릭
     public void ClickExitButton()
     {
-        gameObject.SetActive(false);
-        Time.timeScale = 1f;
         PoolManager.Instance.DeleteAllPools();
         PoolManager.Instance.AddPoolS(SoundManager.Instance.poolconfigs);
+        gameObject.SetActive(false);
+        Time.timeScale = 1f;
         SceneManager.LoadScene("LobbyScene");
     }
 
