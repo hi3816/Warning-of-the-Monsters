@@ -16,6 +16,10 @@ public class LosePopup : UIBase
     {
         btnRetry.onClick.AddListener(LoadGameScene);
         btnExit.onClick.AddListener(LoadLobby);
+
+        //canvas order조절
+        Canvas canavas = GetComponentInParent<Canvas>();
+        canvas.sortingOrder = 4;
     }
     private void LoadGameScene()
     {

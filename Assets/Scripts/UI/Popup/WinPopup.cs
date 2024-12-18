@@ -28,6 +28,10 @@ public class WinPopup : UIBase
 
         Debug.Log($"{StageManager.Instance.CurrHealth}");
         SetStars(StageManager.Instance.CurrHealth);
+
+        //canvas order조절
+        Canvas canavas = GetComponentInParent<Canvas>();
+        canvas.sortingOrder = 4;
     }
 
     private void LoadGameScene()
