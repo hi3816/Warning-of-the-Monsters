@@ -67,7 +67,7 @@
 
 - 승리와 패배
 
-  승리 조건: 모든 인간이 몬스터 마을에 도달하기 전에 도망치게 해야 합니다.
+  승리 조건: 모든 인간이 몬스터 마을에 도달하기 전에 인간을 도망치게 해야 합니다.
 
   패배 조건: 인간이 몬스터 마을로 진입하면 플레이어 체력이 줄어듭니다. 체력이 0이 되면 게임이 종료됩니다.
 
@@ -121,7 +121,7 @@
 [UI](https://www.gamedevmarket.net/asset/rpg-ui-pack)
 
 
-[이펙트](링크 여기 입력)
+[이펙트1](https://www.gamedevmarket.net/asset/super-pixel-explosion-fx-pack-1-pixel-art-effect-animations), [이펙트2](https://www.gamedevmarket.net/asset/super-pixel-effects-pack-3-pixel-art-effect-animations)
 
 
 [글씨체](https://noonnu.cc/font_page/800)
