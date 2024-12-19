@@ -21,11 +21,6 @@ public class PopupMonsterSpawner : MonsterSpawner
         _selectedMonsterList = DataManager.Instance.SelectedMonsterData;
 
         if (_selectedMonsterList == null) return;
-        Debug.Log("들어온 데이터 확인");
-        foreach (var Data in _selectedMonsterList)
-        {
-            Debug.Log($"{Data.Key} , {Data.Value}");
-        }
 
         SetMonsterSprite();
     }
