@@ -67,11 +67,13 @@ MonoBehaviour:
   - tag: Orc
     prefab: {fileID: 6771188085191904317, guid: 7dac8b9017283f04b97e76b83340bf64, type: 3}
     size: 12
-  summonerMonsters:
-  - sprite: {fileID: -25973780, guid: 886d2515b62574ddd8ea57a33e8f4d1b, type: 3}
-    monster: {fileID: 7125030679217324086, guid: fe818276475734e589ef2628bc5bf421, type: 3}
-  - sprite: {fileID: 813443917, guid: a0065b2588593468fb5855c269aa7b8d, type: 3}
-    monster: {fileID: 7125030679217324086, guid: fe818276475734e589ef2628bc5bf421, type: 3}
+  - tag: Hellhound
+    prefab: {fileID: 4266746992223387529, guid: e8ea6fa14dcad71468d1b0d1bc157bec, type: 3}
+    size: 12
+  - tag: Demon
+    prefab: {fileID: 7674980571249262148, guid: 7685c4643fb174fd587dafc1460f6be2, type: 3}
+    size: 12
+  summonerMonsters: []
   evolutionMonsterList: []
 --- !u!1 &1208973493108306354
 GameObject:

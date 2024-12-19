@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: -1210167003, guid: f431c97fa86f04b71a5fcef4523216af, type: 3}
+  m_Sprite: {fileID: 87242776, guid: 80bd842aaadd44b55a87fd192567025e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d32dc344bf2354fbce5d8414206435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _monster: {fileID: 3948038140912665504}
+  monster: {fileID: 0}
   MonsterFatigueGagueImg: {fileID: 6443122541755601896}
 --- !u!1 &7904827550483429528
 GameObject:

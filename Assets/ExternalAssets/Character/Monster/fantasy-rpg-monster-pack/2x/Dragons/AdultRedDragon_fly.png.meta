@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 40
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -134,7 +134,343 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: AdultRedDragon_fly_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 192
+        width: 88
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 459d8611a489119439ddf89cf99de0bc
+      internalID: -1118014466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AdultRedDragon_fly_1
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 192
+        width: 88
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91dcdf7762f8d084ab9bc609185a8623
+      internalID: -1189834856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AdultRedDragon_fly_2
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 192
+        width: 88
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9b5bfbf2d246e4489def2a363dcbd93
+      internalID: 1964732647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AdultRedDragon_fly_3
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 192
+        width: 88
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e8edc6834baf1f4ca0deafc85960845
+      internalID: 833043949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AdultRedDragon_fly_4
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 128
+        width: 74
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.48333332}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4df90abd76aa29b4cbf0bd0db893160e
+      internalID: 1914127668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AdultRedDragon_fly_5
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 128
+        width: 74
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 676e629c76b511c48859832fd36a2dd4
+      internalID: 1003866324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AdultRedDragon_fly_6
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 128
+        width: 74
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80e807ddcbd2747478391eb674f0f1ee
+      internalID: 182907040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AdultRedDragon_fly_7
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 64
+        width: 74
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6af2f4fbadfeec4db2b7dfd169b5ac6
+      internalID: -1816746540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AdultRedDragon_fly_8
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 64
+        width: 74
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8624ce629b864f43b4fbddc684642f4
+      internalID: 2145570503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AdultRedDragon_fly_9
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 64
+        width: 74
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b63c34239181c8e42a4fc87e46f3d7f3
+      internalID: 459405640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AdultRedDragon_fly_11
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 0
+        width: 88
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f8bb1256923f72458edf58e22922436
+      internalID: 2093279819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AdultRedDragon_fly_12
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 0
+        width: 88
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b8bbe312e7c8c74c8d7f88de4f967f8
+      internalID: -557283791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AdultRedDragon_fly_13
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 0
+        width: 88
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d33bc5a8ecacf5940af46c8db3a132f9
+      internalID: -1599182732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AdultRedDragon_fly_14
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 0
+        width: 88
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.48333332}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbc0b2527d4d2324b8d6b106c6688335
+      internalID: 1477663359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AdultRedDragon_fly_16
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 128
+        width: 74
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40d561330b9214b41afb9521dabbab48
+      internalID: -858437060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AdultRedDragon_fly_10
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 64
+        width: 74
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 198411bc59adabd4abb5e55618987935
+      internalID: -334426574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +481,24 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      AdultRedDragon_fly_0: -1118014466
+      AdultRedDragon_fly_1: -1189834856
+      AdultRedDragon_fly_10: -334426574
+      AdultRedDragon_fly_11: 2093279819
+      AdultRedDragon_fly_12: -557283791
+      AdultRedDragon_fly_13: -1599182732
+      AdultRedDragon_fly_14: 1477663359
+      AdultRedDragon_fly_15: 1575554681
+      AdultRedDragon_fly_16: -858437060
+      AdultRedDragon_fly_2: 1964732647
+      AdultRedDragon_fly_3: 833043949
+      AdultRedDragon_fly_4: 1914127668
+      AdultRedDragon_fly_5: 1003866324
+      AdultRedDragon_fly_6: 182907040
+      AdultRedDragon_fly_7: -1816746540
+      AdultRedDragon_fly_8: 2145570503
+      AdultRedDragon_fly_9: 459405640
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
