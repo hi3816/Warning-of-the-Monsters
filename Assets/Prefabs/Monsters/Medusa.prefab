@@ -596,7 +596,7 @@ MonoBehaviour:
     humanScaringRange: 0
     walkSpeed: 0
     requiredCoins: 0
-    maxLevel: 0
+    maxLevel: 2
     monsterType: 0
     summonerId: 0
 --- !u!114 &3462780148978345129
