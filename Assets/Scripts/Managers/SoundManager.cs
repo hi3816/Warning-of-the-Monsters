@@ -113,6 +113,7 @@ public class SoundManager : SingletonBase<SoundManager>
         {
             audioBgm.clip = bgmDict[bgmType];
             audioBgm.mute = false;
+            audioBgm.loop = true;
             audioBgm.Play();
         }
     }

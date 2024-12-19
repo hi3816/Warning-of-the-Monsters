@@ -9,6 +9,7 @@ public enum SkillName
 {
     MonsterRoar,
     FrozenGround,
+    Bomb,
 }
 
 [UGS(typeof(SkillType))]

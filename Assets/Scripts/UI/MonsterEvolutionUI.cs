@@ -214,7 +214,7 @@ public class MonsterEvolutionUI : MonoBehaviour
         }
     }
 
-    // 구매 여부 확인 및 설정 Color 반환
+    // 구매 가능한지 확인 및 설정 Color 반환
 
     private Color GetPurchaseStatusColor(int id, int idx)
     {

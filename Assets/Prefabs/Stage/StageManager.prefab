@@ -429,7 +429,6 @@ MonoBehaviour:
   optionPanel: {fileID: 2417726098624762811}
   stageInfo: {fileID: 6207528262063605471}
   stageInfoController: {fileID: 0}
-  <CurrGold>k__BackingField: 0
   stage: {fileID: 0}
   startBattleBtnController: {fileID: 0}
   poolConfigs:
@@ -1413,6 +1412,10 @@ PrefabInstance:
     - target: {fileID: 3089179544922214812, guid: 705491be0f2c9bb45a88cd8844edfd59, type: 3}
       propertyPath: m_Name
       value: Tesst_EndWaveButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089179544922214812, guid: 705491be0f2c9bb45a88cd8844edfd59, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

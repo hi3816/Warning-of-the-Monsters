@@ -105,6 +105,7 @@ public class SkillButtonnController : MonoBehaviour
         worldPosition.z = 0f; // Z축 값 고정
         obj.transform.position = worldPosition;
         Skill skill = obj.GetComponent<Skill>();
+        skill.StartSkill();
         obj.SetActive(true);
     }
 
