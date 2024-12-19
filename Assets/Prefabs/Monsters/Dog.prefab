@@ -203,6 +203,7 @@ MonoBehaviour:
     maxLevel: 0
     monsterType: 0
     summonerId: 0
+  fatigueGauge: {fileID: 4842052456794193858}
 --- !u!114 &5978908468827951436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,7 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d32dc344bf2354fbce5d8414206435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monster: {fileID: 0}
+  monster: {fileID: 8112561378993310331}
   MonsterFatigueGagueImg: {fileID: 7650152042683598642}
 --- !u!1 &8720657017300058835
 GameObject:
@@ -384,6 +385,11 @@ PrefabInstance:
 --- !u!224 &4807164511114480405 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 434464825468577490, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
+  m_PrefabInstance: {fileID: 4950016551100296647}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4842052456794193858 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 541435662023610885, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
   m_PrefabInstance: {fileID: 4950016551100296647}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &7650152042683598642 stripped

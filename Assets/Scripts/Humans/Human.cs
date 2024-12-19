@@ -39,10 +39,8 @@ public class Human : MonoBehaviour
         isReturning = false;   // 반환하고 있지 않은 상태로 전환
         
         // 게임 종료 이벤트 발생하면 풀로 바로 반환
-        HumanManager.Instance.OnGameClear -= () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
-        HumanManager.Instance.OnGameClear += () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
-        StageManager.Instance.OnGameOver -= () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
-        StageManager.Instance.OnGameOver += () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
+        ReturnToPoolBtn.OnGameEnd -= () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
+        ReturnToPoolBtn.OnGameEnd += () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
     }
 
     // 인간 공포 수치 증가시키기
@@ -73,7 +71,6 @@ public class Human : MonoBehaviour
         if (isReturning) return;   // 풀로 반환하는 중이면 실행 x
         
         isReturning = true;
-        HumanManager.Instance.SubHumanCount(SpawnedWaveIdx);    // 스폰된 웨이브에서 인간 카운트 횟수 차감
         
         if (gameObject.activeInHierarchy)   // Scene에 활성화 상태일 때만 실행
             StartCoroutine(ReturnHumanProcess(delay));
@@ -83,6 +80,7 @@ public class Human : MonoBehaviour
     private IEnumerator ReturnHumanProcess(float delay)
     {
         yield return new WaitForSeconds(delay);
+        HumanManager.Instance.SubHumanCount(SpawnedWaveIdx);    // 스폰된 웨이브에서 인간 카운트 횟수 차감
         PoolManager.Instance.ReturnToPool(gameObject.name, gameObject);
     }
     
