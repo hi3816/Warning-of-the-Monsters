@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public enum MonsterState
@@ -57,10 +59,9 @@ public abstract class Monster : MonoBehaviour
     
     private void OnEnable()
     {
-        HumanManager.Instance.OnGameClear -= () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
-        HumanManager.Instance.OnGameClear += () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
-        StageManager.Instance.OnGameOver -= () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
-        StageManager.Instance.OnGameOver += () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
+        // 게임 종료 이벤트 발생하면 풀로 바로 반환
+        ReturnToPoolBtn.OnGameEnd -= () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
+        ReturnToPoolBtn.OnGameEnd += () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
     }
     
     protected virtual void Update()
