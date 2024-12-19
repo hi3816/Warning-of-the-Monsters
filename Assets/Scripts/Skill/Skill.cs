@@ -2,7 +2,6 @@ using GoogleSheet.Type;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Skill : MonoBehaviour
 {
@@ -12,12 +11,13 @@ public class Skill : MonoBehaviour
     private Coroutine attackCoroutine;
     private Coroutine debuffCoroutine;
     private WaitForSeconds effectDurationTime;
-    private SpriteRenderer spriteRenderer;
     private CircleCollider2D skillCollider;
+    private SpriteRenderer spriteRenderer;
     [SerializeField] int skillIdx;
 
     // human 확인 리스트
     private List<GameObject> humanList = new List<GameObject>();
+    private float agentOriginSpeed = 0f;
 
     private void Awake()
     {
@@ -37,10 +37,14 @@ public class Skill : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.size = new Vector2(SkillSO.range, SkillSO.range);
 
-        effectDurationTime = new WaitForSeconds(SkillSO.duration);
-        Debug.Log($"effectDurationTime{SkillSO.duration}");
-
         skillCollider = GetComponent<CircleCollider2D>();
+        effectDurationTime = new WaitForSeconds(SkillSO.duration);
+    }
+
+    public void StartSkill()
+    {
+        if (attackCoroutine != null) StopCoroutine(attackCoroutine);
+        attackCoroutine = StartCoroutine(CoEndSkillEffect());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -62,42 +66,58 @@ public class Skill : MonoBehaviour
         {
             case SkillType.Attack:
                 if (attackCoroutine != null) StopCoroutine(attackCoroutine);
-                attackCoroutine = StartCoroutine(CoEndAtaackSkill());
+                attackCoroutine = StartCoroutine(CoEndSkillEffect());
                 humanObj.GetComponent<Human>().IncreaseFear(SkillSO.power);
                 break;
             
             case SkillType.Debuff:
-
-                NavMeshAgent agent = humanObj.GetComponent<HumanController>().Agent;
-                humanObj.GetComponent<Human>().IncreaseFear(SkillSO.power);
-                spriteRenderer.enabled = false;
                 skillCollider.enabled = false;
-                
+                spriteRenderer.enabled = false;
+                HumanController humanController = humanObj.GetComponent<HumanController>();
+                agentOriginSpeed = humanController.Agent.speed;
+                humanObj.GetComponent<Human>().IncreaseFear(SkillSO.power);
+                humanController.Agent.speed = ((100 - SkillSO.percentage) / 100f);
                 if (debuffCoroutine != null) StopCoroutine(debuffCoroutine);
-                debuffCoroutine = StartCoroutine(CoEndDebuffSkill(agent.speed));
-                
-                agent.speed *= ((100f - SkillSO.percentage) / 100f);
+                StartCoroutine(CoEndDebuffSkill());
                 break;
         }
     }
 
     // 스킬이 끝났을 때
-    private IEnumerator CoEndAtaackSkill()
+    private IEnumerator CoEndSkillEffect()
     {
         yield return animationTime;
-        PoolManager.Instance.ReturnToPool(SkillSO.skillName.ToString(), gameObject);
-        humanList.Clear();
-        gameObject.SetActive(false);
+
+        if (SkillSO.skillType == SkillType.Attack)
+        {
+            PoolManager.Instance.ReturnToPool(SkillSO.skillName.ToString(), gameObject);
+            humanList.Clear();
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            skillCollider.enabled = false;
+            spriteRenderer.enabled = false;
+            if(humanList.Count == 0)
+            {
+                if(debuffCoroutine != null) StopCoroutine(debuffCoroutine);
+                StartCoroutine(CoEndDebuffSkill());
+            }
+        }
     }
 
-    private IEnumerator CoEndDebuffSkill(float originSpeed)
+    private IEnumerator CoEndDebuffSkill()
     {
         yield return effectDurationTime;
-        foreach(GameObject obj in humanList)
+
+        if (agentOriginSpeed > 0f)
         {
-            NavMeshAgent agent = obj.GetComponent<HumanController>().Agent;
-            agent.speed = originSpeed;
-            Debug.Log($"EndDebuffSkill agent.speed {agent.speed}");
+            foreach (GameObject obj in humanList)
+            {
+                UnityEngine.AI.NavMeshAgent agent = obj.GetComponent<HumanController>().Agent;
+                agent.speed = agentOriginSpeed;
+                Debug.Log($"EndDebuffSkill agent.speed {agent.speed}");
+            }
         }
 
         spriteRenderer.enabled = true;
