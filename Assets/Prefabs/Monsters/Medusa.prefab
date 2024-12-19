@@ -599,6 +599,7 @@ MonoBehaviour:
     maxLevel: 2
     monsterType: 0
     summonerId: 0
+  fatigueGauge: {fileID: 5411788522726683214}
 --- !u!114 &3462780148978345129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -611,5 +612,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d32dc344bf2354fbce5d8414206435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monster: {fileID: 0}
+  monster: {fileID: 975375574619363947}
   MonsterFatigueGagueImg: {fileID: 5307919576837869032}
