@@ -76,6 +76,7 @@ public class DataManager : SingletonBase<DataManager>
             monsterSOs[i].cooldown = monsterDataList[i].cooldown;
             monsterSOs[i].humanScaringRange = monsterDataList[i].humanScaringRange;
             monsterSOs[i].requiredCoins = monsterDataList[i].requiredCoins;
+            monsterSOs[i].monsterType = monsterDataList[i].MonsterType;
         }
         return monsterSOs;
     }

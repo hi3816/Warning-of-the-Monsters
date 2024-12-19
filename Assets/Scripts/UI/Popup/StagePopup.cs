@@ -114,15 +114,18 @@ public class StagePopup : UIBase
         _monsterListData = new Dictionary<string, int>();
         for (int i = 0; i < _monsterSOs.Length; i++)
         {
-            GameObject Instance = Instantiate(monsterListSlot);
+            if (_monsterSOs[i].monsterType == MonsterType.Stationary)
+            {
+                GameObject Instance = Instantiate(monsterListSlot);
 
-            Instance.transform.SetParent(monsterListScroll);
-            Instance.transform.localScale = Vector3.one;
+                Instance.transform.SetParent(monsterListScroll);
+                Instance.transform.localScale = Vector3.one;
 
-            var sprite = Instance.transform.GetChild(0).GetComponent<Image>();
-            sprite.sprite = _sprites.GetSprite(_monsterSOs[i].poolTag);
+                var sprite = Instance.transform.GetChild(0).GetComponent<Image>();
+                sprite.sprite = _sprites.GetSprite(_monsterSOs[i].poolTag);
 
-            _monsterListData.Add(_monsterSOs[i].poolTag, _monsterSOs[i].id);
+                _monsterListData.Add(_monsterSOs[i].poolTag, _monsterSOs[i].id);
+            }
         }
     }
     public void SelectSlotWithArrow(int slotIdx)
