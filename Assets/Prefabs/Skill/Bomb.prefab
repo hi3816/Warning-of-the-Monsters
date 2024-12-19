@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6212736285668006366}
   - component: {fileID: -5474590354417436405}
   m_Layer: 5
-  m_Name: MonsterRoar
+  m_Name: Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,7 +112,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 1753312586, guid: d97e75b9916a94a4581ef3601f750893, type: 3}
+  m_Sprite: {fileID: 1750639686, guid: 56c03c7de9d86dd43a00f497b9ec6f28, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -160,7 +160,7 @@ Animator:
   m_GameObject: {fileID: 7674980571249262148}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a311ee5cfaa55c5459ec912a6f07929a, type: 2}
+  m_Controller: {fileID: 9100000, guid: acf5097c04212e348a228de7ea52634b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

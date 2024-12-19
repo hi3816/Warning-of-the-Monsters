@@ -69,6 +69,12 @@ public class PoolManager : SingletonBase<PoolManager>
         }
     }
 
+    public void AddPool(PoolConfig pool)
+    {
+        poolConfigs.Add(pool);
+        CreatePool(pool.tag, pool.prefab, pool.size);
+    }
+
     // Transform 설정하는 SpawnFromPool
     public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
     {

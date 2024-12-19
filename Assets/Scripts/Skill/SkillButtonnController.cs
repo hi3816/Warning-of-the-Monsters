@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -21,26 +17,23 @@ public class SkillButtonnController : MonoBehaviour
     private float timeSinceSkill; // 스킬을 사용하고 난 후 경과 시간
     [SerializeField] private Image blackImage; // 쿨타임 표시할 이미지 (360도로 fillamount함)
 
-    private Dictionary<int, Sprite> skillSpriteDict = new Dictionary<int, Sprite>(); // 스킬 스프라이트 담을 Dict
-    
     [System.Serializable]
     private class SkillSpritePair
     {
         public int id;
         public Sprite sprite;
     }
-    [SerializeField] private List<SkillSpritePair> skillSpritePairList; // Inspector에서 Sprite 넣기 위해 사용하는 List
+    [SerializeField] private SkillSpritePair skillSpritePair; // Inspector에서 Sprite 넣기 위해 사용하는 List
     [SerializeField] private Image skillImage; // skillSprite가 들어갈 Image 컴포넌트
 
-    [SerializeField] private PoolManager.PoolConfig[] poolConfigs;
+    [SerializeField] private PoolManager.PoolConfig poolConfig;
 
     private void Awake()
     {
-        skillSO = DataManager.Instance.GetSkillByIndex(SkillIdx);
+        skillSO = DataManager.Instance.GetSkillByIndex(skillSpritePair.id);
         timeSinceSkill = 0f;
-        SetSprite();
         SetSkillImage();
-        PoolManager.Instance.AddPoolS(poolConfigs);
+        PoolManager.Instance.AddPool(poolConfig);
     }
 
     private void Update()
@@ -71,24 +64,10 @@ public class SkillButtonnController : MonoBehaviour
         }
     }
 
-    // List -> Dict로 변환
-    private void SetSprite()
-    {
-        if (skillSpritePairList == null) return;
-
-        foreach (SkillSpritePair pair in skillSpritePairList)
-        {
-            if(!skillSpriteDict.ContainsKey(pair.id))
-            {
-                skillSpriteDict.Add(pair.id, pair.sprite);
-            }
-        }
-    }
-
     // 스킬 아이콘 이미지랑 스킬 범위 이미지 설정
     private void SetSkillImage()
     {
-        skillImage.sprite = skillSpriteDict[skillSO.id];
+        skillImage.sprite = skillSpritePair.sprite;
         skillRangeImageRect.sizeDelta = new Vector2(skillSO.range * 0.5f, skillSO.range * 0.5f); // 범위 설정
     }
 
@@ -126,7 +105,6 @@ public class SkillButtonnController : MonoBehaviour
         worldPosition.z = 0f; // Z축 값 고정
         obj.transform.position = worldPosition;
         Skill skill = obj.GetComponent<Skill>();
-        skill.StartSkill();
         obj.SetActive(true);
     }
 
