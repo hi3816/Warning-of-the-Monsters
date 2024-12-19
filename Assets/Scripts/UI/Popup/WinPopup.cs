@@ -26,7 +26,6 @@ public class WinPopup : UIBase
         btnRetry.onClick.AddListener(LoadGameScene);
         btnNextStage.onClick.AddListener(LoadNextStage);
 
-        Debug.Log($"{StageManager.Instance.CurrHealth}");
         SetStars(StageManager.Instance.CurrHealth);
 
         //canvas order조절
@@ -41,7 +40,7 @@ public class WinPopup : UIBase
     }
     private void LoadNextStage()
     {
-        Debug.Log("다음 스테이지 로드");
+        //Debug.Log("다음 스테이지 로드");
     }
 
     private void ShowResultInfo()

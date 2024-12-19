@@ -1019,7 +1019,7 @@ MonoBehaviour:
   stageInfoWave: {fileID: 2076548903}
   stageInfoHealth: {fileID: 599679880}
   stageInfoGold: {fileID: 1069710127}
-  storyTxt: {fileID: 0}
+  storyTxt: {fileID: 1435237977}
   warningTxt: {fileID: 815921033}
   testTxt: {fileID: 79052686}
   arrowPoint:
@@ -20728,7 +20728,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: test
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: eeb6e4a1156544e48b265a0de4753658, type: 2}
   m_sharedMaterial: {fileID: -5070498466862533057, guid: eeb6e4a1156544e48b265a0de4753658, type: 2}
