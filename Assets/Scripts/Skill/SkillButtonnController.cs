@@ -21,12 +21,12 @@ public class SkillButtonnController : MonoBehaviour
     private float timeSinceSkill; // 스킬을 사용하고 난 후 경과 시간
     [SerializeField] private Image blackImage; // 쿨타임 표시할 이미지 (360도로 fillamount함)
 
-    private Dictionary<SkillName, Sprite> skillSpriteDict = new Dictionary<SkillName, Sprite>(); // 스킬 스프라이트 담을 Dict
+    private Dictionary<int, Sprite> skillSpriteDict = new Dictionary<int, Sprite>(); // 스킬 스프라이트 담을 Dict
     
     [System.Serializable]
     private class SkillSpritePair
     {
-        public SkillName skillName;
+        public int id;
         public Sprite sprite;
     }
     [SerializeField] private List<SkillSpritePair> skillSpritePairList; // Inspector에서 Sprite 넣기 위해 사용하는 List
@@ -78,9 +78,9 @@ public class SkillButtonnController : MonoBehaviour
 
         foreach (SkillSpritePair pair in skillSpritePairList)
         {
-            if(!skillSpriteDict.ContainsKey(pair.skillName))
+            if(!skillSpriteDict.ContainsKey(pair.id))
             {
-                skillSpriteDict.Add(pair.skillName, pair.sprite);
+                skillSpriteDict.Add(pair.id, pair.sprite);
             }
         }
     }
@@ -88,7 +88,7 @@ public class SkillButtonnController : MonoBehaviour
     // 스킬 아이콘 이미지랑 스킬 범위 이미지 설정
     private void SetSkillImage()
     {
-        skillImage.sprite = skillSpriteDict[skillSO.skillName];
+        skillImage.sprite = skillSpriteDict[skillSO.id];
         skillRangeImageRect.sizeDelta = new Vector2(skillSO.range * 0.5f, skillSO.range * 0.5f); // 범위 설정
     }
 

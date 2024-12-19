@@ -57,7 +57,8 @@ namespace Skill_Data
 /* Fields. */
 
 		public System.Int32 id;
-		public SkillName SkillName;
+		public System.String skillName;
+		public SkillType SkillType;
 		public System.Single power;
 		public System.Single range;
 		public System.Single cooldown;

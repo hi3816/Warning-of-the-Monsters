@@ -428,6 +428,7 @@ MonoBehaviour:
   optionPanel: {fileID: 2417726098624762811}
   stageInfo: {fileID: 6207528262063605471}
   stageInfoController: {fileID: 0}
+  <CurrGold>k__BackingField: 0
   stage: {fileID: 0}
   startBattleBtnController: {fileID: 0}
   poolConfigs:

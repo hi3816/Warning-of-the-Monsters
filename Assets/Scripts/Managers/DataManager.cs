@@ -103,7 +103,8 @@ public class DataManager : SingletonBase<DataManager>
         {
             skillSOs[i] = ScriptableObject.CreateInstance<SkillSO>();
             skillSOs[i].id = skillData[i].id;
-            skillSOs[i].skillName = skillData[i].SkillName;
+            skillSOs[i].skillName = skillData[i].skillName;
+            skillSOs[i].skillType = skillData[i].SkillType;
             skillSOs[i].power = skillData[i].power;
             skillSOs[i].range = skillData[i].range;
             skillSOs[i].cooldown = skillData[i].cooldown;
