@@ -56,8 +56,7 @@ public class StageManager : SingletonBase<StageManager>
         totalWave = stageSO.wave;
         CurrWave = 0;
         CurrHealth = stageSO.health;
-        //CurrGold = stageSO.gold;
-        CurrGold = 10000;
+        CurrGold = stageSO.gold;
         stageInfoController = stageInfo.GetComponent<StageInfoController>();
         stageInfoController.ChangeUI();
     }
