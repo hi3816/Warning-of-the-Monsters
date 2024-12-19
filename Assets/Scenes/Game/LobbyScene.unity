@@ -1019,7 +1019,7 @@ MonoBehaviour:
   stageInfoWave: {fileID: 2076548903}
   stageInfoHealth: {fileID: 599679880}
   stageInfoGold: {fileID: 1069710127}
-  storyTxt: {fileID: 0}
+  storyTxt: {fileID: 1435237977}
   warningTxt: {fileID: 815921033}
   testTxt: {fileID: 79052686}
   arrowPoint:

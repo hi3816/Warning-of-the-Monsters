@@ -73,7 +73,6 @@ public class StagePopup : UIBase
         UIManager.Instance.OnClickListSlot = SelectListSlot;
 
         SetMonsterScroll();
-        SetStageInfo(_stageIdx);
         SelectSlotWithArrow(_crrSlotIdx);
 
         ShowSelectMonster();
@@ -82,6 +81,8 @@ public class StagePopup : UIBase
     public void SetStageIdx(int Idx)
     {
         _stageIdx = Idx;
+        SetStageInfo(_stageIdx);
+        SetStageStory(_stageIdx);
     }
 
     private void LoadGameScene()
@@ -217,12 +218,30 @@ public class StagePopup : UIBase
         stageInfoHealth.text = $"{stageSO.health}";
         stageInfoGold.text = $"{stageSO.gold}";
     }
+
     private void ShowStory()
     {
         HideSelectedDisplay(_currentDisplay);
         displayStory.SetActive(true);
         _currentDisplay = Display.Story;
         selectTitle.text = "STORY";
+    }
+
+    private void SetStageStory(int idx)
+    {
+        //수정필요함
+        string stage1Story = $"괴물과 인간은 \r\n두려움 속에 공존하며 \r\n서로를 피하며 살아간다. \r\n\r\n어느 날, \r\n호기심 많은 몬스터 친구들은 \r\n인간 마을 근처로 놀러 갔다가 \r\n인간과 마주치게 된다. \r\n\r\n겁에 질린 주민은 마을로 돌아가\r\n 자신이 본 일을 이야기한다. \r\n\r\n이 소식에 마을 사람들은 \r\n몬스터 토벌대를 꾸려 숲으로 향하게 된다. \r\n\r\n몬스터들은 자신들의 터전을 지키기 위해 \r\n맞서 싸우고자 하지만, \r\n\r\n인간을 해치고 싶지 않은 그들은 \r\n놀라게 해서 인간을 내쫓기로 결정한다.";
+        string stage2Story = $"준비중입니다. \r\n\r\n\r\n";
+
+        if (idx == 0)
+        {
+            storyTxt.text = stage1Story;
+        }
+        else 
+        {
+            storyTxt.text = stage2Story;
+        }
+        
     }
 
     private void HideSelectedDisplay(Display display)
