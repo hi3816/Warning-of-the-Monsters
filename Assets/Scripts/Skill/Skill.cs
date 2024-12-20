@@ -74,12 +74,20 @@ public class Skill : MonoBehaviour
                 skillCollider.enabled = false;
                 spriteRenderer.enabled = false;
                 HumanController humanController = humanObj.GetComponent<HumanController>();
-                agentOriginSpeed = humanController.Agent.speed;
-                humanObj.GetComponent<Human>().IncreaseFear(SkillSO.power);
-                humanController.Agent.speed = ((100 - SkillSO.percentage) / 100f);
+                CheckSkillName(humanObj, humanController);
                 if (debuffCoroutine != null) StopCoroutine(debuffCoroutine);
                 StartCoroutine(CoEndDebuffSkill());
                 break;
+        }
+    }
+
+    private void CheckSkillName(GameObject humanObj, HumanController humanController)
+    {
+        if (SkillSO.skillName == SkillName.FrozenGround)
+        {
+            agentOriginSpeed = humanController.Agent.speed;
+            humanObj.GetComponent<Human>().IncreaseFear(SkillSO.power);
+            humanController.Agent.speed *= ((100 - SkillSO.percentage) / 100f);
         }
     }
 
@@ -92,7 +100,6 @@ public class Skill : MonoBehaviour
         {
             PoolManager.Instance.ReturnToPool(SkillSO.skillName.ToString(), gameObject);
             humanList.Clear();
-            gameObject.SetActive(false);
         }
         else
         {
@@ -110,20 +117,15 @@ public class Skill : MonoBehaviour
     {
         yield return effectDurationTime;
 
-        if (agentOriginSpeed > 0f)
+        foreach (GameObject obj in humanList)
         {
-            foreach (GameObject obj in humanList)
-            {
-                UnityEngine.AI.NavMeshAgent agent = obj.GetComponent<HumanController>().Agent;
-                agent.speed = agentOriginSpeed;
-                Debug.Log($"EndDebuffSkill agent.speed {agent.speed}");
-            }
+            UnityEngine.AI.NavMeshAgent agent = obj.GetComponent<HumanController>().Agent;
+            agent.speed = agentOriginSpeed;
         }
 
         spriteRenderer.enabled = true;
         skillCollider.enabled = true;
-        PoolManager.Instance.ReturnToPool(SkillSO.skillName.ToString(), gameObject);
-        gameObject.SetActive(false);
         humanList.Clear();
+        PoolManager.Instance.ReturnToPool(SkillSO.skillName.ToString(), gameObject);
     }
 }
