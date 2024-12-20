@@ -12,7 +12,7 @@ public class EvolutionStatUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI cooldownText;
     [SerializeField] private TextMeshProUGUI rangeText;
 
-    public void Show(Evolution_Data evolution)
+    public void Show(EvolutionSO evolution)
     {
         SetText(evolution);
         gameObject.SetActive(true);
@@ -23,7 +23,7 @@ public class EvolutionStatUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void SetText(Evolution_Data evolutionData)
+    private void SetText(EvolutionSO evolutionData)
     {
         fatigueText.text = evolutionData.fatigue.ToString();
         minFearInflictedText.text = evolutionData.minFearInflicted.ToString();

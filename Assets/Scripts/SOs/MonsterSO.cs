@@ -34,3 +34,18 @@ public class SummonSO : ScriptableObject
     public List<string> evolutionMinionTagList;
     public List<int> eovlutionMinionCountList;
 }
+
+public class EvolutionSO : ScriptableObject
+{
+    public float evolutionId;
+    public int upgradeLevel;
+    public EvolutionType evolutionType;
+    public MonsterType monsterType;
+    public float fatigue;
+    public float minFearInflicted;
+    public float maxFearInflicted;
+    public float cooldown;
+    public float humanDetectRange;
+    public float humanScaringRange;
+    public int requiredCoins;
+}
