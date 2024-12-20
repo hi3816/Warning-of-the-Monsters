@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3956968898117708964}
   - component: {fileID: 2108668514673755449}
+  - component: {fileID: 4507285647040115351}
   m_Layer: 5
   m_Name: MonsterEvolutionUI
   m_TagString: Untagged
@@ -57,7 +58,25 @@ MonoBehaviour:
   evolutionStatUI: {fileID: 6665979201856216714}
   typeACheck: {fileID: 1209620044841311427}
   typeBCheck: {fileID: 7481771095058801391}
+--- !u!114 &4507285647040115351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57806717488258648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6405c8cf44ddbe748a8095309c57a773, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   poolConfigs:
+  - tag: Hellhound
+    prefab: {fileID: 4266746992223387529, guid: e8ea6fa14dcad71468d1b0d1bc157bec, type: 3}
+    size: 12
+  - tag: Demon
+    prefab: {fileID: 7674980571249262148, guid: 7685c4643fb174fd587dafc1460f6be2, type: 3}
+    size: 12
   - tag: BlackDragon
     prefab: {fileID: 6895627808813204426, guid: 83e47b934ad47894aade0d785472f527, type: 3}
     size: 12
@@ -69,12 +88,6 @@ MonoBehaviour:
     size: 12
   - tag: Orc
     prefab: {fileID: 6771188085191904317, guid: 7dac8b9017283f04b97e76b83340bf64, type: 3}
-    size: 12
-  - tag: Hellhound
-    prefab: {fileID: 4266746992223387529, guid: e8ea6fa14dcad71468d1b0d1bc157bec, type: 3}
-    size: 12
-  - tag: Demon
-    prefab: {fileID: 7674980571249262148, guid: 7685c4643fb174fd587dafc1460f6be2, type: 3}
     size: 12
   summonerMonsters: []
   evolutionMonsterList: []
@@ -1498,7 +1511,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1676671374761223079
 RectTransform:
   m_ObjectHideFlags: 0
