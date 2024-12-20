@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,9 @@ public class MonsterEvolutionUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI[] requiredCoins;
     [SerializeField] private Button typeButtonA;
     [SerializeField] private Button typeButtonB;
+    [SerializeField] private EvolutionStatUI evolutionStatUI;
+    [SerializeField] private GameObject typeACheck;
+    [SerializeField] private GameObject typeBCheck;
 
     [System.Serializable]
     public class SummonerSpritePair
@@ -29,6 +33,7 @@ public class MonsterEvolutionUI : MonoBehaviour
     private Dictionary<int, int[]> evolutionResuiredCoinsDict = new Dictionary<int, int[]>();
 
     private Monster selectMonster; // 현재 클릭한 몬스터
+    private EvolutionType clickEvolutionType;
 
     private void Awake()
     {
@@ -36,6 +41,8 @@ public class MonsterEvolutionUI : MonoBehaviour
         SetSprite(summonerMonsters);
         typeButtonA.onClick.AddListener(() => MonsterEvolution(EvolutionType.Atype));
         typeButtonB.onClick.AddListener(() => MonsterEvolution(EvolutionType.Btype));
+        typeButtonA.onClick.AddListener(() => MonsterEvolutionStat(EvolutionType.Atype));
+        typeButtonB.onClick.AddListener(() => MonsterEvolutionStat(EvolutionType.Btype));
     }
 
     private void Start()
@@ -154,6 +161,9 @@ public class MonsterEvolutionUI : MonoBehaviour
     public void Hide()
     {
         evolutionUI.SetActive(false);
+        evolutionStatUI.Hide();
+        typeACheck.SetActive(false);
+        typeBCheck.SetActive(false);
     }
 
     private void ResetEvolutionPanel()
@@ -223,16 +233,31 @@ public class MonsterEvolutionUI : MonoBehaviour
         else return Color.gray;
     }
 
-    // 진화 전 몬스터 설명 띄우기
-    private void DescriptionMonsterEvolution(EvolutionType evolutionType)
+    private void MonsterEvolutionStat(EvolutionType evolutionType)
     {
-        MonsterEvolution(evolutionType);
+        Debug.Log("MonsterEvolutionStat");
+        var evolution = MonsterDataManager.Instance.GetEvolutionData(selectMonster.data.id, selectMonster.data.currentLevel + 1, evolutionType);
+        if (evolutionType == EvolutionType.Atype)
+        {
+            typeACheck.SetActive(true);
+            typeBCheck.SetActive(false);
+            evolutionStatUI.Show(evolution);
+        }
+        else
+        {
+            typeBCheck.SetActive(true);
+            typeACheck.SetActive(false);
+            evolutionStatUI.Show(evolution);
+        }
+        clickEvolutionType = evolutionType;
     }
-
     // 진화 (프리팹 변경)
     private void MonsterEvolution(EvolutionType evolutionType)
     {
         if (selectMonster == null) return;
+        if (clickEvolutionType != evolutionType) return;
+        if (!typeACheck.activeSelf && !typeBCheck.activeSelf) return;
+
         var evolution = MonsterDataManager.Instance.GetEvolutionData(selectMonster.data.id, selectMonster.data.currentLevel + 1, evolutionType);
         if (evolution != null && StageManager.Instance.CurrGold >= evolution.requiredCoins)
         {
@@ -248,7 +273,8 @@ public class MonsterEvolutionUI : MonoBehaviour
             
             // SO로 변경되면 추가하기
             //monster.SetMonsterDataToMonsterData(GetMonsterEvolutionData(evolutionType).data);
-            evolutionUI.gameObject.SetActive(false);
+            evolutionUI.SetActive(false);
+            evolutionStatUI.Hide();
         }
     }
 
