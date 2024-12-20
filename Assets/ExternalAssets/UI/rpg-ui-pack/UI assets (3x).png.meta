@@ -282,6 +282,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: UI assets (3x)_8
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 1458
+        width: 24
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc72d507881ec904580be71c5fb72c5c
+      internalID: 261387507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -300,6 +321,8 @@ TextureImporter:
       UI assets (3x)_4: 1132338857
       UI assets (3x)_5: 934536697
       UI assets (3x)_6: 1205855655
+      UI assets (3x)_7: -1983175825
+      UI assets (3x)_8: 261387507
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
