@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 48
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -134,7 +134,427 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Ogre_attack_NOhitbox_0
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 414
+        width: 62
+        height: 54
+      alignment: 9
+      pivot: {x: 0.58064514, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcbbbff19d81b8b40b8856db6b5517c5
+      internalID: 449838432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ogre_attack_NOhitbox_1
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 406
+        width: 46
+        height: 54
+      alignment: 9
+      pivot: {x: 0.4347826, y: 0.6111111}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e43675ae7275d5e4782ef973cf8f8f65
+      internalID: 153205806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ogre_attack_NOhitbox_2
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 406
+        width: 46
+        height: 54
+      alignment: 9
+      pivot: {x: 0.4347826, y: 0.6111111}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4eb370d7ada28f142a19cd6a26faa9a6
+      internalID: -163996122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ogre_attack_NOhitbox_3
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 406
+        width: 46
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 058d0d987426a614a8f107fcfe6e6cfd
+      internalID: -1741720702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ogre_attack_NOhitbox_4
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 406
+        width: 46
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 761306f71b56cf244b5676a8f696d663
+      internalID: 1736677841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ogre_attack_NOhitbox_5
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 286
+        width: 58
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcc35128403666b45916fa46baad76ee
+      internalID: -534847651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ogre_attack_NOhitbox_6
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 286
+        width: 58
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd1f200b92bcddc4095690ff8d639283
+      internalID: -1645869800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ogre_attack_NOhitbox_7
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 286
+        width: 58
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5862069, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f63c830da6d6fb94fa8327bb76627249
+      internalID: -1066420299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ogre_attack_NOhitbox_8
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 286
+        width: 58
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5862069, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 909577a197cb48b40845f24f79a97d5c
+      internalID: 1202563707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ogre_attack_NOhitbox_9
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 288
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.46666667}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5e52eacf10d02c40a81848f8491bacb
+      internalID: -1691987522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ogre_attack_NOhitbox_10
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 160
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0.46666667}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fe4f47428f52eb4eab21bd1e62289e7
+      internalID: 1133426234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ogre_attack_NOhitbox_11
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 158
+        width: 58
+        height: 60
+      alignment: 9
+      pivot: {x: 0.41379312, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16a72fbc324296f4b9b6517893a3834b
+      internalID: -1514830288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ogre_attack_NOhitbox_12
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 158
+        width: 58
+        height: 60
+      alignment: 9
+      pivot: {x: 0.41379312, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53ebe1d6444afe84d8573af18a1ce5eb
+      internalID: -1691399324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ogre_attack_NOhitbox_13
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 158
+        width: 58
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de1639455bdd3764a915db2c07f45af4
+      internalID: -587683602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ogre_attack_NOhitbox_14
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 158
+        width: 58
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 914198058db8a854db3560526fa4a5c8
+      internalID: 1830887810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ogre_attack_NOhitbox_15
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 32
+        width: 62
+        height: 52
+      alignment: 9
+      pivot: {x: 0.48387095, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46d73e38733a7f748a05b2b47b412164
+      internalID: -1375913196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ogre_attack_NOhitbox_16
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 32
+        width: 62
+        height: 52
+      alignment: 9
+      pivot: {x: 0.48387095, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fce7967fd3e997342b3a75a97142fa67
+      internalID: -1343408237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ogre_attack_NOhitbox_17
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 32
+        width: 62
+        height: 52
+      alignment: 9
+      pivot: {x: 0.48387095, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2af1df750d4be8b469a540d9baf565ef
+      internalID: 641457743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ogre_attack_NOhitbox_18
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 32
+        width: 62
+        height: 52
+      alignment: 9
+      pivot: {x: 0.48387095, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d34bce1262260af4d96c83bd743cfe20
+      internalID: -609828719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ogre_attack_NOhitbox_19
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 32
+        width: 62
+        height: 52
+      alignment: 9
+      pivot: {x: 0.41935483, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4966b0d79feb496419358b2ddc41233f
+      internalID: -1852350363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +565,27 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Ogre_attack_NOhitbox_0: 449838432
+      Ogre_attack_NOhitbox_1: 153205806
+      Ogre_attack_NOhitbox_10: 1133426234
+      Ogre_attack_NOhitbox_11: -1514830288
+      Ogre_attack_NOhitbox_12: -1691399324
+      Ogre_attack_NOhitbox_13: -587683602
+      Ogre_attack_NOhitbox_14: 1830887810
+      Ogre_attack_NOhitbox_15: -1375913196
+      Ogre_attack_NOhitbox_16: -1343408237
+      Ogre_attack_NOhitbox_17: 641457743
+      Ogre_attack_NOhitbox_18: -609828719
+      Ogre_attack_NOhitbox_19: -1852350363
+      Ogre_attack_NOhitbox_2: -163996122
+      Ogre_attack_NOhitbox_3: -1741720702
+      Ogre_attack_NOhitbox_4: 1736677841
+      Ogre_attack_NOhitbox_5: -534847651
+      Ogre_attack_NOhitbox_6: -1645869800
+      Ogre_attack_NOhitbox_7: -1066420299
+      Ogre_attack_NOhitbox_8: 1202563707
+      Ogre_attack_NOhitbox_9: -1691987522
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
