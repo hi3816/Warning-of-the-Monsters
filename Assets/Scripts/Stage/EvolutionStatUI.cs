@@ -1,8 +1,5 @@
 using Monster_Data;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Search;
 using UnityEngine;
 
 public class EvolutionStatUI : MonoBehaviour

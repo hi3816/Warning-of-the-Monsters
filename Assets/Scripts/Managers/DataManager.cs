@@ -55,6 +55,7 @@ public class DataManager : SingletonBase<DataManager>
             stageSOs[i].gold = stageDataList[i].gold;
             stageSOs[i].waveStartDelay = stageDataList[i].waveStartDelay;
             stageSOs[i].interWaveDelay = stageDataList[i].interWaveDelay;
+            stageSOs[i].story = stageDataList[i].story;
         }
 
         return stageSOs;
