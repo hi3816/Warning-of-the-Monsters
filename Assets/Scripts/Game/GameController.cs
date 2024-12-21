@@ -13,6 +13,8 @@ public class GameController : MonoBehaviour
     
     private void GameClear()
     {
+        StageManager.Instance.CaculateStars();  // 플레이 정보로 별 계산
+        StageManager.Instance.SavePlayData();  // 스테이지 플레이 정보 저장
         StartCoroutine(EndGameProcess<WinPopup>());
         //EndGame<WinPopup>();
     }

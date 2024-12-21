@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics.Tracing;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class StageManager : SingletonBase<StageManager>
 {
@@ -17,6 +18,7 @@ public class StageManager : SingletonBase<StageManager>
     public int CurrWave { get; private set; } // 현재 웨이브
     public int CurrHealth { get; private set; } // 현재 체력
     public float CurrGold { get; private set; } // 현재 골드
+    public int StarsCount { get; private set; }
 
     [Header("Stage")]
 
@@ -57,6 +59,7 @@ public class StageManager : SingletonBase<StageManager>
         CurrWave = 0;
         CurrHealth = stageSO.health;
         CurrGold = stageSO.gold;
+        StarsCount = 0;
         stageInfoController = stageInfo.GetComponent<StageInfoController>();
         stageInfoController.ChangeUI();
     }
@@ -127,5 +130,26 @@ public class StageManager : SingletonBase<StageManager>
     public void ClickEndWaveBtn()
     {
         startBattleBtnController.EndWave();
+    }
+
+    public void CaculateStars()
+    {
+        if (CurrHealth >= 20)
+        {
+            StarsCount = 3;
+        }
+        else if (CurrHealth > 10 && CurrHealth <= 20)
+        {
+            StarsCount = 2;
+        }
+        else if (CurrHealth <= 10)
+        {
+            StarsCount = 1;
+        }
+    }
+    
+    public void SavePlayData()
+    {
+        SaveManager.Instance.UpdatePlayInfo(stageIdx, StarsCount, true);
     }
 }
