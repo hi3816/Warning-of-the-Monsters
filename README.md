@@ -103,7 +103,7 @@
 [WireFrame](https://www.figma.com/board/7LOSL81sfmvUHM4C1jvtXd/Warning-of-the-Monsters?node-id=0-1&t=t2NWAwBbt9yvN3Az-1)
 
 
-[영상](영상주소 여기 입력)
+[영상](https://www.youtube.com/watch?v=wkVYaj1-DvI)
 
 
 [PPT](https://www.canva.com/design/DAGZp-QqHt4/loBiX0Y-AB2eG3iUiLbWnA/view?utm_content=DAGZp-QqHt4&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h05bb2e85b5)
