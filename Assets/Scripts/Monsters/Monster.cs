@@ -1,3 +1,4 @@
+using Monster_Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -136,11 +137,12 @@ public abstract class Monster : MonoBehaviour
         data.requiredCoins = upgradeData.requiredCoins;
     }
 
-    public void Evolution(Monster_Data.Evolution_Data evolutionData)
+    public void Evolution(EvolutionSO evolutionData)
     {
-        data.monsterId = evolutionData.evolution_id;
-        data.currentLevel = evolutionData.upgrade_level;
+        data.monsterId = evolutionData.evolutionId;
+        data.currentLevel = evolutionData.upgradeLevel;
         data.poolTag = evolutionData.name;
+        data.currentFatigue = 0f;
         data.fatigue = evolutionData.fatigue;
         data.minFearInflicted = evolutionData.minFearInflicted;
         data.maxFearInflicted = evolutionData.maxFearInflicted;
