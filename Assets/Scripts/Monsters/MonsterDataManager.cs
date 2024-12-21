@@ -9,7 +9,8 @@ public class MonsterDataManager : MonoBehaviour
     private MonsterSO[] baseMonsterSOs;
     private MonsterSO[] minionSOs;
     private SummonSO[] summonSOs;
-    private Dictionary<float, SummonSO> summonDataDict; 
+    private Dictionary<float, SummonSO> summonDataDict;
+    private EvolutionSO[] evolutionSOs;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class MonsterDataManager : MonoBehaviour
         SetBaseMonsterSOs();
         SetMinionData();
         SetSummonDataDict();
+        SetEvolutionSos();
     }
 
     private void SetBaseMonsterSOs()
@@ -101,6 +103,29 @@ public class MonsterDataManager : MonoBehaviour
         summonSOs = summonSOList.ToArray();
     }
 
+    public void SetEvolutionSos()
+    {
+        List<Evolution_Data> evolutionDataList = Evolution_Data.GetList();
+
+        List<EvolutionSO> evolutionSOList = new List<EvolutionSO>();
+        foreach (Evolution_Data data in evolutionDataList)
+        {
+            EvolutionSO evolutionSO = ScriptableObject.CreateInstance<EvolutionSO>(); // 인스턴스 생성
+            evolutionSO.evolutionId = data.evolution_id;
+            evolutionSO.upgradeLevel = data.upgrade_level;
+            evolutionSO.evolutionType = data.EvolutionType;
+            evolutionSO.monsterType = data.MonsterType;
+            evolutionSO.fatigue = data.fatigue;
+            evolutionSO.minFearInflicted = data.minFearInflicted;
+            evolutionSO.maxFearInflicted = data.maxFearInflicted;
+            evolutionSO.cooldown = data.cooldown;
+            evolutionSO.humanScaringRange = data.humanScaringRange;
+            evolutionSO.requiredCoins = data.requiredCoins;
+            evolutionSOList.Add(evolutionSO);
+        }
+        evolutionSOs = evolutionSOList.ToArray();
+    }
+
     public MonsterSO[] GetBaseMonsterSOs()
     {
         return baseMonsterSOs;
@@ -137,13 +162,12 @@ public class MonsterDataManager : MonoBehaviour
     }
 
     // 진화 데이터 확인 (EvolutionType 상관 없을 때)
-    public Monster_Data.Evolution_Data GetEvolutionData(int monsterId, int upgradeLevel)
+    public EvolutionSO GetEvolutionSO(int monsterId, int upgradeLevel)
     {
-        var evolutions = Monster_Data.Evolution_Data.GetList();
-        foreach (var evolution in evolutions)
+        foreach (var evolution in evolutionSOs)
         {
-            int baseEvolutionId = Mathf.FloorToInt(evolution.evolution_id); // base id (1, 2, etc.)
-            int level = evolution.upgrade_level;
+            int baseEvolutionId = Mathf.FloorToInt(evolution.evolutionId); // base id (1, 2, etc.)
+            int level = evolution.upgradeLevel;
             if (baseEvolutionId == monsterId && level == upgradeLevel)
             {
                 return evolution;
@@ -153,14 +177,13 @@ public class MonsterDataManager : MonoBehaviour
     }
 
     // 진화 데이터 확인 (EvolutionType 있을 때) -> 진화 버튼 클릭 시 확인용
-    public Monster_Data.Evolution_Data GetEvolutionData(int monsterId, int upgradeLevel, EvolutionType evolutionType)
+    public EvolutionSO GetEvolutionData(int monsterId, int upgradeLevel, EvolutionType evolutionType)
     {
-        var evolutions = Monster_Data.Evolution_Data.GetList();
-        foreach (var evolution in evolutions)
+        foreach (var evolution in evolutionSOs)
         {
-            int baseEvolutionId = Mathf.FloorToInt(evolution.evolution_id); // base id (1, 2, etc.)
-            int level = evolution.upgrade_level;
-            EvolutionType type = evolution.EvolutionType;
+            int baseEvolutionId = Mathf.FloorToInt(evolution.evolutionId); // base id (1, 2, etc.)
+            int level = evolution.upgradeLevel;
+            EvolutionType type = evolution.evolutionType;
             if (baseEvolutionId == monsterId && level == upgradeLevel && type == evolutionType)
             {
                 return evolution;

@@ -1,3 +1,4 @@
+using Monster_Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -64,7 +65,7 @@ public abstract class Monster : MonoBehaviour
     
     private void OnEnable()
     {
-        // 게임 종료 이벤트 발생하면 풀로 바로 반환
+        // 게임 종료(Next Stage, Exit) 및 재시작(Retry) 버튼 클릭하면 풀로 바로 반환
         ReturnToPoolBtn.OnGameEnd -= () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
         ReturnToPoolBtn.OnGameEnd += () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
         fatigueGauge.SetActive(true);
@@ -136,11 +137,12 @@ public abstract class Monster : MonoBehaviour
         data.requiredCoins = upgradeData.requiredCoins;
     }
 
-    public void Evolution(Monster_Data.Evolution_Data evolutionData)
+    public void Evolution(EvolutionSO evolutionData)
     {
-        data.monsterId = evolutionData.evolution_id;
-        data.currentLevel = evolutionData.upgrade_level;
+        data.monsterId = evolutionData.evolutionId;
+        data.currentLevel = evolutionData.upgradeLevel;
         data.poolTag = evolutionData.name;
+        data.currentFatigue = 0f;
         data.fatigue = evolutionData.fatigue;
         data.minFearInflicted = evolutionData.minFearInflicted;
         data.maxFearInflicted = evolutionData.maxFearInflicted;
