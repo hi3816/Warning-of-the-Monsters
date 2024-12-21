@@ -36,14 +36,16 @@
 ```
 
 ## 팀소개
-<a href="https://github.com/ESe0l/Warning-of-the-Monsters/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=ESe0l/Warning-of-the-Monsters&refresh=true">
+
+<a href="https://github.com/ESe0l">
+  <img src="https://github.com/ESe0l&refresh=true">
+</a> | <a href="https://github.com/00ovo00">
+  <img src="https://github.com/00ovo00&refresh=true">
+</a> | <a href="https://github.com/simple2126">
+  <img src="https://github.com/simple2126&refresh=true">
+</a> | <a href="https://github.com/hi3816">
+  <img src="https://github.com/hi3816&refresh=true">
 </a>
-
-
-박은설: kongpark2019@gmail.com | 한승희: 6whiteowl6@gmail.com
-
-김찬우: kimcw212@gmail.com | 이지혜: wlgp2534@naver.com
 
 ## 개발기간
 2024.11.25 - 진행 중
