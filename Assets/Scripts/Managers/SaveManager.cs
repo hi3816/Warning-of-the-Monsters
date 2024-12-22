@@ -22,6 +22,13 @@ public class SaveManager : SingletonBase<SaveManager>
     private const string SaveFileName = "PlayInfoData.json";
 
     private GamePlayInfo _gamePlayInfo = new GamePlayInfo();
+
+    private void Awake()
+    {
+        base.Awake();
+        DontDestroyOnLoad(this);
+    }
+    
     private void Start()
     {
         LoadGameData();
@@ -78,6 +85,36 @@ public class SaveManager : SingletonBase<SaveManager>
                 info.StarsCount = starsCount;
             }
             SaveGameData();
+        }
+    }
+
+    public void GetStagePlayInfo(int stageIdx, out int starsCount, out bool isCleared)
+    {
+        StagePlayInfo info = _gamePlayInfo.PlayInfos.Find(x => x.StageIdx == stageIdx);
+        if (info != null)
+        {
+            starsCount = info.StarsCount;
+            isCleared = info.IsCleared;
+        }
+        else
+        {
+            Debug.LogAssertion("Stage Play Info Not Found");
+            starsCount = 0;
+            isCleared = false;
+        }
+    }
+    
+    public void GetStagePlayInfo(int stageIdx, out bool isCleared)
+    {
+        StagePlayInfo info = _gamePlayInfo.PlayInfos.Find(x => x.StageIdx == stageIdx);
+        if (info != null)
+        {
+            isCleared = info.IsCleared;
+        }
+        else
+        {
+            Debug.LogAssertion("Stage Play Info Not Found");
+            isCleared = false;
         }
     }
 }
