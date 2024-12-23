@@ -109,7 +109,7 @@ public class StageManager : SingletonBase<StageManager>
         if (CurrHealth <= 0)
         {
             CurrHealth = 0;            
-            OnGameOver?.Invoke();
+            GameManager.Instance.GameOver();
         }
     }
 

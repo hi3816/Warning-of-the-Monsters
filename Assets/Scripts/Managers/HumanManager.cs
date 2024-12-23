@@ -40,6 +40,6 @@ public class HumanManager : SingletonBase<HumanManager>
         }
         
         if (CountPerWave.Count == 0 && isLastWave)  // 딕셔너리에 값이 없고(모든 인간 처치) 마지막 웨이브면
-            OnGameClear?.Invoke();  // 게임 클리어 이벤트 실행
+            GameManager.Instance.GameClear();
     }
 }
