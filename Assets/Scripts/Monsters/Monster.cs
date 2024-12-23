@@ -65,7 +65,7 @@ public abstract class Monster : MonoBehaviour
     
     private void OnEnable()
     {
-        // 게임 종료(Next Stage, Exit) 및 재시작(Retry) 버튼 클릭하면 풀로 바로 반환
+        // Retry 또는 Next Stage 버튼 클릭하면 풀로 바로 반환
         ReturnToPoolBtn.OnGameEnd -= () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
         ReturnToPoolBtn.OnGameEnd += () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
         fatigueGauge.SetActive(true);

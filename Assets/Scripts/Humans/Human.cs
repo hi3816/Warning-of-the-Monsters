@@ -38,7 +38,7 @@ public class Human : MonoBehaviour
         FearLevel = 0;
         isReturning = false;   // 반환하고 있지 않은 상태로 전환
         
-        // 게임 종료(Next Stage, Exit) 및 재시작(Retry) 버튼 클릭하면 풀로 바로 반환
+        // Retry 또는 Next Stage 버튼 클릭하면 풀로 바로 반환
         ReturnToPoolBtn.OnGameEnd -= () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
         ReturnToPoolBtn.OnGameEnd += () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
     }

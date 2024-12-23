@@ -68,8 +68,6 @@ public class OptionPanelController : MonoBehaviour
     // Retry 버튼 클릭
     public void ClickRetryButton()
     {
-        // HumanManager.Instance.OnGameClear();
-        // StageManager.Instance.OnGameOver();
         gameObject.SetActive(false);
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainScene");
