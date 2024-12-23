@@ -1,12 +1,11 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ReturnToPoolBtn : MonoBehaviour
 {
-    public static Action OnGameEnd;
-
     public void OnReturnBtnClicked()
     {
-        OnGameEnd?.Invoke();
+        GameManager.Instance.ReturnObjects();
     }
 }

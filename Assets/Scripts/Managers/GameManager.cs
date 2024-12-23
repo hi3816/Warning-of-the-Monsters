@@ -1,8 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : SingletonBase<GameManager>
 {
+    public List<GameObject> activeObjects = new List<GameObject>();
+    
     protected override void Awake()
     {
         base.Awake();
@@ -42,4 +45,13 @@ public class GameManager : SingletonBase<GameManager>
     //     Time.timeScale = 0;
     //     UIManager.Instance.Show<T>("UI/UIPopup/");
     // }
+
+    public void ReturnObjects()
+    {
+        while (activeObjects.Count > 0)
+        {
+            string objectName = activeObjects[0].name;
+            PoolManager.Instance.ReturnToPool(objectName, activeObjects[0]);
+        }
+    }
 }

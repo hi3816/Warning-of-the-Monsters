@@ -23,7 +23,7 @@ public class SaveManager : SingletonBase<SaveManager>
 
     private GamePlayInfo _gamePlayInfo = new GamePlayInfo();
 
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();
         DontDestroyOnLoad(this);
