@@ -1,11 +1,10 @@
-using GoogleSheet.Type;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Skill : MonoBehaviour
 {
-    public SkillSO SkillSO { get; private set; } 
+    public SkillSO SkillSO { get; private set; }
     private Animator animator;
     private WaitForSeconds animationTime;
     private Coroutine attackCoroutine;
@@ -13,7 +12,7 @@ public class Skill : MonoBehaviour
     private WaitForSeconds effectDurationTime;
     private CircleCollider2D skillCollider;
     private SpriteRenderer spriteRenderer;
-    [SerializeField] int skillIdx;
+    [SerializeField] private int skillIdx;
 
     // human 확인 리스트
     private List<GameObject> humanList = new List<GameObject>();
@@ -32,7 +31,7 @@ public class Skill : MonoBehaviour
         animator = GetComponent<Animator>();
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         animationTime = new WaitForSeconds(stateInfo.length);
-        
+
         // 스킬 범위와 renderer 사이즈 동기화
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.size = new Vector2(SkillSO.range, SkillSO.range);
@@ -71,8 +70,8 @@ public class Skill : MonoBehaviour
                 break;
             
             case SkillType.Debuff:
-                skillCollider.enabled = false;
-                spriteRenderer.enabled = false;
+                if (attackCoroutine != null) StopCoroutine(attackCoroutine);
+                attackCoroutine = StartCoroutine(CoEndSkillEffect());
                 HumanController humanController = humanObj.GetComponent<HumanController>();
                 CheckSkillName(humanObj, humanController);
                 if (debuffCoroutine != null) StopCoroutine(debuffCoroutine);
