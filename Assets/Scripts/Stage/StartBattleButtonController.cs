@@ -4,42 +4,42 @@ using UnityEngine.UI;
 
 public class StartBattleButtonController : MonoBehaviour
 {
-    [SerializeField] private Image timeCircleImage;
-    [SerializeField] private HumanSpawner humanSpawner;
+    [SerializeField] private Image _timeCircleImage;
+    [SerializeField] private HumanSpawner _humanSpawner;
 
-    private bool isWaveStart = true; // 웨이브가 시작했는지 확인
-    private float waveStartDelay; // 현재 웨이브 시작하기 전 지연 시간
-    private float currWaveStartDelayTime; // 현재 웨이브 지연 시간 설정
-    private float interWaveDelay; // 웨이브 간 지연 시간
+    private bool _isWaveStart = true; // 웨이브가 시작했는지 확인
+    private float _waveStartDelay; // 현재 웨이브 시작하기 전 지연 시간
+    private float _currWaveStartDelayTime; // 현재 웨이브 지연 시간 설정
+    private float _interWaveDelay; // 웨이브 간 지연 시간
 
-    private Coroutine coroutine; // 웨이브간 지연 시간 계산 코루틴
-    private WaitForSeconds coroutineInterSeconds; // 웨이브간 지연 시간 캐싱 필드
+    private Coroutine interWaveCoroutine; // 웨이브간 지연 시간 계산 코루틴
+    private WaitForSeconds _coroutineInterSeconds; // 웨이브간 지연 시간 캐싱 필드
 
-    [SerializeField] private Button button;
-    [SerializeField] private Image[] images;
+    [SerializeField] private Button _button;
+    [SerializeField] private Image[] _images;
 
     private void Awake()
     {
-        waveStartDelay = StageManager.Instance.stageSO.waveStartDelay;
-        currWaveStartDelayTime = 0f;
-        interWaveDelay = StageManager.Instance.stageSO.interWaveDelay;
-        coroutineInterSeconds = new WaitForSeconds(interWaveDelay);
+        _waveStartDelay = StageManager.Instance.StageSO.waveStartDelay;
+        _currWaveStartDelayTime = 0f;
+        _interWaveDelay = StageManager.Instance.StageSO.interWaveDelay;
+        _coroutineInterSeconds = new WaitForSeconds(_interWaveDelay);
         
-        button = GetComponent<Button>();
-        images = GetComponentsInChildren<Image>();
+        _button = GetComponent<Button>();
+        _images = GetComponentsInChildren<Image>();
         
-        if (humanSpawner == null)
-            humanSpawner = FindObjectOfType<HumanSpawner>();
+        if (_humanSpawner == null)
+            _humanSpawner = FindObjectOfType<HumanSpawner>();
     }
 
     private void Update()
     {
-        if (!isWaveStart)
+        if (!_isWaveStart)
         {
-            currWaveStartDelayTime += Time.deltaTime;
+            _currWaveStartDelayTime += Time.deltaTime;
             ChangeStartBattleBtn();
 
-            if(currWaveStartDelayTime >= waveStartDelay)
+            if(_currWaveStartDelayTime >= _waveStartDelay)
             {
                 StartWave();
             }
@@ -51,26 +51,26 @@ public class StartBattleButtonController : MonoBehaviour
     {
         if (HumanManager.Instance.isLastWave) return;
         
-        isWaveStart = true;
-        currWaveStartDelayTime = 0f;
-        timeCircleImage.fillAmount = 0f;
+        _isWaveStart = true;
+        _currWaveStartDelayTime = 0f;
+        _timeCircleImage.fillAmount = 0f;
         ButtonDisable();
 
         if (!CheckClear())
         {
-            if (coroutine != null) StopCoroutine(coroutine);
-            coroutine = StartCoroutine(CoInterWaveDelay());
+            if (interWaveCoroutine != null) StopCoroutine(interWaveCoroutine);
+            interWaveCoroutine = StartCoroutine(CoInterWaveDelay());
             StageManager.Instance.UpdateWave();
         }
         
-        humanSpawner.StartSpawningHumans(StageManager.Instance.CurrWave );
+        _humanSpawner.StartSpawningHumans(StageManager.Instance.CurrWave );
     }
 
     // 다음 웨이브 시간 계산
     private IEnumerator CoInterWaveDelay()
     {
-        yield return coroutineInterSeconds;
-        isWaveStart = false;
+        yield return _coroutineInterSeconds;
+        _isWaveStart = false;
         if (!HumanManager.Instance.isLastWave)
             ButtonEnable();
     }
@@ -78,17 +78,17 @@ public class StartBattleButtonController : MonoBehaviour
     // StartBattleBtn 이미지 변화
     private void ChangeStartBattleBtn()
     {
-        timeCircleImage.fillAmount = currWaveStartDelayTime / waveStartDelay;
+        _timeCircleImage.fillAmount = _currWaveStartDelayTime / _waveStartDelay;
     }
 
     // 웨이브가 끝났을 때
     public void EndWave()
     {
-        if (!CheckClear() && !button.enabled && !HumanManager.Instance.isLastWave)
+        if (!CheckClear() && !_button.enabled && !HumanManager.Instance.isLastWave)
         {
             ButtonEnable();
-            if(coroutine != null) StopCoroutine(coroutine);
-            isWaveStart = false;
+            if(interWaveCoroutine != null) StopCoroutine(interWaveCoroutine);
+            _isWaveStart = false;
         }   
     }
 
@@ -108,8 +108,8 @@ public class StartBattleButtonController : MonoBehaviour
 
     private void ButtonEnable()
     {
-        button.enabled = true;
-        foreach (Image image in images)
+        _button.enabled = true;
+        foreach (Image image in _images)
         {
             image.enabled = true;
         }
@@ -117,8 +117,8 @@ public class StartBattleButtonController : MonoBehaviour
 
     private void ButtonDisable()
     {
-        button.enabled = false;
-        foreach (Image image in images)
+        _button.enabled = false;
+        foreach (Image image in _images)
         {
             image.enabled = false;
         }

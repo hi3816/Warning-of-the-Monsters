@@ -32,7 +32,7 @@ public class HumanSpawner : MonoBehaviour
 
     private IEnumerator SpawnHumansCoroutine(int waveIdx)
     {
-        if (waveIdx-- == StageManager.Instance.totalWave)   // 현재 웨이브가 마지막 웨이브면
+        if (waveIdx-- == StageManager.Instance.TotalWave)   // 현재 웨이브가 마지막 웨이브면
             HumanManager.Instance.isLastWave = true;
         for (int i = 0; i < _waveData[waveIdx].HumanID.Count; i++)  // 현재 웨이브의 인간 종류만큼 반복
         {

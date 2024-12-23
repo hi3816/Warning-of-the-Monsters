@@ -5,17 +5,17 @@ using UnityEngine.UI;
 public class OptionPanelController : MonoBehaviour
 {
     [Header("ToggleButton")]
-    [SerializeField] private Image bgmImage;
-    [SerializeField] private Image sfxImage;
+    [SerializeField] private Image _bgmImage;
+    [SerializeField] private Image _sfxImage;
 
-    private float onAlpha = 255f / 255f;
-    private float offAlpha = 200f / 255f;
+    private float _onAlpha = 255f / 255f;
+    private float _offAlpha = 200f / 255f;
 
-    private SoundManager soundManager;
+    private SoundManager _soundManager;
 
     private void Awake()
     {
-        soundManager = SoundManager.Instance;
+        _soundManager = SoundManager.Instance;
         SetMusicButton();
     }
 
@@ -29,15 +29,15 @@ public class OptionPanelController : MonoBehaviour
     // BGM 버튼 클릭 (On / Off)
     public void ClickBgmButton()
     {
-        soundManager.ChangeIsPlayBGM();
+        _soundManager.ChangeIsPlayBGM();
 
-        if (soundManager.IsPlayBGM)
+        if (_soundManager.IsPlayBGM)
         {
-            soundManager.PlayBGM(BgmType.Stage);
+            _soundManager.PlayBGM(BgmType.Stage);
         }
         else
         {
-            soundManager.StopBGM();
+            _soundManager.StopBGM();
         }
         ChangeBgmImage();
     }
@@ -45,24 +45,24 @@ public class OptionPanelController : MonoBehaviour
     // BGM On Off 변경시 이미지 alpha 값 변경
     private void ChangeBgmImage()
     {
-        Color color = bgmImage.color;
-        color.a = soundManager.IsPlayBGM ? onAlpha : offAlpha;
-        bgmImage.color = color;
+        Color color = _bgmImage.color;
+        color.a = _soundManager.IsPlayBGM ? _onAlpha : _offAlpha;
+        _bgmImage.color = color;
     }
 
     // SFX 버튼 클릭 (On / Off)
     public void ClickSfxButton()
     {
-        soundManager.ChangeIsPlaySFX();
+        _soundManager.ChangeIsPlaySFX();
         ChangeSfxImage();
     }
 
     // SFX On Off 변경시 SFX 이미지 alpha 값 변경
     private void ChangeSfxImage()
     {
-        Color color = sfxImage.color;
-        color.a = soundManager.IsPlaySFX ? onAlpha : offAlpha;
-        sfxImage.color = color;
+        Color color = _sfxImage.color;
+        color.a = _soundManager.IsPlaySFX ? _onAlpha : _offAlpha;
+        _sfxImage.color = color;
     }
 
     // Retry 버튼 클릭

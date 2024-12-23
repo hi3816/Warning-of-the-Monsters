@@ -3,20 +3,20 @@ using UnityEngine;
 
 public class SfxSoundSource : MonoBehaviour
 {
-    private AudioSource audioSource;
-    private SfxType type;
+    private AudioSource _audioSource;
+    private SfxType _type;
 
     public void Play(AudioClip clip, SfxType sfxType, float soundEffectVolume, float soundEffectPitchVaricance)
     {
-        if (audioSource == null)
-            audioSource = GetComponent<AudioSource>();
+        if (_audioSource == null)
+            _audioSource = GetComponent<AudioSource>();
 
         CancelInvoke();
-        type = sfxType;
-        audioSource.clip = clip;
-        audioSource.volume = soundEffectVolume;
-        audioSource.pitch = 1f + Random.Range(-soundEffectPitchVaricance, soundEffectPitchVaricance); // 다양한 음향 효과
-        audioSource.PlayOneShot(clip);
+        _type = sfxType;
+        _audioSource.clip = clip;
+        _audioSource.volume = soundEffectVolume;
+        _audioSource.pitch = 1f + Random.Range(-soundEffectPitchVaricance, soundEffectPitchVaricance); // 다양한 음향 효과
+        _audioSource.PlayOneShot(clip);
 
         StartCoroutine(CoDisable(clip.length));
     }
@@ -26,6 +26,6 @@ public class SfxSoundSource : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(length);
         gameObject.SetActive(false);
-        PoolManager.Instance.ReturnToPool(type.ToString(), gameObject);
+        PoolManager.Instance.ReturnToPool(_type.ToString(), gameObject);
     }
 }

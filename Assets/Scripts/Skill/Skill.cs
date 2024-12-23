@@ -5,22 +5,22 @@ using UnityEngine;
 public class Skill : MonoBehaviour
 {
     public SkillSO SkillSO { get; private set; }
-    private Animator animator;
-    private WaitForSeconds animationTime;
-    private Coroutine attackCoroutine;
-    private Coroutine debuffCoroutine;
-    private WaitForSeconds effectDurationTime;
-    private CircleCollider2D skillCollider;
-    private SpriteRenderer spriteRenderer;
-    [SerializeField] private int skillIdx;
+    private Animator _animator;
+    private WaitForSeconds _animationTime;
+    private Coroutine _attackCoroutine;
+    private Coroutine _debuffCoroutine;
+    private WaitForSeconds _effectDurationTime;
+    private CircleCollider2D _skillCollider;
+    private SpriteRenderer _spriteRenderer;
+    [SerializeField] private int _skillIdx;
 
     // human 확인 리스트
-    private List<GameObject> humanList = new List<GameObject>();
-    private float agentOriginSpeed = 0f;
+    private List<GameObject> _humanList = new List<GameObject>();
+    private float _agentOriginSpeed = 0f;
 
     private void Awake()
     {
-        SkillSO = DataManager.Instance.GetSkillByIndex(skillIdx);
+        SkillSO = DataManager.Instance.GetSkillByIndex(_skillIdx);
         SetComponent();
     }
 
@@ -28,22 +28,21 @@ public class Skill : MonoBehaviour
     private void SetComponent()
     {
         // 애니메이션 길이 저장
-        animator = GetComponent<Animator>();
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-        animationTime = new WaitForSeconds(stateInfo.length);
+        _animator = GetComponent<Animator>();
+        AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+        _animationTime = new WaitForSeconds(stateInfo.length);
 
-        // 스킬 범위와 renderer 사이즈 동기화
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.size = new Vector2(SkillSO.range, SkillSO.range);
-
-        skillCollider = GetComponent<CircleCollider2D>();
-        effectDurationTime = new WaitForSeconds(SkillSO.duration);
+        
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer.size = new Vector2(SkillSO.range, SkillSO.range);
+        _skillCollider = GetComponent<CircleCollider2D>();
+        _effectDurationTime = new WaitForSeconds(SkillSO.duration);
     }
 
     public void StartSkill()
     {
-        if (attackCoroutine != null) StopCoroutine(attackCoroutine);
-        attackCoroutine = StartCoroutine(CoEndSkillEffect());
+        if (_attackCoroutine != null) StopCoroutine(_attackCoroutine);
+        _attackCoroutine = StartCoroutine(CoEndSkillEffect());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -51,10 +50,10 @@ public class Skill : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Human"))
         {
             // 이미 스킬에 맞았으면 계산하지 않기
-            if (humanList.Contains(collision.gameObject)) return;
+            if (_humanList.Contains(collision.gameObject)) return;
 
             // 리스트에 없으면 추가하고 스킬 공격력 만큼 피해 입히기
-            humanList.Add(collision.gameObject);
+            _humanList.Add(collision.gameObject);
             CheckSkillType(collision.gameObject);
         }
     }
@@ -64,17 +63,15 @@ public class Skill : MonoBehaviour
         switch (SkillSO.skillType)
         {
             case SkillType.Attack:
-                if (attackCoroutine != null) StopCoroutine(attackCoroutine);
-                attackCoroutine = StartCoroutine(CoEndSkillEffect());
+                StartSkill();
                 humanObj.GetComponent<Human>().IncreaseFear(SkillSO.power);
                 break;
             
             case SkillType.Debuff:
-                if (attackCoroutine != null) StopCoroutine(attackCoroutine);
-                attackCoroutine = StartCoroutine(CoEndSkillEffect());
+                StartSkill();
                 HumanController humanController = humanObj.GetComponent<HumanController>();
                 CheckSkillName(humanObj, humanController);
-                if (debuffCoroutine != null) StopCoroutine(debuffCoroutine);
+                if (_debuffCoroutine != null) StopCoroutine(_debuffCoroutine);
                 StartCoroutine(CoEndDebuffSkill());
                 break;
         }
@@ -84,7 +81,7 @@ public class Skill : MonoBehaviour
     {
         if (SkillSO.skillName == SkillName.FrozenGround)
         {
-            agentOriginSpeed = humanController.Agent.speed;
+            _agentOriginSpeed = humanController.Agent.speed;
             humanObj.GetComponent<Human>().IncreaseFear(SkillSO.power);
             humanController.Agent.speed *= ((100 - SkillSO.percentage) / 100f);
         }
@@ -93,20 +90,20 @@ public class Skill : MonoBehaviour
     // 스킬이 끝났을 때
     private IEnumerator CoEndSkillEffect()
     {
-        yield return animationTime;
+        yield return _animationTime;
 
         if (SkillSO.skillType == SkillType.Attack)
         {
             PoolManager.Instance.ReturnToPool(SkillSO.skillName.ToString(), gameObject);
-            humanList.Clear();
+            _humanList.Clear();
         }
         else
         {
-            skillCollider.enabled = false;
-            spriteRenderer.enabled = false;
-            if(humanList.Count == 0)
+            _skillCollider.enabled = false;
+            _spriteRenderer.enabled = false;
+            if(_humanList.Count == 0)
             {
-                if(debuffCoroutine != null) StopCoroutine(debuffCoroutine);
+                if(_debuffCoroutine != null) StopCoroutine(_debuffCoroutine);
                 StartCoroutine(CoEndDebuffSkill());
             }
         }
@@ -114,17 +111,17 @@ public class Skill : MonoBehaviour
 
     private IEnumerator CoEndDebuffSkill()
     {
-        yield return effectDurationTime;
+        yield return _effectDurationTime;
 
-        foreach (GameObject obj in humanList)
+        foreach (GameObject obj in _humanList)
         {
             UnityEngine.AI.NavMeshAgent agent = obj.GetComponent<HumanController>().Agent;
-            agent.speed = agentOriginSpeed;
+            agent.speed = _agentOriginSpeed;
         }
 
-        spriteRenderer.enabled = true;
-        skillCollider.enabled = true;
-        humanList.Clear();
+        _spriteRenderer.enabled = true;
+        _skillCollider.enabled = true;
+        _humanList.Clear();
         PoolManager.Instance.ReturnToPool(SkillSO.skillName.ToString(), gameObject);
     }
 }

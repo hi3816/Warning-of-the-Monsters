@@ -4,47 +4,47 @@ using UnityEngine.UI;
 
 public class SpeedButton : MonoBehaviour
 {
-    [SerializeField] private Button speedButton;
-    [SerializeField] private Image speedButtonImage;
-    [SerializeField] private TextMeshProUGUI speedButtonText;
-    [SerializeField] private Sprite EnableSprite;
-    [SerializeField] private Sprite DisableSprite;
+    [SerializeField] private Button _speedButton;
+    [SerializeField] private Image _speedButtonImage;
+    [SerializeField] private TextMeshProUGUI _speedButtonText;
+    [SerializeField] private Sprite _enableSprite;
+    [SerializeField] private Sprite _disableSprite;
 
-    private int timeScale;
+    private int _timeScale;
 
     private void Awake()
     {
-        speedButton.onClick.AddListener(() => ClickSpeedButton());
+        _speedButton.onClick.AddListener(() => ClickSpeedButton());
     }
 
     private void OnEnable()
     {
-        timeScale = 1;
-        Time.timeScale = (float)timeScale;
+        _timeScale = 1;
+        Time.timeScale = (float)_timeScale;
     }
 
     private void ClickSpeedButton()
     {
         // 1, 2, 3 돌리기
-        timeScale = (timeScale == 3) ? 1 : ++timeScale;
-        Time.timeScale = (float)timeScale;
+        _timeScale = (_timeScale == 3) ? 1 : ++_timeScale;
+        Time.timeScale = (float)_timeScale;
         ChangeButton();
     }
 
     public void ChangeButton()
     {
-        speedButtonText.text = $"x {timeScale}";
+        _speedButtonText.text = $"x {_timeScale}";
 
-        switch (timeScale)
+        switch (_timeScale)
         {
             case 1:
-                speedButtonImage.sprite = DisableSprite;
+                _speedButtonImage.sprite = _disableSprite;
                 break;
             case 2:
-                speedButtonImage.sprite = EnableSprite;
+                _speedButtonImage.sprite = _enableSprite;
                 break;
             case 3:
-                speedButtonImage.sprite = EnableSprite;
+                _speedButtonImage.sprite = _enableSprite;
                 break;
         }
     }

@@ -4,18 +4,18 @@ using UnityEngine.UI;
 
 public class SkillButtonnController : MonoBehaviour
 {
-    private SkillSO skillSO; // 스킬 데이터
+    private SkillSO _skillSO; // 스킬 데이터
     [SerializeField] public int SkillIdx { get; private set; } // 스킬 인덱스
 
     // 현재 쿨타임이 걸려 있는가 true : 스킬 사용 불가, false : 스킬 사용 가능
-    private bool isOnCoolDown = false;
-    private bool isClickSkillButton = false; // 현재 스킬 사용하도록 스킬버튼을 눌렀는지 여부
-    [SerializeField] private GameObject skillRangeImage; // 스킬의 범위를 볼 수 있는 오브젝트
-    [SerializeField] private RectTransform skillRangeImageRect; // 스킬 범위를 설정할 RectTransform
-    [SerializeField] private GameObject cancelBtn; // 취소 버튼
+    private bool _isOnCoolDown = false;
+    private bool _isClickSkillButton = false; // 현재 스킬 사용하도록 스킬버튼을 눌렀는지 여부
+    [SerializeField] private GameObject _skillRangeImage; // 스킬의 범위를 볼 수 있는 오브젝트
+    [SerializeField] private RectTransform _skillRangeImageRect; // 스킬 범위를 설정할 RectTransform
+    [SerializeField] private GameObject _cancelBtn; // 취소 버튼
 
-    private float timeSinceSkill; // 스킬을 사용하고 난 후 경과 시간
-    [SerializeField] private Image blackImage; // 쿨타임 표시할 이미지 (360도로 fillamount함)
+    private float _timeSinceSkill; // 스킬을 사용하고 난 후 경과 시간
+    [SerializeField] private Image _blackImage; // 쿨타임 표시할 이미지 (360도로 fillamount함)
 
     [System.Serializable]
     private class SkillSpritePair
@@ -23,43 +23,43 @@ public class SkillButtonnController : MonoBehaviour
         public int id;
         public Sprite sprite;
     }
-    [SerializeField] private SkillSpritePair skillSpritePair; // Inspector에서 Sprite 넣기 위해 사용하는 List
-    [SerializeField] private Image skillImage; // skillSprite가 들어갈 Image 컴포넌트
+    [SerializeField] private SkillSpritePair _skillSpritePair; // Inspector에서 Sprite 넣기 위해 사용하는 List
+    [SerializeField] private Image _skillImage; // skillSprite가 들어갈 Image 컴포넌트
 
-    [SerializeField] private PoolManager.PoolConfig poolConfig;
+    [SerializeField] private PoolManager.PoolConfig _poolConfig;
 
     private void Awake()
     {
-        skillSO = DataManager.Instance.GetSkillByIndex(skillSpritePair.id);
-        timeSinceSkill = 0f;
+        _skillSO = DataManager.Instance.GetSkillByIndex(_skillSpritePair.id);
+        _timeSinceSkill = 0f;
         SetSkillImage();
-        PoolManager.Instance.AddPool(poolConfig);
+        PoolManager.Instance.AddPool(_poolConfig);
     }
 
     private void Update()
     {
-        if (isClickSkillButton)
+        if (_isClickSkillButton)
         {
-            skillRangeImage.transform.position = Input.mousePosition;
+            _skillRangeImage.transform.position = Input.mousePosition;
 
             if (Input.GetMouseButtonDown(0) &&
                 EventSystem.current != null && !EventSystem.current.IsPointerOverGameObject())
             {
                 // skillImage는 Raycast Target 제외해 놔서 인식 안됨
-                isClickSkillButton = false;
+                _isClickSkillButton = false;
                 UseSkill();
             }
         }
 
-        if (isOnCoolDown)
+        if (_isOnCoolDown)
         {
-            timeSinceSkill += Time.deltaTime;
+            _timeSinceSkill += Time.deltaTime;
             ChangeCooldownImage();
             
-            if (timeSinceSkill >= skillSO.cooldown)
+            if (_timeSinceSkill >= _skillSO.cooldown)
             {
-                isOnCoolDown = false;
-                timeSinceSkill = 0f;
+                _isOnCoolDown = false;
+                _timeSinceSkill = 0f;
             }
         }
     }
@@ -67,21 +67,21 @@ public class SkillButtonnController : MonoBehaviour
     // 스킬 아이콘 이미지랑 스킬 범위 이미지 설정
     private void SetSkillImage()
     {
-        skillImage.sprite = skillSpritePair.sprite;
-        skillRangeImageRect.sizeDelta = new Vector2(skillSO.range * 0.5f, skillSO.range * 0.5f); // 범위 설정
+        _skillImage.sprite = _skillSpritePair.sprite;
+        _skillRangeImageRect.sizeDelta = new Vector2(_skillSO.range * 0.5f, _skillSO.range * 0.5f); // 범위 설정
     }
 
     // 스킬 버튼을 클릭했을 때
     public void ClickSkillButton()
     {
-        if (isOnCoolDown) return;
+        if (_isOnCoolDown) return;
 
-        isClickSkillButton = !isClickSkillButton;
+        _isClickSkillButton = !_isClickSkillButton;
         // 스킬 범위 보여지고 있으면 비활성화
-        if (!isClickSkillButton)
+        if (!_isClickSkillButton)
         {
-            skillRangeImage.SetActive(false);
-            cancelBtn.SetActive(false);
+            _skillRangeImage.SetActive(false);
+            _cancelBtn.SetActive(false);
         }
         else ShowSkillRange();
     }
@@ -89,18 +89,18 @@ public class SkillButtonnController : MonoBehaviour
     // 스킬 범위 보여줌
     private void ShowSkillRange()
     {
-        skillRangeImage.SetActive(true);
-        cancelBtn.SetActive(true);
+        _skillRangeImage.SetActive(true);
+        _cancelBtn.SetActive(true);
     }
 
     // 스킬 사용
     private void UseSkill()
     {
-        isOnCoolDown = true;
-        skillRangeImage.SetActive(false);
-        cancelBtn.SetActive(false);
+        _isOnCoolDown = true;
+        _skillRangeImage.SetActive(false);
+        _cancelBtn.SetActive(false);
 
-        GameObject obj = PoolManager.Instance.SpawnFromPool(skillSO.skillName.ToString());
+        GameObject obj = PoolManager.Instance.SpawnFromPool(_skillSO.skillName.ToString());
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         worldPosition.z = 0f; // Z축 값 고정
         obj.transform.position = worldPosition;
@@ -112,7 +112,7 @@ public class SkillButtonnController : MonoBehaviour
     // 쿨타임 이미지 변경
     private void ChangeCooldownImage()
     {
-        float remainingTime = skillSO.cooldown - timeSinceSkill;
-        blackImage.fillAmount = (remainingTime / skillSO.cooldown);
+        float remainingTime = _skillSO.cooldown - _timeSinceSkill;
+        _blackImage.fillAmount = (remainingTime / _skillSO.cooldown);
     }
 }
