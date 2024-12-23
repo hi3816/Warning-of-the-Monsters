@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,19 +10,17 @@ public class SpeedButton : MonoBehaviour
     [SerializeField] private Sprite EnableSprite;
     [SerializeField] private Sprite DisableSprite;
 
-    private List<Button> speedButtons = new List<Button>();
     private int timeScale;
 
     private void Awake()
     {
         speedButton.onClick.AddListener(() => ClickSpeedButton());
-        speedButtons.Add(speedButton);
     }
 
     private void OnEnable()
     {
         timeScale = 1;
-        Time.timeScale = 1.0f;
+        Time.timeScale = (float)timeScale;
     }
 
     private void ClickSpeedButton()

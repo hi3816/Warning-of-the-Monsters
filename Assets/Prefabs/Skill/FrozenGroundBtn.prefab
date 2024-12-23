@@ -416,7 +416,7 @@ MonoBehaviour:
   poolConfig:
     tag: FrozenGround
     prefab: {fileID: 7674980571249262148, guid: 49024b7e125480343b9ab488138ffe60, type: 3}
-    size: 10
+    size: 5
 --- !u!1 &5241123043256389648
 GameObject:
   m_ObjectHideFlags: 0
