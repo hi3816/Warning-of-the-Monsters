@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 public class Human : MonoBehaviour
 {
-    [SerializeField] private HumanSO humanData;
+    [SerializeField] private HumanSO _humanData;
     private int _id;
     private int _coin;  // 놀랐을 때 떨어뜨리고 가는 재화량(처치 시 획득 재화량)
     public float MaxFear { get; private set; }
@@ -22,10 +22,10 @@ public class Human : MonoBehaviour
     private void Awake()
     {
         // 데이터 세팅
-        humanData = HumanDataLoader.Instance.GetHumanByName(gameObject);
-        MaxFear = humanData.maxFear;
-        _coin = humanData.coin;
-        LifeInflicted = humanData.lifeInflicted;
+        _humanData = HumanDataLoader.Instance.GetHumanByName(gameObject);
+        MaxFear = _humanData.maxFear;
+        _coin = _humanData.coin;
+        LifeInflicted = _humanData.lifeInflicted;
         
         if (controller == null)
         {
@@ -58,7 +58,7 @@ public class Human : MonoBehaviour
         {
             controller.animator.SetBool("IsBattle", false);
             controller.ClearTargetMonster();
-            controller.StateMachine.ChangeState(controller.RunHumanState); // 도망 상태로 전환
+            controller.stateMachine.ChangeState(controller.RunHumanState); // 도망 상태로 전환
             StageManager.Instance.ChangeGold(_coin);    // 스테이지 보유 재화 갱신
             ReturnHumanToPool(3.0f); // 인간을 풀로 반환
         }
