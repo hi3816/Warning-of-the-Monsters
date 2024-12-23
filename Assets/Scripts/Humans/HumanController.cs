@@ -50,9 +50,9 @@ public class HumanController : MonoBehaviour
         
         // 상태머신 세팅
         stateMachine = new HumanStateMachine();
-        WalkHumanState = new WalkHumanState(this, stateMachine);
+        WalkHumanState = new WalkHumanState(this);
         RunHumanState = new RunHumanState(this);
-        BattleHumanState = new BattleHumanState(this, stateMachine);
+        BattleHumanState = new BattleHumanState(this);
     }
 
     private void OnEnable()

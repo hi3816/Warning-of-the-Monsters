@@ -3,10 +3,10 @@ public class WalkHumanState : IHumanState
     private HumanController _human;
     private HumanStateMachine _stateMachine;
 
-    public WalkHumanState(HumanController human, HumanStateMachine stateMachine)
+    public WalkHumanState(HumanController human)
     {
         _human = human;
-        _stateMachine = stateMachine;
+        _stateMachine = human.stateMachine;
     }
 
     public void Enter()
