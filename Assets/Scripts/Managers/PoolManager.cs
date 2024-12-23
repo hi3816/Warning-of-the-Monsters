@@ -112,6 +112,7 @@ public class PoolManager : SingletonBase<PoolManager>
 
     public void ReturnToPool(string tag, GameObject obj)
     {
+        if (obj == null) return;
         // 태그와 일치하는 풀이 있는지 유효성 검사
         if (!_pools.ContainsKey(tag))
         {

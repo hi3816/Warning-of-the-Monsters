@@ -26,7 +26,8 @@ public class WinPopup : UIBase
         btnRetry.onClick.AddListener(LoadGameScene);
         btnNextStage.onClick.AddListener(LoadNextStage);
 
-        SetStars(StageManager.Instance.CurrHealth);
+        //SetStars(StageManager.Instance.CurrHealth);
+        SetStars(StageManager.Instance.StarsCount);
 
         //canvas order조절
         Canvas canavas = GetComponentInParent<Canvas>();
@@ -50,7 +51,7 @@ public class WinPopup : UIBase
 
     public void SetStars(int starsCount)
     {
-        if (starsCount >= 20)
+        if (starsCount == 3)
         {
             //별 3개
             emptyStar1.SetActive(false);
@@ -61,7 +62,7 @@ public class WinPopup : UIBase
             FilledStar2.SetActive(true);
             FilledStar3.SetActive(true);
         }
-        else if (starsCount > 10 && starsCount <= 20)
+        else if (starsCount == 2)
         {
             //별 2개
             emptyStar1.SetActive(false);
@@ -72,7 +73,7 @@ public class WinPopup : UIBase
             FilledStar2.SetActive(true);
             FilledStar3.SetActive(false);
         }
-        else if (starsCount <= 10)
+        else if (starsCount == 1)
         {
             //별 1개
             emptyStar1.SetActive(false);
@@ -83,7 +84,10 @@ public class WinPopup : UIBase
             FilledStar2.SetActive(false);
             FilledStar3.SetActive(false);
         }
+        else
+        {
+            Debug.LogAssertion("Stars count is incorrect");
+        }
     }
-
 }
 

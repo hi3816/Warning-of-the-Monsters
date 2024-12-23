@@ -20,6 +20,8 @@ public class StageButton : MonoBehaviour
         stageTxt.text = stageButton.name;
 
         stageIdx = int.Parse(Regex.Match(stageTxt.text, @"\d+").Value)-1;
+        
+        SaveManager.Instance.GetStagePlayInfo(stageIdx, out isCleared);
 
         if (isCleared)                                                                                                                                                                          
         {
