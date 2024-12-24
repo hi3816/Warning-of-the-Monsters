@@ -46,18 +46,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 502be4ccb03de8749b38f54a4c12f560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  evolutionUI: {fileID: 9182610671499987588}
-  typeImages:
+  _evolutionUI: {fileID: 9182610671499987588}
+  _typeImages:
   - {fileID: 4206382840657675322}
   - {fileID: 5117897257210946332}
-  requiredCoins:
+  _requiredCoins:
   - {fileID: 6926394833296053657}
   - {fileID: 2099416103602354056}
-  typeButtonA: {fileID: 6094154869875047110}
-  typeButtonB: {fileID: 3255813755342859926}
-  evolutionStatUI: {fileID: 6665979201856216714}
-  typeACheck: {fileID: 1209620044841311427}
-  typeBCheck: {fileID: 7481771095058801391}
+  _typeButtonA: {fileID: 6094154869875047110}
+  _typeButtonB: {fileID: 3255813755342859926}
+  _evolutionStatUI: {fileID: 6665979201856216714}
+  _typeACheck: {fileID: 1209620044841311427}
+  _typeBCheck: {fileID: 7481771095058801391}
 --- !u!114 &4507285647040115351
 MonoBehaviour:
   m_ObjectHideFlags: 0

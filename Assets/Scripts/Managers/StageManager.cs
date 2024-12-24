@@ -1,20 +1,17 @@
 using System;
-using System.Diagnostics.Tracing;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class StageManager : SingletonBase<StageManager>
 {
     [Header("UI")]
 
-    [SerializeField] private GameObject optionPanel;
-    [SerializeField] private GameObject stageInfo;
-    [SerializeField] private StageInfoController stageInfoController;
+    [SerializeField] private GameObject _optionPanel;
+    [SerializeField] private GameObject _stageInfo;
+    [SerializeField] private StageInfoController _stageInfoController;
 
-    public StageSO stageSO { get; private set; }
+    public StageSO StageSO { get; private set; }
 
-    public int totalWave { get; private set; } // 전체 웨이브 수
+    public int TotalWave { get; private set; } // 전체 웨이브 수
     public int CurrWave { get; private set; } // 현재 웨이브
     public int CurrHealth { get; private set; } // 현재 체력
     public float CurrGold { get; private set; } // 현재 골드
@@ -22,22 +19,20 @@ public class StageManager : SingletonBase<StageManager>
 
     [Header("Stage")]
 
-    [SerializeField] private GameObject stage;
-    [SerializeField] private StartBattleButtonController startBattleBtnController;
+    [SerializeField] private GameObject _stage;
+    [SerializeField] private StartBattleButtonController _startBattleBtnController;
     
-    private int stageIdx;
+    private int _stageIdx;
     public Transform SpawnPoint { get; private set; }
     public Transform EndPoint { get; private set; }
 
     [Header("Sfx Pools")]
-    [SerializeField] private PoolManager.PoolConfig[] poolConfigs;
-
-    public Action OnGameOver;
+    [SerializeField] private PoolManager.PoolConfig[] _poolConfigs;
 
     protected override void Awake()
     {
         base.Awake();
-        PoolManager.Instance.AddPoolS(poolConfigs);
+        PoolManager.Instance.AddPoolS(_poolConfigs);
         SoundManager.Instance.PlayBGM(BgmType.Stage);
         SetStageInfo();
         SetStageObject();
@@ -53,26 +48,26 @@ public class StageManager : SingletonBase<StageManager>
     private void SetStageInfo()
     {
         // 현재 Stage의 Stat 설정
-        stageIdx = DataManager.Instance.selectedStageIdx;
-        stageSO = DataManager.Instance.GetStageByIndex(stageIdx);
-        totalWave = stageSO.wave;
+        _stageIdx = DataManager.Instance.selectedStageIdx;
+        StageSO = DataManager.Instance.GetStageByIndex(_stageIdx);
+        TotalWave = StageSO.wave;
         CurrWave = 0;
-        CurrHealth = stageSO.health;
-        CurrGold = stageSO.gold;
+        CurrHealth = StageSO.health;
+        CurrGold = StageSO.gold;
         StarsCount = 0;
-        stageInfoController = stageInfo.GetComponent<StageInfoController>();
-        stageInfoController.ChangeUI();
+        _stageInfoController = _stageInfo.GetComponent<StageInfoController>();
+        _stageInfoController.ChangeUI();
     }
 
     // Stage 및 하위 오브젝트 캐싱
     private void SetStageObject()
     {
         // 스테이지 동적 로드
-        stage = Instantiate<GameObject>(Resources.Load<GameObject>($"Prefabs/Stage/Stage{stageIdx + 1}"));
-        stage.name = $"Stage{stageIdx + 1}";
+        _stage = Instantiate<GameObject>(Resources.Load<GameObject>($"Prefabs/Stage/Stage{_stageIdx + 1}"));
+        _stage.name = $"Stage{_stageIdx + 1}";
 
         // startBattleBtn에 interWaveDelay필드에 값 저장하기 위해 StageSO 세팅 후에 캐싱
-        startBattleBtnController = stage.GetComponentInChildren<StartBattleButtonController>();
+        _startBattleBtnController = _stage.GetComponentInChildren<StartBattleButtonController>();
     }
 
     // 스테이지의 시작점과 종료지점 캐싱
@@ -90,46 +85,46 @@ public class StageManager : SingletonBase<StageManager>
     public void UpdateWave()
     {
         // 전체 웨이브가 끝나면 return
-        if (CurrWave >= totalWave) return;
+        if (CurrWave >= TotalWave) return;
         CurrWave++;
-        stageInfoController.ChangeUI();
+        _stageInfoController.ChangeUI();
     }
 
     // 현재 스테이지의 모든 웨이브가 끝났는지 확인
     public bool CheckEndStage()
     {
-        return (CurrWave == totalWave);
+        return (CurrWave == TotalWave);
     }
 
     // health 변경
     public void ChangeHealth(int health)
     {
         CurrHealth += health;
-        stageInfoController.ChangeUI();
+        _stageInfoController.ChangeUI();
         if (CurrHealth <= 0)
         {
             CurrHealth = 0;            
-            OnGameOver?.Invoke();
+            GameManager.Instance.GameOver();
         }
     }
 
     public void ChangeGold(int gold)
     {
         CurrGold += gold;
-        stageInfoController.ChangeUI();
+        _stageInfoController.ChangeUI();
     }
 
     // StopPanel 활성화
     public void ShowOptionPanel()
     {
-        optionPanel.SetActive(true);
+        _optionPanel.SetActive(true);
         Time.timeScale = 0f;
     }
 
     // 테스트 버튼 클릭
     public void ClickEndWaveBtn()
     {
-        startBattleBtnController.EndWave();
+        _startBattleBtnController.EndWave();
     }
 
     public void CaculateStars()
@@ -150,6 +145,6 @@ public class StageManager : SingletonBase<StageManager>
     
     public void SavePlayData()
     {
-        SaveManager.Instance.UpdatePlayInfo(stageIdx, StarsCount, true);
+        SaveManager.Instance.UpdatePlayInfo(_stageIdx, StarsCount, true);
     }
 }

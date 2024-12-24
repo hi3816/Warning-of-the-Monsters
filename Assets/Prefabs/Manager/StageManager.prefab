@@ -134,11 +134,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ef8f17af7296b844afed771d5ed6abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedButton: {fileID: 5727171958445238020}
-  speedButtonImage: {fileID: 4333504193460250688}
-  speedButtonText: {fileID: 4203573087422313326}
-  EnableSprite: {fileID: 1205855655, guid: ded7c963a5d1847dbb2b3221722afcc0, type: 3}
-  DisableSprite: {fileID: 934536697, guid: ded7c963a5d1847dbb2b3221722afcc0, type: 3}
+  _speedButton: {fileID: 5727171958445238020}
+  _speedButtonImage: {fileID: 4333504193460250688}
+  _speedButtonText: {fileID: 4203573087422313326}
+  _enableSprite: {fileID: 21300000, guid: 3a1e1b1f33cc6e94d93f2a9a97c7d982, type: 2}
+  _disableSprite: {fileID: 21300000, guid: 6fb9c4d29dc7d3046b27bc3e80e31abc, type: 2}
 --- !u!1 &2071999484573523217
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,18 +426,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38499651fd279ee48820749720232c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionPanel: {fileID: 2417726098624762811}
-  stageInfo: {fileID: 6207528262063605471}
-  stageInfoController: {fileID: 0}
-  stage: {fileID: 0}
-  startBattleBtnController: {fileID: 0}
-  poolConfigs:
+  _optionPanel: {fileID: 2417726098624762811}
+  _stageInfo: {fileID: 6207528262063605471}
+  _stageInfoController: {fileID: 7646393019276754035}
+  _stage: {fileID: 0}
+  _startBattleBtnController: {fileID: 0}
+  _poolConfigs:
   - tag: SpawnSmallMonster
     prefab: {fileID: 664224834642801451, guid: 8e4212d74cab36540a47066b2bdec95d, type: 3}
-    size: 20
+    size: 10
   - tag: SpawnBigMonster
     prefab: {fileID: 664224834642801451, guid: 8e4212d74cab36540a47066b2bdec95d, type: 3}
-    size: 20
+    size: 10
   - tag: SurprisingHuman
     prefab: {fileID: 664224834642801451, guid: 8e4212d74cab36540a47066b2bdec95d, type: 3}
     size: 20
@@ -558,9 +558,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e39a935b5a7bf84e8c3d822710e5003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthTxt: {fileID: 8023629456091528223}
-  goldTxt: {fileID: 1543629079589151352}
-  waveTxt: {fileID: 3350438687879148}
+  _healthTxt: {fileID: 8023629456091528223}
+  _goldTxt: {fileID: 1543629079589151352}
+  _waveTxt: {fileID: 3350438687879148}
 --- !u!1001 &2929908651231534964
 PrefabInstance:
   m_ObjectHideFlags: 0

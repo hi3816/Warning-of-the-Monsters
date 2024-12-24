@@ -3,15 +3,15 @@ using UnityEngine;
 
 public class WaveData
 {
-    public int WaveIdx;         // 웨이브 인덱스
-    public List<int> HumanID;   // 웨이브 당 등장 인간 종류 리스트
-    public List<int> Count;     // 종류에 따라 등장하는 인원 수 리스트
+    public int waveIdx;         // 웨이브 인덱스
+    public List<int> humanID;   // 웨이브 당 등장 인간 종류 리스트
+    public List<int> count;     // 종류에 따라 등장하는 인원 수 리스트
 }
 public class WaveDataLoader : SingletonBase<WaveDataLoader>
 {
     // 스테이지 별 웨이브 정보를 저장하는 딕셔너리
     // key: 스테이지 인덱스, value: 스테이지에 포함된 웨이브 정보(WaveData)
-    public Dictionary<int, List<WaveData>> WaveDataDict = new Dictionary<int, List<WaveData>>();
+    public Dictionary<int, List<WaveData>> waveDataDict = new Dictionary<int, List<WaveData>>();
 
     protected override void Awake()
     {
@@ -25,13 +25,13 @@ public class WaveDataLoader : SingletonBase<WaveDataLoader>
         switch (stageIdx)
         {
             case 0:
-                WaveDataDict.Add(0, SetWaveDataListFromStage(Wave_Data.Stage1.GetList()));
+                waveDataDict.Add(0, SetWaveDataListFromStage(Wave_Data.Stage1.GetList()));
                 break;
             case 1:
-                WaveDataDict.Add(1, SetWaveDataListFromStage(Wave_Data.Stage2.GetList()));
+                waveDataDict.Add(1, SetWaveDataListFromStage(Wave_Data.Stage2.GetList()));
                 break;
             case 2:
-                WaveDataDict.Add(2, SetWaveDataListFromStage(Wave_Data.Stage3.GetList()));
+                waveDataDict.Add(2, SetWaveDataListFromStage(Wave_Data.Stage3.GetList()));
                 break;
             default:
                 Debug.LogAssertion("Wrong stage index. WaveData unloaded.");
@@ -64,27 +64,27 @@ public class WaveDataLoader : SingletonBase<WaveDataLoader>
         {
             return new WaveData
             {
-                WaveIdx = stage1Data.waveIdx,
-                HumanID = new List<int>(stage1Data.humanId),
-                Count = new List<int>(stage1Data.count)
+                waveIdx = stage1Data.waveIdx,
+                humanID = new List<int>(stage1Data.humanId),
+                count = new List<int>(stage1Data.count)
             };
         }
         else if (waveData is Wave_Data.Stage2 stage2Data)
         {
             return new WaveData
             {
-                WaveIdx = stage2Data.waveIdx,
-                HumanID = new List<int>(stage2Data.humanId),
-                Count = new List<int>(stage2Data.count)
+                waveIdx = stage2Data.waveIdx,
+                humanID = new List<int>(stage2Data.humanId),
+                count = new List<int>(stage2Data.count)
             };
         }
         else if (waveData is Wave_Data.Stage3 stage3Data)
         {
             return new WaveData
             {
-                WaveIdx = stage3Data.waveIdx,
-                HumanID = new List<int>(stage3Data.humanId),
-                Count = new List<int>(stage3Data.count)
+                waveIdx = stage3Data.waveIdx,
+                humanID = new List<int>(stage3Data.humanId),
+                count = new List<int>(stage3Data.count)
             };
         }
         else

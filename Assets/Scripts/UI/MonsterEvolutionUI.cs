@@ -5,26 +5,26 @@ using UnityEngine.UI;
 public class MonsterEvolutionUI : MonoBehaviour
 {
     [Header("UI")]
-    [SerializeField] private GameObject evolutionUI;
-    [SerializeField] private Image[] typeImages;
-    [SerializeField] private TextMeshProUGUI[] requiredCoins;
-    [SerializeField] private Button typeButtonA;
-    [SerializeField] private Button typeButtonB;
-    [SerializeField] private EvolutionStatUI evolutionStatUI;
-    [SerializeField] private GameObject typeACheck;
-    [SerializeField] private GameObject typeBCheck;
+    [SerializeField] private GameObject _evolutionUI;
+    [SerializeField] private Image[] _typeImages;
+    [SerializeField] private TextMeshProUGUI[] _requiredCoins;
+    [SerializeField] private Button _typeButtonA;
+    [SerializeField] private Button _typeButtonB;
+    [SerializeField] private EvolutionStatUI _evolutionStatUI;
+    [SerializeField] private GameObject _typeACheck;
+    [SerializeField] private GameObject _typeBCheck;
 
-    private MonsterEvolution monsterEvolution;
-    private Monster selectMonster; // 현재 클릭한 몬스터
-    private EvolutionType clickEvolutionType;
+    private MonsterEvolution _monsterEvolution;
+    private Monster _selectMonster; // 현재 클릭한 몬스터
+    private EvolutionType _clickEvolutionType;
 
     private void Awake()
     {
-        monsterEvolution = GetComponent<MonsterEvolution>();
-        typeButtonA.onClick.AddListener(() => monsterEvolution.Evolution(selectMonster, EvolutionType.Atype));
-        typeButtonB.onClick.AddListener(() => monsterEvolution.Evolution(selectMonster, EvolutionType.Btype));
-        typeButtonA.onClick.AddListener(() => MonsterEvolutionStat(EvolutionType.Atype));
-        typeButtonB.onClick.AddListener(() => MonsterEvolutionStat(EvolutionType.Btype));
+        _monsterEvolution = GetComponent<MonsterEvolution>();
+        _typeButtonA.onClick.AddListener(() => _monsterEvolution.Evolution(_selectMonster, EvolutionType.Atype));
+        _typeButtonB.onClick.AddListener(() => _monsterEvolution.Evolution(_selectMonster, EvolutionType.Btype));
+        _typeButtonA.onClick.AddListener(() => MonsterEvolutionStat(EvolutionType.Atype));
+        _typeButtonB.onClick.AddListener(() => MonsterEvolutionStat(EvolutionType.Btype));
     }
 
     private int GetIdByType(Monster monster)
@@ -35,20 +35,20 @@ public class MonsterEvolutionUI : MonoBehaviour
 
     public void Show(Monster monster)
     {
-        selectMonster = monster;
+        _selectMonster = monster;
         Vector3 worldPosition = monster.transform.position;
-        evolutionUI.transform.position = worldPosition + Vector3.up;
-        evolutionUI.SetActive(true);
+        _evolutionUI.transform.position = worldPosition + Vector3.up;
+        _evolutionUI.SetActive(true);
         ResetEvolutionPanel();
         SetEvolutionPanel();
     }
 
     public void Hide()
     {
-        evolutionUI.SetActive(false);
-        evolutionStatUI.Hide();
-        typeACheck.SetActive(false);
-        typeBCheck.SetActive(false);
+        _evolutionUI.SetActive(false);
+        _evolutionStatUI.Hide();
+        _typeACheck.SetActive(false);
+        _typeBCheck.SetActive(false);
     }
 
     private void ResetEvolutionPanel()
@@ -66,7 +66,7 @@ public class MonsterEvolutionUI : MonoBehaviour
     // 진화 sprite 초기화
     private void ResetEvolutionImageSprite()
     {
-        foreach (Image image in typeImages)
+        foreach (Image image in _typeImages)
         {
             image.sprite = null;
         }
@@ -74,7 +74,7 @@ public class MonsterEvolutionUI : MonoBehaviour
 
     private void ResetRequiredCoinsText()
     {
-        foreach (TextMeshProUGUI text in requiredCoins)
+        foreach (TextMeshProUGUI text in _requiredCoins)
         {
             text.text = null;
         }
@@ -83,56 +83,56 @@ public class MonsterEvolutionUI : MonoBehaviour
     // 진화 이미지 설정
     private void SetEnvolutionImageSprite()
     {
-        Sprite[] sprites = monsterEvolution.GetvolutionSpriteDict(selectMonster.data.id);
+        Sprite[] sprites = _monsterEvolution.GetvolutionSpriteDict(_selectMonster.data.id);
 
-        for (int i = 0; i < typeImages.Length; i++)
+        for (int i = 0; i < _typeImages.Length; i++)
         {
-            typeImages[i].sprite = sprites[i];
-            typeImages[i].color = GetPurchaseStatusColor(selectMonster.data.id, i);
+            _typeImages[i].sprite = sprites[i];
+            _typeImages[i].color = GetPurchaseStatusColor(_selectMonster.data.id, i);
         }
     }
 
     private void SetRequiredCoinsText()
     {
-        int[] coins = monsterEvolution.GetEvolutionRequiredCoinsDict(selectMonster.data.id);
+        int[] coins = _monsterEvolution.GetEvolutionRequiredCoinsDict(_selectMonster.data.id);
 
-        for (int i = 0; i < requiredCoins.Length; i++)
+        for (int i = 0; i < _requiredCoins.Length; i++)
         {
-            requiredCoins[i].text = coins[i].ToString();
-            requiredCoins[i].color = GetPurchaseStatusColor(selectMonster.data.id, i);
+            _requiredCoins[i].text = coins[i].ToString();
+            _requiredCoins[i].color = GetPurchaseStatusColor(_selectMonster.data.id, i);
         }
     }
 
     // 구매 가능한지 확인 및 설정 Color 반환
     private Color GetPurchaseStatusColor(int id, int idx)
     {
-        int[] coins = monsterEvolution.GetEvolutionRequiredCoinsDict(id);
+        int[] coins = _monsterEvolution.GetEvolutionRequiredCoinsDict(id);
         if (StageManager.Instance.CurrGold >= coins[idx]) return Color.white;
         else return Color.gray;
     }
 
     public bool SelectEvolutionMonster(EvolutionType evolutionType)
     {
-        if (clickEvolutionType != evolutionType) return false;
-        if (!typeACheck.activeSelf && !typeBCheck.activeSelf) return false;
+        if (_clickEvolutionType != evolutionType) return false;
+        if (!_typeACheck.activeSelf && !_typeBCheck.activeSelf) return false;
         return true;
     }
 
     private void MonsterEvolutionStat(EvolutionType evolutionType)
     {
-        var evolution = MonsterDataManager.Instance.GetEvolutionData(selectMonster.data.id, selectMonster.data.currentLevel + 1, evolutionType);
+        var evolution = MonsterDataManager.Instance.GetEvolutionData(_selectMonster.data.id, _selectMonster.data.currentLevel + 1, evolutionType);
         if (evolutionType == EvolutionType.Atype)
         {
-            typeACheck.SetActive(true);
-            typeBCheck.SetActive(false);
-            evolutionStatUI.Show(evolution);
+            _typeACheck.SetActive(true);
+            _typeBCheck.SetActive(false);
+            _evolutionStatUI.Show(evolution);
         }
         else
         {
-            typeBCheck.SetActive(true);
-            typeACheck.SetActive(false);
-            evolutionStatUI.Show(evolution);
+            _typeBCheck.SetActive(true);
+            _typeACheck.SetActive(false);
+            _evolutionStatUI.Show(evolution);
         }
-        clickEvolutionType = evolutionType;
+        _clickEvolutionType = evolutionType;
     }
 }

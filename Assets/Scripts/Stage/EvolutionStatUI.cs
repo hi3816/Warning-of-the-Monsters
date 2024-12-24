@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class EvolutionStatUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI evolutionNameText;
+    [SerializeField] private TextMeshProUGUI _evolutionNameText;
 
-    [SerializeField] private TextMeshProUGUI fatigueText;
-    [SerializeField] private TextMeshProUGUI minFearInflictedText;
-    [SerializeField] private TextMeshProUGUI maxFearInflictedText;
-    [SerializeField] private TextMeshProUGUI cooldownText;
-    [SerializeField] private TextMeshProUGUI rangeText;
+    [SerializeField] private TextMeshProUGUI _fatigueText;
+    [SerializeField] private TextMeshProUGUI _minFearInflictedText;
+    [SerializeField] private TextMeshProUGUI _maxFearInflictedText;
+    [SerializeField] private TextMeshProUGUI _cooldownText;
+    [SerializeField] private TextMeshProUGUI _rangeText;
 
     public void Show(EvolutionSO evolution)
     {
@@ -25,10 +25,10 @@ public class EvolutionStatUI : MonoBehaviour
 
     private void SetText(EvolutionSO evolutionData)
     {
-        fatigueText.text = evolutionData.fatigue.ToString();
-        minFearInflictedText.text = evolutionData.minFearInflicted.ToString();
-        maxFearInflictedText.text = evolutionData.maxFearInflicted.ToString();
-        cooldownText.text = evolutionData.cooldown.ToString();
-        rangeText.text = evolutionData.humanScaringRange.ToString();
+        _fatigueText.text = evolutionData.fatigue.ToString();
+        _minFearInflictedText.text = evolutionData.minFearInflicted.ToString();
+        _maxFearInflictedText.text = evolutionData.maxFearInflicted.ToString();
+        _cooldownText.text = evolutionData.cooldown.ToString();
+        _rangeText.text = evolutionData.humanScaringRange.ToString();
     }
 }

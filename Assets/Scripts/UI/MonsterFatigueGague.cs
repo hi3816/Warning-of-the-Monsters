@@ -1,43 +1,44 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MonsterFatigueGague : MonoBehaviour
 {
-    [SerializeField] private Monster monster;
-    [SerializeField] private Image MonsterFatigueGagueImg;
+    [SerializeField] private Monster _monster;
+    [SerializeField] private Image _monsterFatigueGagueImg;
     
     private float _maxFatigue = 0;
     
     private void Awake()
     {
-        if (monster == null)
+        if (_monster == null)
         {
-            monster = gameObject.GetComponent<Monster>();
+            _monster = gameObject.GetComponent<Monster>();
         }
-        if (MonsterFatigueGagueImg == null)
+        if (_monsterFatigueGagueImg == null)
         {
-            MonsterFatigueGagueImg = gameObject.transform.Find("FatigueCanvas/FatigueGauge/Front").GetComponent<Image>();
+            _monsterFatigueGagueImg = gameObject.transform.Find("FatigueCanvas/FatigueGauge/Front").GetComponent<Image>();
         }
-        _maxFatigue = monster.data.fatigue;
+        _maxFatigue = _monster.data.fatigue;
     }
 
     private void OnEnable()
     {
         if (!Mathf.Approximately(_maxFatigue, 0f))  // 최대 피로도 초기화됐는지 확인
             UpdateFatigueGauge();
-        monster.OnAttacked -= UpdateFatigueGauge;
-        monster.OnAttacked += UpdateFatigueGauge;
-        MonsterFatigueGagueImg.fillAmount = 0;
+        _monster.OnAttacked -= UpdateFatigueGauge;
+        _monster.OnAttacked += UpdateFatigueGauge;
+        _monsterFatigueGagueImg.fillAmount = 0;
     }
     
     private void Start()
     {
-        _maxFatigue = monster.data.fatigue;
+        _maxFatigue = _monster.data.fatigue;
         UpdateFatigueGauge();
     }
 
     private void UpdateFatigueGauge()
     {
-        MonsterFatigueGagueImg.fillAmount = monster.data.currentFatigue / _maxFatigue;
+        _monsterFatigueGagueImg.fillAmount = _monster.data.currentFatigue / _maxFatigue;
     }
 }

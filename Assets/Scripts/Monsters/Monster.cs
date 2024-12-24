@@ -65,9 +65,7 @@ public abstract class Monster : MonoBehaviour
     
     private void OnEnable()
     {
-        // 게임 종료(Next Stage, Exit) 및 재시작(Retry) 버튼 클릭하면 풀로 바로 반환
-        ReturnToPoolBtn.OnGameEnd -= () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
-        ReturnToPoolBtn.OnGameEnd += () => { PoolManager.Instance.ReturnToPool(gameObject.name, gameObject); };
+        GameManager.Instance.activeObjects.Add(this.gameObject);
         fatigueGauge.SetActive(true);
     }
     
@@ -323,5 +321,10 @@ public abstract class Monster : MonoBehaviour
         TargetHumanList.Clear();
         _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 1f);
         SetState(MonsterState.Idle);
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.activeObjects.Remove(this.gameObject);
     }
 }

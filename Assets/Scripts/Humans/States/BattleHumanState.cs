@@ -12,10 +12,10 @@ public class BattleHumanState : IHumanState
     private Transform _oldTarget;
     private float _lastAttackTime;
     
-    public BattleHumanState(HumanController human, HumanStateMachine stateMachine)
+    public BattleHumanState(HumanController human)
     {
         _human = human;
-        _stateMachine = stateMachine;
+        _stateMachine = human.stateMachine;
         _minFatigueInflicted = _human.MinFatigueInflicted;
         _maxFatigueInflicted = _human.MaxFatigueInflicted;
     }
