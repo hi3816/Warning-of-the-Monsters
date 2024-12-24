@@ -34,7 +34,7 @@ public class StagePopup : UIBase
     Dictionary<int, (int MonsterId, string MonsterName)> _selectedListData = new Dictionary<int, (int, string)>();
 
     private TestSO[] _testSOs;
-    private MonsterSO[] _monsterSOs;
+    private List<DataTable.Monster_Data> _monsterSOs;
     private Dictionary<string, int> _monsterListData;
     private SpriteAtlas _sprites;
 
@@ -92,8 +92,8 @@ public class StagePopup : UIBase
             warningTxt.text = "몬스터를 모두 선택하세요";
             return; 
         }
-        DataManager.Instance.selectedStageIdx = _stageIdx;              //선택된 스테이지
-        DataManager.Instance.SelectedMonsterData = _selectedListData;    //선택된 몬스터
+        DataManager6.Instance.selectedStageIdx = _stageIdx;              //선택된 스테이지
+        DataManager6.Instance.selectedMonsterData = _selectedListData;    //선택된 몬스터
         
         SceneManager.LoadScene("MainScene");
     }
@@ -109,13 +109,13 @@ public class StagePopup : UIBase
     private void SetMonsterScroll()
     {
         //_testSOs = DataManager.Instance.GetTestSprite();
-        _monsterSOs = DataManager.Instance.GetMonsterSOs();
+        _monsterSOs = DataManager6.Instance.GetMonsterSOs();
         _sprites = Resources.Load<SpriteAtlas>("UI/UISprites/MonsterSprites");
 
         _monsterListData = new Dictionary<string, int>();
-        for (int i = 0; i < _monsterSOs.Length; i++)
+        for (int i = 0; i < _monsterSOs.Count; i++)
         {
-            if (_monsterSOs[i].monsterType == MonsterType.Stationary)
+            if (_monsterSOs[i].MonsterType == MonsterType.Stationary)
             {
                 GameObject Instance = Instantiate(monsterListSlot);
 
@@ -123,9 +123,9 @@ public class StagePopup : UIBase
                 Instance.transform.localScale = Vector3.one;
 
                 var sprite = Instance.transform.GetChild(0).GetComponent<Image>();
-                sprite.sprite = _sprites.GetSprite(_monsterSOs[i].poolTag);
+                sprite.sprite = _sprites.GetSprite(_monsterSOs[i].name);
 
-                _monsterListData.Add(_monsterSOs[i].poolTag, _monsterSOs[i].id);
+                _monsterListData.Add(_monsterSOs[i].name, _monsterSOs[i].id);
             }
         }
     }
@@ -212,8 +212,9 @@ public class StagePopup : UIBase
     public void SetStageInfo(int index)
     {
         //StageInfo Load
-        StageSO stageSO = DataManager.Instance.GetStageByIndex(index);
-        titleTxt.text = $"{stageSO.name}";
+        int a = index;
+        DataTable.Stage_Data stageSO = DataManager6.Instance.GetStageByIndex(index);
+        titleTxt.text = $"{stageSO.id}";
         stageInfoWave.text = $"{stageSO.wave}";
         stageInfoHealth.text = $"{stageSO.health}";
         stageInfoGold.text = $"{stageSO.gold}";
