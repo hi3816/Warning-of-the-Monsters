@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class Skill : MonoBehaviour
 {
     public SkillSO SkillSO { get; private set; }
+    private RectTransform _rectTransform;
     private Animator _animator;
     private WaitForSeconds _animationTime;
     private Coroutine _attackCoroutine;
@@ -12,7 +15,7 @@ public class Skill : MonoBehaviour
     private WaitForSeconds _effectDurationTime;
     private CircleCollider2D _skillCollider;
     private SpriteRenderer _spriteRenderer;
-    [SerializeField] private int _skillIdx;
+    [field: SerializeField] public int SkillIdx { get; private set; }
 
     // human 확인 리스트
     private List<GameObject> _humanList = new List<GameObject>();
@@ -20,7 +23,7 @@ public class Skill : MonoBehaviour
 
     private void Awake()
     {
-        SkillSO = DataManager.Instance.GetSkillByIndex(_skillIdx);
+        SkillSO = DataManager.Instance.GetSkillByIndex(SkillIdx);
         SetComponent();
     }
 
@@ -32,9 +35,10 @@ public class Skill : MonoBehaviour
         AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
         _animationTime = new WaitForSeconds(stateInfo.length);
 
-        
+        _rectTransform = GetComponent<RectTransform>();
+        _rectTransform.sizeDelta = new Vector2(SkillSO.range * 0.5f, SkillSO.range * 0.5f);
+
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _spriteRenderer.size = new Vector2(SkillSO.range, SkillSO.range);
         _skillCollider = GetComponent<CircleCollider2D>();
         _effectDurationTime = new WaitForSeconds(SkillSO.duration);
     }

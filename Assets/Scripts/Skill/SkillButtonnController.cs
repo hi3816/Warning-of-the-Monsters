@@ -16,21 +16,14 @@ public class SkillButtonnController : MonoBehaviour
 
     private float _timeSinceSkill; // 스킬을 사용하고 난 후 경과 시간
     [SerializeField] private Image _blackImage; // 쿨타임 표시할 이미지 (360도로 fillamount함)
-
-    [System.Serializable]
-    private class SkillSpritePair
-    {
-        public int id;
-        public Sprite sprite;
-    }
-    [SerializeField] private SkillSpritePair _skillSpritePair; // Inspector에서 Sprite 넣기 위해 사용하는 List
     [SerializeField] private Image _skillImage; // skillSprite가 들어갈 Image 컴포넌트
 
     [SerializeField] private PoolManager.PoolConfig _poolConfig;
 
     private void Awake()
     {
-        _skillSO = DataManager.Instance.GetSkillByIndex(_skillSpritePair.id);
+        int skillIdx = _poolConfig.prefab.GetComponent<Skill>().SkillIdx;
+        _skillSO = DataManager.Instance.GetSkillByIndex(skillIdx);
         _timeSinceSkill = 0f;
         SetSkillImage();
         PoolManager.Instance.AddPool(_poolConfig);
@@ -67,7 +60,7 @@ public class SkillButtonnController : MonoBehaviour
     // 스킬 아이콘 이미지랑 스킬 범위 이미지 설정
     private void SetSkillImage()
     {
-        _skillImage.sprite = _skillSpritePair.sprite;
+        _skillImage.sprite = _poolConfig.prefab.GetComponent<SpriteRenderer>().sprite;
         _skillRangeImageRect.sizeDelta = new Vector2(_skillSO.range * 0.5f, _skillSO.range * 0.5f); // 범위 설정
     }
 
@@ -80,25 +73,28 @@ public class SkillButtonnController : MonoBehaviour
         // 스킬 범위 보여지고 있으면 비활성화
         if (!_isClickSkillButton)
         {
-            _skillRangeImage.SetActive(false);
-            _cancelBtn.SetActive(false);
+            SetSkillRangeImage(false);
         }
         else ShowSkillRange();
+    }
+
+    private void SetSkillRangeImage(bool active)
+    {
+        _skillRangeImage.SetActive(active);
+        _cancelBtn.SetActive(active);
     }
 
     // 스킬 범위 보여줌
     private void ShowSkillRange()
     {
-        _skillRangeImage.SetActive(true);
-        _cancelBtn.SetActive(true);
+        SetSkillRangeImage(true);
     }
 
     // 스킬 사용
     private void UseSkill()
     {
         _isOnCoolDown = true;
-        _skillRangeImage.SetActive(false);
-        _cancelBtn.SetActive(false);
+        SetSkillRangeImage(false);
 
         GameObject obj = PoolManager.Instance.SpawnFromPool(_skillSO.skillName.ToString());
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
