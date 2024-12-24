@@ -5,13 +5,11 @@ using UnityEngine.UI;
 public class SkillButtonnController : MonoBehaviour
 {
     private SkillSO _skillSO; // 스킬 데이터
-    [SerializeField] public int SkillIdx { get; private set; } // 스킬 인덱스
 
     // 현재 쿨타임이 걸려 있는가 true : 스킬 사용 불가, false : 스킬 사용 가능
     private bool _isOnCoolDown = false;
     private bool _isClickSkillButton = false; // 현재 스킬 사용하도록 스킬버튼을 눌렀는지 여부
-    [SerializeField] private GameObject _skillRangeImage; // 스킬의 범위를 볼 수 있는 오브젝트
-    [SerializeField] private RectTransform _skillRangeImageRect; // 스킬 범위를 설정할 RectTransform
+    private GameObject _skillRangeSprite; // 스킬의 범위를 볼 수 있는 오브젝트
     [SerializeField] private GameObject _cancelBtn; // 취소 버튼
 
     private float _timeSinceSkill; // 스킬을 사용하고 난 후 경과 시간
@@ -25,15 +23,21 @@ public class SkillButtonnController : MonoBehaviour
         int skillIdx = _poolConfig.prefab.GetComponent<Skill>().SkillIdx;
         _skillSO = DataManager.Instance.GetSkillByIndex(skillIdx);
         _timeSinceSkill = 0f;
-        SetSkillImage();
         PoolManager.Instance.AddPool(_poolConfig);
+    }
+
+    private void Start()
+    {
+        SetSkillImage();
     }
 
     private void Update()
     {
         if (_isClickSkillButton)
         {
-            _skillRangeImage.transform.position = Input.mousePosition;
+            Vector3 newPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            newPos.z = 0f;
+            _skillRangeSprite.transform.position = newPos;
 
             if (Input.GetMouseButtonDown(0) &&
                 EventSystem.current != null && !EventSystem.current.IsPointerOverGameObject())
@@ -61,7 +65,9 @@ public class SkillButtonnController : MonoBehaviour
     private void SetSkillImage()
     {
         _skillImage.sprite = _poolConfig.prefab.GetComponent<SpriteRenderer>().sprite;
-        _skillRangeImageRect.sizeDelta = new Vector2(_skillSO.range * 0.5f, _skillSO.range * 0.5f); // 범위 설정
+        //_skillImage.transform.localScale = Vector2.one * _skillSO.range;
+
+        _skillRangeSprite = StageManager.Instance.skillRangeSprite; // _skillSO.range
     }
 
     // 스킬 버튼을 클릭했을 때
@@ -80,13 +86,14 @@ public class SkillButtonnController : MonoBehaviour
 
     private void SetSkillRangeImage(bool active)
     {
-        _skillRangeImage.SetActive(active);
+        _skillRangeSprite.SetActive(active);
         _cancelBtn.SetActive(active);
     }
 
     // 스킬 범위 보여줌
     private void ShowSkillRange()
     {
+        _skillRangeSprite.transform.localScale = Vector2.one * 2f;
         SetSkillRangeImage(true);
     }
 
