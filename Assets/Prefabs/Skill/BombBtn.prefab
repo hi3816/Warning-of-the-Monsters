@@ -405,18 +405,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87017523a4977f1459c0f9500ea41a24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillRangeImage: {fileID: 5671046885299629805}
-  skillRangeImageRect: {fileID: 3973638101400256710}
-  cancelBtn: {fileID: 3001624466630100057}
-  blackImage: {fileID: 3434437057143706392}
-  skillSpritePair:
+  _skillRangeImage: {fileID: 5241123043256389648}
+  _skillRangeImageRect: {fileID: 3973638101400256710}
+  _cancelBtn: {fileID: 3001624466630100057}
+  _blackImage: {fileID: 3434437057143706392}
+  _skillSpritePair:
     id: 2
-    sprite: {fileID: 1750639686, guid: 56c03c7de9d86dd43a00f497b9ec6f28, type: 3}
-  skillImage: {fileID: 4778155602058978754}
-  poolConfig:
+    sprite: {fileID: -1624184752, guid: 56c03c7de9d86dd43a00f497b9ec6f28, type: 3}
+  _skillImage: {fileID: 4778155602058978754}
+  _poolConfig:
     tag: Bomb
     prefab: {fileID: 7674980571249262148, guid: 53ede729a8449e84882b7bb2d4974ef3, type: 3}
-    size: 5
+    size: 12
 --- !u!1 &5241123043256389648
 GameObject:
   m_ObjectHideFlags: 0

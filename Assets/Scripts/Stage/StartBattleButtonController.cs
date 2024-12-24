@@ -12,11 +12,11 @@ public class StartBattleButtonController : MonoBehaviour
     private float _currWaveStartDelayTime; // 현재 웨이브 지연 시간 설정
     private float _interWaveDelay; // 웨이브 간 지연 시간
 
-    private Coroutine interWaveCoroutine; // 웨이브간 지연 시간 계산 코루틴
+    private Coroutine _interWaveCoroutine; // 웨이브간 지연 시간 계산 코루틴
     private WaitForSeconds _coroutineInterSeconds; // 웨이브간 지연 시간 캐싱 필드
 
-    [SerializeField] private Button _button;
-    [SerializeField] private Image[] _images;
+    private Button _button;
+    private Image[] _images;
 
     private void Awake()
     {
@@ -58,8 +58,8 @@ public class StartBattleButtonController : MonoBehaviour
 
         if (!CheckClear())
         {
-            if (interWaveCoroutine != null) StopCoroutine(interWaveCoroutine);
-            interWaveCoroutine = StartCoroutine(CoInterWaveDelay());
+            if (_interWaveCoroutine != null) StopCoroutine(_interWaveCoroutine);
+            _interWaveCoroutine = StartCoroutine(CoInterWaveDelay());
             StageManager.Instance.UpdateWave();
         }
         
@@ -87,7 +87,7 @@ public class StartBattleButtonController : MonoBehaviour
         if (!CheckClear() && !_button.enabled && !HumanManager.Instance.isLastWave)
         {
             ButtonEnable();
-            if(interWaveCoroutine != null) StopCoroutine(interWaveCoroutine);
+            if(_interWaveCoroutine != null) StopCoroutine(_interWaveCoroutine);
             _isWaveStart = false;
         }   
     }

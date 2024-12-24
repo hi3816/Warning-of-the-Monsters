@@ -1124,5 +1124,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7403ff48613f094cb914b1f29a0a453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmImage: {fileID: 7511060226103709108}
-  sfxImage: {fileID: 8277039549738289426}
+  _bgmImage: {fileID: 7511060226103709108}
+  _sfxImage: {fileID: 8277039549738289426}

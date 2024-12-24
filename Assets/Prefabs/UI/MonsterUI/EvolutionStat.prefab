@@ -261,12 +261,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd50bbb1e63b26440b7cca3eb9a6b9a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  evolutionNameText: {fileID: 0}
-  fatigueText: {fileID: 1868740770523633828}
-  minFearInflictedText: {fileID: 2880708574609975797}
-  maxFearInflictedText: {fileID: 1200641797960992830}
-  cooldownText: {fileID: 2973588852059656034}
-  rangeText: {fileID: 2021491041808327797}
+  _evolutionNameText: {fileID: 8005647260277863443}
+  _fatigueText: {fileID: 1868740770523633828}
+  _minFearInflictedText: {fileID: 2880708574609975797}
+  _maxFearInflictedText: {fileID: 1200641797960992830}
+  _cooldownText: {fileID: 2973588852059656034}
+  _rangeText: {fileID: 2021491041808327797}
 --- !u!1 &1594196219486634699
 GameObject:
   m_ObjectHideFlags: 0

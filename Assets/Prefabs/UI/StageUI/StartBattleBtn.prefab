@@ -334,10 +334,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c9a1e8b9aada1548a06fb6a2994420b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeCircleImage: {fileID: 1835790905183993909}
-  humanSpawner: {fileID: 0}
-  button: {fileID: 0}
-  images: []
+  _timeCircleImage: {fileID: 1835790905183993909}
+  _humanSpawner: {fileID: 0}
+  _button: {fileID: 0}
+  _images: []
 --- !u!1 &7806411744750406018
 GameObject:
   m_ObjectHideFlags: 0

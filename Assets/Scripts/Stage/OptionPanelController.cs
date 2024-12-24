@@ -12,11 +12,17 @@ public class OptionPanelController : MonoBehaviour
     private float _offAlpha = 200f / 255f;
 
     private SoundManager _soundManager;
+    private int _timeScale;
 
     private void Awake()
     {
         _soundManager = SoundManager.Instance;
         SetMusicButton();
+    }
+
+    private void OnEnable()
+    {
+        _timeScale = Mathf.RoundToInt(Time.timeScale);
     }
 
     // BGM, SFX 세팅
@@ -87,6 +93,6 @@ public class OptionPanelController : MonoBehaviour
     public void ClickContinueButton()
     {
         gameObject.SetActive(false);
-        Time.timeScale = 1f;
+        Time.timeScale = _timeScale;
     }
 }

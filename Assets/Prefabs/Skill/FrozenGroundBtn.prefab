@@ -405,18 +405,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87017523a4977f1459c0f9500ea41a24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillRangeImage: {fileID: 5671046885299629805}
-  skillRangeImageRect: {fileID: 3973638101400256710}
-  cancelBtn: {fileID: 3001624466630100057}
-  blackImage: {fileID: 3434437057143706392}
-  skillSpritePair:
+  _skillRangeImage: {fileID: 5671046885299629805}
+  _skillRangeImageRect: {fileID: 3973638101400256710}
+  _cancelBtn: {fileID: 3001624466630100057}
+  _blackImage: {fileID: 3434437057143706392}
+  _skillSpritePair:
     id: 1
     sprite: {fileID: -1273891122, guid: 5befc1a0defab494ea3ecae2cd4cd0f2, type: 3}
-  skillImage: {fileID: 4778155602058978754}
-  poolConfig:
+  _skillImage: {fileID: 4778155602058978754}
+  _poolConfig:
     tag: FrozenGround
     prefab: {fileID: 7674980571249262148, guid: 49024b7e125480343b9ab488138ffe60, type: 3}
-    size: 5
+    size: 6
 --- !u!1 &5241123043256389648
 GameObject:
   m_ObjectHideFlags: 0
