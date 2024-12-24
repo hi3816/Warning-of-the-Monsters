@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 public class HumanController : MonoBehaviour
 {
     private HumanSO _humanData;
-    private int _id;
+    public int id;
     private float _speed;
     public float Cooldown { get; private set; }
     public float MinFatigueInflicted { get; private set; }
@@ -13,11 +14,11 @@ public class HumanController : MonoBehaviour
     public Animator animator;
     public NavMeshAgent Agent { get; private set; }
     public Transform TargetMonster { get; private set; }
-
-    public Transform HumanEffect;
-    public ParticleSystem AttackParticle;
     
-    public HumanStateMachine StateMachine;
+    public Transform humanEffect;
+    public ParticleSystem attackParticle;
+    
+    public HumanStateMachine stateMachine;
     public WalkHumanState WalkHumanState { get; private set; }
     public RunHumanState RunHumanState { get; private set; }
     public BattleHumanState BattleHumanState { get; private set; }
@@ -25,7 +26,7 @@ public class HumanController : MonoBehaviour
     private void Awake()
     {
         // 데이터 세팅
-        _humanData = HumanDataLoader.Instance.GetHumanByName(gameObject);
+        _humanData = HumanDataLoader.Instance.GetHumanByIndex(id);
         _speed = _humanData.speed;
         Cooldown = _humanData.cooldown;
         MinFatigueInflicted = _humanData.minFatigueInflicted;
@@ -42,16 +43,16 @@ public class HumanController : MonoBehaviour
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
 
-        if (HumanEffect == null)
-            HumanEffect = transform.Find("Effects").transform;
-        if (AttackParticle == null)
-            AttackParticle = HumanEffect.gameObject.GetComponentInChildren<ParticleSystem>();
+        if (humanEffect == null)
+            humanEffect = transform.Find("Effects").transform;
+        if (attackParticle == null)
+            attackParticle = humanEffect.gameObject.GetComponentInChildren<ParticleSystem>();
         
         // 상태머신 세팅
-        StateMachine = new HumanStateMachine();
-        WalkHumanState = new WalkHumanState(this, StateMachine);
+        stateMachine = new HumanStateMachine();
+        WalkHumanState = new WalkHumanState(this);
         RunHumanState = new RunHumanState(this);
-        BattleHumanState = new BattleHumanState(this, StateMachine);
+        BattleHumanState = new BattleHumanState(this);
     }
 
     private void OnEnable()
@@ -64,7 +65,7 @@ public class HumanController : MonoBehaviour
         Agent.enabled = true;
         Agent.ResetPath();  // 경로 초기화
         Agent.speed = _speed;   // 속도 초기화
-        StateMachine.ChangeState(WalkHumanState);   // 걷는 상태로 전환
+        stateMachine.ChangeState(WalkHumanState);   // 걷는 상태로 전환
         // 애니메이션 초기화
         animator.SetBool("IsBattle", false);
         animator.speed = 1.0f;
@@ -72,7 +73,7 @@ public class HumanController : MonoBehaviour
     
     private void Update()
     {
-        StateMachine.CurrentHumanState?.Update();   // 상태 머신에서 현재 상태를 계속 갱신
+        stateMachine.CurrentHumanState?.Update();   // 상태 머신에서 현재 상태를 계속 갱신
         
         if (TargetMonster != null)  // 타겟 몬스터가 있으면
         {
@@ -112,8 +113,8 @@ public class HumanController : MonoBehaviour
 
         // 방향 벡터 -> 라디안 -> 각도
         float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
-        HumanEffect.rotation = Quaternion.Euler(0, 0, angle);   // 파티클 부모 오브젝트를 계산된 각도로 회전
+        humanEffect.rotation = Quaternion.Euler(0, 0, angle);   // 파티클 부모 오브젝트를 계산된 각도로 회전
         
-        AttackParticle.Play();
+        attackParticle.Play();
     }
 }

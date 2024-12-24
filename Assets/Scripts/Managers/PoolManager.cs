@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PoolManager : SingletonBase<PoolManager>
 {
@@ -13,7 +14,7 @@ public class PoolManager : SingletonBase<PoolManager>
         public int size;
     }
 
-    [SerializeField] private List<PoolConfig> poolConfigs = new List<PoolConfig>();
+    private List<PoolConfig> _poolConfigs = new List<PoolConfig>();
     private Dictionary<string, ObjectPool> _pools = new Dictionary<string, ObjectPool>();
 
     protected override void Awake()
@@ -25,7 +26,7 @@ public class PoolManager : SingletonBase<PoolManager>
 
     private void InitializePools()
     {
-        foreach (var config in poolConfigs)
+        foreach (var config in _poolConfigs)
         {
             CreatePool(config.tag, config.prefab, config.size);
         }
@@ -52,9 +53,9 @@ public class PoolManager : SingletonBase<PoolManager>
         ObjectPool objectPool = poolObject.AddComponent<ObjectPool>();
         objectPool.Initialize(new ObjectPool.Pool
         {
-            Tag = tag,
-            Prefab = prefab,
-            Size = size
+            tag = tag,
+            prefab = prefab,
+            size = size
         });
 
         _pools.Add(tag, objectPool);    // 풀 딕셔너리에 새로운 오브젝트 풀 추가
@@ -64,14 +65,14 @@ public class PoolManager : SingletonBase<PoolManager>
     {
         foreach(PoolConfig pool in pools)
         {
-            poolConfigs.Add(pool);
+            _poolConfigs.Add(pool);
             CreatePool(pool.tag, pool.prefab, pool.size);
         }
     }
 
     public void AddPool(PoolConfig pool)
     {
-        poolConfigs.Add(pool);
+        _poolConfigs.Add(pool);
         CreatePool(pool.tag, pool.prefab, pool.size);
     }
 
@@ -136,7 +137,7 @@ public class PoolManager : SingletonBase<PoolManager>
         _pools.Remove(tag); // 풀 목록에서 태그 제거
 
         // 인자로 들어온 tag가 PoolConfig의 tag와 일치하면 해당 PoolConfig 삭제
-        poolConfigs.RemoveAll(config => config.tag == tag);
+        _poolConfigs.RemoveAll(config => config.tag == tag);
 
         Debug.Log($"Pool with tag {tag} deleted successfully.");
         
@@ -155,7 +156,7 @@ public class PoolManager : SingletonBase<PoolManager>
         }
 
         _pools.Clear();         // 풀 딕셔너리에서 모든 항목 삭제
-        poolConfigs.Clear();    // 풀 설정 리스트에서 모든 항목 삭제
+        _poolConfigs.Clear();    // 풀 설정 리스트에서 모든 항목 삭제
 
         Debug.Log("All pools have been deleted.");
 

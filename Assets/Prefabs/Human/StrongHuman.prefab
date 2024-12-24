@@ -305,7 +305,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b64fec6aceb79d448de67d9dd0f34e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  humanData: {fileID: 11400000, guid: ecba04785b0d79d48830c9ca140cb322, type: 2}
+  humanData: {fileID: 0}
+  id: 1
   controller: {fileID: 2711220336945300611}
 --- !u!195 &5045224751481305426
 NavMeshAgent:
@@ -341,9 +342,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ded548fdb2ae03488c267698ba06d23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  humanData: {fileID: 0}
+  id: 1
   animator: {fileID: 0}
-  HumanEffect: {fileID: 6891671784675212167}
-  AttackParticle: {fileID: 0}
+  humanEffect: {fileID: 0}
+  attackParticle: {fileID: 0}
 --- !u!50 &7214537761411527048
 Rigidbody2D:
   serializedVersion: 4
@@ -383,8 +386,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebe0a5e47c8918245ae89405164284b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  human: {fileID: 0}
-  HumanFearGagueImg: {fileID: 7221225698854853108}
+  _human: {fileID: 0}
+  _humanFearGagueImg: {fileID: 0}
 --- !u!1001 &3451077610204719412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -556,17 +559,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9034817750964492100, guid: 72c6501f44c300a428d961b0ee241c6f, type: 3}
   m_PrefabInstance: {fileID: 6245310439532147358}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7221225698854853108 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3647139726889085802, guid: 72c6501f44c300a428d961b0ee241c6f, type: 3}
-  m_PrefabInstance: {fileID: 6245310439532147358}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &6337941721310431121
 PrefabInstance:
   m_ObjectHideFlags: 0
