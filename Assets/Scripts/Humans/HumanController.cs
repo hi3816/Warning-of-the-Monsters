@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 
 public class HumanController : MonoBehaviour
 {
-    private HumanSO _humanData;
+    private DataTable.Human_Data _humanData;
     public int id;
     private float _speed;
     public float Cooldown { get; private set; }
@@ -26,7 +26,7 @@ public class HumanController : MonoBehaviour
     private void Awake()
     {
         // 데이터 세팅
-        _humanData = HumanDataLoader.Instance.GetHumanByIndex(id);
+        _humanData = DataManager3.Instance.GetHumanByIndex(id);
         _speed = _humanData.speed;
         Cooldown = _humanData.cooldown;
         MinFatigueInflicted = _humanData.minFatigueInflicted;
