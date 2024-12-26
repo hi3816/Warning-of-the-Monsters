@@ -587,6 +587,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d64776921b72f55439183bd3d665d22b, type: 3}
+--- !u!1 &1960501435 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1406606968500248776, guid: dc93d265c49fa8449834e121e774856a, type: 3}
+  m_PrefabInstance: {fileID: 7491921317411909401}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &98702664675119104
 GameObject:
   m_ObjectHideFlags: 0
@@ -1655,6 +1660,10 @@ PrefabInstance:
       propertyPath: m_Interactable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6334386159230004111, guid: dc93d265c49fa8449834e121e774856a, type: 3}
+      propertyPath: loading
+      value: 
+      objectReference: {fileID: 1960501435}
     - target: {fileID: 7575459000503396225, guid: dc93d265c49fa8449834e121e774856a, type: 3}
       propertyPath: m_Name
       value: MySceneManager
