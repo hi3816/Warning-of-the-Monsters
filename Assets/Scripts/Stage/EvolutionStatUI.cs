@@ -1,4 +1,4 @@
-using Monster_Data;
+using DataTable;
 using TMPro;
 using UnityEngine;
 
@@ -12,7 +12,7 @@ public class EvolutionStatUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _cooldownText;
     [SerializeField] private TextMeshProUGUI _rangeText;
 
-    public void Show(EvolutionSO evolution)
+    public void Show(Evolution_Data evolution)
     {
         SetText(evolution);
         gameObject.SetActive(true);
@@ -23,7 +23,7 @@ public class EvolutionStatUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void SetText(EvolutionSO evolutionData)
+    private void SetText(Evolution_Data evolutionData)
     {
         _fatigueText.text = evolutionData.fatigue.ToString();
         _minFearInflictedText.text = evolutionData.minFearInflicted.ToString();
