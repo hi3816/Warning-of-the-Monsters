@@ -116,7 +116,7 @@ public class DataManager : SingletonBase<DataManager>
         return _baseMonsterDataList;
     }
 
-    public List<Upgrade_Data> GetUpgradeMonsters(int monsterId, int level)
+    public Upgrade_Data GetUpgradeMonsters(int monsterId, int level)
     {
         var upgrades = Upgrade_Data.GetList();
          foreach (var upgrade in upgrades)
@@ -125,7 +125,7 @@ public class DataManager : SingletonBase<DataManager>
              int upgradePart = Mathf.RoundToInt((upgrade.monster_id - baseMonsterId) * 10); //upgrade level (1, 2, etc.)
              if (baseMonsterId == monsterId && upgradePart == level)
              {
-                 return upgrades;
+                 return upgrade;
              }
          }
          return null;
