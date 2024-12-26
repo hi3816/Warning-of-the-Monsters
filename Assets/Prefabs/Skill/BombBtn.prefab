@@ -283,8 +283,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87017523a4977f1459c0f9500ea41a24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skillRangeSprite: {fileID: 6254142891638447232, guid: 95f7e527e1070434aab4eed0f4e17514, type: 3}
-  _skillRangeImageRect: {fileID: 0}
   _cancelBtn: {fileID: 6760110983548306172}
   _blackImage: {fileID: 3434437057143706392}
   _skillImage: {fileID: 4778155602058978754}
@@ -449,8 +447,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 81897cc5b07e6ca48accea36f4c6cbf3, type: 2}
-  m_Type: 1
+  m_Sprite: {fileID: -1272017621, guid: ded7c963a5d1847dbb2b3221722afcc0, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -488,9 +486,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 21300000, guid: dbd9714cbcdd6674eb1284691849f25a, type: 2}
-    m_SelectedSprite: {fileID: 21300000, guid: dbd9714cbcdd6674eb1284691849f25a, type: 2}
+    m_HighlightedSprite: {fileID: 1486677648, guid: ded7c963a5d1847dbb2b3221722afcc0, type: 3}
+    m_PressedSprite: {fileID: 1486677648, guid: ded7c963a5d1847dbb2b3221722afcc0, type: 3}
+    m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
