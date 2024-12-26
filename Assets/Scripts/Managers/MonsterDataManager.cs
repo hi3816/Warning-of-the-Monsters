@@ -90,7 +90,7 @@ public class MonsterDataManager : MonoBehaviour
             SummonSO summonSO = ScriptableObject.CreateInstance<SummonSO>();
             summonSO.monsterID = summonData.monster_id;
             summonSO.evolutionType = summonData.EvolutionType;
-            summonSO.minionList = summonData.minionMonsterId    ;
+            summonSO.minionList = summonData.minionMonsterId;
             summonSO.minionTagList = summonData.minionTag;
             summonSO.minionCountList = summonData.count;
             summonSO.evolutionMinionIdList = summonData.evolutionMinionMonsterId;

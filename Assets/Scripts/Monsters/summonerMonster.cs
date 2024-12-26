@@ -1,19 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class summonerMonster : Monster //졸개들을 불러 인간을 막는 몬스터(=병영타워)
 {
-    private Transform[] summonPositions;
+    private Transform[] _summonPositions;
     private Dictionary<string, int> _minionToSummon;
-    private CircleCollider2D collider;
+    private CircleCollider2D _collider;
 
     private void Start()
     {
         InitializeSummonableMinions();
-        collider = GetComponent<CircleCollider2D>();
+        _collider = GetComponent<CircleCollider2D>();
     }
 
     private void InitializeSummonableMinions()
@@ -50,7 +49,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
             string minionTag = minionEntry.Key;
             int count = minionEntry.Value;
 
-            Monster_Data.Monster_Data minionData = MonsterDataManager.Instance.GetMinionData(minionTag);
+            DataTable.Monster_Data minionData = DataManager4.Instance.GetMinionData(minionTag);
             if (minionData != null)
             {
                 for (int i = 0; i < count; i++)
@@ -58,7 +57,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
                     int roof = 0;
                     while (true)
                     {
-                        Vector3 randomOffset = Random.insideUnitSphere * collider.radius;
+                        Vector3 randomOffset = Random.insideUnitSphere * _collider.radius;
                         Vector3 spawnPosition = transform.position + randomOffset;
                         if (NavMesh.SamplePosition(spawnPosition, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
                         {
@@ -78,7 +77,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
         }
     }
 
-    private void MinionSetPosition(Vector3 position, string minionTag, Monster_Data.Monster_Data minionData)
+    private void MinionSetPosition(Vector3 position, string minionTag, DataTable.Monster_Data minionData)
     {
         Vector3 pos = position;
         pos.z = 0f;

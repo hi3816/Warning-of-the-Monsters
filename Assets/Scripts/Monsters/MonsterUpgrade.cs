@@ -3,8 +3,8 @@ using UnityEngine.EventSystems;
 
 public class MonsterUpgrade : MonoBehaviour
 {
-    [SerializeField] private MonsterUpgradeUI monsterUpgradeUI;
-    [SerializeField] private MonsterEvolutionUI evolutionUI;
+    [SerializeField] private MonsterUpgradeUI _monsterUpgradeUI;
+    [SerializeField] private MonsterEvolutionUI _evolutionUI;
     
     void Update()
     {
@@ -25,8 +25,8 @@ public class MonsterUpgrade : MonoBehaviour
             }
             else if(!EventSystem.current.IsPointerOverGameObject())
             {
-                monsterUpgradeUI.Hide();
-                evolutionUI.Hide();
+                _monsterUpgradeUI.Hide();
+                _evolutionUI.Hide();
             }
         }
     }
@@ -35,16 +35,16 @@ public class MonsterUpgrade : MonoBehaviour
     {
         if (clickedMonster.data.currentLevel <= clickedMonster.data.maxLevel)
         {
-            EvolutionSO data = MonsterDataManager.Instance.GetEvolutionSO(clickedMonster.data.id, clickedMonster.data.currentLevel + 1);
+            EvolutionSO data = DataManager2.Instance.GetEvolutionSO(clickedMonster.data.id, clickedMonster.data.currentLevel + 1);
             if (data != null && data.upgradeLevel == clickedMonster.data.maxLevel)
             {
-                evolutionUI.Show(clickedMonster);
+                _evolutionUI.Show(clickedMonster);
             }
             else
             {
                 if (clickedMonster.data.currentLevel <= clickedMonster.data.maxLevel)
                 {
-                    monsterUpgradeUI.Show(clickedMonster);
+                    _monsterUpgradeUI.Show(clickedMonster);
                 }
             }
         }

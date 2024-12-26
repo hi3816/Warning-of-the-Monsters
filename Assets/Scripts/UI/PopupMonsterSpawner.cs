@@ -80,8 +80,8 @@ public class PopupMonsterSpawner : MonsterSpawner
             {
                 MonsterManager.Instance.SelectMonster(monsterInfo.monsterId);
             }
-            MonsterSO selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
-            base.SpawnMonster(_pendingSpawnPosition, selectedMonsterData);
+            // MonsterSO selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
+            // base.SpawnMonster(_pendingSpawnPosition, selectedMonsterData);
 
             // 팝업 닫기
             if (_monsterSelectionPopup != null)
@@ -113,12 +113,12 @@ public class PopupMonsterSpawner : MonsterSpawner
             if (_selectedMonsterList.TryGetValue(i, out var monsterInfo))
             {
                 MonsterManager.Instance.SelectMonster(monsterInfo.monsterId);
-                MonsterSO selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
+                // MonsterSO selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
 
                 //선택가능 몬스터 검사
-                bool isAvailable = IsMonsterSelectable(i, selectedMonsterData);
+                // bool isAvailable = IsMonsterSelectable(i, selectedMonsterData);
 
-                _slotsOverlay[i].SetActive(!isAvailable);
+                // _slotsOverlay[i].SetActive(!isAvailable);
             }
         }
     }

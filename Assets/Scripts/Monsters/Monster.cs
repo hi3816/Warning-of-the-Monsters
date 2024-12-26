@@ -1,10 +1,8 @@
-using Monster_Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public enum MonsterState
@@ -39,15 +37,15 @@ public class MonsterData
 public abstract class Monster : MonoBehaviour
 {
     public MonsterData data;
-    private MonsterUpgradeUI upgradeUI;
+    private MonsterUpgradeUI _upgradeUI;
     protected List<Human> TargetHumanList = new List<Human>();
     private SpriteRenderer _spriteRenderer;
     protected Animator Animator;
     protected MonsterState MonsterState;
-    private float fadeDuration = 1f;
+    private float _fadeDuration = 1f;
     protected float LastScareTime;
-    private Coroutine coroutine;
-    [SerializeField] private GameObject fatigueGauge;
+    private Coroutine _coroutine;
+    [SerializeField] private GameObject _fatigueGauge;
 
     public Action OnAttacked;
     
@@ -56,17 +54,22 @@ public abstract class Monster : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
         SetState(MonsterState.Idle);
-        SetMonterSOToMonsterData(MonsterDataManager.Instance.GetBaseMonsterByIndex(data.id - 1));
-        if (fatigueGauge == null)
+        var baseMonsterData = DataManager4.Instance.GetBaseMonsterById(data.id - 1);
+        if (baseMonsterData != null)
         {
-            fatigueGauge = gameObject.transform.Find("FatigueGauge").gameObject;
+            SetMonsterData(baseMonsterData);
+        }
+        
+        if (_fatigueGauge == null)
+        {
+            _fatigueGauge = gameObject.transform.Find("FatigueGauge").gameObject;
         }
     }
     
     private void OnEnable()
     {
         GameManager.Instance.activeObjects.Add(this.gameObject);
-        fatigueGauge.SetActive(true);
+        _fatigueGauge.SetActive(true);
     }
     
     protected virtual void Update()
@@ -98,32 +101,32 @@ public abstract class Monster : MonoBehaviour
     }
 
     // 처음 데이터 저장
-    private void SetMonterSOToMonsterData(MonsterSO monsterSO)
+    private void SetMonsterData(DataTable.Monster_Data monsterData)
     {
-        data.id = monsterSO.id;
-        data.currentLevel = monsterSO.upgradeLevel;
-        data.poolTag = monsterSO.poolTag;
+        data.id = monsterData.id;
+        data.currentLevel = monsterData.maxLevel;
+        data.poolTag = monsterData.name;
         data.currentFatigue = 0f;
-        data.fatigue = monsterSO.fatigue;
-        data.minFearInflicted = monsterSO.minFearInflicted;
-        data.maxFearInflicted = monsterSO.maxFearInflicted;
-        data.cooldown = monsterSO.cooldown;
-        data.humanDetectRange = monsterSO.humanDetectRange;
-        data.humanScaringRange = monsterSO.humanScaringRange;
-        data.requiredCoins = monsterSO.requiredCoins;
-        data.maxLevel = monsterSO.maxLevel;
-        data.walkSpeed = monsterSO.walkSpeed;
-        data.monsterType = monsterSO.monsterType;
+        data.fatigue = monsterData.fatigue;
+        data.minFearInflicted = monsterData.minFearInflicted;
+        data.maxFearInflicted = monsterData.maxFearInflicted;
+        data.cooldown = monsterData.cooldown;
+        data.humanDetectRange = monsterData.humanDetectRange;
+        data.humanScaringRange = monsterData.humanScaringRange;
+        data.requiredCoins = monsterData.requiredCoins;
+        data.maxLevel = monsterData.maxLevel;
+        data.walkSpeed = monsterData.walkspeed;
+        data.monsterType = monsterData.MonsterType;
     }
 
-    // 현재 데이터 변경
-    public void SetMonsterDataToMonsterData(MonsterData newMonsterData)
-    {
-        data = newMonsterData;
-        data.currentFatigue = 0f;
-    }
+    // // 현재 데이터 변경
+    // public void SetMonsterDataToMonsterData(MonsterData newMonsterData)
+    // {
+    //     data = newMonsterData;
+    //     data.currentFatigue = 0f;
+    // }
 
-    public void Upgrade(Monster_Data.Upgrade_Data upgradeData)
+    public void Upgrade(DataTable.Upgrade_Data upgradeData)
     {
         data.monsterId = upgradeData.monster_id;
         data.currentLevel = upgradeData.upgrade_level;
@@ -188,7 +191,7 @@ public abstract class Monster : MonoBehaviour
 
             case MonsterState.ReturningVillage:
                 Animator.SetBool("Return", true);
-                coroutine = StartCoroutine(FadeOutAndReturnToPool());
+                _coroutine = StartCoroutine(FadeOutAndReturnToPool());
                 break;
         }
     }
@@ -280,7 +283,7 @@ public abstract class Monster : MonoBehaviour
 
     public void ReturnToVillage()
     {
-        if (coroutine != null) StopCoroutine(coroutine);
+        if (_coroutine != null) StopCoroutine(_coroutine);
         StartCoroutine(FadeOutAndReturnToPool());
     }
 
@@ -295,16 +298,16 @@ public abstract class Monster : MonoBehaviour
         }
         TargetHumanList.Clear();
         
-        fatigueGauge.SetActive(false);
+        _fatigueGauge.SetActive(false);
         
         // Fade out
         float startAlpha = _spriteRenderer.color.a;
         float elapsedTime = 0f;
 
-        while (elapsedTime < fadeDuration)
+        while (elapsedTime < _fadeDuration)
         {
             elapsedTime += Time.deltaTime;
-            float newAlpha = Mathf.Lerp(startAlpha, 0f, elapsedTime / fadeDuration);
+            float newAlpha = Mathf.Lerp(startAlpha, 0f, elapsedTime / _fadeDuration);
             _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, newAlpha);
             yield return null;
         }
@@ -316,7 +319,7 @@ public abstract class Monster : MonoBehaviour
     
     public void Reset()
     {
-        if (coroutine != null) StopCoroutine(coroutine);
+        if (_coroutine != null) StopCoroutine(_coroutine);
         data.currentFatigue = 0f;
         TargetHumanList.Clear();
         _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 1f);
@@ -325,6 +328,6 @@ public abstract class Monster : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.Instance.activeObjects.Remove(this.gameObject);
+        GameManager.Instance.activeObjects.Remove(gameObject);
     }
 }
