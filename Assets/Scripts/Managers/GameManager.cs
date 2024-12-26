@@ -24,27 +24,19 @@ public class GameManager : SingletonBase<GameManager>
         StageManager.Instance.CaculateStars();  // 플레이 정보로 별 계산
         StageManager.Instance.SavePlayData();  // 스테이지 플레이 정보 저장
         StartCoroutine(EndGameProcess<WinPopup>());
-        //EndGame<WinPopup>();
     }
     
     public void GameOver()
     {
         StartCoroutine(EndGameProcess<LosePopup>());
-        //EndGame<LosePopup>();
     }
 
     private IEnumerator EndGameProcess<T>() where T : UIBase
     {
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(0.5f);
-        UIManager.Instance.Show<T>("UI/UIPopup/");
+        UIManager.Instance.ShowPopup<T>();
     }
-    
-    // private void EndGame<T>() where T : UIBase
-    // {
-    //     Time.timeScale = 0;
-    //     UIManager.Instance.Show<T>("UI/UIPopup/");
-    // }
 
     public void ReturnObjects()
     {
