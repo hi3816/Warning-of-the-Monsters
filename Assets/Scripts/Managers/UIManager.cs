@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +8,8 @@ public class UIManager : SingletonBase<UIManager>
     public float screenWidth = 1920;
     public float screenHeight = 1080;
 
+    private const string _popupPath = "UI/UIPopup/";
+    
     public Action<Sprite> OnClickListSlot;
 
     private List<UIBase> uiList = new List<UIBase>();
@@ -30,8 +30,8 @@ public class UIManager : SingletonBase<UIManager>
         
         return (T)ui;
     }
-    
-    public T Show<T>(string path) where T : UIBase
+
+    private T Show<T>(string path) where T : UIBase
     {
         string uiName = typeof(T).ToString();
         UIBase go = Resources.Load<UIBase>(path + uiName);
@@ -40,6 +40,11 @@ public class UIManager : SingletonBase<UIManager>
         ui.Opened();
         
         return (T)ui;
+    }
+    
+    public T ShowPopup<T>() where T : UIBase
+    {
+        return Show<T>(_popupPath);
     }
 
     private T Load<T>(UIBase prefab, string uiName) where T : UIBase
