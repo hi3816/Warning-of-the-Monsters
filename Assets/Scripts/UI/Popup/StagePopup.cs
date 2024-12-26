@@ -32,8 +32,7 @@ public class StagePopup : UIBase
     public GameObject monsterListSlot;
     public Transform monsterListScroll;
     Dictionary<int, (int MonsterId, string MonsterName)> _selectedListData = new Dictionary<int, (int, string)>();
-
-    private TestSO[] _testSOs;
+    
     private List<DataTable.Monster_Data> _monsterSOs;
     private Dictionary<string, int> _monsterListData;
     private SpriteAtlas _sprites;

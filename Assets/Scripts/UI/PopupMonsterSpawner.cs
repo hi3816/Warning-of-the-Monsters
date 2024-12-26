@@ -128,5 +128,4 @@ public class PopupMonsterSpawner : MonsterSpawner
         _costTxts[idx].text = data.requiredCoins.ToString();
         return StageManager.CurrGold >= data.requiredCoins;
     }
-
 }
