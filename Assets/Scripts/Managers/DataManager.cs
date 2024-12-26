@@ -119,7 +119,6 @@ public class DataManager : SingletonBase<DataManager>
     public List<DataTable.Upgrade_Data> GetUpgradeMonsters(int monsterId, int level)
     {
         var upgrades = new List<DataTable.Upgrade_Data>();
-
         foreach (var upgrade in _upgradeMonsterDataList)
         {
             if (upgrade.monster_id == monsterId && upgrade.upgrade_level == level)

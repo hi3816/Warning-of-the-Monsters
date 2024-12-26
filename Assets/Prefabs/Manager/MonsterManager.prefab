@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2266940525646833212}
   - component: {fileID: 8359688274593884494}
-  - component: {fileID: 665823340007014865}
   m_Layer: 0
   m_Name: MonsterManager
   m_TagString: Untagged
@@ -47,19 +46,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f62ac98189ea94727b532a099ef582cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterDataManager: {fileID: 665823340007014865}
-  poolConfigs:
+  _poolConfigs:
   - tag: Dog
     prefab: {fileID: 4946271725204977259, guid: ce7668ce6f5814468b41a3502ce49bd8, type: 3}
     size: 12
   - tag: Dragon
     prefab: {fileID: 3455932398467681148, guid: 132217ce7911044ecb739ca17d8c8c61, type: 3}
     size: 12
-  - tag: Lich
-    prefab: {fileID: 5380132030123303399, guid: fe818276475734e589ef2628bc5bf421, type: 3}
+  - tag: Medusa
+    prefab: {fileID: 8609092479553512321, guid: 46ab9f2adc91548d192cca4380417f15, type: 3}
     size: 12
   - tag: Cyclops
     prefab: {fileID: 5747528317129110511, guid: 68744658c320e4a7392832bddf224566, type: 3}
+    size: 12
+  - tag: Lich
+    prefab: {fileID: 5380132030123303399, guid: fe818276475734e589ef2628bc5bf421, type: 3}
     size: 12
   - tag: Skeleton
     prefab: {fileID: 8137456782942892047, guid: edf457ab2e1ae487e85fbc3db842ed6e, type: 3}
@@ -67,27 +68,6 @@ MonoBehaviour:
   - tag: Bat
     prefab: {fileID: 5562810807239344560, guid: 9de42ede550914879beb2c67d13d1c43, type: 3}
     size: 20
-  - tag: DeathKnight
-    prefab: {fileID: 1533141459934048252, guid: ad778e652ac4f4b9b8594d2ac7b554ed, type: 3}
-    size: 20
-  - tag: Vampire
-    prefab: {fileID: 9023978108766818284, guid: 264843ee98e1f49308cb774d77b4692e, type: 3}
-    size: 20
-  - tag: Medusa
-    prefab: {fileID: 8609092479553512321, guid: 46ab9f2adc91548d192cca4380417f15, type: 3}
-    size: 12
---- !u!114 &665823340007014865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2169478239008886457}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee9179e7ebdb346bc8c8cc01400c5112, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3000365435214169872
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,8 +112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c9f723e8d2f4697ae60a03014fd0a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterUpgradeUI: {fileID: 0}
-  evolutionUI: {fileID: 0}
+  _monsterUpgradeUI: {fileID: 0}
+  _evolutionUI: {fileID: 0}
 --- !u!1 &4036041060090076002
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,4 +158,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a41ec76ac56243af9291191c4452c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 0}
+  SpawnPoints: []

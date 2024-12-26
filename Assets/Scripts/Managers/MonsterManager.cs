@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class MonsterManager : SingletonBase<MonsterManager>
 {
-    [SerializeField]
-    private DataManager _monsterDataManager;
     private Dictionary<int, DataTable.Monster_Data> _monstersById = new Dictionary<int, DataTable.Monster_Data>();
     private int _selectedMonsterId;
     public int SelectedMonsterId => _selectedMonsterId;
@@ -26,9 +24,7 @@ public class MonsterManager : SingletonBase<MonsterManager>
     
     private void LoadMonsterData()
     {
-        if (_monsterDataManager == null) return;
-
-        List<DataTable.Monster_Data> monsters = _monsterDataManager.GetBaseMonsters();
+        List<DataTable.Monster_Data> monsters = DataManager.Instance.GetBaseMonsters();
         if (monsters == null || monsters.Count == 0) return;
 
         foreach(DataTable.Monster_Data monster in monsters)

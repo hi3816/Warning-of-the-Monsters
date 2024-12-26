@@ -30,7 +30,7 @@ public class MonsterSpawner : MonoBehaviour
         return false;
     }
     
-    protected void SpawnMonster(Vector3 spawnPosition)
+    protected void SpawnMonster(Vector3 spawnPosition, int selectedMonsterId)
     {
         var selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
         if (IsSpawnPointOccupied(spawnPosition, 0.5f))

@@ -62,7 +62,7 @@ public abstract class Monster : MonoBehaviour
         
         if (_fatigueGauge == null)
         {
-            _fatigueGauge = gameObject.transform.Find("FatigueGauge").gameObject;
+            _fatigueGauge = gameObject.transform.Find("FatigueCanvas/FatigueGauge").gameObject;
         }
     }
     
@@ -104,7 +104,7 @@ public abstract class Monster : MonoBehaviour
     private void SetMonsterData(DataTable.Monster_Data monsterData)
     {
         data.id = monsterData.id;
-        data.currentLevel = monsterData.maxLevel;
+        data.currentLevel = 0;
         data.poolTag = monsterData.name;
         data.currentFatigue = 0f;
         data.fatigue = monsterData.fatigue;

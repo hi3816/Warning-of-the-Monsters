@@ -81,7 +81,7 @@ public class PopupMonsterSpawner : MonsterSpawner
                 MonsterManager.Instance.SelectMonster(monsterInfo.monsterId);
             }
             DataTable.Monster_Data selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
-            // base.SpawnMonster(_pendingSpawnPosition, selectedMonsterData);
+            base.SpawnMonster(_pendingSpawnPosition, selectedMonsterData.id);
 
             // 팝업 닫기
             if (_monsterSelectionPopup != null)
