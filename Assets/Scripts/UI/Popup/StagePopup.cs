@@ -115,7 +115,7 @@ public class StagePopup : UIBase
         _monsterListData = new Dictionary<string, int>();
         for (int i = 0; i < _monsterSOs.Count; i++)
         {
-            if (_monsterSOs[i].MonsterType == MonsterType.Stationary)
+            if (_monsterSOs[i].monsterType == MonsterType.Stationary)
             {
                 GameObject Instance = Instantiate(monsterListSlot);
 

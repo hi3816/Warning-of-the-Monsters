@@ -67,7 +67,7 @@ namespace DataTable
 		public System.Int32 requiredCoins;
 		public System.Int32 maxLevel;
 		public System.Single walkspeed;
-		public MonsterType MonsterType;
+		public MonsterType monsterType;
   
 
 #region fuctions

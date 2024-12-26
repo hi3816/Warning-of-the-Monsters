@@ -4,14 +4,14 @@ using DataTable;
 
 public class DataManager : SingletonBase<DataManager>
 {
-    private List<DataTable.Human_Data> _humanDataList;
-    private Dictionary<int, DataTable.Wave_Data> _waveDataDictionary;
-    private List<DataTable.Monster_Data> _baseMonsterDataList;
-    private List<DataTable.Upgrade_Data> _upgradeMonsterDataList;
-    private List<DataTable.Monster_Data> _minionDataList;
-    private Dictionary<string, DataTable.Monster_Data> _minionDataDictionary;
-    private List<DataTable.Summon_Data> _summonDataList;
-    private Dictionary<float, DataTable.Summon_Data> _summonDataDictionary;
+    private List<Human_Data> _humanDataList;
+    private Dictionary<int, Wave_Data> _waveDataDictionary;
+    private List<Monster_Data> _baseMonsterDataList;
+    private List<Upgrade_Data> _upgradeMonsterDataList;
+    private List<Monster_Data> _minionDataList;
+    private Dictionary<string, Monster_Data> _minionDataDictionary;
+    private List<Summon_Data> _summonDataList;
+    private Dictionary<float, Summon_Data> _summonDataDictionary;
     private Dictionary<SfxType, float> _individualSfxVolumeDict;
     public Dictionary<int, (int, string)> selectedMonsterData;
     public int selectedStageIdx;
@@ -32,10 +32,10 @@ public class DataManager : SingletonBase<DataManager>
     
     public void LoadHumanData()
     {
-        _humanDataList = DataTable.Human_Data.Human_DataList;
+        _humanDataList = Human_Data.Human_DataList;
         if (_humanDataList.Count <= 0)
         {
-            _humanDataList = DataTable.Human_Data.GetList();
+            _humanDataList = Human_Data.GetList();
         }
         if (_humanDataList.Count <= 0)
         {
@@ -43,7 +43,7 @@ public class DataManager : SingletonBase<DataManager>
         }
     }
     
-    public DataTable.Human_Data GetHumanByIndex(int idx)
+    public Human_Data GetHumanByIndex(int idx)
     {
         if (_humanDataList.Count <= 0)
         {
@@ -54,10 +54,10 @@ public class DataManager : SingletonBase<DataManager>
     
     public void LoadWaveData()
     {
-        _waveDataDictionary = DataTable.Wave_Data.Wave_DataMap;
+        _waveDataDictionary = Wave_Data.Wave_DataMap;
         if (_waveDataDictionary.Count <= 0)
         {
-            _waveDataDictionary = DataTable.Wave_Data.GetDictionary();
+            _waveDataDictionary = Wave_Data.GetDictionary();
         }
         if (_waveDataDictionary.Count <= 0)
         {
@@ -65,7 +65,7 @@ public class DataManager : SingletonBase<DataManager>
         }
     }
     
-    public DataTable.Wave_Data GetWaveByIndex(int waveIdx)
+    public Wave_Data GetWaveByIndex(int waveIdx)
     {
         if ((_waveDataDictionary).Count <= 0)
         {
@@ -81,18 +81,18 @@ public class DataManager : SingletonBase<DataManager>
     
     private void LoadBaseMonsterData()
     {
-        _baseMonsterDataList = DataTable.Monster_Data.GetList();
+        _baseMonsterDataList = Monster_Data.GetList();
     }
 
     private void LoadUpgradeMonsterData()
     {
-        _upgradeMonsterDataList = DataTable.Upgrade_Data.GetList();
+        _upgradeMonsterDataList = Upgrade_Data.GetList();
     }
 
     private void LoadMinionData()
     {
-        _minionDataList = DataTable.Monster_Data.GetList();
-        _minionDataDictionary = new Dictionary<string, DataTable.Monster_Data>();
+        _minionDataList = Monster_Data.GetList();
+        _minionDataDictionary = new Dictionary<string, Monster_Data>();
 
         foreach (var minionData in _minionDataList)
         {
@@ -111,35 +111,37 @@ public class DataManager : SingletonBase<DataManager>
         }
     }
 
-    public List<DataTable.Monster_Data> GetBaseMonsters()
+    public List<Monster_Data> GetBaseMonsters()
     {
         return _baseMonsterDataList;
     }
 
-    public List<DataTable.Upgrade_Data> GetUpgradeMonsters(int monsterId, int level)
+    public List<Upgrade_Data> GetUpgradeMonsters(int monsterId, int level)
     {
-        var upgrades = new List<DataTable.Upgrade_Data>();
-        foreach (var upgrade in _upgradeMonsterDataList)
-        {
-            if (upgrade.monster_id == monsterId && upgrade.upgrade_level == level)
-            {
-                upgrades.Add(upgrade);
-            }
-        }
-        return upgrades;
+        var upgrades = Upgrade_Data.GetList();
+         foreach (var upgrade in upgrades)
+         {
+             int baseMonsterId = Mathf.FloorToInt(upgrade.monster_id); //base id (1, 2, etc.)
+             int upgradePart = Mathf.RoundToInt((upgrade.monster_id - baseMonsterId) * 10); //upgrade level (1, 2, etc.)
+             if (baseMonsterId == monsterId && upgradePart == level)
+             {
+                 return upgrades;
+             }
+         }
+         return null;
     }
 
-    public DataTable.Monster_Data GetBaseMonsterById(int id)
+    public Monster_Data GetBaseMonsterById(int id)
     {
         return id >= 0 && id < _baseMonsterDataList.Count ? _baseMonsterDataList[id] : null;
     }
 
-    public List<DataTable.Monster_Data> GetMinions()
+    public List<Monster_Data> GetMinions()
     {
         return _minionDataList;
     }
 
-    public DataTable.Monster_Data GetMinionData(string minionTag)
+    public Monster_Data GetMinionData(string minionTag)
     {
         return _minionDataDictionary.TryGetValue(minionTag, out var minionData) ? minionData : null;
     }
@@ -152,7 +154,7 @@ public class DataManager : SingletonBase<DataManager>
     
     private void SetIndividualSfxVolumeDict()
     {
-        List<DataTable.SfxVolume_Data> sfxVolumeDataList = DataTable.SfxVolume_Data.GetList();
+        List<SfxVolume_Data> sfxVolumeDataList = SfxVolume_Data.GetList();
 
         Dictionary<SfxType, float> individualSfxVolumeDict = new Dictionary<SfxType, float>();
         for (int i = 0; i < sfxVolumeDataList.Count; i++)
@@ -163,14 +165,14 @@ public class DataManager : SingletonBase<DataManager>
         _individualSfxVolumeDict = individualSfxVolumeDict;
     }
 
-    public DataTable.Stage_Data GetStageByIndex(int idx)
+    public Stage_Data GetStageByIndex(int idx)
     {
-        return DataTable.Stage_Data.GetList()[idx];
+        return Stage_Data.GetList()[idx];
     }
 
-    public DataTable.Skill_Data GetSkillByIndex(int idx)
+    public Skill_Data GetSkillByIndex(int idx)
     {
-        return DataTable.Skill_Data.GetList()[idx];
+        return Skill_Data.GetList()[idx];
     }
 
     public Dictionary<SfxType, float> GetIndvidualSfxVolumeDict()
@@ -183,9 +185,9 @@ public class DataManager : SingletonBase<DataManager>
     }
 
     // 진화 데이터 확인 (EvolutionType 상관 없을 때)
-    public DataTable.Evolution_Data GetEvolutionData(int monsterId, int upgradeLevel)
+    public Evolution_Data GetEvolutionData(int monsterId, int upgradeLevel)
     {
-        foreach (var evolution in DataTable.Evolution_Data.GetList())
+        foreach (var evolution in Evolution_Data.GetList())
         {
             int baseEvolutionId = Mathf.FloorToInt(evolution.evolutionId); // base id (1, 2, etc.)
             int level = evolution.upgradeLevel;
@@ -198,13 +200,13 @@ public class DataManager : SingletonBase<DataManager>
     }
 
     // 진화 데이터 확인 (EvolutionType 있을 때) -> 진화 버튼 클릭 시 확인용
-    public DataTable.Evolution_Data GetEvolutionData(int monsterId, int upgradeLevel, EvolutionType evolutionType)
+    public Evolution_Data GetEvolutionData(int monsterId, int upgradeLevel, EvolutionType evolutionType)
     {
-        foreach (var evolution in DataTable.Evolution_Data.GetList())
+        foreach (var evolution in Evolution_Data.GetList())
         {
             int baseEvolutionId = Mathf.FloorToInt(evolution.evolutionId); // base id (1, 2, etc.)
             int level = evolution.upgradeLevel;
-            EvolutionType type = evolution.EvolutionType;
+            EvolutionType type = evolution.evolutionType;
             if (baseEvolutionId == monsterId && level == upgradeLevel && type == evolutionType)
             {
                 return evolution;
@@ -213,9 +215,9 @@ public class DataManager : SingletonBase<DataManager>
         return null;
     }
    
-    public List<DataTable.Monster_Data> GetMonsterSOs()
+    public List<Monster_Data> GetMonsterSOs()
     {
-        List<DataTable.Monster_Data> data = DataTable.Monster_Data.GetList();
+        List<Monster_Data> data = Monster_Data.GetList();
 
         return data;
     }

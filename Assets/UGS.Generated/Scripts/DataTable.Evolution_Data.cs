@@ -58,8 +58,8 @@ namespace DataTable
 
 		public System.Single evolutionId;
 		public System.Int32 upgradeLevel;
-		public EvolutionType EvolutionType;
-		public MonsterType MonsterType;
+		public EvolutionType evolutionType;
+		public MonsterType monsterType;
 		public System.String name;
 		public System.Single fatigue;
 		public System.Single minFearInflicted;

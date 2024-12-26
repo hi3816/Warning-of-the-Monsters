@@ -1,1 +1,0 @@
-{"jsonObject":{"SfxVolume_Data":{"index : int":["0","1","2","3"],"SfxType : Enum<SfxType>":["Click","SpawnSmallMonster","SpawnBigMonster","SurprisingHuman"],"volume : float":["1","0.5","0.5","0.5"]}},"spreadSheetName":"SfxVolume_Data","spreadSheetID":"1HSEki6uHfNzJo5qNeSP0a2zHpanJP801zK5xNudSP-w","sheetIDList":["0"],"tableTypes":[0],"instruction":1,"error":null}

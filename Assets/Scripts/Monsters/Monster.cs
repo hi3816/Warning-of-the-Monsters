@@ -116,7 +116,7 @@ public abstract class Monster : MonoBehaviour
         data.requiredCoins = monsterData.requiredCoins;
         data.maxLevel = monsterData.maxLevel;
         data.walkSpeed = monsterData.walkspeed;
-        data.monsterType = monsterData.MonsterType;
+        data.monsterType = monsterData.monsterType;
     }
 
     // // 현재 데이터 변경
