@@ -1,11 +1,9 @@
+using DataTable;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 
 public class HumanController : MonoBehaviour
 {
-    private DataTable.Human_Data _humanData;
-    public int id;
     private float _speed;
     public float Cooldown { get; private set; }
     public float MinFatigueInflicted { get; private set; }
@@ -25,13 +23,6 @@ public class HumanController : MonoBehaviour
     
     private void Awake()
     {
-        // 데이터 세팅
-        _humanData = DataManager.Instance.GetHumanByIndex(id);
-        _speed = _humanData.speed;
-        Cooldown = _humanData.cooldown;
-        MinFatigueInflicted = _humanData.minFatigueInflicted;
-        MaxFatigueInflicted = _humanData.maxFatigueInflicted;
-        
         // 애니메이터 & NavMeshAgent 세팅
         animator = GetComponentInChildren<Animator>();
         if (animator == null)
@@ -83,6 +74,14 @@ public class HumanController : MonoBehaviour
         {
             AnimationDirectionChange(Agent.steeringTarget); // 다음 목적지 방향으로 회전
         }
+    }
+    
+    public void SetHumanData(Human_Data humanData)
+    {
+        _speed = humanData.speed;
+        Cooldown = humanData.cooldown;
+        MinFatigueInflicted = humanData.minFatigueInflicted;
+        MaxFatigueInflicted = humanData.maxFatigueInflicted;
     }
 
     // 목표 지점 기준으로 애니메이션의 방향 전환

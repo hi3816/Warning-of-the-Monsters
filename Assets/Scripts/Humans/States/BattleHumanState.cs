@@ -16,8 +16,8 @@ public class BattleHumanState : IHumanState
     {
         _human = human;
         _stateMachine = human.stateMachine;
-        _minFatigueInflicted = _human.MinFatigueInflicted;
-        _maxFatigueInflicted = _human.MaxFatigueInflicted;
+        _minFatigueInflicted = human.MinFatigueInflicted;
+        _maxFatigueInflicted = human.MaxFatigueInflicted;
     }
 
     public void Enter()
