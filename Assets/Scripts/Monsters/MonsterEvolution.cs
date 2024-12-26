@@ -133,7 +133,7 @@ public class MonsterEvolution : MonoBehaviour
         if (selectMonster == null) return;
         if (!monsterEvolutionUI.SelectEvolutionMonster(evolutionType)) return; 
 
-        var evolution = MonsterDataManager.Instance.GetEvolutionData(selectMonster.data.id, selectMonster.data.currentLevel + 1, evolutionType);
+        var evolution = DataManager.Instance.GetEvolutionData(selectMonster.data.id, selectMonster.data.currentLevel + 1, evolutionType);
         if (evolution != null && StageManager.Instance.CurrGold >= evolution.requiredCoins)
         {
             StageManager.Instance.ChangeGold(-evolution.requiredCoins);

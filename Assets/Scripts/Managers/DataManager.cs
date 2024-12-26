@@ -4,6 +4,8 @@ using DataTable;
 
 public class DataManager : SingletonBase<DataManager>
 {
+    private List<DataTable.Human_Data> _humanDataList;
+    private Dictionary<int, DataTable.Wave_Data> _waveDataDictionary;
     private List<DataTable.Monster_Data> _baseMonsterDataList;
     private List<DataTable.Upgrade_Data> _upgradeMonsterDataList;
     private List<DataTable.Monster_Data> _minionDataList;
@@ -20,30 +22,56 @@ public class DataManager : SingletonBase<DataManager>
         base.Awake();
         DontDestroyOnLoad(gameObject);
         
+        LoadHumanData();
+        LoadWaveData();
         LoadBaseMonsterData();
         LoadUpgradeMonsterData();
         LoadMinionData();
         LoadSummonData();
     }
     
-    public DataTable.Human_Data GetHumanByIndex(int idx)
+    public void LoadHumanData()
     {
-        if (DataTable.Human_Data.GetList() == null)
+        _humanDataList = DataTable.Human_Data.Human_DataList;
+        if (_humanDataList.Count <= 0)
+        {
+            _humanDataList = DataTable.Human_Data.GetList();
+        }
+        if (_humanDataList.Count <= 0)
         {
             Debug.LogAssertion($"Human data not Loaded");
-            return null;
         }
-        return DataTable.Human_Data.Human_DataList[idx];
+    }
+    
+    public DataTable.Human_Data GetHumanByIndex(int idx)
+    {
+        if (_humanDataList.Count <= 0)
+        {
+            LoadHumanData();
+        }
+        return _humanDataList[idx];
+    }
+    
+    public void LoadWaveData()
+    {
+        _waveDataDictionary = DataTable.Wave_Data.Wave_DataMap;
+        if (_waveDataDictionary.Count <= 0)
+        {
+            _waveDataDictionary = DataTable.Wave_Data.GetDictionary();
+        }
+        if (_waveDataDictionary.Count <= 0)
+        {
+            Debug.LogAssertion($"Wave data not Loaded");
+        }
     }
     
     public DataTable.Wave_Data GetWaveByIndex(int waveIdx)
     {
-        if (DataTable.Wave_Data.GetList() == null)
+        if ((_waveDataDictionary).Count <= 0)
         {
-            Debug.LogAssertion($"Wave data not Loaded");
-            return null;
+            LoadWaveData();
         }
-        if (DataTable.Wave_Data.Wave_DataMap.TryGetValue(waveIdx, out var waveData))
+        if (_waveDataDictionary.TryGetValue(waveIdx, out var waveData))
         {
             return waveData;
         }
