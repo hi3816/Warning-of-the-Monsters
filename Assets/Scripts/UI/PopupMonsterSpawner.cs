@@ -80,8 +80,8 @@ public class PopupMonsterSpawner : MonsterSpawner
             {
                 MonsterManager.Instance.SelectMonster(monsterInfo.monsterId);
             }
-            // MonsterSO selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
-            // base.SpawnMonster(_pendingSpawnPosition, selectedMonsterData);
+            DataTable.Monster_Data selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
+            base.SpawnMonster(_pendingSpawnPosition, selectedMonsterData);
 
             // 팝업 닫기
             if (_monsterSelectionPopup != null)
@@ -113,17 +113,17 @@ public class PopupMonsterSpawner : MonsterSpawner
             if (_selectedMonsterList.TryGetValue(i, out var monsterInfo))
             {
                 MonsterManager.Instance.SelectMonster(monsterInfo.monsterId);
-                // MonsterSO selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
+                var selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
 
                 //선택가능 몬스터 검사
-                // bool isAvailable = IsMonsterSelectable(i, selectedMonsterData);
+                bool isAvailable = IsMonsterSelectable(i, selectedMonsterData);
 
-                // _slotsOverlay[i].SetActive(!isAvailable);
+                _slotsOverlay[i].SetActive(!isAvailable);
             }
         }
     }
 
-    private bool IsMonsterSelectable(int idx, MonsterSO data)
+    private bool IsMonsterSelectable(int idx, DataTable.Monster_Data data)
     {
         _costTxts[idx].text = data.requiredCoins.ToString();
         return StageManager.CurrGold >= data.requiredCoins;

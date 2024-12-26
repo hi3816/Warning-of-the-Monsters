@@ -4,7 +4,6 @@ using DataTable;
 
 public class DataManager : SingletonBase<DataManager>
 {
-    public static DataManager Instance { get; private set; }
     private List<DataTable.Monster_Data> _baseMonsterDataList;
     private List<DataTable.Upgrade_Data> _upgradeMonsterDataList;
     private List<DataTable.Monster_Data> _minionDataList;

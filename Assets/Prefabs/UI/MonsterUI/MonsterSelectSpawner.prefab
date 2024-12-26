@@ -3193,7 +3193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 0}
-  monsterSelectionPopup: {fileID: 3023203506920546353}
+  _monsterSelectionPopup: {fileID: 3023203506920546353}
   _slots:
   - {fileID: 4710023859219530653}
   - {fileID: 1611638850878637681}
