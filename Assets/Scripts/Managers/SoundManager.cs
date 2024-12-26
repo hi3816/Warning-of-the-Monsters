@@ -52,9 +52,13 @@ public class SoundManager : SingletonBase<SoundManager>
 
         SetBgmDictionary();
         SetSfxDictionary();
-        SetSfxVolumeDictionary();
         PoolManager.Instance.AddPoolS(poolconfigs);
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnEnable()
+    {
+        SetSfxVolumeDictionary();
     }
 
     private void Update()

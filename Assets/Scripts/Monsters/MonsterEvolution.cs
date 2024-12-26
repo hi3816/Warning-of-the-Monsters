@@ -146,8 +146,6 @@ public class MonsterEvolution : MonoBehaviour
             Monster _monster = evolutionMonster.GetComponent<Monster>();
             _monster.Evolution(DataManager.Instance.GetEvolutionData(_monster.data.id, _monster.data.maxLevel, evolutionType));
 
-            // SO로 변경되면 추가하기
-            //monster.SetMonsterDataToMonsterData(GetMonsterEvolutionData(evolutionType).data);
             monsterEvolutionUI.Hide();
         }
     }
