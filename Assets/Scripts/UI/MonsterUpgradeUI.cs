@@ -29,9 +29,9 @@ public class MonsterUpgradeUI : MonoBehaviour
         UiPanel.transform.position = worldPosition + new Vector3(0, 1, -1);
 
         var upgrades = DataManager.Instance.GetUpgradeMonsters(_selectedMonster.data.id, _selectedMonster.data.currentLevel + 1);
-        if (upgrades.Count > 0)
+        if (upgrades != null)
         {
-            var nextUpgrade = upgrades[0];
+            var nextUpgrade = upgrades;
             
             _upgradeStatsText.text = $"Fatigue: \t{nextUpgrade.fatigue}\n" +
                                     $"Min Fear: \t{nextUpgrade.minFearInflicted}\n" +
@@ -53,9 +53,9 @@ public class MonsterUpgradeUI : MonoBehaviour
         if (_selectedMonster == null) return;
         
         var upgrades = DataManager.Instance.GetUpgradeMonsters(_selectedMonster.data.id, _selectedMonster.data.currentLevel + 1);
-        if (upgrades.Count > 0 && _stageManager.CurrGold >= upgrades[0].requiredCoins)
+        if (upgrades.upgrade_level > 0 && _stageManager.CurrGold >= upgrades.requiredCoins)
         {
-            var nextUpgrade = upgrades[0];
+            var nextUpgrade = upgrades;
             _stageManager.ChangeGold(-nextUpgrade.requiredCoins);
             _selectedMonster.Upgrade(nextUpgrade);
             if (DataManager.Instance.GetUpgradeMonsters(_selectedMonster.data.id, _selectedMonster.data.currentLevel + 1) == null)
@@ -104,9 +104,9 @@ public class MonsterUpgradeUI : MonoBehaviour
         for (int level = 1; level <= selectedMonster.data.currentLevel; level++) //몬스터 업그레이드 비용
         { 
             var upgrades = DataManager.Instance.GetUpgradeMonsters(selectedMonster.data.id, level);
-            if (upgrades.Count > 0)
+            if (upgrades.upgrade_level > 0)
             {
-                var upgradeData = upgrades[0];
+                var upgradeData = upgrades;
                 totalSpent += upgradeData.requiredCoins;
             }
         }
