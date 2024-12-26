@@ -68,7 +68,7 @@ public class MonsterSpawner : MonoBehaviour
     private void SetMonsterData(MonsterData data,DataTable.Monster_Data selectedMonsterData)
     {
         data.id = selectedMonsterData.id;
-        data.currentLevel = selectedMonsterData.maxLevel;
+        data.currentLevel = 0;
         data.poolTag = selectedMonsterData.name;
         data.fatigue = selectedMonsterData.fatigue; 
         data.minFearInflicted = selectedMonsterData.minFearInflicted;
