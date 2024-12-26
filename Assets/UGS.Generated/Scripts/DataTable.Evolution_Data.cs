@@ -56,8 +56,8 @@ namespace DataTable
 
 /* Fields. */
 
-		public System.Single evolution_id;
-		public System.Int32 upgrade_level;
+		public System.Single evolutionId;
+		public System.Int32 upgradeLevel;
 		public EvolutionType EvolutionType;
 		public MonsterType MonsterType;
 		public System.String name;
@@ -184,7 +184,7 @@ namespace DataTable
                               
                             }
                             List.Add(instance); 
-                            Map.Add(instance.evolution_id, instance);
+                            Map.Add(instance.evolutionId, instance);
                         }
                         if(isLoaded == false || forceReload)
                         { 

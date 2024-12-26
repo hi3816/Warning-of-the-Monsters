@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.U2D;
 
 public class Skill : MonoBehaviour
 {
@@ -35,8 +33,7 @@ public class Skill : MonoBehaviour
         AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
         _animationTime = new WaitForSeconds(stateInfo.length);
 
-        _rectTransform = GetComponent<RectTransform>();
-        _rectTransform.sizeDelta = new Vector2(SkillSO.range * 0.5f, SkillSO.range * 0.5f);
+        transform.localScale = Vector3.one * 2f;
 
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _skillCollider = GetComponent<CircleCollider2D>();
