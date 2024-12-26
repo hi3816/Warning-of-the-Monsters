@@ -33,7 +33,7 @@ public class Skill : MonoBehaviour
         AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
         _animationTime = new WaitForSeconds(stateInfo.length);
 
-        transform.localScale = Vector3.one * 2f;
+        transform.localScale = Vector3.one * SkillData.range;
 
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _skillCollider = GetComponent<CircleCollider2D>();

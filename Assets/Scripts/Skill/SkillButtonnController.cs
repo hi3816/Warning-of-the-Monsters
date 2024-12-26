@@ -65,9 +65,7 @@ public class SkillButtonnController : MonoBehaviour
     private void SetSkillImage()
     {
         _skillImage.sprite = _poolConfig.prefab.GetComponent<SpriteRenderer>().sprite;
-        //_skillImage.transform.localScale = Vector2.one * _skillSO.range;
-
-        _skillRangeSprite = StageManager.Instance.skillRangeSprite; // _skillSO.range
+        _skillRangeSprite = StageManager.Instance.skillRangeSprite;
     }
 
     // 스킬 버튼을 클릭했을 때
@@ -93,7 +91,7 @@ public class SkillButtonnController : MonoBehaviour
     // 스킬 범위 보여줌
     private void ShowSkillRange()
     {
-        _skillRangeSprite.transform.localScale = Vector2.one * 2f;
+        _skillRangeSprite.transform.localScale = Vector2.one * _skillData.range;
         SetSkillRangeImage(true);
     }
 
