@@ -40,7 +40,7 @@ public class MonsterEvolution : MonoBehaviour
     private void SetSprite(PoolManager.PoolConfig[] pools)
     {
         // 로비씬에서 선택한 4개의 몬스터
-        var selectedMonsterData = DataManager.Instance.SelectedMonsterData;
+        var selectedMonsterData = DataManager6.Instance.selectedMonsterData;
 
         for (int i = 0; i < pools.Length; i += 2)
         {
