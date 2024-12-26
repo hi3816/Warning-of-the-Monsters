@@ -50,7 +50,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
             string minionTag = minionEntry.Key;
             int count = minionEntry.Value;
 
-            Monster_Data.Monster_Data minionData = MonsterDataManager.Instance.GetMinionData(minionTag);
+            DataTable.Monster_Data minionData = DataManager4.Instance.GetMinionData(minionTag);
             if (minionData != null)
             {
                 for (int i = 0; i < count; i++)
@@ -78,7 +78,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
         }
     }
 
-    private void MinionSetPosition(Vector3 position, string minionTag, Monster_Data.Monster_Data minionData)
+    private void MinionSetPosition(Vector3 position, string minionTag, DataTable.Monster_Data minionData)
     {
         Vector3 pos = position;
         pos.z = 0f;

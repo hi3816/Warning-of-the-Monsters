@@ -4,10 +4,10 @@ using UnityEngine.AI;
 public class Minion : Monster //졸개
 {
     private NavMeshAgent _navMeshAgent;
-    private Monster_Data.Monster_Data _minionData;
+    private DataTable.Monster_Data _minionData;
     private summonerMonster _summonerMonster;
 
-    public void InitializeMinion(Monster_Data.Monster_Data minionData)
+    public void InitializeMinion(DataTable.Monster_Data minionData)
     {
         _minionData = minionData;
         data.fatigue = minionData.fatigue;

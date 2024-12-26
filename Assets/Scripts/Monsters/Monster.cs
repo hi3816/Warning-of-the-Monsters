@@ -1,10 +1,7 @@
-using Monster_Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public enum MonsterState
@@ -56,7 +53,12 @@ public abstract class Monster : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
         SetState(MonsterState.Idle);
-        SetMonterSOToMonsterData(MonsterDataManager.Instance.GetBaseMonsterByIndex(data.id - 1));
+        var baseMonsterData = DataManager4.Instance.GetBaseMonsterById(data.id - 1);
+        if (baseMonsterData != null)
+        {
+            SetMonsterData(baseMonsterData);
+        }
+        
         if (fatigueGauge == null)
         {
             fatigueGauge = gameObject.transform.Find("FatigueGauge").gameObject;
@@ -98,32 +100,32 @@ public abstract class Monster : MonoBehaviour
     }
 
     // 처음 데이터 저장
-    private void SetMonterSOToMonsterData(MonsterSO monsterSO)
+    private void SetMonsterData(DataTable.Monster_Data monsterData)
     {
-        data.id = monsterSO.id;
-        data.currentLevel = monsterSO.upgradeLevel;
-        data.poolTag = monsterSO.poolTag;
+        data.id = monsterData.id;
+        data.currentLevel = monsterData.maxLevel;
+        data.poolTag = monsterData.name;
         data.currentFatigue = 0f;
-        data.fatigue = monsterSO.fatigue;
-        data.minFearInflicted = monsterSO.minFearInflicted;
-        data.maxFearInflicted = monsterSO.maxFearInflicted;
-        data.cooldown = monsterSO.cooldown;
-        data.humanDetectRange = monsterSO.humanDetectRange;
-        data.humanScaringRange = monsterSO.humanScaringRange;
-        data.requiredCoins = monsterSO.requiredCoins;
-        data.maxLevel = monsterSO.maxLevel;
-        data.walkSpeed = monsterSO.walkSpeed;
-        data.monsterType = monsterSO.monsterType;
+        data.fatigue = monsterData.fatigue;
+        data.minFearInflicted = monsterData.minFearInflicted;
+        data.maxFearInflicted = monsterData.maxFearInflicted;
+        data.cooldown = monsterData.cooldown;
+        data.humanDetectRange = monsterData.humanDetectRange;
+        data.humanScaringRange = monsterData.humanScaringRange;
+        data.requiredCoins = monsterData.requiredCoins;
+        data.maxLevel = monsterData.maxLevel;
+        data.walkSpeed = monsterData.walkspeed;
+        data.monsterType = monsterData.MonsterType;
     }
 
-    // 현재 데이터 변경
-    public void SetMonsterDataToMonsterData(MonsterData newMonsterData)
-    {
-        data = newMonsterData;
-        data.currentFatigue = 0f;
-    }
+    // // 현재 데이터 변경
+    // public void SetMonsterDataToMonsterData(MonsterData newMonsterData)
+    // {
+    //     data = newMonsterData;
+    //     data.currentFatigue = 0f;
+    // }
 
-    public void Upgrade(Monster_Data.Upgrade_Data upgradeData)
+    public void Upgrade(DataTable.Upgrade_Data upgradeData)
     {
         data.monsterId = upgradeData.monster_id;
         data.currentLevel = upgradeData.upgrade_level;
@@ -325,6 +327,6 @@ public abstract class Monster : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.Instance.activeObjects.Remove(this.gameObject);
+        GameManager.Instance.activeObjects.Remove(gameObject);
     }
 }

@@ -1,12 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MonsterManager : SingletonBase<MonsterManager>
 {
     [SerializeField]
-    private MonsterDataManager monsterDataManager;
-    
-    private Dictionary<int, MonsterSO> _monstersById = new Dictionary<int, MonsterSO>();
+    private DataManager4 monsterDataManager;
+    private Dictionary<int, DataTable.Monster_Data> _monstersById = new Dictionary<int, DataTable.Monster_Data>();
     private int _selectedMonsterId;
     public int SelectedMonsterId => _selectedMonsterId;
 
@@ -16,20 +16,26 @@ public class MonsterManager : SingletonBase<MonsterManager>
     {
         PoolManager.Instance.AddPoolS(poolConfigs);
         LoadMonsterData();
+        if (!_monstersById.ContainsKey(_selectedMonsterId) && _monstersById.Count > 0)
+        {
+            _selectedMonsterId = _monstersById.Keys.First();
+        }
+        
         SelectMonster(_selectedMonsterId);
     }
     
     private void LoadMonsterData()
     {
-        if (monsterDataManager != null)
+        if (monsterDataManager == null) return;
+
+        List<DataTable.Monster_Data> monsters = monsterDataManager.GetBaseMonsters();
+        if (monsters == null || monsters.Count == 0) return;
+
+        foreach(DataTable.Monster_Data monster in monsters)
         {
-            MonsterSO[] monsters = monsterDataManager.GetBaseMonsterSOs();
-            foreach (MonsterSO monster in monsters)
+            if (!_monstersById.ContainsKey(monster.id))
             {
-                if (!_monstersById.ContainsKey(monster.id))
-                {
-                    _monstersById[monster.id] = monster;
-                }
+                _monstersById[monster.id] = monster;
             }
         }
     }
@@ -42,11 +48,11 @@ public class MonsterManager : SingletonBase<MonsterManager>
         }
     }
     
-    public MonsterSO GetSelectedMonsterData()
+    public DataTable.Monster_Data GetSelectedMonsterData()
     {
-        if (_monstersById.TryGetValue(_selectedMonsterId, out var monsterSo))
+        if (_monstersById.TryGetValue(_selectedMonsterId, out var monsterData))
         {
-            return monsterSo;
+            return monsterData;
         }
         return null;
     }
