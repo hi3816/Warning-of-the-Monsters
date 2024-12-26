@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class SkillButtonnController : MonoBehaviour
 {
-    private SkillSO _skillSO; // 스킬 데이터
+    private DataTable.Skill_Data _skillData; // 스킬 데이터
 
     // 현재 쿨타임이 걸려 있는가 true : 스킬 사용 불가, false : 스킬 사용 가능
     private bool _isOnCoolDown = false;
@@ -21,7 +21,7 @@ public class SkillButtonnController : MonoBehaviour
     private void Awake()
     {
         int skillIdx = _poolConfig.prefab.GetComponent<Skill>().SkillIdx;
-        _skillSO = DataManager.Instance.GetSkillByIndex(skillIdx);
+        _skillData = DataManager5.Instance.GetSkillByIndex(skillIdx);
         _timeSinceSkill = 0f;
         PoolManager.Instance.AddPool(_poolConfig);
     }
@@ -53,7 +53,7 @@ public class SkillButtonnController : MonoBehaviour
             _timeSinceSkill += Time.deltaTime;
             ChangeCooldownImage();
             
-            if (_timeSinceSkill >= _skillSO.cooldown)
+            if (_timeSinceSkill >= _skillData.cooldown)
             {
                 _isOnCoolDown = false;
                 _timeSinceSkill = 0f;
@@ -103,7 +103,7 @@ public class SkillButtonnController : MonoBehaviour
         _isOnCoolDown = true;
         SetSkillRangeImage(false);
 
-        GameObject obj = PoolManager.Instance.SpawnFromPool(_skillSO.skillName.ToString());
+        GameObject obj = PoolManager.Instance.SpawnFromPool(_skillData.skillName.ToString());
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         worldPosition.z = 0f; // Z축 값 고정
         obj.transform.position = worldPosition;
@@ -115,7 +115,7 @@ public class SkillButtonnController : MonoBehaviour
     // 쿨타임 이미지 변경
     private void ChangeCooldownImage()
     {
-        float remainingTime = _skillSO.cooldown - _timeSinceSkill;
-        _blackImage.fillAmount = (remainingTime / _skillSO.cooldown);
+        float remainingTime = _skillData.cooldown - _timeSinceSkill;
+        _blackImage.fillAmount = (remainingTime / _skillData.cooldown);
     }
 }

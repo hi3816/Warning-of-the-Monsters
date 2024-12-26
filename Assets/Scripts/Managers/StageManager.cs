@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class StageManager : SingletonBase<StageManager>
@@ -9,7 +8,7 @@ public class StageManager : SingletonBase<StageManager>
     [SerializeField] private GameObject _stageInfo;
     [SerializeField] private StageInfoController _stageInfoController;
 
-    public StageSO StageSO { get; private set; }
+    public DataTable.Stage_Data StageData { get; private set; }
 
     public int TotalWave { get; private set; } // 전체 웨이브 수
     public int CurrWave { get; private set; } // 현재 웨이브
@@ -51,12 +50,12 @@ public class StageManager : SingletonBase<StageManager>
     private void SetStageInfo()
     {
         // 현재 Stage의 Stat 설정
-        _stageIdx = DataManager.Instance.selectedStageIdx;
-        StageSO = DataManager.Instance.GetStageByIndex(_stageIdx);
-        TotalWave = StageSO.wave;
+        _stageIdx = DataManager6.Instance.selectedStageIdx;
+        StageData = DataManager5.Instance.GetStageByIndex(_stageIdx);
+        TotalWave = StageData.wave;
         CurrWave = 0;
-        CurrHealth = StageSO.health;
-        CurrGold = StageSO.gold;
+        CurrHealth = StageData.health;
+        CurrGold = StageData.gold;
         StarsCount = 0;
         _stageInfoController = _stageInfo.GetComponent<StageInfoController>();
         _stageInfoController.ChangeUI();

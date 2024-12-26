@@ -56,7 +56,6 @@ namespace DataTable
 
 /* Fields. */
 
-		public System.Int32 stageIdx;
 		public System.Int32 waveIdx;
 		public System.Collections.Generic.List<Int32> humanId;
 		public System.Collections.Generic.List<Int32> count;
@@ -177,7 +176,7 @@ namespace DataTable
                               
                             }
                             List.Add(instance); 
-                            Map.Add(instance.stageIdx, instance);
+                            Map.Add(instance.waveIdx, instance);
                         }
                         if(isLoaded == false || forceReload)
                         { 

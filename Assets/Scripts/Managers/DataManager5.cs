@@ -15,12 +15,12 @@ public class DataManager5 : SingletonBase<DataManager5>
 
     private void SetIndividualSfxVolumeDict()
     {
-        List<SfxVolume_Data.SfxVolume_Data> sfxVolumeDataList = SfxVolume_Data.SfxVolume_Data.GetList();
+        List<DataTable.SfxVolume_Data> sfxVolumeDataList = DataTable.SfxVolume_Data.GetList();
 
         Dictionary<SfxType, float> individualSfxVolumeDict = new Dictionary<SfxType, float>();
         for (int i = 0; i < sfxVolumeDataList.Count; i++)
         {
-            individualSfxVolumeDict.Add(sfxVolumeDataList[i].SfxType, sfxVolumeDataList[i].volume);
+            individualSfxVolumeDict.Add(sfxVolumeDataList[i].sfxType, sfxVolumeDataList[i].volume);
         }
 
         _individualSfxVolumeDict = individualSfxVolumeDict;
@@ -28,14 +28,12 @@ public class DataManager5 : SingletonBase<DataManager5>
 
     public DataTable.Stage_Data GetStageByIndex(int idx)
     {
-        if (DataTable.Stage_Data.Stage_DataList == null) return null;
-        return DataTable.Stage_Data.Stage_DataList[idx];
+        return DataTable.Stage_Data.GetList()[idx];
     }
 
     public DataTable.Skill_Data GetSkillByIndex(int idx)
     {
-        if(DataTable.Skill_Data.Skill_DataList == null) return null;
-        return DataTable.Skill_Data.Skill_DataList[idx];
+        return DataTable.Skill_Data.GetList()[idx];
     }
 
     public Dictionary<SfxType, float> GetIndvidualSfxVolumeDict()
@@ -50,7 +48,7 @@ public class DataManager5 : SingletonBase<DataManager5>
     // 진화 데이터 확인 (EvolutionType 상관 없을 때)
     public DataTable.Evolution_Data GetEvolutionData(int monsterId, int upgradeLevel)
     {
-        foreach (var evolution in DataTable.Evolution_Data.Evolution_DataList)
+        foreach (var evolution in DataTable.Evolution_Data.GetList())
         {
             int baseEvolutionId = Mathf.FloorToInt(evolution.evolutionId); // base id (1, 2, etc.)
             int level = evolution.upgradeLevel;
@@ -65,7 +63,7 @@ public class DataManager5 : SingletonBase<DataManager5>
     // 진화 데이터 확인 (EvolutionType 있을 때) -> 진화 버튼 클릭 시 확인용
     public DataTable.Evolution_Data GetEvolutionData(int monsterId, int upgradeLevel, EvolutionType evolutionType)
     {
-        foreach (var evolution in DataTable.Evolution_Data.Evolution_DataList)
+        foreach (var evolution in DataTable.Evolution_Data.GetList())
         {
             int baseEvolutionId = Mathf.FloorToInt(evolution.evolutionId); // base id (1, 2, etc.)
             int level = evolution.upgradeLevel;
