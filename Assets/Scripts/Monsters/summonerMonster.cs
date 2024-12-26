@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 public class summonerMonster : Monster //졸개들을 불러 인간을 막는 몬스터(=병영타워)
 {
     private Transform[] _summonPositions;
-    private Dictionary<string, int> _minionToSummon;
+    private List<(string minionTag, int count)> _minionToSummon;
     private CircleCollider2D _collider;
 
     private void Start()
@@ -17,12 +17,12 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
 
     private void InitializeSummonableMinions()
     {
-        _minionToSummon = new Dictionary<string, int>();
+        _minionToSummon = new List<(string, int)>();
 
         if (data.poolTag == "Lich")
         {
-            _minionToSummon.Add("Skeleton", 2);
-            _minionToSummon.Add("Bat", 1);
+            _minionToSummon.Add(("Skeleton", 2));
+            _minionToSummon.Add(("Bat", 1));
         }
 
         //add other summoner monster later
@@ -46,8 +46,8 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     {
         foreach (var minionEntry in _minionToSummon)
         {
-            string minionTag = minionEntry.Key;
-            int count = minionEntry.Value;
+            string minionTag = minionEntry.minionTag;
+            int count = minionEntry.count;
 
             DataTable.Monster_Data minionData = DataManager.Instance.GetMinionData(minionTag);
             if (minionData != null)

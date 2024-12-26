@@ -123,6 +123,7 @@ public class DataManager : SingletonBase<DataManager>
         return _summonDataDictionary.TryGetValue(monsterId, out var summonData) ? summonData : null;
     }
     
+    
     private void SetIndividualSfxVolumeDict()
     {
         List<DataTable.SfxVolume_Data> sfxVolumeDataList = DataTable.SfxVolume_Data.GetList();
