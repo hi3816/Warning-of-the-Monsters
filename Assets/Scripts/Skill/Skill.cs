@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Skill : MonoBehaviour
 {
-    public SkillSO SkillSO { get; private set; }
+    public DataTable.Skill_Data SkillData { get; private set; }
     private RectTransform _rectTransform;
     private Animator _animator;
     private WaitForSeconds _animationTime;
@@ -21,7 +21,7 @@ public class Skill : MonoBehaviour
 
     private void Awake()
     {
-        SkillSO = DataManager.Instance.GetSkillByIndex(SkillIdx);
+        SkillData = DataManager5.Instance.GetSkillByIndex(SkillIdx);
         SetComponent();
     }
 
@@ -33,11 +33,11 @@ public class Skill : MonoBehaviour
         AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
         _animationTime = new WaitForSeconds(stateInfo.length);
 
-        transform.localScale = Vector3.one * 2f;
+        transform.localScale = Vector3.one * SkillData.range;
 
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _skillCollider = GetComponent<CircleCollider2D>();
-        _effectDurationTime = new WaitForSeconds(SkillSO.duration);
+        _effectDurationTime = new WaitForSeconds(SkillData.duration);
     }
 
     public void StartSkill()
@@ -61,11 +61,11 @@ public class Skill : MonoBehaviour
 
     private void CheckSkillType(GameObject humanObj)
     {
-        switch (SkillSO.skillType)
+        switch (SkillData.skillType)
         {
             case SkillType.Attack:
                 StartSkill();
-                humanObj.GetComponent<Human>().IncreaseFear(SkillSO.power);
+                humanObj.GetComponent<Human>().IncreaseFear(SkillData.power);
                 break;
             
             case SkillType.Debuff:
@@ -80,11 +80,11 @@ public class Skill : MonoBehaviour
 
     private void CheckSkillName(GameObject humanObj, HumanController humanController)
     {
-        if (SkillSO.skillName == SkillName.FrozenGround)
+        if (SkillData.skillName == SkillName.FrozenGround)
         {
             _agentOriginSpeed = humanController.Agent.speed;
-            humanObj.GetComponent<Human>().IncreaseFear(SkillSO.power);
-            humanController.Agent.speed *= ((100 - SkillSO.percentage) / 100f);
+            humanObj.GetComponent<Human>().IncreaseFear(SkillData.power);
+            humanController.Agent.speed *= ((100 - SkillData.percentage) / 100f);
         }
     }
 
@@ -93,9 +93,9 @@ public class Skill : MonoBehaviour
     {
         yield return _animationTime;
 
-        if (SkillSO.skillType == SkillType.Attack)
+        if (SkillData.skillType == SkillType.Attack)
         {
-            PoolManager.Instance.ReturnToPool(SkillSO.skillName.ToString(), gameObject);
+            PoolManager.Instance.ReturnToPool(SkillData.skillName.ToString(), gameObject);
             _humanList.Clear();
         }
         else
@@ -123,6 +123,6 @@ public class Skill : MonoBehaviour
         _spriteRenderer.enabled = true;
         _skillCollider.enabled = true;
         _humanList.Clear();
-        PoolManager.Instance.ReturnToPool(SkillSO.skillName.ToString(), gameObject);
+        PoolManager.Instance.ReturnToPool(SkillData.skillName.ToString(), gameObject);
     }
 }

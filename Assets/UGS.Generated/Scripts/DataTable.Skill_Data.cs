@@ -57,8 +57,8 @@ namespace DataTable
 /* Fields. */
 
 		public System.Int32 id;
-		public SkillName SkillName;
-		public SkillType SkillType;
+		public SkillName skillName;
+		public SkillType skillType;
 		public System.Single power;
 		public System.Single range;
 		public System.Single cooldown;

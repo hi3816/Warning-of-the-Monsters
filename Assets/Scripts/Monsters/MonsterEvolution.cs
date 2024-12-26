@@ -98,8 +98,8 @@ public class MonsterEvolution : MonoBehaviour
             Monster monster2 = pools[i + 1].prefab.GetComponent<Monster>();
             int monsterId1 = monster1.data.id;
             int monsterId2 = monster2.data.id;
-            monster1.Evolution(MonsterDataManager.Instance.GetEvolutionData(monsterId1, monster1.data.maxLevel, EvolutionType.Atype));
-            monster2.Evolution(MonsterDataManager.Instance.GetEvolutionData(monsterId2, monster2.data.maxLevel, EvolutionType.Btype));
+            monster1.Evolution(DataManager5.Instance.GetEvolutionData(monsterId1, monster1.data.maxLevel, EvolutionType.Atype));
+            monster2.Evolution(DataManager5.Instance.GetEvolutionData(monsterId2, monster2.data.maxLevel, EvolutionType.Btype));
             evolutionMonsterList.Add(monster1);
             evolutionMonsterList.Add(monster2);
 
@@ -116,8 +116,8 @@ public class MonsterEvolution : MonoBehaviour
             Monster monster2 = list[i + 1].monster;
             int monsterId1 = monster1.data.id;
             int monsterId2 = monster2.data.id;
-            monster1.Evolution(MonsterDataManager.Instance.GetEvolutionData(monsterId1, monster1.data.maxLevel, EvolutionType.Atype));
-            monster2.Evolution(MonsterDataManager.Instance.GetEvolutionData(monsterId2, monster2.data.maxLevel, EvolutionType.Btype));
+            monster1.Evolution(DataManager5.Instance.GetEvolutionData(monsterId1, monster1.data.maxLevel, EvolutionType.Atype));
+            monster2.Evolution(DataManager5.Instance.GetEvolutionData(monsterId2, monster2.data.maxLevel, EvolutionType.Btype));
             evolutionMonsterList.Add(monster1);
             evolutionMonsterList.Add(monster2);
 
@@ -144,7 +144,7 @@ public class MonsterEvolution : MonoBehaviour
             PoolManager.Instance.ReturnToPool(selectMonster.gameObject.name, selectMonster.gameObject);
             GameObject evolutionMonster = PoolManager.Instance.SpawnFromPool(evolutionMonsterName, pos, Quaternion.identity);
             Monster _monster = evolutionMonster.GetComponent<Monster>();
-            _monster.Evolution(MonsterDataManager.Instance.GetEvolutionData(_monster.data.id, _monster.data.maxLevel, evolutionType));
+            _monster.Evolution(DataManager5.Instance.GetEvolutionData(_monster.data.id, _monster.data.maxLevel, evolutionType));
 
             // SO로 변경되면 추가하기
             //monster.SetMonsterDataToMonsterData(GetMonsterEvolutionData(evolutionType).data);

@@ -93,7 +93,7 @@ public class SoundManager : SingletonBase<SoundManager>
 
     private void SetSfxVolumeDictionary()
     {
-        individualSfxVolumeDict = DataManager.Instance.GetIndvidualSfxVolumeDict();
+        individualSfxVolumeDict = DataManager5.Instance.GetIndvidualSfxVolumeDict();
         
         foreach(SfxType key in sfxDict.Keys)
         {

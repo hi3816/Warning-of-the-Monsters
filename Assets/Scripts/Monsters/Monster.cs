@@ -138,7 +138,7 @@ public abstract class Monster : MonoBehaviour
         data.requiredCoins = upgradeData.requiredCoins;
     }
 
-    public void Evolution(EvolutionSO evolutionData)
+    public void Evolution(DataTable.Evolution_Data evolutionData)
     {
         data.monsterId = evolutionData.evolutionId;
         data.currentLevel = evolutionData.upgradeLevel;

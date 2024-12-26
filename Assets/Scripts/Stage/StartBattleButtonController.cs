@@ -20,9 +20,9 @@ public class StartBattleButtonController : MonoBehaviour
 
     private void Awake()
     {
-        _waveStartDelay = StageManager.Instance.StageSO.waveStartDelay;
+        _waveStartDelay = StageManager.Instance.StageData.waveStartDelay;
         _currWaveStartDelayTime = 0f;
-        _interWaveDelay = StageManager.Instance.StageSO.interWaveDelay;
+        _interWaveDelay = StageManager.Instance.StageData.interWaveDelay;
         _coroutineInterSeconds = new WaitForSeconds(_interWaveDelay);
         
         _button = GetComponent<Button>();

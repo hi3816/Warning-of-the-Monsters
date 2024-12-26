@@ -57,7 +57,7 @@ namespace DataTable
 /* Fields. */
 
 		public System.Int32 index;
-		public SfxType SfxType;
+		public SfxType sfxType;
 		public System.Single volume;
   
 
