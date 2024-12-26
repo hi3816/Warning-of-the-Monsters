@@ -18,7 +18,7 @@ public class PopupMonsterSpawner : MonsterSpawner
 
     private void Awake()
     {
-        _selectedMonsterList = DataManager6.Instance.selectedMonsterData;
+        _selectedMonsterList = DataManager.Instance.selectedMonsterData;
 
         if (_selectedMonsterList == null) return;
 

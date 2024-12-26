@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 public class MonsterManager : SingletonBase<MonsterManager>
 {
     [SerializeField]
-    private DataManager4 _monsterDataManager;
+    private DataManager _monsterDataManager;
     private Dictionary<int, DataTable.Monster_Data> _monstersById = new Dictionary<int, DataTable.Monster_Data>();
     private int _selectedMonsterId;
     public int SelectedMonsterId => _selectedMonsterId;

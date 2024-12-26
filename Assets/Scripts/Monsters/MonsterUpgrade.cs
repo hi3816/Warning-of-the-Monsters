@@ -35,7 +35,7 @@ public class MonsterUpgrade : MonoBehaviour
     {
         if (clickedMonster.data.currentLevel <= clickedMonster.data.maxLevel)
         {
-            EvolutionSO data = DataManager2.Instance.GetEvolutionSO(clickedMonster.data.id, clickedMonster.data.currentLevel + 1);
+            DataTable.Evolution_Data data = DataManager.Instance.GetEvolutionData(clickedMonster.data.id, clickedMonster.data.currentLevel + 1);
             if (data != null && data.upgradeLevel == clickedMonster.data.maxLevel)
             {
                 _evolutionUI.Show(clickedMonster);

@@ -1,219 +1,204 @@
 using System.Collections.Generic;
 using UnityEngine;
+using DataTable;
 
 public class DataManager : SingletonBase<DataManager>
 {
-    private StageSO[] _stageSOs;
-    private TestSO[] _testSOs;
+    public static DataManager Instance { get; private set; }
+    private List<DataTable.Monster_Data> _baseMonsterDataList;
+    private List<DataTable.Upgrade_Data> _upgradeMonsterDataList;
+    private List<DataTable.Monster_Data> _minionDataList;
+    private Dictionary<string, DataTable.Monster_Data> _minionDataDictionary;
+    private List<DataTable.Summon_Data> _summonDataList;
+    private Dictionary<float, DataTable.Summon_Data> _summonDataDictionary;
     private Dictionary<SfxType, float> _individualSfxVolumeDict;
-    private SkillSO[] _skillSOs;
-    private MonsterSO[] _monsterSOs;
-
-    public Dictionary<int, (int,string)> SelectedMonsterData;
-
+    public Dictionary<int, (int, string)> selectedMonsterData;
     public int selectedStageIdx;
 
+    
     protected override void Awake()
     {
         base.Awake();
         DontDestroyOnLoad(gameObject);
-
-        //data캐싱
-        _stageSOs = SetStageSOs();
-        _testSOs = SetTestSOs();
-        _individualSfxVolumeDict = SetIndividualSfxVolumeDict();
-        _skillSOs = SetSkillSOs();
-        _monsterSOs = SetMonsterSOs();
+        
+        LoadBaseMonsterData();
+        LoadUpgradeMonsterData();
+        LoadMinionData();
+        LoadSummonData();
     }
-
-    private TestSO[] SetTestSOs()
+    
+    public DataTable.Human_Data GetHumanByIndex(int idx)
     {
-        List<TestTable.Data> testDataList = TestTable.Data.GetList();
-
-        TestSO[] testSOs = new TestSO[testDataList.Count];
-        for (int i = 0; i < testSOs.Length; i++)
+        if (DataTable.Human_Data.GetList() == null)
         {
-            testSOs[i] = ScriptableObject.CreateInstance<TestSO>();
-            testSOs[i].id = testDataList[i].Id;
-            testSOs[i].testName = testDataList[i].name;
-            testSOs[i].testSpriteName = testDataList[i].spriteName;
+            Debug.LogAssertion($"Human data not Loaded");
+            return null;
         }
-        return testSOs;
+        return DataTable.Human_Data.Human_DataList[idx];
     }
-
-    private StageSO[] SetStageSOs()
+    
+    public DataTable.Wave_Data GetWaveByIndex(int waveIdx)
     {
-        List<Stage_Data.Stage_Data> stageDataList = Stage_Data.Stage_Data.GetList();
-
-        StageSO[] stageSOs = new StageSO[stageDataList.Count];
-        for (int i = 0; i < stageSOs.Length; i++)
+        if (DataTable.Wave_Data.GetList() == null)
         {
-            stageSOs[i] = ScriptableObject.CreateInstance<StageSO>();
-            stageSOs[i].name = $"Stage{i + 1}";
-            stageSOs[i].wave = stageDataList[i].wave;
-            stageSOs[i].health = stageDataList[i].health;
-            stageSOs[i].gold = stageDataList[i].gold;
-            stageSOs[i].waveStartDelay = stageDataList[i].waveStartDelay;
-            stageSOs[i].interWaveDelay = stageDataList[i].interWaveDelay;
-            stageSOs[i].story = stageDataList[i].story;
+            Debug.LogAssertion($"Wave data not Loaded");
+            return null;
         }
-
-        return stageSOs;
-    }
-
-    private MonsterSO[] SetMonsterSOs()
-    {
-        List<Monster_Data.Monster_Data> monsterDataList = Monster_Data.Monster_Data.GetList();
-
-        MonsterSO[] monsterSOs = new MonsterSO[monsterDataList.Count];
-        for (int i = 0; i < monsterSOs.Length; i++)
+        if (DataTable.Wave_Data.Wave_DataMap.TryGetValue(waveIdx, out var waveData))
         {
-            monsterSOs[i] = ScriptableObject.CreateInstance<MonsterSO>(); // 인스턴스 생성
-            monsterSOs[i].id = monsterDataList[i].id;
-            monsterSOs[i].poolTag = monsterDataList[i].name;
-            monsterSOs[i].fatigue = monsterDataList[i].fatigue;
-            monsterSOs[i].minFearInflicted = monsterDataList[i].minFearInflicted;
-            monsterSOs[i].maxFearInflicted = monsterDataList[i].maxFearInflicted;
-            monsterSOs[i].cooldown = monsterDataList[i].cooldown;
-            monsterSOs[i].humanScaringRange = monsterDataList[i].humanScaringRange;
-            monsterSOs[i].requiredCoins = monsterDataList[i].requiredCoins;
-            monsterSOs[i].monsterType = monsterDataList[i].MonsterType;
+            return waveData;
         }
-        return monsterSOs;
+        Debug.LogAssertion($"Wave data not Found: {waveIdx}");
+        return null;
+    }
+    
+    private void LoadBaseMonsterData()
+    {
+        _baseMonsterDataList = DataTable.Monster_Data.GetList();
     }
 
-    private Dictionary<SfxType, float> SetIndividualSfxVolumeDict()
+    private void LoadUpgradeMonsterData()
     {
-        List<SfxVolume_Data.SfxVolume_Data> sfxVolumeDataList = SfxVolume_Data.SfxVolume_Data.GetList();
+        _upgradeMonsterDataList = DataTable.Upgrade_Data.GetList();
+    }
 
-        Dictionary<SfxType, float> individualSfxVolumeDict = new Dictionary<SfxType, float> ();
+    private void LoadMinionData()
+    {
+        _minionDataList = DataTable.Monster_Data.GetList();
+        _minionDataDictionary = new Dictionary<string, DataTable.Monster_Data>();
+
+        foreach (var minionData in _minionDataList)
+        {
+            _minionDataDictionary[minionData.name] = minionData;
+        }
+    }
+
+    private void LoadSummonData()
+    {
+        _summonDataList = Summon_Data.GetList();
+        _summonDataDictionary = new Dictionary<float, Summon_Data>();
+
+        foreach (var summonData in _summonDataList)
+        {
+            _summonDataDictionary[summonData.monster_id] = summonData;
+        }
+    }
+
+    public List<DataTable.Monster_Data> GetBaseMonsters()
+    {
+        return _baseMonsterDataList;
+    }
+
+    public List<DataTable.Upgrade_Data> GetUpgradeMonsters(int monsterId, int level)
+    {
+        var upgrades = new List<DataTable.Upgrade_Data>();
+
+        foreach (var upgrade in _upgradeMonsterDataList)
+        {
+            if (upgrade.monster_id == monsterId && upgrade.upgrade_level == level)
+            {
+                upgrades.Add(upgrade);
+            }
+        }
+        return upgrades;
+    }
+
+    public DataTable.Monster_Data GetBaseMonsterById(int id)
+    {
+        return id >= 0 && id < _baseMonsterDataList.Count ? _baseMonsterDataList[id] : null;
+    }
+
+    public List<DataTable.Monster_Data> GetMinions()
+    {
+        return _minionDataList;
+    }
+
+    public DataTable.Monster_Data GetMinionData(string minionTag)
+    {
+        return _minionDataDictionary.TryGetValue(minionTag, out var minionData) ? minionData : null;
+    }
+
+    public Summon_Data GetSummonData(float monsterId)
+    {
+        return _summonDataDictionary.TryGetValue(monsterId, out var summonData) ? summonData : null;
+    }
+    
+    private void SetIndividualSfxVolumeDict()
+    {
+        List<DataTable.SfxVolume_Data> sfxVolumeDataList = DataTable.SfxVolume_Data.GetList();
+
+        Dictionary<SfxType, float> individualSfxVolumeDict = new Dictionary<SfxType, float>();
         for (int i = 0; i < sfxVolumeDataList.Count; i++)
         {
-            individualSfxVolumeDict.Add(sfxVolumeDataList[i].SfxType, sfxVolumeDataList[i].volume);
+            individualSfxVolumeDict.Add(sfxVolumeDataList[i].sfxType, sfxVolumeDataList[i].volume);
         }
 
-        return individualSfxVolumeDict;
+        _individualSfxVolumeDict = individualSfxVolumeDict;
     }
 
-    private SkillSO[] SetSkillSOs()
+    public DataTable.Stage_Data GetStageByIndex(int idx)
     {
-        List<Skill_Data.Skill_Data> skillData = Skill_Data.Skill_Data.GetList();
-
-        SkillSO[] skillSOs = new SkillSO[skillData.Count];
-        for (int i = 0; i < skillSOs.Length; i++)
-        {
-            skillSOs[i] = ScriptableObject.CreateInstance<SkillSO>();
-            skillSOs[i].id = skillData[i].id;
-            skillSOs[i].skillName = skillData[i].SkillName;
-            skillSOs[i].skillType = skillData[i].SkillType;
-            skillSOs[i].power = skillData[i].power;
-            skillSOs[i].range = skillData[i].range;
-            skillSOs[i].percentage = skillData[i].percentage;
-            skillSOs[i].cooldown = skillData[i].cooldown;
-            skillSOs[i].duration = skillData[i].duration;
-        }
-
-        return skillSOs;
+        return DataTable.Stage_Data.GetList()[idx];
     }
 
-    public TestSO[] GetTestSprite()
+    public DataTable.Skill_Data GetSkillByIndex(int idx)
     {
-        if (_testSOs == null)
-        {
-            _testSOs = SetTestSOs();
-        }
-        return _testSOs;
-    }
-
-    public StageSO GetStageByIndex(int idx)
-    {
-        if (_stageSOs == null)
-        {
-            _stageSOs = SetStageSOs();
-        }
-        return _stageSOs[idx];
-    }
-
-    public MonsterSO[] GetMonsterSOs()
-    {
-        if (_monsterSOs == null)
-        {
-            _monsterSOs = SetMonsterSOs();
-        }
-        return _monsterSOs;
-    }
-
-    public Dictionary<int, (int, string)> GetSelectedMonstersData()
-    {
-        if (SelectedMonsterData == null)
-        {
-            Debug.Log("선택된 몬스터 정보를 가져오지 못했습니다.");
-        }
-        return SelectedMonsterData;
+        return DataTable.Skill_Data.GetList()[idx];
     }
 
     public Dictionary<SfxType, float> GetIndvidualSfxVolumeDict()
     {
-        if(_individualSfxVolumeDict == null)
+        if (_individualSfxVolumeDict == null)
         {
-            _individualSfxVolumeDict = SetIndividualSfxVolumeDict();
+            SetIndividualSfxVolumeDict();
         }
         return _individualSfxVolumeDict;
     }
 
-    public SkillSO GetSkillByIndex(int idx)
+    // 진화 데이터 확인 (EvolutionType 상관 없을 때)
+    public DataTable.Evolution_Data GetEvolutionData(int monsterId, int upgradeLevel)
     {
-        if (_skillSOs == null)
+        foreach (var evolution in DataTable.Evolution_Data.GetList())
         {
-            _skillSOs = SetSkillSOs();
-        }
-        return _skillSOs[idx];
-    }
-
-    //StageData Cache Clearing
-    public void ClearStageData()
-    {
-        if (_stageSOs != null)
-        {
-            foreach (var so in _stageSOs)
+            int baseEvolutionId = Mathf.FloorToInt(evolution.evolutionId); // base id (1, 2, etc.)
+            int level = evolution.upgradeLevel;
+            if (baseEvolutionId == monsterId && level == upgradeLevel)
             {
-                ScriptableObject.Destroy(so);
+                return evolution;
             }
-            _stageSOs = null;
         }
+        return null;
     }
 
-    //TestData Cache Clearing
-    public void ClearTestData()
+    // 진화 데이터 확인 (EvolutionType 있을 때) -> 진화 버튼 클릭 시 확인용
+    public DataTable.Evolution_Data GetEvolutionData(int monsterId, int upgradeLevel, EvolutionType evolutionType)
     {
-        if (_testSOs != null)
+        foreach (var evolution in DataTable.Evolution_Data.GetList())
         {
-            foreach (var so in _testSOs)
+            int baseEvolutionId = Mathf.FloorToInt(evolution.evolutionId); // base id (1, 2, etc.)
+            int level = evolution.upgradeLevel;
+            EvolutionType type = evolution.EvolutionType;
+            if (baseEvolutionId == monsterId && level == upgradeLevel && type == evolutionType)
             {
-                ScriptableObject.Destroy(so);
+                return evolution;
             }
-            _testSOs = null;
         }
+        return null;
+    }
+   
+    public List<DataTable.Monster_Data> GetMonsterSOs()
+    {
+        List<DataTable.Monster_Data> data = DataTable.Monster_Data.GetList();
+
+        return data;
     }
 
-    public void ClearIndividualVolumeDict()
+    public Dictionary<int, (int, string)> GetSelectedMonstersData()
     {
-        if(_individualSfxVolumeDict != null)
+        if (selectedMonsterData == null)
         {
-            _individualSfxVolumeDict.Clear();
-            _individualSfxVolumeDict = null;
+            Debug.Log("선택된 몬스터 정보를 가져오지 못했습니다.");
         }
-    }
-
-    public void ClearSkillData()
-    {
-        if (_skillSOs != null)
-        {
-            foreach (var so in _skillSOs)
-            {
-                ScriptableObject.Destroy(so);
-            }
-            _skillSOs = null;
-        }
+        return selectedMonsterData;
     }
 }

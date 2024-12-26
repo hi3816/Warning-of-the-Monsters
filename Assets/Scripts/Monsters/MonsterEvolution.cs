@@ -40,7 +40,7 @@ public class MonsterEvolution : MonoBehaviour
     private void SetSprite(PoolManager.PoolConfig[] pools)
     {
         // 로비씬에서 선택한 4개의 몬스터
-        var selectedMonsterData = DataManager6.Instance.selectedMonsterData;
+        var selectedMonsterData = DataManager.Instance.selectedMonsterData;
 
         for (int i = 0; i < pools.Length; i += 2)
         {
@@ -66,7 +66,7 @@ public class MonsterEvolution : MonoBehaviour
 
     private void SetSprite(List<SummonerSpritePair> list)
     {
-        var selectedMonsterData = DataManager.Instance.SelectedMonsterData;
+        var selectedMonsterData = DataManager.Instance.selectedMonsterData;
 
         for (int i = 0; i < list.Count; i += 2)
         {
@@ -98,8 +98,8 @@ public class MonsterEvolution : MonoBehaviour
             Monster monster2 = pools[i + 1].prefab.GetComponent<Monster>();
             int monsterId1 = monster1.data.id;
             int monsterId2 = monster2.data.id;
-            monster1.Evolution(DataManager5.Instance.GetEvolutionData(monsterId1, monster1.data.maxLevel, EvolutionType.Atype));
-            monster2.Evolution(DataManager5.Instance.GetEvolutionData(monsterId2, monster2.data.maxLevel, EvolutionType.Btype));
+            monster1.Evolution(DataManager.Instance.GetEvolutionData(monsterId1, monster1.data.maxLevel, EvolutionType.Atype));
+            monster2.Evolution(DataManager.Instance.GetEvolutionData(monsterId2, monster2.data.maxLevel, EvolutionType.Btype));
             evolutionMonsterList.Add(monster1);
             evolutionMonsterList.Add(monster2);
 
@@ -116,8 +116,8 @@ public class MonsterEvolution : MonoBehaviour
             Monster monster2 = list[i + 1].monster;
             int monsterId1 = monster1.data.id;
             int monsterId2 = monster2.data.id;
-            monster1.Evolution(DataManager5.Instance.GetEvolutionData(monsterId1, monster1.data.maxLevel, EvolutionType.Atype));
-            monster2.Evolution(DataManager5.Instance.GetEvolutionData(monsterId2, monster2.data.maxLevel, EvolutionType.Btype));
+            monster1.Evolution(DataManager.Instance.GetEvolutionData(monsterId1, monster1.data.maxLevel, EvolutionType.Atype));
+            monster2.Evolution(DataManager.Instance.GetEvolutionData(monsterId2, monster2.data.maxLevel, EvolutionType.Btype));
             evolutionMonsterList.Add(monster1);
             evolutionMonsterList.Add(monster2);
 
@@ -144,7 +144,7 @@ public class MonsterEvolution : MonoBehaviour
             PoolManager.Instance.ReturnToPool(selectMonster.gameObject.name, selectMonster.gameObject);
             GameObject evolutionMonster = PoolManager.Instance.SpawnFromPool(evolutionMonsterName, pos, Quaternion.identity);
             Monster _monster = evolutionMonster.GetComponent<Monster>();
-            _monster.Evolution(DataManager5.Instance.GetEvolutionData(_monster.data.id, _monster.data.maxLevel, evolutionType));
+            _monster.Evolution(DataManager.Instance.GetEvolutionData(_monster.data.id, _monster.data.maxLevel, evolutionType));
 
             // SO로 변경되면 추가하기
             //monster.SetMonsterDataToMonsterData(GetMonsterEvolutionData(evolutionType).data);

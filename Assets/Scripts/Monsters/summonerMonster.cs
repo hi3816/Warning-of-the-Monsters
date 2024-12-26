@@ -49,7 +49,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
             string minionTag = minionEntry.Key;
             int count = minionEntry.Value;
 
-            DataTable.Monster_Data minionData = DataManager4.Instance.GetMinionData(minionTag);
+            DataTable.Monster_Data minionData = DataManager.Instance.GetMinionData(minionTag);
             if (minionData != null)
             {
                 for (int i = 0; i < count; i++)

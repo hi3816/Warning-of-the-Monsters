@@ -29,7 +29,7 @@ public class HumanSpawner : MonoBehaviour
             HumanManager.Instance.isLastWave = true;
         }
         
-        DataTable.Wave_Data waveData = DataManager3.Instance.GetWaveByIndex(_curWaveIdx);   // 현재 웨이브 데이터 정보 가져오기
+        DataTable.Wave_Data waveData = DataManager.Instance.GetWaveByIndex(_curWaveIdx);   // 현재 웨이브 데이터 정보 가져오기
 
         if (waveData == null)
         {

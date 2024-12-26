@@ -54,7 +54,7 @@ public abstract class Monster : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
         SetState(MonsterState.Idle);
-        var baseMonsterData = DataManager4.Instance.GetBaseMonsterById(data.id - 1);
+        var baseMonsterData = DataManager.Instance.GetBaseMonsterById(data.id - 1);
         if (baseMonsterData != null)
         {
             SetMonsterData(baseMonsterData);

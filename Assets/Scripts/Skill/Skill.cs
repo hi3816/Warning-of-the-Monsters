@@ -21,7 +21,7 @@ public class Skill : MonoBehaviour
 
     private void Awake()
     {
-        SkillData = DataManager5.Instance.GetSkillByIndex(SkillIdx);
+        SkillData = DataManager.Instance.GetSkillByIndex(SkillIdx);
         SetComponent();
     }
 

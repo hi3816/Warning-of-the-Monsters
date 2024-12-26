@@ -92,8 +92,8 @@ public class StagePopup : UIBase
             warningTxt.text = "몬스터를 모두 선택하세요";
             return; 
         }
-        DataManager6.Instance.selectedStageIdx = _stageIdx;              //선택된 스테이지
-        DataManager6.Instance.selectedMonsterData = _selectedListData;    //선택된 몬스터
+        DataManager.Instance.selectedStageIdx = _stageIdx;              //선택된 스테이지
+        DataManager.Instance.selectedMonsterData = _selectedListData;    //선택된 몬스터
         
         SceneManager.LoadScene("MainScene");
     }
@@ -109,7 +109,7 @@ public class StagePopup : UIBase
     private void SetMonsterScroll()
     {
         //_testSOs = DataManager.Instance.GetTestSprite();
-        _monsterSOs = DataManager6.Instance.GetMonsterSOs();
+        _monsterSOs = DataManager.Instance.GetMonsterSOs();
         _sprites = Resources.Load<SpriteAtlas>("UI/UISprites/MonsterSprites");
 
         _monsterListData = new Dictionary<string, int>();
@@ -213,7 +213,7 @@ public class StagePopup : UIBase
     {
         //StageInfo Load
         int a = index;
-        DataTable.Stage_Data stageSO = DataManager6.Instance.GetStageByIndex(index);
+        DataTable.Stage_Data stageSO = DataManager.Instance.GetStageByIndex(index);
         titleTxt.text = $"{stageSO.id}";
         stageInfoWave.text = $"{stageSO.wave}";
         stageInfoHealth.text = $"{stageSO.health}";

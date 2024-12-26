@@ -50,8 +50,8 @@ public class StageManager : SingletonBase<StageManager>
     private void SetStageInfo()
     {
         // 현재 Stage의 Stat 설정
-        _stageIdx = DataManager6.Instance.selectedStageIdx;
-        StageData = DataManager5.Instance.GetStageByIndex(_stageIdx);
+        _stageIdx = DataManager.Instance.selectedStageIdx;
+        StageData = DataManager.Instance.GetStageByIndex(_stageIdx);
         TotalWave = StageData.wave;
         CurrWave = 0;
         CurrHealth = StageData.health;

@@ -28,7 +28,7 @@ public class MonsterUpgradeUI : MonoBehaviour
         Vector3 worldPosition = _selectedMonster.transform.position;
         UiPanel.transform.position = worldPosition + new Vector3(0, 1, -1);
 
-        var upgrades = DataManager4.Instance.GetUpgradeMonsters(_selectedMonster.data.id, _selectedMonster.data.currentLevel + 1);
+        var upgrades = DataManager.Instance.GetUpgradeMonsters(_selectedMonster.data.id, _selectedMonster.data.currentLevel + 1);
         if (upgrades.Count > 0)
         {
             var nextUpgrade = upgrades[0];
@@ -52,13 +52,13 @@ public class MonsterUpgradeUI : MonoBehaviour
     {
         if (_selectedMonster == null) return;
         
-        var upgrades = DataManager4.Instance.GetUpgradeMonsters(_selectedMonster.data.id, _selectedMonster.data.currentLevel + 1);
+        var upgrades = DataManager.Instance.GetUpgradeMonsters(_selectedMonster.data.id, _selectedMonster.data.currentLevel + 1);
         if (upgrades.Count > 0 && _stageManager.CurrGold >= upgrades[0].requiredCoins)
         {
             var nextUpgrade = upgrades[0];
             _stageManager.ChangeGold(-nextUpgrade.requiredCoins);
             _selectedMonster.Upgrade(nextUpgrade);
-            if (DataManager4.Instance.GetUpgradeMonsters(_selectedMonster.data.id, _selectedMonster.data.currentLevel + 1) == null)
+            if (DataManager.Instance.GetUpgradeMonsters(_selectedMonster.data.id, _selectedMonster.data.currentLevel + 1) == null)
             {
                 _upgradeCanvas.gameObject.SetActive(false);
             }
@@ -103,7 +103,7 @@ public class MonsterUpgradeUI : MonoBehaviour
         int totalSpent = selectedMonster.data.requiredCoins; //몬스터 스폰 비용
         for (int level = 1; level <= selectedMonster.data.currentLevel; level++) //몬스터 업그레이드 비용
         { 
-            var upgrades = DataManager4.Instance.GetUpgradeMonsters(selectedMonster.data.id, level);
+            var upgrades = DataManager.Instance.GetUpgradeMonsters(selectedMonster.data.id, level);
             if (upgrades.Count > 0)
             {
                 var upgradeData = upgrades[0];

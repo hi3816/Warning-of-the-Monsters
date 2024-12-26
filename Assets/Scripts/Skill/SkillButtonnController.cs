@@ -21,7 +21,7 @@ public class SkillButtonnController : MonoBehaviour
     private void Awake()
     {
         int skillIdx = _poolConfig.prefab.GetComponent<Skill>().SkillIdx;
-        _skillData = DataManager5.Instance.GetSkillByIndex(skillIdx);
+        _skillData = DataManager.Instance.GetSkillByIndex(skillIdx);
         _timeSinceSkill = 0f;
         PoolManager.Instance.AddPool(_poolConfig);
     }

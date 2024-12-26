@@ -22,7 +22,7 @@ public class Human : MonoBehaviour
     private void Awake()
     {
         // 데이터 세팅
-        _humanData = DataManager3.Instance.GetHumanByIndex(id);
+        _humanData = DataManager.Instance.GetHumanByIndex(id);
         MaxFear = _humanData.maxFear;
         _coin = _humanData.coin;
         LifeInflicted = _humanData.lifeInflicted;
