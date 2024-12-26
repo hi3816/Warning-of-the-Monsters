@@ -378,19 +378,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2924566221244053583}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6781867576421383800}
-        m_TargetAssemblyTypeName: SkillButtonnController, Assembly-CSharp
-        m_MethodName: ClickSkillButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &6781867576421383800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,13 +391,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87017523a4977f1459c0f9500ea41a24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _skillButtonIdx: 0
   _cancelBtn: {fileID: 3001624466630100057}
   _blackImage: {fileID: 3434437057143706392}
   _skillImage: {fileID: 4778155602058978754}
-  _poolConfig:
-    tag: MonsterRoar
-    prefab: {fileID: 7674980571249262148, guid: 4ae8654c89e1fa04eb6b0a729fbf6b7e, type: 3}
-    size: 12
+  _skillRangeSprite: {fileID: 0}
 --- !u!1 &6523075796681819774
 GameObject:
   m_ObjectHideFlags: 0

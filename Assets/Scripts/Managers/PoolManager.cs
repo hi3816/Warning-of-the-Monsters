@@ -61,7 +61,7 @@ public class PoolManager : SingletonBase<PoolManager>
         _pools.Add(tag, objectPool);    // 풀 딕셔너리에 새로운 오브젝트 풀 추가
     }
 
-    public void AddPoolS(PoolConfig[] pools)
+    public void AddPools(PoolConfig[] pools)
     {
         foreach(PoolConfig pool in pools)
         {

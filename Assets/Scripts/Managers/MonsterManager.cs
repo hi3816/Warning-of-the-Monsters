@@ -12,7 +12,7 @@ public class MonsterManager : SingletonBase<MonsterManager>
     
     private void Start()
     {
-        PoolManager.Instance.AddPoolS(_poolConfigs);
+        PoolManager.Instance.AddPools(_poolConfigs);
         LoadMonsterData();
         if (!_monstersById.ContainsKey(_selectedMonsterId) && _monstersById.Count > 0)
         {
