@@ -120,7 +120,7 @@ public class MonsterEvolutionUI : MonoBehaviour
 
     private void MonsterEvolutionStat(EvolutionType evolutionType)
     {
-        var evolution = MonsterDataManager.Instance.GetEvolutionData(_selectMonster.data.id, _selectMonster.data.currentLevel + 1, evolutionType);
+        var evolution = DataManager.Instance.GetEvolutionData(_selectMonster.data.id, _selectMonster.data.currentLevel + 1, evolutionType);
         if (evolutionType == EvolutionType.Atype)
         {
             _typeACheck.SetActive(true);
