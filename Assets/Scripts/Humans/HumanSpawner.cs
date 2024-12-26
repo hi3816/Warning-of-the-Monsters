@@ -1,16 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class HumanSpawner : MonoBehaviour
 {
-    private Human _human;
     private int _curStageIdx;
+    private int _curWaveIdx;
     private WaitForSeconds _spawnDelay = new WaitForSeconds(2.0f);  // 인간 스폰 되는 간격
     
-    private List<WaveData> _waveData = new List<WaveData>();
-    //private List<DataTable.Wave_Data> _waveData;
     [SerializeField] private PoolManager.PoolConfig[] _poolConfigs; // 인간 풀
 
     private void Awake()
@@ -19,52 +16,35 @@ public class HumanSpawner : MonoBehaviour
         _curStageIdx = DataManager.Instance.selectedStageIdx;
     }
     
-    private void Start()
-    {
-        // 현재 스테이지의 웨이브 데이터 로드
-        if (!WaveDataLoader.Instance.waveDataDict.ContainsKey(_curStageIdx))
-            WaveDataLoader.Instance.SetWaveDataIdxStage(_curStageIdx);
-        _waveData = WaveDataLoader.Instance.waveDataDict[_curStageIdx];
-        //DataManager3.Instance.GetWaveByIndex(_curStageIdx);
-        //_waveData = DataManager3.Instance.GetAllWavesByStageIdx(_curStageIdx);
-    }
-    
     public void StartSpawningHumans(int waveIdx)
     {
+        _curWaveIdx = ConvertWaveIdx(_curStageIdx, waveIdx);
         StartCoroutine(SpawnHumansCoroutine(waveIdx));  // 현재 웨이브의 인간 스폰 코루틴 실행
     }
 
     private IEnumerator SpawnHumansCoroutine(int waveIdx)
     {
-        if (waveIdx-- == StageManager.Instance.TotalWave)   // 현재 웨이브가 마지막 웨이브면
-            HumanManager.Instance.isLastWave = true;
-        for (int i = 0; i < _waveData[waveIdx].humanID.Count; i++)  // 현재 웨이브의 인간 종류만큼 반복
+        if (_curWaveIdx == GetLastWaveIdx(_curStageIdx))    // 현재 웨이브가 마지막 웨이브면
         {
-            for (int j = 0; j < _waveData[waveIdx].count[i]; j++)   // 해당 종류 인원수 만큼 반복
+            HumanManager.Instance.isLastWave = true;
+        }
+        
+        DataTable.Wave_Data waveData = DataManager3.Instance.GetWaveByIndex(_curWaveIdx);   // 현재 웨이브 데이터 정보 가져오기
+
+        if (waveData == null)
+        {
+            Debug.LogError($"Wave data is missing: {_curWaveIdx}");
+            yield break;
+        }
+
+        for (int i = 0; i < waveData.humanId.Count; i++)    // 현재 웨이브의 인간 종류만큼 반복
+        {
+            for (int j = 0; j < waveData.count[i]; j++) // 해당 종류 인원수 만큼 반복
             {
-                SpawnHuman(waveIdx, _waveData[waveIdx].humanID[i]);
+                SpawnHuman(waveData.waveIdx, waveData.humanId[i]);
                 yield return _spawnDelay;
             }
         }
-        
-        // var currentWaveData = DataManager3.Instance.GetWaveByCompositeKey(_curStageIdx, waveIdx);
-        //
-        // if (currentWaveData != null)
-        // {
-        //     for (int i = 0; i < currentWaveData.humanId.Count; i++)  // 현재 웨이브의 인간 종류만큼 반복
-        //     {
-        //         for (int j = 0; j < currentWaveData.count[i]; j++)   // 해당 종류 인원수 만큼 반복
-        //         {
-        //             SpawnHuman(waveIdx, currentWaveData.humanId[i]);
-        //             SpawnHuman(waveIdx, currentWaveData.humanId[i]);
-        //             yield return _spawnDelay;
-        //         }
-        //     }
-        // }
-        // else
-        // {
-        //     Debug.LogAssertion($"Wave data not found for Stage: {_curStageIdx}, Wave: {waveIdx}");
-        // }
     }
     
     private void SpawnHuman(int waveIdx, int humanId)
@@ -78,5 +58,23 @@ public class HumanSpawner : MonoBehaviour
         GameObject obj = PoolManager.Instance.SpawnFromPool(humanType, transform.position, Quaternion.identity);
         Human human = obj.GetComponent<Human>();
         human.SpawnedWaveIdx = waveIdx;
+    }
+    
+    private int ConvertWaveIdx(int stageIdx, int waveIdx)
+    {
+        return (stageIdx + 1) * 1000 + waveIdx - 1; // 현재 스테이지와 웨이브인덱스로 json 데이터에서의 idx 반환
+    }
+    
+    private int GetLastWaveIdx(int stageIdx)
+    {
+        int totalWaves = StageManager.Instance.TotalWave;
+
+        if (totalWaves <= 0)
+        {
+            Debug.LogAssertion($"TotalWave is invalid: {totalWaves}");
+            return -1;
+        }
+
+        return ConvertWaveIdx(stageIdx, totalWaves);
     }
 }
