@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 public class Human : MonoBehaviour
 {
-    private HumanSO _humanData;
+    private DataTable.Human_Data _humanData;
     public int id;
     private int _coin;  // 놀랐을 때 떨어뜨리고 가는 재화량(처치 시 획득 재화량)
     public float MaxFear { get; private set; }
@@ -22,7 +22,7 @@ public class Human : MonoBehaviour
     private void Awake()
     {
         // 데이터 세팅
-        _humanData = HumanDataLoader.Instance.GetHumanByIndex(id);
+        _humanData = DataManager3.Instance.GetHumanByIndex(id);
         MaxFear = _humanData.maxFear;
         _coin = _humanData.coin;
         LifeInflicted = _humanData.lifeInflicted;
