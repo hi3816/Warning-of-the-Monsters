@@ -1,20 +1,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MonsterManager : SingletonBase<MonsterManager>
 {
     [SerializeField]
-    private DataManager4 monsterDataManager;
+    private DataManager4 _monsterDataManager;
     private Dictionary<int, DataTable.Monster_Data> _monstersById = new Dictionary<int, DataTable.Monster_Data>();
     private int _selectedMonsterId;
     public int SelectedMonsterId => _selectedMonsterId;
 
-    [SerializeField] private PoolManager.PoolConfig[] poolConfigs; // 몬스터 풀
+    [SerializeField] private PoolManager.PoolConfig[] _poolConfigs; // 몬스터 풀
     
     private void Start()
     {
-        PoolManager.Instance.AddPoolS(poolConfigs);
+        PoolManager.Instance.AddPoolS(_poolConfigs);
         LoadMonsterData();
         if (!_monstersById.ContainsKey(_selectedMonsterId) && _monstersById.Count > 0)
         {
@@ -26,9 +27,9 @@ public class MonsterManager : SingletonBase<MonsterManager>
     
     private void LoadMonsterData()
     {
-        if (monsterDataManager == null) return;
+        if (_monsterDataManager == null) return;
 
-        List<DataTable.Monster_Data> monsters = monsterDataManager.GetBaseMonsters();
+        List<DataTable.Monster_Data> monsters = _monsterDataManager.GetBaseMonsters();
         if (monsters == null || monsters.Count == 0) return;
 
         foreach(DataTable.Monster_Data monster in monsters)

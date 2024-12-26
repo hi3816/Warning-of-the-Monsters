@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public enum MonsterState
@@ -36,15 +37,15 @@ public class MonsterData
 public abstract class Monster : MonoBehaviour
 {
     public MonsterData data;
-    private MonsterUpgradeUI upgradeUI;
+    private MonsterUpgradeUI _upgradeUI;
     protected List<Human> TargetHumanList = new List<Human>();
     private SpriteRenderer _spriteRenderer;
     protected Animator Animator;
     protected MonsterState MonsterState;
-    private float fadeDuration = 1f;
+    private float _fadeDuration = 1f;
     protected float LastScareTime;
-    private Coroutine coroutine;
-    [SerializeField] private GameObject fatigueGauge;
+    private Coroutine _coroutine;
+    [SerializeField] private GameObject _fatigueGauge;
 
     public Action OnAttacked;
     
@@ -59,16 +60,16 @@ public abstract class Monster : MonoBehaviour
             SetMonsterData(baseMonsterData);
         }
         
-        if (fatigueGauge == null)
+        if (_fatigueGauge == null)
         {
-            fatigueGauge = gameObject.transform.Find("FatigueGauge").gameObject;
+            _fatigueGauge = gameObject.transform.Find("FatigueGauge").gameObject;
         }
     }
     
     private void OnEnable()
     {
         GameManager.Instance.activeObjects.Add(this.gameObject);
-        fatigueGauge.SetActive(true);
+        _fatigueGauge.SetActive(true);
     }
     
     protected virtual void Update()
@@ -190,7 +191,7 @@ public abstract class Monster : MonoBehaviour
 
             case MonsterState.ReturningVillage:
                 Animator.SetBool("Return", true);
-                coroutine = StartCoroutine(FadeOutAndReturnToPool());
+                _coroutine = StartCoroutine(FadeOutAndReturnToPool());
                 break;
         }
     }
@@ -282,7 +283,7 @@ public abstract class Monster : MonoBehaviour
 
     public void ReturnToVillage()
     {
-        if (coroutine != null) StopCoroutine(coroutine);
+        if (_coroutine != null) StopCoroutine(_coroutine);
         StartCoroutine(FadeOutAndReturnToPool());
     }
 
@@ -297,16 +298,16 @@ public abstract class Monster : MonoBehaviour
         }
         TargetHumanList.Clear();
         
-        fatigueGauge.SetActive(false);
+        _fatigueGauge.SetActive(false);
         
         // Fade out
         float startAlpha = _spriteRenderer.color.a;
         float elapsedTime = 0f;
 
-        while (elapsedTime < fadeDuration)
+        while (elapsedTime < _fadeDuration)
         {
             elapsedTime += Time.deltaTime;
-            float newAlpha = Mathf.Lerp(startAlpha, 0f, elapsedTime / fadeDuration);
+            float newAlpha = Mathf.Lerp(startAlpha, 0f, elapsedTime / _fadeDuration);
             _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, newAlpha);
             yield return null;
         }
@@ -318,7 +319,7 @@ public abstract class Monster : MonoBehaviour
     
     public void Reset()
     {
-        if (coroutine != null) StopCoroutine(coroutine);
+        if (_coroutine != null) StopCoroutine(_coroutine);
         data.currentFatigue = 0f;
         TargetHumanList.Clear();
         _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 1f);
