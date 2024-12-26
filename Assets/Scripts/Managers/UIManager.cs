@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class UIManager : SingletonBase<UIManager>
 {
-    public float ScreenWidth = 1920;
-    public float ScreenHeight = 1080;
+    public float screenWidth = 1920;
+    public float screenHeight = 1080;
 
     public Action<Sprite> OnClickListSlot;
 
@@ -51,7 +51,7 @@ public class UIManager : SingletonBase<UIManager>
 
         var canvasScaler = newCanvasObject.AddComponent<CanvasScaler>();
         canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        canvasScaler.referenceResolution = new Vector2(ScreenWidth, ScreenHeight);
+        canvasScaler.referenceResolution = new Vector2(screenWidth, screenHeight);
         //canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
         canvasScaler.matchWidthOrHeight = 1.0f;
 

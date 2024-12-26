@@ -10,7 +10,7 @@ public class MySceneManager : SingletonBase<MySceneManager>
     public CanvasGroup fadeImg;
     float fadeDuration = 0.5f; //암전되는 시간.
 
-    public GameObject Loading;
+    public GameObject loading;
     public TextMeshProUGUI loadingTxt;
 
 
@@ -36,7 +36,7 @@ public class MySceneManager : SingletonBase<MySceneManager>
 
     IEnumerator LoadScene(string sceneName)
     {
-        Loading.SetActive(true); //로딩 화면을 띄움
+        loading.SetActive(true); //로딩 화면을 띄움
 
         AsyncOperation async = SceneManager.LoadSceneAsync(sceneName);
         async.allowSceneActivation = false; //퍼센트 딜레이용
@@ -76,7 +76,7 @@ public class MySceneManager : SingletonBase<MySceneManager>
     {
         fadeImg.DOFade(0, fadeDuration)
         .OnStart(() => {
-            Loading.SetActive(false);
+            loading.SetActive(false);
         })
         .OnComplete(() => {
             fadeImg.blocksRaycasts = false;

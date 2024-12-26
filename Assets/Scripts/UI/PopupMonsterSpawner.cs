@@ -7,7 +7,7 @@ using System;
 
 public class PopupMonsterSpawner : MonsterSpawner
 {
-    [SerializeField] private GameObject monsterSelectionPopup; // 몬스터 선택 팝업 UI
+    [SerializeField] private GameObject _monsterSelectionPopup; // 몬스터 선택 팝업 UI
     private Vector3 _pendingSpawnPosition; // 선택된 스폰 위치
     private Transform _pendingSpawnPoint; // 선택된 스폰 포인트
 
@@ -62,10 +62,10 @@ public class PopupMonsterSpawner : MonsterSpawner
             return;
         }
 
-        if (monsterSelectionPopup != null)
+        if (_monsterSelectionPopup != null)
         {
-            monsterSelectionPopup.transform.position = position;
-            monsterSelectionPopup.SetActive(true);
+            _monsterSelectionPopup.transform.position = position;
+            _monsterSelectionPopup.SetActive(true);
         }
     }
 
@@ -84,9 +84,9 @@ public class PopupMonsterSpawner : MonsterSpawner
             base.SpawnMonster(_pendingSpawnPosition, selectedMonsterData);
 
             // 팝업 닫기
-            if (monsterSelectionPopup != null)
+            if (_monsterSelectionPopup != null)
             {
-                monsterSelectionPopup.SetActive(false);
+                _monsterSelectionPopup.SetActive(false);
             }
         }
     }
