@@ -54,3 +54,6 @@ MonoBehaviour:
   - tag: SuperHuman
     prefab: {fileID: 2330070577731405459, guid: d6754518b41fcf745b3c98e7f97d1e5b, type: 3}
     size: 30
+  - tag: HealerHuman
+    prefab: {fileID: 2330070577731405459, guid: a77dce28932863d41bbd21bec3850cba, type: 3}
+    size: 5
