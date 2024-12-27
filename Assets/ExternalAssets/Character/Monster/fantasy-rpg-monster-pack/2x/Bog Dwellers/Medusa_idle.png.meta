@@ -139,12 +139,12 @@ TextureImporter:
       name: Medusa_idle_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 14
         y: 192
-        width: 64
-        height: 64
+        width: 36
+        height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -160,12 +160,12 @@ TextureImporter:
       name: Medusa_idle_1
       rect:
         serializedVersion: 2
-        x: 64
+        x: 78
         y: 192
-        width: 64
-        height: 64
+        width: 36
+        height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,12 +181,12 @@ TextureImporter:
       name: Medusa_idle_2
       rect:
         serializedVersion: 2
-        x: 128
+        x: 142
         y: 192
-        width: 64
-        height: 64
+        width: 36
+        height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -202,12 +202,12 @@ TextureImporter:
       name: Medusa_idle_3
       rect:
         serializedVersion: 2
-        x: 192
+        x: 206
         y: 192
-        width: 64
-        height: 64
+        width: 36
+        height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -223,12 +223,12 @@ TextureImporter:
       name: Medusa_idle_4
       rect:
         serializedVersion: 2
-        x: 0
+        x: 14
         y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 36
+        height: 42
+      alignment: 9
+      pivot: {x: 0.41666666, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -244,12 +244,12 @@ TextureImporter:
       name: Medusa_idle_5
       rect:
         serializedVersion: 2
-        x: 64
+        x: 78
         y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 36
+        height: 42
+      alignment: 9
+      pivot: {x: 0.41666666, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -265,12 +265,12 @@ TextureImporter:
       name: Medusa_idle_6
       rect:
         serializedVersion: 2
-        x: 128
+        x: 142
         y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 36
+        height: 42
+      alignment: 9
+      pivot: {x: 0.41666666, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -286,12 +286,12 @@ TextureImporter:
       name: Medusa_idle_7
       rect:
         serializedVersion: 2
-        x: 192
+        x: 206
         y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 36
+        height: 42
+      alignment: 9
+      pivot: {x: 0.41666666, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -304,36 +304,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Medusa_idle_8
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8c62a31893a714cf7a65ec63d5dda379
-      internalID: -1065935633
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Medusa_idle_9
       rect:
         serializedVersion: 2
-        x: 64
+        x: 78
         y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 36
+        height: 42
+      alignment: 9
+      pivot: {x: 0.5833333, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -349,12 +328,12 @@ TextureImporter:
       name: Medusa_idle_10
       rect:
         serializedVersion: 2
-        x: 128
+        x: 142
         y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 36
+        height: 42
+      alignment: 9
+      pivot: {x: 0.5833333, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -370,12 +349,12 @@ TextureImporter:
       name: Medusa_idle_11
       rect:
         serializedVersion: 2
-        x: 192
+        x: 206
         y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 36
+        height: 42
+      alignment: 9
+      pivot: {x: 0.5833333, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -391,12 +370,12 @@ TextureImporter:
       name: Medusa_idle_12
       rect:
         serializedVersion: 2
-        x: 0
+        x: 14
         y: 0
-        width: 64
-        height: 64
+        width: 36
+        height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -412,12 +391,12 @@ TextureImporter:
       name: Medusa_idle_13
       rect:
         serializedVersion: 2
-        x: 64
+        x: 78
         y: 0
-        width: 64
-        height: 64
+        width: 36
+        height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -433,12 +412,12 @@ TextureImporter:
       name: Medusa_idle_14
       rect:
         serializedVersion: 2
-        x: 128
+        x: 142
         y: 0
-        width: 64
-        height: 64
+        width: 36
+        height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -454,12 +433,12 @@ TextureImporter:
       name: Medusa_idle_15
       rect:
         serializedVersion: 2
-        x: 192
+        x: 206
         y: 0
-        width: 64
-        height: 64
+        width: 36
+        height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -467,6 +446,27 @@ TextureImporter:
       bones: []
       spriteID: ea8d7d620e43d4836a9a89a456ecf100
       internalID: -1078754211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medusa_idle_8
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 64
+        width: 36
+        height: 42
+      alignment: 9
+      pivot: {x: 0.5833333, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a9e6c217cba8054f9313bfe159a94cf
+      internalID: -1065935633
       vertices: []
       indices: 
       edges: []
