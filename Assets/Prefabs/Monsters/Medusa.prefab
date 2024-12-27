@@ -253,7 +253,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.04}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6913067079490644952
@@ -599,7 +599,7 @@ MonoBehaviour:
     maxLevel: 2
     monsterType: 0
     summonerId: 0
-  fatigueGauge: {fileID: 5411788522726683214}
+  _fatigueGauge: {fileID: 0}
 --- !u!114 &3462780148978345129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -612,5 +612,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d32dc344bf2354fbce5d8414206435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monster: {fileID: 975375574619363947}
-  MonsterFatigueGagueImg: {fileID: 5307919576837869032}
+  _monster: {fileID: 0}
+  _monsterFatigueGagueImg: {fileID: 0}

@@ -139,12 +139,12 @@ TextureImporter:
       name: Medusa_hit_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 14
         y: 192
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 36
+        height: 46
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45652175}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -160,12 +160,12 @@ TextureImporter:
       name: Medusa_hit_1
       rect:
         serializedVersion: 2
-        x: 64
+        x: 78
         y: 192
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 36
+        height: 46
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45652175}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,12 +181,12 @@ TextureImporter:
       name: Medusa_hit_2
       rect:
         serializedVersion: 2
-        x: 0
+        x: 14
         y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 36
+        height: 46
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45652175}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -202,12 +202,12 @@ TextureImporter:
       name: Medusa_hit_3
       rect:
         serializedVersion: 2
-        x: 64
+        x: 78
         y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 36
+        height: 46
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45652175}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -223,12 +223,12 @@ TextureImporter:
       name: Medusa_hit_4
       rect:
         serializedVersion: 2
-        x: 0
+        x: 14
         y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 36
+        height: 46
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45652175}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -244,12 +244,12 @@ TextureImporter:
       name: Medusa_hit_5
       rect:
         serializedVersion: 2
-        x: 64
+        x: 78
         y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 36
+        height: 46
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45652175}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -265,12 +265,12 @@ TextureImporter:
       name: Medusa_hit_6
       rect:
         serializedVersion: 2
-        x: 0
+        x: 14
         y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 36
+        height: 46
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45652175}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -286,12 +286,12 @@ TextureImporter:
       name: Medusa_hit_7
       rect:
         serializedVersion: 2
-        x: 64
+        x: 78
         y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 36
+        height: 46
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45652175}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
