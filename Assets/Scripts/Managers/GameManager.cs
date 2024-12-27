@@ -46,4 +46,9 @@ public class GameManager : SingletonBase<GameManager>
             PoolManager.Instance.ReturnToPool(objectName, activeObjects[0]);
         }
     }
+
+    private void OnDestroy()
+    {
+        ReturnObjects();
+    }
 }

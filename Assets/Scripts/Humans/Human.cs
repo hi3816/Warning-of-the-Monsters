@@ -1,19 +1,19 @@
 using System;
 using System.Collections;
+using DataTable;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 
 public class Human : MonoBehaviour
 {
-    private DataTable.Human_Data _humanData;
+    private Human_Data _humanData;
     public int id;
     private int _coin;  // 놀랐을 때 떨어뜨리고 가는 재화량(처치 시 획득 재화량)
     public float MaxFear { get; private set; }
     public float FearLevel { get; private set; }
     public int LifeInflicted { get; private set; }
     public int SpawnedWaveIdx { get; set; }
-    public bool IsReturning { get; private set; }  // 풀에 반환중인 상태인지 체크
+    private bool _isReturning;  // 풀에 반환중인 상태인지 체크
 
     public HumanController controller;
 
@@ -31,15 +31,16 @@ public class Human : MonoBehaviour
         {
             controller = gameObject.AddComponent<HumanController>();
         }
+        controller.SetHumanData(_humanData); // 컨트롤러에서 사용하는 데이터 세팅
     }
 
     private void OnEnable()
     {
         // 활성화 시 매번 공포 수치와 UI 초기화
         FearLevel = 0;
-        IsReturning = false;   // 반환하고 있지 않은 상태로 전환
+        _isReturning = false;   // 반환하고 있지 않은 상태로 전환
         
-        GameManager.Instance.activeObjects.Add(this.gameObject);
+        GameManager.Instance.activeObjects.Add(gameObject);
     }
 
     // 인간 공포 수치 증가시키기
@@ -49,7 +50,7 @@ public class Human : MonoBehaviour
         SoundManager.Instance.PlaySFX(SfxType.SurprisingHuman);
         controller.animator.SetTrigger("Surprise");
         
-        if (IsReturning) return;    // 반환 중인 상태면 공포 수치 올리지 않고 리턴
+        if (_isReturning) return;    // 반환 중인 상태면 공포 수치 올리지 않고 리턴
         
         FearLevel = Mathf.Min(FearLevel + amount, MaxFear); // 최대값 넘지 않도록 제한
         OnAttacked?.Invoke();
@@ -67,9 +68,9 @@ public class Human : MonoBehaviour
     // 지연시간 이후에 인간을 풀로 반환
     public void ReturnHumanToPool(float delay)
     {
-        if (IsReturning) return;   // 풀로 반환하는 중이면 실행 x
+        if (_isReturning) return;   // 풀로 반환하는 중이면 실행 x
         
-        IsReturning = true;
+        _isReturning = true;
         
         if (gameObject.activeInHierarchy)   // Scene에 활성화 상태일 때만 실행
             StartCoroutine(ReturnHumanProcess(delay));
@@ -85,13 +86,13 @@ public class Human : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (IsReturning) return;
+        if (_isReturning) return;
         
         // 도망가는 인간과 다른 상태의 인간이 서로 밀리지 않도록 회피 타입 변경
         if (other.CompareTag("Human"))  // 인간이 트리거되면
         {
             Human human = other.gameObject.GetComponent<Human>();
-            if (human.IsReturning)  // 반환 중인 상태면
+            if (human._isReturning)  // 반환 중인 상태면
             {
                 // 자신의 회피 타입을 None으로 설정, 서로 충돌하지 않고 지나가게 만듦
                 controller.Agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
@@ -119,6 +120,6 @@ public class Human : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.Instance.activeObjects.Remove(this.gameObject);
+        GameManager.Instance.activeObjects.Remove(gameObject);
     }
 }
