@@ -139,10 +139,10 @@ TextureImporter:
       name: UI assets (3x)_2
       rect:
         serializedVersion: 2
-        x: 152
-        y: 677
-        width: 32
-        height: 32
+        x: 151
+        y: 676
+        width: 34
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,10 +160,10 @@ TextureImporter:
       name: UI assets (3x)_3
       rect:
         serializedVersion: 2
-        x: 200
-        y: 677
-        width: 32
-        height: 32
+        x: 199
+        y: 676
+        width: 34
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,10 +202,10 @@ TextureImporter:
       name: UI assets (3x)_1
       rect:
         serializedVersion: 2
-        x: 151
-        y: 772
-        width: 34
-        height: 34
+        x: 152
+        y: 773
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -244,13 +244,13 @@ TextureImporter:
       name: UI assets (3x)_5
       rect:
         serializedVersion: 2
-        x: 453
+        x: 450
         y: 2547
-        width: 54
-        height: 39
+        width: 60
+        height: 42
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 6, y: 9, z: 6, w: 6}
+      border: {x: 9, y: 9, z: 9, w: 9}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -271,7 +271,7 @@ TextureImporter:
         height: 42
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 9, y: 9, z: 9, w: 8}
+      border: {x: 9, y: 9, z: 9, w: 9}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -349,13 +349,13 @@ TextureImporter:
       name: UI assets (3x)_10
       rect:
         serializedVersion: 2
-        x: 1164
-        y: 2555
-        width: 21
-        height: 22
+        x: 1161
+        y: 2553
+        width: 27
+        height: 27
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 3, y: 4, z: 3, w: 3}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -376,7 +376,7 @@ TextureImporter:
         height: 27
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 6, y: 6, z: 6, w: 6}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
