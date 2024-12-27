@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 2711220336945300611}
   - component: {fileID: 8184308960279727631}
   m_Layer: 7
-  m_Name: HealerHuman
+  m_Name: MysticHuman
   m_TagString: Human
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

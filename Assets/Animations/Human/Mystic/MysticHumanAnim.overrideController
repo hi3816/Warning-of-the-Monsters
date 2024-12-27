@@ -6,7 +6,7 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HealerHumanAnim
+  m_Name: MysticHumanAnim
   m_Controller: {fileID: 9100000, guid: 2490721ad1ca45047b5a32320e85b140, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: f6c1f6bb4d27f104ca9830a143372aa0, type: 2}
