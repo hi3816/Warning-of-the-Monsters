@@ -29,9 +29,7 @@ public class WinPopup : UIBase
         //SetStars(StageManager.Instance.CurrHealth);
         SetStars(StageManager.Instance.StarsCount);
 
-        //canvas order조절
-        Canvas canavas = GetComponentInParent<Canvas>();
-        canvas.sortingOrder = 4;
+        SetSortOrder(UILayerOrder.Popup);
     }
 
     private void LoadGameScene()
