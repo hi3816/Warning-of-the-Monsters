@@ -27,11 +27,6 @@ public class MonsterEvolution : MonoBehaviour
         monsterEvolutionUI = GetComponent<MonsterEvolutionUI>();
         SetSprite(poolConfigs);
         SetSprite(summonerMonsters);
-    }
-
-    private void Start()
-    {
-        // DataManager.Instance.GetEvolutionData가 Awake에서는 동작 안함
         SetEvolutionData(poolConfigs);
         SetEvolutionData(summonerMonsters);
         PoolManager.Instance.AddPools(poolConfigs);
