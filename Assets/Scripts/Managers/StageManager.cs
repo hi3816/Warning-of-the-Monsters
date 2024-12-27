@@ -28,13 +28,10 @@ public class StageManager : SingletonBase<StageManager>
     [Header("Sfx Pools")]
     [SerializeField] private PoolManager.PoolConfig[] _poolConfigs;
 
-    [Header("Skill")]
-    public GameObject skillRangeSprite;
-
     protected override void Awake()
     {
         base.Awake();
-        PoolManager.Instance.AddPoolS(_poolConfigs);
+        PoolManager.Instance.AddPools(_poolConfigs);
         SoundManager.Instance.PlayBGM(BgmType.Stage);
         SetStageInfo();
         SetStageObject();
@@ -70,9 +67,6 @@ public class StageManager : SingletonBase<StageManager>
 
         // startBattleBtn에 interWaveDelay필드에 값 저장하기 위해 StageSO 세팅 후에 캐싱
         _startBattleBtnController = _stage.GetComponentInChildren<StartBattleButtonController>();
-
-        skillRangeSprite = Instantiate(skillRangeSprite);
-        skillRangeSprite.SetActive(false);
     }
 
     // 스테이지의 시작점과 종료지점 캐싱

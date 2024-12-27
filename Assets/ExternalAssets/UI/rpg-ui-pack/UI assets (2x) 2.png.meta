@@ -580,10 +580,10 @@ TextureImporter:
       name: UI assets (2x)_21
       rect:
         serializedVersion: 2
-        x: 1346
-        y: 1922
-        width: 92
-        height: 26
+        x: 1344
+        y: 1920
+        width: 96
+        height: 30
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -895,10 +895,10 @@ TextureImporter:
       name: UI assets (2x)_36
       rect:
         serializedVersion: 2
-        x: 1346
-        y: 1874
-        width: 92
-        height: 34
+        x: 1344
+        y: 1872
+        width: 96
+        height: 38
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

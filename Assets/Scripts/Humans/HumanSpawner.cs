@@ -12,7 +12,7 @@ public class HumanSpawner : MonoBehaviour
 
     private void Awake()
     {
-        PoolManager.Instance.AddPoolS(_poolConfigs);
+        PoolManager.Instance.AddPools(_poolConfigs);
         _curStageIdx = DataManager.Instance.selectedStageIdx;
     }
     
