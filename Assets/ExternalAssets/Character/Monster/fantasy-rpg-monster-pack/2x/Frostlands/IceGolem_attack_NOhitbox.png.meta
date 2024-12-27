@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 44
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -134,7 +134,427 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: IceGolem_attack_NOhitbox_0
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 384
+        width: 40
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8007697b6012444e97556dc6d1226b5
+      internalID: 187232162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceGolem_attack_NOhitbox_1
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 384
+        width: 40
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8e6d70bf09816e4e8ee55b514deb872
+      internalID: 335170746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceGolem_attack_NOhitbox_2
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 384
+        width: 40
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4054bca995a3bf348bc9c93cb3f257e9
+      internalID: 1539077958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceGolem_attack_NOhitbox_3
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 384
+        width: 40
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41a963d375d73874bb8d82604ef02016
+      internalID: 267356536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceGolem_attack_NOhitbox_4
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 384
+        width: 40
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2de80354941ae4f48abb796f0029fa9b
+      internalID: -2047977885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceGolem_attack_NOhitbox_5
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 272
+        width: 28
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff07fbe203a8d3d489672dbc777dcafc
+      internalID: 126024068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceGolem_attack_NOhitbox_6
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 272
+        width: 28
+        height: 38
+      alignment: 9
+      pivot: {x: 0.5714286, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c42f0dc378deb64bafee1fead972209
+      internalID: -1782502215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceGolem_attack_NOhitbox_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 272
+        width: 28
+        height: 38
+      alignment: 9
+      pivot: {x: 0.5714286, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24f8020132a88c84f8cbcdfef43e662e
+      internalID: 318604397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceGolem_attack_NOhitbox_8
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 272
+        width: 28
+        height: 38
+      alignment: 9
+      pivot: {x: 0.5714286, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f72a770df466f043bf536bd9c239ee7
+      internalID: 1755701894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceGolem_attack_NOhitbox_9
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 272
+        width: 28
+        height: 38
+      alignment: 9
+      pivot: {x: 0.5714286, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f4b79a9c1962214381c8c1d2e180f78
+      internalID: -881160524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceGolem_attack_NOhitbox_10
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 160
+        width: 28
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3234e7da196fc1147826670aef4836fb
+      internalID: -656472325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceGolem_attack_NOhitbox_11
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 160
+        width: 28
+        height: 38
+      alignment: 9
+      pivot: {x: 0.42857143, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a006341f34872d4e98348b01bfc83aa
+      internalID: -1971741300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceGolem_attack_NOhitbox_12
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 160
+        width: 28
+        height: 38
+      alignment: 9
+      pivot: {x: 0.42857143, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 201fe7872e1de9747a00855e5f2935b7
+      internalID: 915966022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceGolem_attack_NOhitbox_13
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 160
+        width: 28
+        height: 38
+      alignment: 9
+      pivot: {x: 0.42857143, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db3cbf625a1b5ff408aa248411414ad3
+      internalID: 1011491981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceGolem_attack_NOhitbox_14
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 160
+        width: 28
+        height: 38
+      alignment: 9
+      pivot: {x: 0.42857143, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dc734384d29c1f4bb8ae0f834ba25da
+      internalID: 1654509227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceGolem_attack_NOhitbox_15
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 48
+        width: 40
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6694143571a1cf84c8bc37b0327a7006
+      internalID: 1554436214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceGolem_attack_NOhitbox_16
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 48
+        width: 40
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 489b75d72aa63e840aa4cf575a3714d3
+      internalID: -1201814013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceGolem_attack_NOhitbox_17
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 48
+        width: 40
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f97cf41e16d76204092fdebcd088fd78
+      internalID: -1705060577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceGolem_attack_NOhitbox_18
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 48
+        width: 40
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8602ad4df52e1894a8b2b09ec5431a6c
+      internalID: -225921935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IceGolem_attack_NOhitbox_19
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 48
+        width: 40
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19c066c7739b5ba46ae74a4d099fd7d5
+      internalID: -1945336860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +565,27 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      IceGolem_attack_NOhitbox_0: 187232162
+      IceGolem_attack_NOhitbox_1: 335170746
+      IceGolem_attack_NOhitbox_10: -656472325
+      IceGolem_attack_NOhitbox_11: -1971741300
+      IceGolem_attack_NOhitbox_12: 915966022
+      IceGolem_attack_NOhitbox_13: 1011491981
+      IceGolem_attack_NOhitbox_14: 1654509227
+      IceGolem_attack_NOhitbox_15: 1554436214
+      IceGolem_attack_NOhitbox_16: -1201814013
+      IceGolem_attack_NOhitbox_17: -1705060577
+      IceGolem_attack_NOhitbox_18: -225921935
+      IceGolem_attack_NOhitbox_19: -1945336860
+      IceGolem_attack_NOhitbox_2: 1539077958
+      IceGolem_attack_NOhitbox_3: 267356536
+      IceGolem_attack_NOhitbox_4: -2047977885
+      IceGolem_attack_NOhitbox_5: 126024068
+      IceGolem_attack_NOhitbox_6: -1782502215
+      IceGolem_attack_NOhitbox_7: 318604397
+      IceGolem_attack_NOhitbox_8: 1755701894
+      IceGolem_attack_NOhitbox_9: -881160524
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

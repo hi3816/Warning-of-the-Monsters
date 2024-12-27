@@ -68,6 +68,12 @@ MonoBehaviour:
   - tag: Bat
     prefab: {fileID: 5562810807239344560, guid: 9de42ede550914879beb2c67d13d1c43, type: 3}
     size: 20
+  - tag: DeathKnight
+    prefab: {fileID: 1533141459934048252, guid: ad778e652ac4f4b9b8594d2ac7b554ed, type: 3}
+    size: 20
+  - tag: Bat
+    prefab: {fileID: 5562810807239344560, guid: 9de42ede550914879beb2c67d13d1c43, type: 3}
+    size: 20
 --- !u!1 &3000365435214169872
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,4 +164,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a41ec76ac56243af9291191c4452c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnPoints: []
