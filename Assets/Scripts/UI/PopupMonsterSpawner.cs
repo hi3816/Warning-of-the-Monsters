@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.U2D;
 using TMPro;
-using System;
 
 public class PopupMonsterSpawner : MonsterSpawner
 {
@@ -35,7 +34,7 @@ public class PopupMonsterSpawner : MonsterSpawner
             Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             touchPosition.z = 0f;
 
-            foreach (Transform spawnPoint in SpawnPoints)
+            foreach (Transform spawnPoint in SpawnPointList)
             {
                 if (Vector2.Distance(touchPosition, spawnPoint.position) < 0.5f)
                 {

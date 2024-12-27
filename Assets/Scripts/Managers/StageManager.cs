@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class StageManager : SingletonBase<StageManager>
@@ -20,6 +21,7 @@ public class StageManager : SingletonBase<StageManager>
 
     [SerializeField] private GameObject _stage;
     [SerializeField] private StartBattleButtonController _startBattleBtnController;
+    public List<Transform> SpawnPointList { get; private set; }
     
     private int _stageIdx;
     public Transform SpawnPoint { get; private set; }
@@ -53,6 +55,7 @@ public class StageManager : SingletonBase<StageManager>
         CurrWave = 0;
         CurrHealth = StageData.health;
         CurrGold = StageData.gold;
+        CurrGold = 1000000;
         StarsCount = 0;
         _stageInfoController = _stageInfo.GetComponent<StageInfoController>();
         _stageInfoController.ChangeUI();
@@ -64,7 +67,8 @@ public class StageManager : SingletonBase<StageManager>
         // 스테이지 동적 로드
         _stage = Instantiate<GameObject>(Resources.Load<GameObject>($"Prefabs/Stage/Stage{_stageIdx + 1}"));
         _stage.name = $"Stage{_stageIdx + 1}";
-
+        SpawnPointList = _stage.GetComponentInChildren<SpawnPoint>().SpawnPointList;
+        
         // startBattleBtn에 interWaveDelay필드에 값 저장하기 위해 StageSO 세팅 후에 캐싱
         _startBattleBtnController = _stage.GetComponentInChildren<StartBattleButtonController>();
     }
