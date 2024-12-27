@@ -53,7 +53,7 @@ public class MonsterUpgradeUI : MonoBehaviour
         if (_selectedMonster == null) return;
         
         var upgrades = DataManager.Instance.GetUpgradeMonsters(_selectedMonster.data.id, _selectedMonster.data.currentLevel + 1);
-        if (upgrades.upgrade_level > 0 && _stageManager.CurrGold >= upgrades.requiredCoins)
+        if (upgrades.upgradeLevel > 0 && _stageManager.CurrGold >= upgrades.requiredCoins)
         {
             var nextUpgrade = upgrades;
             _stageManager.ChangeGold(-nextUpgrade.requiredCoins);
@@ -104,7 +104,7 @@ public class MonsterUpgradeUI : MonoBehaviour
         for (int level = 1; level <= selectedMonster.data.currentLevel; level++) //몬스터 업그레이드 비용
         { 
             var upgrades = DataManager.Instance.GetUpgradeMonsters(selectedMonster.data.id, level);
-            if (upgrades.upgrade_level > 0)
+            if (upgrades.upgradeLevel > 0)
             {
                 var upgradeData = upgrades;
                 totalSpent += upgradeData.requiredCoins;

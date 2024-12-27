@@ -20,7 +20,7 @@ namespace DataTable
     public partial class Summon_Data : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<Summon_Data> loadedList, Dictionary<float, Summon_Data> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<Summon_Data> loadedList, Dictionary<int, Summon_Data> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "114x3sY4Qf5iKh3tkf2GXsqlNufwgEc13JmaLskbTBxo"; // it is file id
@@ -29,7 +29,7 @@ namespace DataTable
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<float, Summon_Data> Summon_DataMap = new Dictionary<float, Summon_Data>();  
+        public static Dictionary<int, Summon_Data> Summon_DataMap = new Dictionary<int, Summon_Data>();  
         public static List<Summon_Data> Summon_DataList = new List<Summon_Data>();   
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace DataTable
         /// Get Summon_Data Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<float, Summon_Data>  GetDictionary()
+        public static Dictionary<int, Summon_Data>  GetDictionary()
         {{
            if (isLoaded == false) Load();
            return Summon_DataMap;
@@ -56,8 +56,8 @@ namespace DataTable
 
 /* Fields. */
 
-		public System.Single monster_id;
-		public EvolutionType EvolutionType;
+		public System.Int32 monsterId;
+		public EvolutionType evolutionType;
 		public System.Collections.Generic.List<Int32> minionMonsterId;
 		public System.Collections.Generic.List<String> minionTag;
 		public System.Collections.Generic.List<Int32> count;
@@ -90,7 +90,7 @@ namespace DataTable
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<Summon_Data>, Dictionary<float, Summon_Data>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<Summon_Data>, Dictionary<int, Summon_Data>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -118,8 +118,8 @@ namespace DataTable
                
 
 
-    public static (List<Summon_Data> list, Dictionary<float, Summon_Data> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<float, Summon_Data> Map = new Dictionary<float, Summon_Data>();
+    public static (List<Summon_Data> list, Dictionary<int, Summon_Data> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<int, Summon_Data> Map = new Dictionary<int, Summon_Data>();
             List<Summon_Data> List = new List<Summon_Data>();     
             TypeMap.Init();
             FieldInfo[] fields = typeof(Summon_Data).GetFields(BindingFlags.Public | BindingFlags.Instance);
@@ -181,7 +181,7 @@ namespace DataTable
                               
                             }
                             List.Add(instance); 
-                            Map.Add(instance.monster_id, instance);
+                            Map.Add(instance.monsterId, instance);
                         }
                         if(isLoaded == false || forceReload)
                         { 
