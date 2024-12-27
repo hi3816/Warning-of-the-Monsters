@@ -121,8 +121,8 @@ public class DataManager : SingletonBase<DataManager>
         var upgrades = Upgrade_Data.GetList();
          foreach (var upgrade in upgrades)
          {
-             int baseMonsterId = Mathf.FloorToInt(upgrade.monsterId); //base id (1, 2, etc.)
-             int upgradePart = Mathf.RoundToInt((upgrade.monsterId - baseMonsterId) * 10); //upgrade level (1, 2, etc.)
+             int baseMonsterId = upgrade.monsterId / 1000; //base id (1, 2, etc.)
+             int upgradePart = upgrade.monsterId % 1000 / 100; //upgrade level (1, 2, etc.)
              if (baseMonsterId == monsterId && upgradePart == level)
              {
                  return upgrade;
@@ -189,7 +189,7 @@ public class DataManager : SingletonBase<DataManager>
     {
         foreach (var evolution in Evolution_Data.GetList())
         {
-            int baseEvolutionId = Mathf.FloorToInt(evolution.evolutionId); // base id (1, 2, etc.)
+            int baseEvolutionId = evolution.evolutionId / 10000; // base id (1, 2, etc.)
             int level = evolution.upgradeLevel;
             if (baseEvolutionId == monsterId && level == upgradeLevel)
             {
@@ -204,7 +204,7 @@ public class DataManager : SingletonBase<DataManager>
     {
         foreach (var evolution in Evolution_Data.GetList())
         {
-            int baseEvolutionId = Mathf.FloorToInt(evolution.evolutionId); // base id (1, 2, etc.)
+            int baseEvolutionId = evolution.evolutionId / 10000; // base id (1, 2, etc.)
             int level = evolution.upgradeLevel;
             EvolutionType type = evolution.evolutionType;
             if (baseEvolutionId == monsterId && level == upgradeLevel && type == evolutionType)

@@ -20,7 +20,7 @@ namespace DataTable
     public partial class Evolution_Data : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<Evolution_Data> loadedList, Dictionary<float, Evolution_Data> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<Evolution_Data> loadedList, Dictionary<int, Evolution_Data> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "114x3sY4Qf5iKh3tkf2GXsqlNufwgEc13JmaLskbTBxo"; // it is file id
@@ -29,7 +29,7 @@ namespace DataTable
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<float, Evolution_Data> Evolution_DataMap = new Dictionary<float, Evolution_Data>();  
+        public static Dictionary<int, Evolution_Data> Evolution_DataMap = new Dictionary<int, Evolution_Data>();  
         public static List<Evolution_Data> Evolution_DataList = new List<Evolution_Data>();   
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace DataTable
         /// Get Evolution_Data Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<float, Evolution_Data>  GetDictionary()
+        public static Dictionary<int, Evolution_Data>  GetDictionary()
         {{
            if (isLoaded == false) Load();
            return Evolution_DataMap;
@@ -56,7 +56,7 @@ namespace DataTable
 
 /* Fields. */
 
-		public System.Single evolutionId;
+		public System.Int32 evolutionId;
 		public System.Int32 upgradeLevel;
 		public EvolutionType evolutionType;
 		public MonsterType monsterType;
@@ -93,7 +93,7 @@ namespace DataTable
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<Evolution_Data>, Dictionary<float, Evolution_Data>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<Evolution_Data>, Dictionary<int, Evolution_Data>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -121,8 +121,8 @@ namespace DataTable
                
 
 
-    public static (List<Evolution_Data> list, Dictionary<float, Evolution_Data> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<float, Evolution_Data> Map = new Dictionary<float, Evolution_Data>();
+    public static (List<Evolution_Data> list, Dictionary<int, Evolution_Data> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<int, Evolution_Data> Map = new Dictionary<int, Evolution_Data>();
             List<Evolution_Data> List = new List<Evolution_Data>();     
             TypeMap.Init();
             FieldInfo[] fields = typeof(Evolution_Data).GetFields(BindingFlags.Public | BindingFlags.Instance);
