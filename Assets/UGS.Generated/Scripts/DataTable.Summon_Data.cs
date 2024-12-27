@@ -56,8 +56,8 @@ namespace DataTable
 
 /* Fields. */
 
-		public System.Single monster_id;
-		public EvolutionType EvolutionType;
+		public System.Single monsterId;
+		public EvolutionType evolutionType;
 		public System.Collections.Generic.List<Int32> minionMonsterId;
 		public System.Collections.Generic.List<String> minionTag;
 		public System.Collections.Generic.List<Int32> count;
@@ -181,7 +181,7 @@ namespace DataTable
                               
                             }
                             List.Add(instance); 
-                            Map.Add(instance.monster_id, instance);
+                            Map.Add(instance.monsterId, instance);
                         }
                         if(isLoaded == false || forceReload)
                         { 

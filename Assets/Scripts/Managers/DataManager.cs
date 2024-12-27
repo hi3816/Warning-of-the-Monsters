@@ -107,7 +107,7 @@ public class DataManager : SingletonBase<DataManager>
 
         foreach (var summonData in _summonDataList)
         {
-            _summonDataDictionary[summonData.monster_id] = summonData;
+            _summonDataDictionary[summonData.monsterId] = summonData;
         }
     }
 
@@ -121,8 +121,8 @@ public class DataManager : SingletonBase<DataManager>
         var upgrades = Upgrade_Data.GetList();
          foreach (var upgrade in upgrades)
          {
-             int baseMonsterId = Mathf.FloorToInt(upgrade.monster_id); //base id (1, 2, etc.)
-             int upgradePart = Mathf.RoundToInt((upgrade.monster_id - baseMonsterId) * 10); //upgrade level (1, 2, etc.)
+             int baseMonsterId = Mathf.FloorToInt(upgrade.monsterId); //base id (1, 2, etc.)
+             int upgradePart = Mathf.RoundToInt((upgrade.monsterId - baseMonsterId) * 10); //upgrade level (1, 2, etc.)
              if (baseMonsterId == monsterId && upgradePart == level)
              {
                  return upgrade;

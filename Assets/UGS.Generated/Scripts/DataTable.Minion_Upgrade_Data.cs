@@ -56,8 +56,8 @@ namespace DataTable
 
 /* Fields. */
 
-		public System.Single monster_id;
-		public System.Int32 upgrade_level;
+		public System.Single monsterId;
+		public System.Int32 upgradeLevel;
 		public System.String name;
 		public System.Single fatigue;
 		public System.Single minFearInflicted;
@@ -183,7 +183,7 @@ namespace DataTable
                               
                             }
                             List.Add(instance); 
-                            Map.Add(instance.monster_id, instance);
+                            Map.Add(instance.monsterId, instance);
                         }
                         if(isLoaded == false || forceReload)
                         { 
