@@ -26,8 +26,8 @@ public class HumanFearGauge : MonoBehaviour
     {
         if (!Mathf.Approximately(_maxFear, 0f)) // 최대 공포 수치 초기화됐는지 확인
             UpdateFearGauge();
-        _human.OnAttacked -= UpdateFearGauge;
-        _human.OnAttacked += UpdateFearGauge;
+        _human.OnFearChanged -= UpdateFearGauge;
+        _human.OnFearChanged += UpdateFearGauge;
     }
 
     private void Start()
