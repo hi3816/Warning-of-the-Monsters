@@ -115,7 +115,7 @@ public abstract class Monster : MonoBehaviour
         data.humanScaringRange = monsterData.humanScaringRange;
         data.requiredCoins = monsterData.requiredCoins;
         data.maxLevel = monsterData.maxLevel;
-        data.walkSpeed = monsterData.walkspeed;
+        data.walkSpeed = monsterData.walkSpeed;
         data.monsterType = monsterData.monsterType;
     }
 
@@ -128,8 +128,8 @@ public abstract class Monster : MonoBehaviour
 
     public void Upgrade(DataTable.Upgrade_Data upgradeData)
     {
-        data.monsterId = upgradeData.monster_id;
-        data.currentLevel = upgradeData.upgrade_level;
+        data.monsterId = upgradeData.monsterId;
+        data.currentLevel = upgradeData.upgradeLevel;
         data.fatigue = upgradeData.fatigue;
         data.minFearInflicted = upgradeData.minFearInflicted;
         data.maxFearInflicted = upgradeData.maxFearInflicted;

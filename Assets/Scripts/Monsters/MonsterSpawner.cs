@@ -71,7 +71,7 @@ public class MonsterSpawner : MonoBehaviour
         data.maxFearInflicted = selectedMonsterData.maxFearInflicted;
         data.cooldown = selectedMonsterData.cooldown; 
         data.humanScaringRange = selectedMonsterData.humanScaringRange; 
-        data.walkSpeed = selectedMonsterData.walkspeed; 
+        data.walkSpeed = selectedMonsterData.walkSpeed; 
         data.requiredCoins = selectedMonsterData.requiredCoins; 
         data.maxLevel = selectedMonsterData.maxLevel; 
     }

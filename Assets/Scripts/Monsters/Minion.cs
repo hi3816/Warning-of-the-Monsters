@@ -16,9 +16,9 @@ public class Minion : Monster //졸개
         data.cooldown = minionData.cooldown;
         data.humanDetectRange = minionData.humanDetectRange;
         data.humanScaringRange = minionData.humanScaringRange;
-        data.walkSpeed = minionData.walkspeed;
+        data.walkSpeed = minionData.walkSpeed;
         
-        _navMeshAgent.speed = minionData.walkspeed;
+        _navMeshAgent.speed = minionData.walkSpeed;
         Animator.speed = _navMeshAgent.speed;
         SetState(MonsterState.Idle);
     }

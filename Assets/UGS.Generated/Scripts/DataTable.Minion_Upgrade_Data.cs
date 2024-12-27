@@ -20,7 +20,7 @@ namespace DataTable
     public partial class Minion_Upgrade_Data : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<Minion_Upgrade_Data> loadedList, Dictionary<float, Minion_Upgrade_Data> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<Minion_Upgrade_Data> loadedList, Dictionary<int, Minion_Upgrade_Data> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "114x3sY4Qf5iKh3tkf2GXsqlNufwgEc13JmaLskbTBxo"; // it is file id
@@ -29,7 +29,7 @@ namespace DataTable
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<float, Minion_Upgrade_Data> Minion_Upgrade_DataMap = new Dictionary<float, Minion_Upgrade_Data>();  
+        public static Dictionary<int, Minion_Upgrade_Data> Minion_Upgrade_DataMap = new Dictionary<int, Minion_Upgrade_Data>();  
         public static List<Minion_Upgrade_Data> Minion_Upgrade_DataList = new List<Minion_Upgrade_Data>();   
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace DataTable
         /// Get Minion_Upgrade_Data Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<float, Minion_Upgrade_Data>  GetDictionary()
+        public static Dictionary<int, Minion_Upgrade_Data>  GetDictionary()
         {{
            if (isLoaded == false) Load();
            return Minion_Upgrade_DataMap;
@@ -56,8 +56,8 @@ namespace DataTable
 
 /* Fields. */
 
-		public System.Single monster_id;
-		public System.Int32 upgrade_level;
+		public System.Int32 monsterId;
+		public System.Int32 upgradeLevel;
 		public System.String name;
 		public System.Single fatigue;
 		public System.Single minFearInflicted;
@@ -92,7 +92,7 @@ namespace DataTable
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<Minion_Upgrade_Data>, Dictionary<float, Minion_Upgrade_Data>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<Minion_Upgrade_Data>, Dictionary<int, Minion_Upgrade_Data>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -120,8 +120,8 @@ namespace DataTable
                
 
 
-    public static (List<Minion_Upgrade_Data> list, Dictionary<float, Minion_Upgrade_Data> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<float, Minion_Upgrade_Data> Map = new Dictionary<float, Minion_Upgrade_Data>();
+    public static (List<Minion_Upgrade_Data> list, Dictionary<int, Minion_Upgrade_Data> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<int, Minion_Upgrade_Data> Map = new Dictionary<int, Minion_Upgrade_Data>();
             List<Minion_Upgrade_Data> List = new List<Minion_Upgrade_Data>();     
             TypeMap.Init();
             FieldInfo[] fields = typeof(Minion_Upgrade_Data).GetFields(BindingFlags.Public | BindingFlags.Instance);
@@ -183,7 +183,7 @@ namespace DataTable
                               
                             }
                             List.Add(instance); 
-                            Map.Add(instance.monster_id, instance);
+                            Map.Add(instance.monsterId, instance);
                         }
                         if(isLoaded == false || forceReload)
                         { 
