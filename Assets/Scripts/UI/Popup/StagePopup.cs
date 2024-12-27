@@ -94,7 +94,7 @@ public class StagePopup : UIBase
         DataManager.Instance.selectedStageIdx = _stageIdx;              //선택된 스테이지
         DataManager.Instance.selectedMonsterData = _selectedListData;    //선택된 몬스터
         
-        SceneManager.LoadScene("MainScene");
+        MySceneManager.Instance.ChangeScene("MainScene");
     }
 
     private void ShowSelectMonster()
@@ -114,7 +114,7 @@ public class StagePopup : UIBase
         _monsterListData = new Dictionary<string, int>();
         for (int i = 0; i < _monsterSOs.Count; i++)
         {
-            if (_monsterSOs[i].monsterType == MonsterType.Stationary)
+            if (_monsterSOs[i].monsterType == MonsterType.Stationary || _monsterSOs[i].monsterType == MonsterType.Summoner)
             {
                 GameObject Instance = Instantiate(monsterListSlot);
 
