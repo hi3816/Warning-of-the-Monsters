@@ -1,34 +1,42 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static PoolManager;
 
-public class SkillButtonnController : MonoBehaviour
+public class SkillButtonn : MonoBehaviour
 {
     private DataTable.Skill_Data _skillData; // 스킬 데이터
+
+    private Button _skillButton;
+    [SerializeField] private int _skillButtonIdx;
 
     // 현재 쿨타임이 걸려 있는가 true : 스킬 사용 불가, false : 스킬 사용 가능
     private bool _isOnCoolDown = false;
     private bool _isClickSkillButton = false; // 현재 스킬 사용하도록 스킬버튼을 눌렀는지 여부
-    private GameObject _skillRangeSprite; // 스킬의 범위를 볼 수 있는 오브젝트
     [SerializeField] private GameObject _cancelBtn; // 취소 버튼
 
     private float _timeSinceSkill; // 스킬을 사용하고 난 후 경과 시간
     [SerializeField] private Image _blackImage; // 쿨타임 표시할 이미지 (360도로 fillamount함)
     [SerializeField] private Image _skillImage; // skillSprite가 들어갈 Image 컴포넌트
 
-    [SerializeField] private PoolManager.PoolConfig _poolConfig;
+    private SkillButtonController _skillButtonController;
+    [SerializeField] private GameObject _skillRangeSprite;
 
     private void Awake()
     {
-        int skillIdx = _poolConfig.prefab.GetComponent<Skill>().SkillIdx;
-        _skillData = DataManager.Instance.GetSkillByIndex(skillIdx);
+        _skillButton = GetComponent<Button>();
+        _skillButton.onClick.AddListener(() => ClickSkillButton());
+        _skillButtonController = GetComponentInParent<SkillButtonController>();
         _timeSinceSkill = 0f;
-        PoolManager.Instance.AddPool(_poolConfig);
     }
 
     private void Start()
     {
-        SetSkillImage();
+        _skillData = DataManager.Instance.GetSkillByIndex(_skillButtonController.SkillIdxArr[_skillButtonIdx]);
+        _skillImage.sprite = _skillButtonController.SkillSpriteArr[_skillButtonIdx];
+        _skillRangeSprite = _skillButtonController.SkillRangeSpriteArr[_skillButtonIdx];
+        _skillRangeSprite.transform.SetParent(transform);
+        _skillRangeSprite.transform.localScale = Vector2.one * _skillData.range;
     }
 
     private void Update()
@@ -61,38 +69,21 @@ public class SkillButtonnController : MonoBehaviour
         }
     }
 
-    // 스킬 아이콘 이미지랑 스킬 범위 이미지 설정
-    private void SetSkillImage()
-    {
-        _skillImage.sprite = _poolConfig.prefab.GetComponent<SpriteRenderer>().sprite;
-        _skillRangeSprite = StageManager.Instance.skillRangeSprite;
-    }
-
     // 스킬 버튼을 클릭했을 때
-    public void ClickSkillButton()
+    private void ClickSkillButton()
     {
+        if (_skillButtonController.CheckOtherSkillClick(_skillButtonIdx)) return;
         if (_isOnCoolDown) return;
-
         _isClickSkillButton = !_isClickSkillButton;
-        // 스킬 범위 보여지고 있으면 비활성화
-        if (!_isClickSkillButton)
-        {
-            SetSkillRangeImage(false);
-        }
-        else ShowSkillRange();
+
+        if (!_isClickSkillButton) SetSkillRangeImage(false);
+        else SetSkillRangeImage(true);
     }
 
     private void SetSkillRangeImage(bool active)
     {
         _skillRangeSprite.SetActive(active);
         _cancelBtn.SetActive(active);
-    }
-
-    // 스킬 범위 보여줌
-    private void ShowSkillRange()
-    {
-        _skillRangeSprite.transform.localScale = Vector2.one * _skillData.range;
-        SetSkillRangeImage(true);
     }
 
     // 스킬 사용
