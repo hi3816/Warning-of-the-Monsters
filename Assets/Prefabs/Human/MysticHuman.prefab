@@ -220,9 +220,9 @@ GameObject:
   - component: {fileID: 3893102652453937651}
   - component: {fileID: 8211750753777422078}
   - component: {fileID: 5045224751481305426}
+  - component: {fileID: 8406706807643436094}
   - component: {fileID: 2711220336945300611}
   - component: {fileID: 8184308960279727631}
-  - component: {fileID: 8406706807643436094}
   m_Layer: 7
   m_Name: MysticHuman
   m_TagString: Human
@@ -314,6 +314,21 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 0
+--- !u!114 &8406706807643436094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2330070577731405459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 273f6515403972b4798a9857bbe7352f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 3
+  isReturning: 0
+  controller: {fileID: 0}
 --- !u!114 &2711220336945300611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,22 +358,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _human: {fileID: 0}
   _humanFearGagueImg: {fileID: 7221225698854853108}
---- !u!114 &8406706807643436094
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2330070577731405459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 273f6515403972b4798a9857bbe7352f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 3
-  controller: {fileID: 0}
-  healingAmount: 0.5
-  healingRadius: 1.5
 --- !u!1001 &3451077610204719412
 PrefabInstance:
   m_ObjectHideFlags: 0

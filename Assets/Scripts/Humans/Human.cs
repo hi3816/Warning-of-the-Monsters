@@ -3,7 +3,6 @@ using System.Collections;
 using DataTable;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 
 public class Human : MonoBehaviour
 {
@@ -30,7 +29,7 @@ public class Human : MonoBehaviour
         
         if (controller == null)
         {
-            controller = gameObject.AddComponent<HumanController>();
+            controller = gameObject.GetComponent<HumanController>();
         }
         controller.SetHumanData(_humanData); // 컨트롤러에서 사용하는 데이터 세팅
     }
@@ -57,7 +56,6 @@ public class Human : MonoBehaviour
         
         if (FearLevel >= MaxFear) // 갱신된 값이 최대값보다 크면
         {
-            isReturning = true;
             controller.animator.SetBool("IsBattle", false);
             controller.ClearTargetMonster();
             controller.stateMachine.ChangeState(controller.RunHumanState); // 도망 상태로 전환
@@ -77,7 +75,9 @@ public class Human : MonoBehaviour
     {
         if (isReturning) return;   // 풀로 반환하는 중이면 실행 x
         
-        if (gameObject.activeInHierarchy)   // Scene에 활성화 상태일 때만 실행
+        isReturning = true;
+        
+        if (gameObject.activeSelf)   // Scene에 활성화 상태일 때만 실행
             StartCoroutine(ReturnHumanProcess(delay));
     }
     
