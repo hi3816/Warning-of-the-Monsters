@@ -6,6 +6,7 @@ public enum HumanType
     NormalHuman,
     StrongHuman,
     SuperHuman,
+    HealerHuman,
 }
 public class HumanManager : SingletonBase<HumanManager>
 {
