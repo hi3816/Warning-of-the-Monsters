@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    id: 4
+    id: 3
     monsterId: 0
     currentLevel: 0
     poolTag: Cyclops

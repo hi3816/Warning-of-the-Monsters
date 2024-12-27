@@ -583,7 +583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    id: 3
+    id: 15
     monsterId: 0
     currentLevel: 0
     poolTag: Medusa
