@@ -1,20 +1,16 @@
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    [SerializeField] protected Transform[] SpawnPoints;
+    public List<Transform> SpawnPointList { get; private set; }
     protected StageManager StageManager;
     private Monster _monster;
     
     private void Start()
     {
-        GameObject[] spawnPointObjects = GameObject.FindGameObjectsWithTag("MonsterSpawnPoint"); //NO FIND...
-        SpawnPoints = spawnPointObjects.Select(go => go.transform).ToArray();
+        SpawnPointList = StageManager.Instance.SpawnPointList;
         StageManager = StageManager.Instance;
-        
-        // if (SpawnPoints == null || SpawnPoints.Length == 0) return;
-        // StageManager = StageManager.Instance;
     }
     
     protected bool IsSpawnPointOccupied(Vector3 spawnPosition, float checkRadius)
