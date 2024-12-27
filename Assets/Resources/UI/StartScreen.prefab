@@ -856,6 +856,7 @@ GameObject:
   - component: {fileID: 4851426809854690165}
   - component: {fileID: 223637430821954143}
   - component: {fileID: 2937844614284695002}
+  - component: {fileID: 7442761481841907975}
   m_Layer: 5
   m_Name: Start
   m_TagString: Untagged
@@ -966,6 +967,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &7442761481841907975
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2413258266567040177}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2837357677676621128
 GameObject:
   m_ObjectHideFlags: 0
@@ -1216,6 +1229,7 @@ GameObject:
   - component: {fileID: 3432941300860052093}
   - component: {fileID: 7015305977481476404}
   - component: {fileID: 2869838287559470138}
+  - component: {fileID: 8513407033601108505}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -1240,7 +1254,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000029445, y: 150}
+  m_AnchoredPosition: {x: -0.000029445, y: 200}
   m_SizeDelta: {x: 822.434, y: 548.2894}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7015305977481476404
@@ -1281,6 +1295,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &8513407033601108505
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3197321339750416270}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3691303895449626356
 GameObject:
   m_ObjectHideFlags: 0
@@ -2494,7 +2520,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
-  startButton: {fileID: 2937844614284695002}
+  _startButton: {fileID: 2937844614284695002}
+  _titleCanvasGroup: {fileID: 8513407033601108505}
+  _titleTransform: {fileID: 3432941300860052093}
+  _buttonCanvasGroup: {fileID: 7442761481841907975}
+  _buttonTransform: {fileID: 4053110399247020021}
 --- !u!1 &8474043560741351664
 GameObject:
   m_ObjectHideFlags: 0
