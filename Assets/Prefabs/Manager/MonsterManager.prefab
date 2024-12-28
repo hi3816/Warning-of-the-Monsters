@@ -74,6 +74,15 @@ MonoBehaviour:
   - tag: Bat
     prefab: {fileID: 5562810807239344560, guid: 9de42ede550914879beb2c67d13d1c43, type: 3}
     size: 20
+  - tag: Satyr
+    prefab: {fileID: 5747528317129110511, guid: 793e627f1087f7c45995b9b5d997998b, type: 3}
+    size: 12
+  - tag: IceGolem
+    prefab: {fileID: 5747528317129110511, guid: cd0f62bca15118946a5bcf31a5cfe5a1, type: 3}
+    size: 12
+  - tag: Beholder
+    prefab: {fileID: 5380132030123303399, guid: a81715606951e46489d69dfca6cb27e4, type: 3}
+    size: 12
 --- !u!1 &3000365435214169872
 GameObject:
   m_ObjectHideFlags: 0

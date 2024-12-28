@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 60
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -134,7 +134,343 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Djinn_walk_0
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 192
+        width: 40
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d79582476a9cc3b49accb4d65701a46e
+      internalID: 576080615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Djinn_walk_1
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 192
+        width: 40
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b10cc9c3dd76f44d81cba7e876eefe3
+      internalID: 1978507340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Djinn_walk_2
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 192
+        width: 40
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c74a5c4d7542b44985b54cc0633ca57
+      internalID: -1571373029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Djinn_walk_3
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 192
+        width: 40
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56024a9ca12fad74dad9c6c08911e295
+      internalID: 1623068850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Djinn_walk_4
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 128
+        width: 46
+        height: 56
+      alignment: 9
+      pivot: {x: 0.4347826, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12a579a530ecdd445b4a52038a897dcd
+      internalID: -334613841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Djinn_walk_5
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 128
+        width: 46
+        height: 56
+      alignment: 9
+      pivot: {x: 0.4347826, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c093343817414b44d8f9987cd8ff654d
+      internalID: 211035321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Djinn_walk_6
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 128
+        width: 46
+        height: 56
+      alignment: 9
+      pivot: {x: 0.4347826, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 022670c355e33a741abbab19821dd36d
+      internalID: -1564895688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Djinn_walk_7
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 128
+        width: 46
+        height: 56
+      alignment: 9
+      pivot: {x: 0.4347826, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92524c490813eba4289319105d0770d0
+      internalID: 834232738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Djinn_walk_8
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 64
+        width: 46
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5652174, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b5c98a0d245e5642af23ac782793529
+      internalID: -365146444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Djinn_walk_9
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 64
+        width: 46
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5652174, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db0c5f54e2ce7f24d8c1aba29e96667c
+      internalID: -435095321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Djinn_walk_10
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 64
+        width: 46
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5652174, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b696813d8b26a1244be16ce5decf881e
+      internalID: 1519669182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Djinn_walk_11
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 64
+        width: 46
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5652174, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f90b2da27a651ba449904ad8d921be7c
+      internalID: -1219006995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Djinn_walk_12
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 0
+        width: 40
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89089ed89822f1e46a46621178d105c2
+      internalID: 1759001752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Djinn_walk_13
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 0
+        width: 40
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7ecbe01e3b50de4f8c4f62d11cc8268
+      internalID: 2101999462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Djinn_walk_14
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 0
+        width: 40
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5df6117464b7a94c8a324d5f8f3f5d3
+      internalID: -2072684837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Djinn_walk_15
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 0
+        width: 40
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38dce5695d69e88419e9d058c3abfe25
+      internalID: 1806568611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +481,24 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Djinn_walk_0: 576080615
+      Djinn_walk_1: 1978507340
+      Djinn_walk_10: 1519669182
+      Djinn_walk_11: -1219006995
+      Djinn_walk_12: 1759001752
+      Djinn_walk_13: 2101999462
+      Djinn_walk_14: -2072684837
+      Djinn_walk_15: 1806568611
+      Djinn_walk_16: -1518406162
+      Djinn_walk_2: -1571373029
+      Djinn_walk_3: 1623068850
+      Djinn_walk_4: -334613841
+      Djinn_walk_5: 211035321
+      Djinn_walk_6: -1564895688
+      Djinn_walk_7: 834232738
+      Djinn_walk_8: -365146444
+      Djinn_walk_9: -435095321
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
