@@ -554,7 +554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5434661654980006930, guid: ff4907cb98c136b49a08fa9100e9fda3, type: 3}
       propertyPath: looping
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5434661654980006930, guid: ff4907cb98c136b49a08fa9100e9fda3, type: 3}
       propertyPath: InitialModule.startSpeed.scalar

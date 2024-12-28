@@ -20,6 +20,8 @@ public class HumanController : MonoBehaviour
     public WalkHumanState WalkHumanState { get; private set; }
     public RunHumanState RunHumanState { get; private set; }
     public BattleHumanState BattleHumanState { get; private set; }
+
+    public bool isSurprising;
     
     private void Awake()
     {

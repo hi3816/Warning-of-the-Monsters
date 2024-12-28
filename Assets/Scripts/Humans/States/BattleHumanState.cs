@@ -26,6 +26,7 @@ public class BattleHumanState : IHumanState
         _oldTarget = _human.TargetMonster;
         _human.Agent.SetDestination(_oldTarget.position);
         FixPosition();
+        _lastAttackTime = Time.time;    // 전투 시작 이후부터 쿨타임 계산
     }
 
     public void Update()
@@ -48,7 +49,7 @@ public class BattleHumanState : IHumanState
             _human.Agent.SetDestination(_oldTarget.position);   // 새로운 타겟 몬스터 향하도록 설정
         }
 
-        if (Time.time >= _lastAttackTime + _human.Cooldown) // 공격 가능한 상태면
+        if (Time.time >= _lastAttackTime + _human.Cooldown && !_human.isSurprising) // 공격 가능한 상태면
         {
             PerformAttack(); // 공격을 실행
         }
