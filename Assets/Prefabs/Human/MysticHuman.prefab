@@ -326,7 +326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273f6515403972b4798a9857bbe7352f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 3
+  id: 30
   isReturning: 0
   controller: {fileID: 0}
 --- !u!114 &2711220336945300611
@@ -554,7 +554,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5434661654980006930, guid: ff4907cb98c136b49a08fa9100e9fda3, type: 3}
       propertyPath: looping
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434661654980006930, guid: ff4907cb98c136b49a08fa9100e9fda3, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7064620021215464645, guid: ff4907cb98c136b49a08fa9100e9fda3, type: 3}
       propertyPath: m_LocalPosition.x

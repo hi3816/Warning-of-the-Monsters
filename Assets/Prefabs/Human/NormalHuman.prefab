@@ -304,7 +304,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b64fec6aceb79d448de67d9dd0f34e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
+  id: 10
+  isReturning: 0
   controller: {fileID: 2711220336945300611}
 --- !u!195 &5045224751481305426
 NavMeshAgent:
@@ -340,7 +341,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ded548fdb2ae03488c267698ba06d23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
   animator: {fileID: 0}
   humanEffect: {fileID: 0}
   attackParticle: {fileID: 0}

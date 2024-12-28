@@ -3,10 +3,11 @@ using System.Collections.Generic;
 
 public enum HumanType
 {
-    NormalHuman,
-    StrongHuman,
-    SuperHuman,
-    MysticHuman,
+    NormalHuman = 10,
+    StrongHuman = 20,
+    MysticHuman = 30,
+    SuperHuman = 40,
+    SaintHuman = 50,
 }
 public class HumanManager : SingletonBase<HumanManager>
 {

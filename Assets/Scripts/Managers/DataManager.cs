@@ -29,8 +29,8 @@ public class DataManager : SingletonBase<DataManager>
         LoadMinionData();
         LoadSummonData();
     }
-    
-    public void LoadHumanData()
+
+    private void LoadHumanData()
     {
         _humanDataList = Human_Data.Human_DataList;
         if (_humanDataList.Count <= 0)
@@ -49,10 +49,16 @@ public class DataManager : SingletonBase<DataManager>
         {
             LoadHumanData();
         }
-        return _humanDataList[idx];
+
+        for (int i = 0; i < _humanDataList.Count; i++)
+        {
+            if (_humanDataList[i].id == idx)
+                return _humanDataList[i];
+        }
+        return null;
     }
-    
-    public void LoadWaveData()
+
+    private void LoadWaveData()
     {
         _waveDataDictionary = Wave_Data.Wave_DataMap;
         if (_waveDataDictionary.Count <= 0)
