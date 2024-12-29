@@ -58,10 +58,10 @@ namespace DataTable
 
 		public System.Int32 monsterId;
 		public EvolutionType evolutionType;
-		public System.Collections.Generic.List<Int32> minionMonsterId;
+		public System.Collections.Generic.List<Int32> minionId;
 		public System.Collections.Generic.List<String> minionTag;
 		public System.Collections.Generic.List<Int32> count;
-		public System.Collections.Generic.List<Int32> evolutionMinionMonsterId;
+		public System.Collections.Generic.List<Int32> evolutionMinionId;
 		public System.Collections.Generic.List<String> evolutionMinionTag;
 		public System.Collections.Generic.List<Int32> evolutionCount;
   

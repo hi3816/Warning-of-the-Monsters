@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 62
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -134,7 +134,427 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Beholder_attack (green)_0
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 416
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac762e957e1c27f46ae4b6f26e76f536
+      internalID: 78427133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_attack (green)_1
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 386
+        width: 64
+        height: 94
+      alignment: 9
+      pivot: {x: 0.5, y: 0.65957445}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 859990ce46a60cf419a475b6c6eb3e09
+      internalID: 879278645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_attack (green)_2
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 386
+        width: 64
+        height: 94
+      alignment: 9
+      pivot: {x: 0.5, y: 0.65957445}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7281c888c25f1d441b3582dcb61da369
+      internalID: -778003719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_attack (green)_3
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 386
+        width: 64
+        height: 94
+      alignment: 9
+      pivot: {x: 0.5, y: 0.65957445}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a656b070d73cec48a1247670f5e1b11
+      internalID: -1562198176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_attack (green)_4
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 386
+        width: 64
+        height: 94
+      alignment: 9
+      pivot: {x: 0.5, y: 0.65957445}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3557db1094ff2d48a1543923901c8b8
+      internalID: 1050902684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_attack (green)_5
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 288
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1e18dd202390a841b44d61ba855a2cd
+      internalID: -1810444925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_attack (green)_6
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 288
+        width: 88
+        height: 64
+      alignment: 9
+      pivot: {x: 0.6363636, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 828f169de17134f408851f0b184ddf2a
+      internalID: -797207417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_attack (green)_7
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 288
+        width: 88
+        height: 64
+      alignment: 9
+      pivot: {x: 0.6363636, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10933803c57afc848bc1eaf290b4a749
+      internalID: 916448232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_attack (green)_8
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 288
+        width: 90
+        height: 64
+      alignment: 9
+      pivot: {x: 0.64444447, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2c8917ef7a6d234fb81698ae803532a
+      internalID: 39061056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_attack (green)_9
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 288
+        width: 90
+        height: 64
+      alignment: 9
+      pivot: {x: 0.64444447, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b1bb61f602d5604c89f209ca886c97b
+      internalID: -719897851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_attack (green)_10
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 160
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc178498b5eb21349861a78c254d34e3
+      internalID: 1081274351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_attack (green)_11
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 160
+        width: 88
+        height: 64
+      alignment: 9
+      pivot: {x: 0.36363637, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c4497ce59412654aaef01e6c08df8e2
+      internalID: 1209050720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_attack (green)_12
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 160
+        width: 88
+        height: 64
+      alignment: 9
+      pivot: {x: 0.36363637, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3025465de97130349943c9926aa0f24f
+      internalID: -1269370518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_attack (green)_13
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 160
+        width: 90
+        height: 64
+      alignment: 9
+      pivot: {x: 0.35555556, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38bdd32210d01bf4c91184a32eee6b8e
+      internalID: -1715492312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_attack (green)_14
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 159
+        width: 90
+        height: 64
+      alignment: 9
+      pivot: {x: 0.35555556, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c603a4851dffabb42b16225d232c5a8c
+      internalID: 735245325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_attack (green)_15
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17c22e4c37f6884478a248f29275f0c2
+      internalID: 2084809236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_attack (green)_16
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 32
+        width: 64
+        height: 94
+      alignment: 9
+      pivot: {x: 0.5, y: 0.34042552}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b86bd792d3a31ee47a8010c16ba93415
+      internalID: 728294911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_attack (green)_17
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 32
+        width: 64
+        height: 94
+      alignment: 9
+      pivot: {x: 0.5, y: 0.34042552}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d85bf1ca2675a6b4ead1c50b643d64c8
+      internalID: -2125363669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_attack (green)_18
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 32
+        width: 64
+        height: 94
+      alignment: 9
+      pivot: {x: 0.5, y: 0.34042552}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63b4d0aaa3b8e26449d97729bcd594c8
+      internalID: -386949013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_attack (green)_19
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 32
+        width: 64
+        height: 94
+      alignment: 9
+      pivot: {x: 0.5, y: 0.34042552}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 771ad408202fbff499721b29d901310c
+      internalID: -1076595359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +565,27 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Beholder_attack (green)_0: 78427133
+      Beholder_attack (green)_1: 879278645
+      Beholder_attack (green)_10: 1081274351
+      Beholder_attack (green)_11: 1209050720
+      Beholder_attack (green)_12: -1269370518
+      Beholder_attack (green)_13: -1715492312
+      Beholder_attack (green)_14: 735245325
+      Beholder_attack (green)_15: 2084809236
+      Beholder_attack (green)_16: 728294911
+      Beholder_attack (green)_17: -2125363669
+      Beholder_attack (green)_18: -386949013
+      Beholder_attack (green)_19: -1076595359
+      Beholder_attack (green)_2: -778003719
+      Beholder_attack (green)_3: -1562198176
+      Beholder_attack (green)_4: 1050902684
+      Beholder_attack (green)_5: -1810444925
+      Beholder_attack (green)_6: -797207417
+      Beholder_attack (green)_7: 916448232
+      Beholder_attack (green)_8: 39061056
+      Beholder_attack (green)_9: -719897851
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
