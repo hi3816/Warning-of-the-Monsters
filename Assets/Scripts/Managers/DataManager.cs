@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DataTable;
+using System.Linq;
 
 public class DataManager : SingletonBase<DataManager>
 {
@@ -11,7 +12,7 @@ public class DataManager : SingletonBase<DataManager>
     private List<Monster_Data> _minionDataList;
     private Dictionary<string, Monster_Data> _minionDataDictionary;
     private List<Summon_Data> _summonDataList;
-    private Dictionary<float, Summon_Data> _summonDataDictionary;
+    private Dictionary<int, Summon_Data> _summonDataDictionary;
     private Dictionary<SfxType, float> _individualSfxVolumeDict;
     public Dictionary<int, (int, string)> selectedMonsterData;
     public int selectedStageIdx;
@@ -109,7 +110,7 @@ public class DataManager : SingletonBase<DataManager>
     private void LoadSummonData()
     {
         _summonDataList = Summon_Data.GetList();
-        _summonDataDictionary = new Dictionary<float, Summon_Data>();
+        _summonDataDictionary = new Dictionary<int, Summon_Data>();
 
         foreach (var summonData in _summonDataList)
         {
@@ -152,12 +153,26 @@ public class DataManager : SingletonBase<DataManager>
         return _minionDataDictionary.TryGetValue(minionTag, out var minionData) ? minionData : null;
     }
 
-    public Summon_Data GetSummonData(float monsterId)
+    public Summon_Data GetSummonData(int monsterId)
     {
         return _summonDataDictionary.TryGetValue(monsterId, out var summonData) ? summonData : null;
     }
     
-    
+    public int GetSummonerIdByEvolutionMinionId(int monsterId)
+    {
+        foreach(KeyValuePair<int, Summon_Data> pair in _summonDataDictionary)
+        {
+            foreach(int evolutionMinionId in pair.Value.evolutionMinionId)
+            {
+                if (evolutionMinionId == monsterId)
+                {
+                    return (pair.Key / 10000);
+                }
+            }
+        }
+        return 0;
+    }
+
     private void SetIndividualSfxVolumeDict()
     {
         List<SfxVolume_Data> sfxVolumeDataList = SfxVolume_Data.GetList();

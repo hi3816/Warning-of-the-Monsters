@@ -66,7 +66,7 @@ public class MonsterEvolution : MonoBehaviour
         for (int i = 0; i < list.Count; i += 2)
         {
             Monster monster = list[i].monster;
-            int monsterID = monster.data.id;
+            int monsterID = GetIdByType(monster);
 
             foreach (int key in selectedMonsterData.Keys)
             {
@@ -109,8 +109,8 @@ public class MonsterEvolution : MonoBehaviour
         {
             Monster monster1 = list[i].monster;
             Monster monster2 = list[i + 1].monster;
-            int monsterId1 = monster1.data.id;
-            int monsterId2 = monster2.data.id;
+            int monsterId1 = GetIdByType(monster1);
+            int monsterId2 = GetIdByType(monster2);
             monster1.Evolution(DataManager.Instance.GetEvolutionData(monsterId1, monster1.data.maxLevel, EvolutionType.Atype));
             monster2.Evolution(DataManager.Instance.GetEvolutionData(monsterId2, monster2.data.maxLevel, EvolutionType.Btype));
             evolutionMonsterList.Add(monster1);
@@ -119,6 +119,15 @@ public class MonsterEvolution : MonoBehaviour
             int[] requiredCoins = { monster1.data.requiredCoins, monster2.data.requiredCoins };
             evolutionRequiredCoinsDict.Add(monsterId1, requiredCoins);
         }
+    }
+
+    private int GetIdByType(Monster monster)
+    {
+        if (monster.data.monsterType == MonsterType.Minion)
+        {
+            return DataManager.Instance.GetSummonerIdByEvolutionMinionId(monster.data.id);
+        }
+        return monster.data.id;
     }
 
     // 진화 (프리팹 변경)
@@ -133,13 +142,19 @@ public class MonsterEvolution : MonoBehaviour
         {
             StageManager.Instance.ChangeGold(-evolution.requiredCoins);
 
-            string evolutionMonsterName = GetMonsterEvolutionName(evolutionType);
-            float fatigue = selectMonster.data.currentFatigue;
-            Vector3 pos = selectMonster.gameObject.transform.position;
-            PoolManager.Instance.ReturnToPool(selectMonster.gameObject.name, selectMonster.gameObject);
-            GameObject evolutionMonster = PoolManager.Instance.SpawnFromPool(evolutionMonsterName, pos, Quaternion.identity);
-            Monster _monster = evolutionMonster.GetComponent<Monster>();
-            _monster.Evolution(DataManager.Instance.GetEvolutionData(_monster.data.id, _monster.data.maxLevel, evolutionType));
+            if (evolution.monsterType == MonsterType.Summoner)
+            {
+                selectMonster.Evolution(DataManager.Instance.GetEvolutionData(selectMonster.data.id, selectMonster.data.maxLevel, evolutionType));
+            }
+            else
+            {
+                string evolutionMonsterName = GetMonsterEvolutionName(evolutionType);
+                Vector3 pos = selectMonster.gameObject.transform.position;
+                PoolManager.Instance.ReturnToPool(selectMonster.gameObject.name, selectMonster.gameObject);
+                GameObject evolutionMonster = PoolManager.Instance.SpawnFromPool(evolutionMonsterName, pos, Quaternion.identity);
+                Monster _monster = evolutionMonster.GetComponent<Monster>();
+                _monster.Evolution(DataManager.Instance.GetEvolutionData(_monster.data.id, _monster.data.maxLevel, evolutionType));
+            }
 
             monsterEvolutionUI.Hide();
         }

@@ -27,12 +27,6 @@ public class MonsterEvolutionUI : MonoBehaviour
         _typeButtonB.onClick.AddListener(() => MonsterEvolutionStat(EvolutionType.Btype));
     }
 
-    private int GetIdByType(Monster monster)
-    {
-        if (monster.data.monsterType == MonsterType.Minion) return monster.data.summonerId;
-        return monster.data.id;
-    }
-
     public void Show(Monster monster)
     {
         _selectMonster = monster;

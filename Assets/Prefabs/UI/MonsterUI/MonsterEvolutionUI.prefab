@@ -89,7 +89,11 @@ MonoBehaviour:
   - tag: Orc
     prefab: {fileID: 6771188085191904317, guid: 7dac8b9017283f04b97e76b83340bf64, type: 3}
     size: 12
-  summonerMonsters: []
+  summonerMonsters:
+  - sprite: {fileID: -467170243, guid: d3aa29c3a199e459da660814724b5efa, type: 3}
+    monster: {fileID: -1437158679666821263, guid: ad778e652ac4f4b9b8594d2ac7b554ed, type: 3}
+  - sprite: {fileID: 813443917, guid: a0065b2588593468fb5855c269aa7b8d, type: 3}
+    monster: {fileID: -3380862154934517563, guid: 264843ee98e1f49308cb774d77b4692e, type: 3}
   evolutionMonsterList: []
 --- !u!1 &1208973493108306354
 GameObject:
