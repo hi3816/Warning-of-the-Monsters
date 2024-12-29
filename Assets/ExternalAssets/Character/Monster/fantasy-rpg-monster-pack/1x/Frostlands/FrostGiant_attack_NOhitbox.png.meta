@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -134,7 +134,427 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: FrostGiant_attack_NOhitbox_0
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 208
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5625, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65b5118c35c08a246a2b07a56618a40c
+      internalID: 550810277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrostGiant_attack_NOhitbox_1
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 206
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5625, y: 0.5625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f671e182ebae73e4695df441f205cd45
+      internalID: 792569740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrostGiant_attack_NOhitbox_2
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 206
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5625, y: 0.5625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: daeaa0de7f385074bb479e92d59a3b62
+      internalID: -1132409180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrostGiant_attack_NOhitbox_3
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 206
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5625, y: 0.5625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1aae0146184011245b9432eb3303dd17
+      internalID: -499602874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrostGiant_attack_NOhitbox_4
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 206
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5625, y: 0.5625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4f9753ba08841a4ba8c47155dcc0d49
+      internalID: -1022129042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrostGiant_attack_NOhitbox_5
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 144
+        width: 21
+        height: 37
+      alignment: 9
+      pivot: {x: 0.42857143, y: 0.43243244}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6c89b3ac7f628e4a9d5204d1a961945
+      internalID: -268231239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrostGiant_attack_NOhitbox_6
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 143
+        width: 31
+        height: 37
+      alignment: 9
+      pivot: {x: 0.67741936, y: 0.45945945}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 895e146b0b90d7542898c3957a82d8dc
+      internalID: 347141701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrostGiant_attack_NOhitbox_7
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 143
+        width: 31
+        height: 37
+      alignment: 9
+      pivot: {x: 0.67741936, y: 0.45945945}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc8c9de4bfdd16f45a590fd31c33f1ed
+      internalID: 325478488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrostGiant_attack_NOhitbox_8
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 143
+        width: 31
+        height: 37
+      alignment: 9
+      pivot: {x: 0.67741936, y: 0.45945945}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4290dfcc50c66342ac0e87dde69ae4c
+      internalID: -1418314820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrostGiant_attack_NOhitbox_9
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 143
+        width: 31
+        height: 37
+      alignment: 9
+      pivot: {x: 0.67741936, y: 0.45945945}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42f252971adae5040aa2d471ef18d4c4
+      internalID: -1866700829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrostGiant_attack_NOhitbox_10
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 80
+        width: 21
+        height: 37
+      alignment: 9
+      pivot: {x: 0.52380955, y: 0.43243244}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d9032b2f92fd6049bc92b813d62be6c
+      internalID: -1335435474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrostGiant_attack_NOhitbox_11
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 79
+        width: 31
+        height: 37
+      alignment: 9
+      pivot: {x: 0.29032257, y: 0.45945945}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08141eedd93d1f248a554f94a7cb3464
+      internalID: 1507679975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrostGiant_attack_NOhitbox_12
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 79
+        width: 31
+        height: 37
+      alignment: 9
+      pivot: {x: 0.29032257, y: 0.45945945}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0af1a4924aae2e41800cf441efb646f
+      internalID: 1687092265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrostGiant_attack_NOhitbox_13
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 79
+        width: 31
+        height: 37
+      alignment: 9
+      pivot: {x: 0.29032257, y: 0.45945945}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca01c001251b9a94ca913e8367014717
+      internalID: -1969695484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrostGiant_attack_NOhitbox_14
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 79
+        width: 31
+        height: 37
+      alignment: 9
+      pivot: {x: 0.29032257, y: 0.45945945}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb0e967e450eac243a73c23220f9ad26
+      internalID: -1807472070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrostGiant_attack_NOhitbox_15
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 16
+        width: 32
+        height: 33
+      alignment: 9
+      pivot: {x: 0.4375, y: 0.4848485}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4176f1e755fa53449d8e42bf3a54cdd
+      internalID: 744189493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrostGiant_attack_NOhitbox_16
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 16
+        width: 29
+        height: 33
+      alignment: 9
+      pivot: {x: 0.5862069, y: 0.4848485}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ce456882d7099e4fa97f0b5ab9d7bbf
+      internalID: 1102188470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrostGiant_attack_NOhitbox_17
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 16
+        width: 29
+        height: 33
+      alignment: 9
+      pivot: {x: 0.5862069, y: 0.4848485}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85cb510682651854db9f54925be8c2f5
+      internalID: 702571004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrostGiant_attack_NOhitbox_18
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 16
+        width: 29
+        height: 33
+      alignment: 9
+      pivot: {x: 0.5862069, y: 0.4848485}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bdfe11da793d9f439f66ac318c4b83f
+      internalID: -635487849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrostGiant_attack_NOhitbox_19
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 16
+        width: 29
+        height: 33
+      alignment: 9
+      pivot: {x: 0.5862069, y: 0.4848485}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29e60957b0d99bf4eb87ec311241d23f
+      internalID: 2075418134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +565,27 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      FrostGiant_attack_NOhitbox_0: 550810277
+      FrostGiant_attack_NOhitbox_1: 792569740
+      FrostGiant_attack_NOhitbox_10: -1335435474
+      FrostGiant_attack_NOhitbox_11: 1507679975
+      FrostGiant_attack_NOhitbox_12: 1687092265
+      FrostGiant_attack_NOhitbox_13: -1969695484
+      FrostGiant_attack_NOhitbox_14: -1807472070
+      FrostGiant_attack_NOhitbox_15: 744189493
+      FrostGiant_attack_NOhitbox_16: 1102188470
+      FrostGiant_attack_NOhitbox_17: 702571004
+      FrostGiant_attack_NOhitbox_18: -635487849
+      FrostGiant_attack_NOhitbox_19: 2075418134
+      FrostGiant_attack_NOhitbox_2: -1132409180
+      FrostGiant_attack_NOhitbox_3: -499602874
+      FrostGiant_attack_NOhitbox_4: -1022129042
+      FrostGiant_attack_NOhitbox_5: -268231239
+      FrostGiant_attack_NOhitbox_6: 347141701
+      FrostGiant_attack_NOhitbox_7: 325478488
+      FrostGiant_attack_NOhitbox_8: -1418314820
+      FrostGiant_attack_NOhitbox_9: -1866700829
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

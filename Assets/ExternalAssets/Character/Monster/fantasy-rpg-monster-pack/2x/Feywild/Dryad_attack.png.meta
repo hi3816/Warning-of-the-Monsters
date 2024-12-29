@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 50
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -134,7 +134,259 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Dryad_attack_0
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 192
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5263158, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65c6f346455c693438ff7659b2deeec1
+      internalID: -117301082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dryad_attack_1
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 192
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5263158, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0bf4dd57c644e446a3228ff8fc8eabd
+      internalID: 254198290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dryad_attack_2
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 192
+        width: 38
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5263158, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10b793de0d9c71b479dac75bcac2358b
+      internalID: 2011576698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dryad_attack_3
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 128
+        width: 56
+        height: 52
+      alignment: 9
+      pivot: {x: 0.4107143, y: 0.46153846}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2428378943e93d842b571d3fc9dcb2d3
+      internalID: 1936487752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dryad_attack_4
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 128
+        width: 42
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.46153846}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba76959bdb8faa049b44c299efe032fd
+      internalID: -1106778167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dryad_attack_5
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 128
+        width: 42
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.46153846}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c0755b4a430ee84c8f7716a92bc2791
+      internalID: 1957557509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dryad_attack_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 56
+        height: 52
+      alignment: 9
+      pivot: {x: 0.58928573, y: 0.46153846}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0841466c1b9a6f04bb412052437d5572
+      internalID: 1195290042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dryad_attack_7
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 64
+        width: 42
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.46153846}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf2c82288b11a0242b79e1c5d4ce6cb5
+      internalID: 186291480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dryad_attack_8
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 64
+        width: 42
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.46153846}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcbcf123e77cffd44abd4649d9a95a08
+      internalID: 801000798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dryad_attack_9
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 0
+        width: 40
+        height: 56
+      alignment: 9
+      pivot: {x: 0.45, y: 0.42857143}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14483a84d0f82414592d5ec8c96f9e2c
+      internalID: 65382221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dryad_attack_10
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 30
+        height: 56
+      alignment: 9
+      pivot: {x: 0.53333336, y: 0.42857143}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c2def0e9aa3f5941956effb314998f7
+      internalID: 55501010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dryad_attack_11
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 30
+        height: 56
+      alignment: 9
+      pivot: {x: 0.53333336, y: 0.42857143}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e4ec238fc0ad8f44a7ef5582dcb5767
+      internalID: -1683951922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +397,19 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Dryad_attack_0: -117301082
+      Dryad_attack_1: 254198290
+      Dryad_attack_10: 55501010
+      Dryad_attack_11: -1683951922
+      Dryad_attack_2: 2011576698
+      Dryad_attack_3: 1936487752
+      Dryad_attack_4: -1106778167
+      Dryad_attack_5: 1957557509
+      Dryad_attack_6: 1195290042
+      Dryad_attack_7: 186291480
+      Dryad_attack_8: 801000798
+      Dryad_attack_9: 65382221
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

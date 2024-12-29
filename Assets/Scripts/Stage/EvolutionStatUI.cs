@@ -14,8 +14,8 @@ public class EvolutionStatUI : MonoBehaviour
 
     public void Show(Evolution_Data evolution)
     {
-        SetText(evolution);
         gameObject.SetActive(true);
+        SetText(evolution);
     }
 
     public void Hide()

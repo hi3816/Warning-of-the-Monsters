@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -134,7 +134,427 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Planetar_attack_NOhitbox_0
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 208
+        width: 28
+        height: 33
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4848485}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3dde6cab434fdde42b1eb0ac06128572
+      internalID: 353477873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planetar_attack_NOhitbox_1
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 206
+        width: 32
+        height: 33
+      alignment: 9
+      pivot: {x: 0.5, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ec0340adf20b1f4b8941c8df626683a
+      internalID: 2060375664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planetar_attack_NOhitbox_2
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 206
+        width: 32
+        height: 33
+      alignment: 9
+      pivot: {x: 0.5, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75ca32242948d364eb3a437a866f6cd5
+      internalID: -1772585545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planetar_attack_NOhitbox_3
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 206
+        width: 32
+        height: 33
+      alignment: 9
+      pivot: {x: 0.5, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e15e934aff978345bad04f71819c6ca
+      internalID: -277934532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planetar_attack_NOhitbox_4
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 206
+        width: 32
+        height: 33
+      alignment: 9
+      pivot: {x: 0.5, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e8d3b6fe8e3ca742b02799b93549779
+      internalID: 12087251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planetar_attack_NOhitbox_5
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 144
+        width: 23
+        height: 32
+      alignment: 9
+      pivot: {x: 0.3043478, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3630c37a170322b45aab6d8532771bd3
+      internalID: 571083196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planetar_attack_NOhitbox_6
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 142
+        width: 29
+        height: 33
+      alignment: 9
+      pivot: {x: 0.51724136, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cd86b9e29883e34fa7f9d1fbcfaa067
+      internalID: 1321152527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planetar_attack_NOhitbox_7
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 142
+        width: 29
+        height: 33
+      alignment: 9
+      pivot: {x: 0.51724136, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb589afecbde4304288bcf6763e35e97
+      internalID: 2015456380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planetar_attack_NOhitbox_8
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 142
+        width: 29
+        height: 33
+      alignment: 9
+      pivot: {x: 0.51724136, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83d64c3962b67844793a1c44c3113632
+      internalID: 790557697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planetar_attack_NOhitbox_9
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 142
+        width: 29
+        height: 33
+      alignment: 9
+      pivot: {x: 0.51724136, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 532367e4fa356de48963b65f1e64fa50
+      internalID: 373714407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planetar_attack_NOhitbox_10
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 80
+        width: 23
+        height: 32
+      alignment: 9
+      pivot: {x: 0.6956522, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5164d746d51d9544291f2d51508bb82f
+      internalID: 1899117939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planetar_attack_NOhitbox_11
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 78
+        width: 29
+        height: 33
+      alignment: 9
+      pivot: {x: 0.4827586, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad991d7dfa9c7dc43be340109d483e84
+      internalID: -1990271877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planetar_attack_NOhitbox_12
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 78
+        width: 29
+        height: 33
+      alignment: 9
+      pivot: {x: 0.4827586, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9cec5a5f172af040b4c589b8fff02a1
+      internalID: -920384056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planetar_attack_NOhitbox_13
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 78
+        width: 29
+        height: 33
+      alignment: 9
+      pivot: {x: 0.4827586, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24c571d911461bf469867872b1718694
+      internalID: 1159640478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planetar_attack_NOhitbox_14
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 78
+        width: 29
+        height: 33
+      alignment: 9
+      pivot: {x: 0.4827586, y: 0.54545456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c02e3fa2cfe0b949803fe72d690a696
+      internalID: -1258195281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planetar_attack_NOhitbox_15
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 16
+        width: 28
+        height: 35
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45714286}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 271b35b69a67cfd4095a6d12416124c7
+      internalID: 870582975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planetar_attack_NOhitbox_16
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 16
+        width: 32
+        height: 35
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45714286}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bafe316b11609149ba8243f4e7b7cd4
+      internalID: -1112413406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planetar_attack_NOhitbox_17
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 16
+        width: 32
+        height: 35
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45714286}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe9f96607e143de469ff8d0e979548eb
+      internalID: 121761539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planetar_attack_NOhitbox_18
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 16
+        width: 32
+        height: 35
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45714286}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11e5eb3d9f7640646b4196771466bcbb
+      internalID: 1295229243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Planetar_attack_NOhitbox_19
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 16
+        width: 32
+        height: 35
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45714286}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4edc40f7b18339f4abaeed7cf8424eac
+      internalID: 1235157034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +565,27 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Planetar_attack_NOhitbox_0: 353477873
+      Planetar_attack_NOhitbox_1: 2060375664
+      Planetar_attack_NOhitbox_10: 1899117939
+      Planetar_attack_NOhitbox_11: -1990271877
+      Planetar_attack_NOhitbox_12: -920384056
+      Planetar_attack_NOhitbox_13: 1159640478
+      Planetar_attack_NOhitbox_14: -1258195281
+      Planetar_attack_NOhitbox_15: 870582975
+      Planetar_attack_NOhitbox_16: -1112413406
+      Planetar_attack_NOhitbox_17: 121761539
+      Planetar_attack_NOhitbox_18: 1295229243
+      Planetar_attack_NOhitbox_19: 1235157034
+      Planetar_attack_NOhitbox_2: -1772585545
+      Planetar_attack_NOhitbox_3: -277934532
+      Planetar_attack_NOhitbox_4: 12087251
+      Planetar_attack_NOhitbox_5: 571083196
+      Planetar_attack_NOhitbox_6: 1321152527
+      Planetar_attack_NOhitbox_7: 2015456380
+      Planetar_attack_NOhitbox_8: 790557697
+      Planetar_attack_NOhitbox_9: 373714407
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

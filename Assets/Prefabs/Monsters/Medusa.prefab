@@ -342,7 +342,7 @@ GameObject:
   - component: {fileID: 5674069620670984170}
   - component: {fileID: 1524299061471481237}
   - component: {fileID: 2754007020187093849}
-  - component: {fileID: 975375574619363947}
+  - component: {fileID: 8113890656126382881}
   - component: {fileID: 3462780148978345129}
   m_Layer: 6
   m_Name: Medusa
@@ -502,7 +502,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &975375574619363947
+--- !u!114 &8113890656126382881
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -511,7 +511,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8609092479553512321}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14b361450e71f4c89b2dea0c650c3315, type: 3}
+  m_Script: {fileID: 11500000, guid: 710f8232fc3bf4aaa9eabedb72089281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   data:
