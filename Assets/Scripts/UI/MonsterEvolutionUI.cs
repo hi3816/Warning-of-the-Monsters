@@ -1,5 +1,7 @@
 using DataTable;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -128,8 +130,11 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
         int refundAmount = Mathf.RoundToInt(totalSpent * refundPercentage);
         StageManager.Instance.ChangeGold(refundAmount); //UI에 표시
         _selectMonster.gameObject.SetActive(false);
+        if(_selectMonster.data.monsterType == MonsterType.Summoner)
+        {
+            _selectMonster.ReturnToVillage();
+        }
         PoolManager.Instance.ReturnToPool(_selectMonster.data.poolTag, _selectMonster.gameObject);
-        // selectedMonster.ReturnToVillage();
         Hide();
     }
 
@@ -172,18 +177,18 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
     private void MonsterEvolutionStat(EvolutionType evolutionType)
     {
         var evolution = DataManager.Instance.GetEvolutionData(_selectMonster.data.id, _selectMonster.data.currentLevel + 1, evolutionType);
+        if (evolution == null) return;
         if (evolutionType == EvolutionType.Atype)
         {
             _typeACheck.SetActive(true);
             _typeBCheck.SetActive(false);
-            _evolutionStatUI.Show(evolution);
         }
         else
         {
             _typeBCheck.SetActive(true);
             _typeACheck.SetActive(false);
-            _evolutionStatUI.Show(evolution);
         }
+        _evolutionStatUI.Show(evolution);
         _clickEvolutionType = evolutionType;
     }
 }
