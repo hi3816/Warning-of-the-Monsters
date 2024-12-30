@@ -37,7 +37,7 @@ public class Minion : Monster //졸개
         switch (MonsterState)
         {
          case MonsterState.Idle:
-             //HandleWalking();
+             HandleWalking();
              break;
          case MonsterState.Walking:
              break;
