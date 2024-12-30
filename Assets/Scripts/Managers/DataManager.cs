@@ -153,9 +153,22 @@ public class DataManager : SingletonBase<DataManager>
         return _minionDataDictionary.TryGetValue(minionTag, out var minionData) ? minionData : null;
     }
 
-    public Summon_Data GetSummonData(int monsterId)
+    public List<(string minionTag, int count)> GetMinionsToSummon(string poolTag)
     {
-        return _summonDataDictionary.TryGetValue(monsterId, out var summonData) ? summonData : null;
+        var minionList = new List<(string, int)>();
+        switch (poolTag)
+        {
+            case "Lich":
+                minionList.Add(("Skeleton", 2));
+                minionList.Add(("Bat", 1));
+                break;
+            case "Beholder":
+                minionList.Add(("BheurHag", 2));
+                minionList.Add(("SerpentFly", 1));
+                break;
+            // Add cases for other summoner monsters...
+        }
+        return minionList;
     }
     
     public int GetSummonerIdByEvolutionMinionId(int monsterId)
