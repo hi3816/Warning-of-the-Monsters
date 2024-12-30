@@ -539,18 +539,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     id: 14
-    monsterId: 0
-    currentLevel: 0
+    monsterId: 113100
+    currentLevel: 3
     poolTag: Djinn
     currentFatigue: 0
-    fatigue: 0
+    fatigue: 300
     minFearInflicted: 0
     maxFearInflicted: 0
-    cooldown: 0
+    cooldown: 12
     humanDetectRange: 0
-    humanScaringRange: 0
+    humanScaringRange: 3.3
     walkSpeed: 0
-    requiredCoins: 0
+    requiredCoins: 300
     maxLevel: 3
     monsterType: 2
     summonerId: 0
