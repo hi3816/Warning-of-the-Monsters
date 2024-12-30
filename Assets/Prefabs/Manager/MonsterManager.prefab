@@ -53,9 +53,6 @@ MonoBehaviour:
   - tag: Dragon
     prefab: {fileID: 3455932398467681148, guid: 132217ce7911044ecb739ca17d8c8c61, type: 3}
     size: 12
-  - tag: Medusa
-    prefab: {fileID: 8609092479553512321, guid: 46ab9f2adc91548d192cca4380417f15, type: 3}
-    size: 12
   - tag: Cyclops
     prefab: {fileID: 5747528317129110511, guid: 68744658c320e4a7392832bddf224566, type: 3}
     size: 12
@@ -71,8 +68,8 @@ MonoBehaviour:
   - tag: DeathKnight
     prefab: {fileID: 1533141459934048252, guid: ad778e652ac4f4b9b8594d2ac7b554ed, type: 3}
     size: 20
-  - tag: Bat
-    prefab: {fileID: 5562810807239344560, guid: 9de42ede550914879beb2c67d13d1c43, type: 3}
+  - tag: Vampire
+    prefab: {fileID: 9023978108766818284, guid: 264843ee98e1f49308cb774d77b4692e, type: 3}
     size: 20
   - tag: Satyr
     prefab: {fileID: 5747528317129110511, guid: 793e627f1087f7c45995b9b5d997998b, type: 3}
@@ -83,6 +80,18 @@ MonoBehaviour:
   - tag: Beholder
     prefab: {fileID: 5380132030123303399, guid: a81715606951e46489d69dfca6cb27e4, type: 3}
     size: 12
+  - tag: BheurHag
+    prefab: {fileID: 8609092479553512321, guid: 996a59b814fab494d9c0e020bb10e207, type: 3}
+    size: 20
+  - tag: SerpentFly
+    prefab: {fileID: 8609092479553512321, guid: 46ab9f2adc91548d192cca4380417f15, type: 3}
+    size: 20
+  - tag: Djinn
+    prefab: {fileID: 8609092479553512321, guid: 9c868947241799f43b2a01c008d004e8, type: 3}
+    size: 20
+  - tag: Medusa
+    prefab: {fileID: 8609092479553512321, guid: 46ab9f2adc91548d192cca4380417f15, type: 3}
+    size: 20
 --- !u!1 &3000365435214169872
 GameObject:
   m_ObjectHideFlags: 0

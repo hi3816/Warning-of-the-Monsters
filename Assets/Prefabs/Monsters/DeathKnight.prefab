@@ -224,7 +224,7 @@ MonoBehaviour:
     requiredCoins: 0
     maxLevel: 3
     monsterType: 2
-    summonerId: 3
+    summonerId: 0
   _fatigueGauge: {fileID: 0}
 --- !u!114 &7382479616018171363
 MonoBehaviour:

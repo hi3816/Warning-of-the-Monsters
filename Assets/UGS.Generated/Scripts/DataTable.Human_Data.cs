@@ -57,6 +57,7 @@ namespace DataTable
 /* Fields. */
 
 		public System.Int32 id;
+		public System.String name;
 		public System.Single maxFear;
 		public System.Single minFatigueInflicted;
 		public System.Single maxFatigueInflicted;
