@@ -44,7 +44,7 @@ public abstract class Monster : MonoBehaviour
     protected Animator Animator;
     protected MonsterState MonsterState;
     private float _fadeDuration = 1f;
-    protected float LastScareTime;
+    protected float _lastScareTime;
     private Coroutine _coroutine;
     [SerializeField] private GameObject _fatigueGauge;
 
@@ -213,10 +213,10 @@ public abstract class Monster : MonoBehaviour
         {
             if (human == null) continue;
         
-            if (Time.time - LastScareTime > data.cooldown)
+            if (Time.time - _lastScareTime > data.cooldown)
             {
                 human.IncreaseFear(Random.Range(data.minFearInflicted, data.maxFearInflicted));
-                LastScareTime = Time.time;
+                _lastScareTime = Time.time;
             }
         }
 
@@ -283,7 +283,7 @@ public abstract class Monster : MonoBehaviour
         data.currentFatigue = value;
     }
 
-    public void ReturnToVillage()
+    public virtual void ReturnToVillage()
     {
         if (_coroutine != null) StopCoroutine(_coroutine);
         StartCoroutine(FadeOutAndReturnToPool());

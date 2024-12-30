@@ -1,15 +1,14 @@
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Minion : Monster //졸개
 {
     private NavMeshAgent _navMeshAgent;
-    private DataTable.Monster_Data _minionData;
     private summonerMonster _summonerMonster;
 
-    public void InitializeMinion(DataTable.Monster_Data minionData)
+    public void InitializeMinion(DataTable.Monster_Data minionData, summonerMonster summoner)
     {
-        _minionData = minionData;
         data.fatigue = minionData.fatigue;
         data.minFearInflicted = minionData.minFearInflicted;
         data.maxFearInflicted = minionData.maxFearInflicted;
@@ -17,7 +16,9 @@ public class Minion : Monster //졸개
         data.humanDetectRange = minionData.humanDetectRange;
         data.humanScaringRange = minionData.humanScaringRange;
         data.walkSpeed = minionData.walkSpeed;
-        
+
+        _summonerMonster = summoner;
+
         _navMeshAgent.speed = minionData.walkSpeed;
         Animator.speed = _navMeshAgent.speed;
         SetState(MonsterState.Idle);
@@ -82,5 +83,11 @@ public class Minion : Monster //졸개
         {
             SetState(MonsterState.Idle);
         }
+    }
+
+    public override void ReturnToVillage()
+    {
+        base.ReturnToVillage();
+        _summonerMonster.RemoveMinion(this);
     }
 }

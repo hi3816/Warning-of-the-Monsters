@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class summonerMonster : Monster //졸개들을 불러 인간을 막는 몬스터(=병영타워)
 {
-    private Transform[] _summonPositions;
+    public List<Minion> MinionList { get; private set; } = new List<Minion>(); 
     private List<(int minionId, string minionTag, int count)> _minionToSummon;
     private CircleCollider2D _collider;
 
@@ -29,10 +29,10 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
 
     protected override void Scaring()
     {
-        if (Time.time - LastScareTime >= data.cooldown)
+        if (Time.time - _lastScareTime >= data.cooldown)
         {
             SummonMinions();
-            LastScareTime = Time.time;
+            _lastScareTime = Time.time;
         }
 
         if (TargetHumanList.Count == 0)
@@ -43,13 +43,23 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
 
     private void SummonMinions()
     {
+        int totalCount = 0;
+        foreach(var item in _minionToSummon)
+        {
+            totalCount += item.count;
+        }
+        if (totalCount == MinionList.Count) return;
+
         foreach (var minionEntry in _minionToSummon)
         {
             int minionId = minionEntry.minionId;
             string minionTag = minionEntry.minionTag;
             int count = minionEntry.count;
+            if (count == CalcMinionListCount(minionId)) return;
+            else count -= CalcMinionListCount(minionId);
 
             DataTable.Monster_Data minionData = DataManager.Instance.GetBaseMonsterById(minionId);
+            
             if (minionData != null)
             {
                 for (int i = 0; i < count; i++)
@@ -86,10 +96,39 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
         {
             minion.SetActive(true);
             Minion minionComponent = minion.GetComponent<Minion>();
+            MinionList.Add(minionComponent);
+
             if (minionComponent != null)
             {
-                minionComponent.InitializeMinion(minionData);
+                minionComponent.InitializeMinion(minionData, this);
             }
+        }
+    }
+
+    private int CalcMinionListCount(int minionId)
+    {
+        int minionCount = 0;
+        foreach (var minionList in MinionList)
+        {
+            if (minionList.data.id == minionId)
+            {
+                minionCount++;
+            }
+        }
+        return minionCount;
+    }
+
+    public void RemoveMinion(Minion minion)
+    {
+        MinionList.Remove(minion);
+    }
+
+    public override void ReturnToVillage()
+    {
+        base.ReturnToVillage();
+        foreach(Minion minion in MinionList)
+        {
+            PoolManager.Instance.ReturnToPool(minion.gameObject.name, minion.gameObject);
         }
     }
 }
