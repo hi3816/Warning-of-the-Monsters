@@ -71,8 +71,9 @@ public class BattleHumanState : IHumanState
         Monster monster;
         if (_human.TargetMonster.gameObject.TryGetComponent(out monster))
         {
-            monster.IncreaseFatigue(randValue);
             _human.PlayAttackParticle();
+            _human.animator.SetTrigger("Attack");
+            monster.IncreaseFatigue(randValue);
         }
         else
         {
