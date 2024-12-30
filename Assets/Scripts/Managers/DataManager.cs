@@ -8,6 +8,7 @@ public class DataManager : SingletonBase<DataManager>
     private List<Human_Data> _humanDataList;
     private Dictionary<int, Wave_Data> _waveDataDictionary;
     private List<Monster_Data> _baseMonsterDataList;
+    private Dictionary<int, Monster_Data> _baseMonsterDataDictionary;
     private List<Upgrade_Data> _upgradeMonsterDataList;
     private List<Monster_Data> _minionDataList;
     private Dictionary<string, Monster_Data> _minionDataDictionary;
@@ -89,6 +90,12 @@ public class DataManager : SingletonBase<DataManager>
     private void LoadBaseMonsterData()
     {
         _baseMonsterDataList = Monster_Data.GetList();
+        _baseMonsterDataDictionary = new Dictionary<int, Monster_Data>();
+
+        foreach (var baseMonsterData in _baseMonsterDataList)
+        {
+            _baseMonsterDataDictionary[baseMonsterData.id] = baseMonsterData;
+        }
     }
 
     private void LoadUpgradeMonsterData()
@@ -138,9 +145,15 @@ public class DataManager : SingletonBase<DataManager>
          return null;
     }
 
-    public Monster_Data GetBaseMonsterById(int id)
+    public Monster_Data GetBaseMonsterByIdx(int id)
     {
         return id >= 0 && id < _baseMonsterDataList.Count ? _baseMonsterDataList[id] : null;
+    }
+
+    public Monster_Data GetBaseMonsterById(int id)
+    {
+        if (_baseMonsterDataDictionary == null) LoadBaseMonsterData();
+        return id >= 0 && _baseMonsterDataDictionary.ContainsKey(id) ? _baseMonsterDataDictionary[id] : null;
     }
 
     public List<Monster_Data> GetMinions()
@@ -153,33 +166,20 @@ public class DataManager : SingletonBase<DataManager>
         return _minionDataDictionary.TryGetValue(minionTag, out var minionData) ? minionData : null;
     }
 
-    public List<(string minionTag, int count)> GetMinionsToSummon(string poolTag)
+    public Summon_Data GetSummonData(int monsterId)
     {
-        var minionList = new List<(string, int)>();
-        switch (poolTag)
-        {
-            case "Lich":
-                minionList.Add(("Skeleton", 2));
-                minionList.Add(("Bat", 1));
-                break;
-            case "Beholder":
-                minionList.Add(("BheurHag", 2));
-                minionList.Add(("SerpentFly", 1));
-                break;
-            // Add cases for other summoner monsters...
-        }
-        return minionList;
+        return _summonDataDictionary.TryGetValue(monsterId, out var summonData) ? summonData : null;
     }
-    
+
     public int GetSummonerIdByEvolutionMinionId(int monsterId)
     {
         foreach(KeyValuePair<int, Summon_Data> pair in _summonDataDictionary)
         {
-            foreach(int evolutionMinionId in pair.Value.evolutionMinionId)
+            foreach(int evolutionMinionId in pair.Value.minionId)
             {
                 if (evolutionMinionId == monsterId)
                 {
-                    return (pair.Key / 10000);
+                    return (pair.Key / 1000);
                 }
             }
         }
@@ -223,7 +223,7 @@ public class DataManager : SingletonBase<DataManager>
     {
         foreach (var evolution in Evolution_Data.GetList())
         {
-            int baseEvolutionId = evolution.evolutionId / 10000; // base id (1, 2, etc.)
+            int baseEvolutionId = evolution.evolutionId / 1000; // base id (1, 2, etc.)
             int level = evolution.upgradeLevel;
             if (baseEvolutionId == monsterId && level == upgradeLevel)
             {
@@ -238,7 +238,7 @@ public class DataManager : SingletonBase<DataManager>
     {
         foreach (var evolution in Evolution_Data.GetList())
         {
-            int baseEvolutionId = evolution.evolutionId / 10000; // base id (1, 2, etc.)
+            int baseEvolutionId = evolution.evolutionId / 1000; // base id (1, 2, etc.)
             int level = evolution.upgradeLevel;
             EvolutionType type = evolution.evolutionType;
             if (baseEvolutionId == monsterId && level == upgradeLevel && type == evolutionType)

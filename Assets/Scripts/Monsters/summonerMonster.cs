@@ -1,3 +1,4 @@
+using DataTable;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -6,7 +7,7 @@ using Random = UnityEngine.Random;
 public class summonerMonster : Monster //졸개들을 불러 인간을 막는 몬스터(=병영타워)
 {
     private Transform[] _summonPositions;
-    private List<(string minionTag, int count)> _minionToSummon;
+    private List<(int minionId, string minionTag, int count)> _minionToSummon;
     private CircleCollider2D _collider;
 
     private void Start()
@@ -15,12 +16,15 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
         _collider = GetComponent<CircleCollider2D>();
     }
 
-    private void InitializeSummonableMinions()
+    public void InitializeSummonableMinions()
     {
-        if (DataManager.Instance != null && data.poolTag != null)
-        {
-            _minionToSummon = DataManager.Instance.GetMinionsToSummon(data.poolTag);
-        }
+        _minionToSummon = new List<(int, string, int)>();
+        Summon_Data summonData;
+
+        if (data.currentLevel < data.maxLevel) summonData = DataManager.Instance.GetSummonData(data.id * 1000);
+        else summonData = DataManager.Instance.GetSummonData(data.monsterId);
+        _minionToSummon.Add((summonData.minionId[0], summonData.minionTag[0], summonData.count[0]));
+        _minionToSummon.Add((summonData.minionId[1], summonData.minionTag[1], summonData.count[1]));
     }
 
     protected override void Scaring()
@@ -41,10 +45,11 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     {
         foreach (var minionEntry in _minionToSummon)
         {
+            int minionId = minionEntry.minionId;
             string minionTag = minionEntry.minionTag;
             int count = minionEntry.count;
 
-            DataTable.Monster_Data minionData = DataManager.Instance.GetMinionData(minionTag);
+            DataTable.Monster_Data minionData = DataManager.Instance.GetBaseMonsterById(minionId);
             if (minionData != null)
             {
                 for (int i = 0; i < count; i++)

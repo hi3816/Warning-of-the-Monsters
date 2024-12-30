@@ -17,7 +17,7 @@ public enum MonsterState
 public class MonsterData
 {
     public int id;
-    public float monsterId;
+    public int monsterId;
     public int currentLevel;
     public string poolTag;
     public float currentFatigue; //현재 피로도
@@ -32,6 +32,7 @@ public class MonsterData
     public int maxLevel; // 최대 레벨 -> 진화
     public MonsterType monsterType;
     public int summonerId;
+    public EvolutionType evolutionType;
 }
 
 public abstract class Monster : MonoBehaviour
@@ -54,7 +55,7 @@ public abstract class Monster : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
         SetState(MonsterState.Idle);
-        var baseMonsterData = DataManager.Instance.GetBaseMonsterById(data.id - 1);
+        var baseMonsterData = DataManager.Instance.GetBaseMonsterByIdx(data.id - 1);
         if (baseMonsterData != null)
         {
             SetMonsterData(baseMonsterData);
@@ -150,6 +151,7 @@ public abstract class Monster : MonoBehaviour
         data.cooldown = evolutionData.cooldown;
         data.humanScaringRange = evolutionData.humanScaringRange;
         data.requiredCoins = evolutionData.requiredCoins;
+        data.evolutionType = evolutionData.evolutionType;
     }
 
     protected Transform GetNearestHuman()

@@ -1,8 +1,10 @@
+using DataTable;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MonsterEvolutionUI : MonoBehaviour
+public class MonsterEvolutionUI : MonoBehaviour, ISell
 {
     [Header("UI")]
     [SerializeField] private GameObject _evolutionUI;
@@ -13,6 +15,9 @@ public class MonsterEvolutionUI : MonoBehaviour
     [SerializeField] private EvolutionStatUI _evolutionStatUI;
     [SerializeField] private GameObject _typeACheck;
     [SerializeField] private GameObject _typeBCheck;
+    [SerializeField] private GameObject _sellButtonCanvas;
+    [SerializeField] private Button _sellButton;
+    [SerializeField] private TextMeshProUGUI _sellText;
 
     private MonsterEvolution _monsterEvolution;
     private Monster _selectMonster; // 현재 클릭한 몬스터
@@ -25,14 +30,17 @@ public class MonsterEvolutionUI : MonoBehaviour
         _typeButtonB.onClick.AddListener(() => _monsterEvolution.Evolution(_selectMonster, EvolutionType.Btype));
         _typeButtonA.onClick.AddListener(() => MonsterEvolutionStat(EvolutionType.Atype));
         _typeButtonB.onClick.AddListener(() => MonsterEvolutionStat(EvolutionType.Btype));
+        _sellButton.onClick.AddListener(() => SellMonster());
     }
 
     public void Show(Monster monster)
     {
         _selectMonster = monster;
         Vector3 worldPosition = monster.transform.position;
-        _evolutionUI.transform.position = worldPosition + Vector3.up;
+        _evolutionUI.transform.position = worldPosition + (Vector3.up * 1.5f);
         _evolutionUI.SetActive(true);
+        _sellButtonCanvas.transform.position = worldPosition + Vector3.down;
+        _sellButtonCanvas.SetActive(true);
         ResetEvolutionPanel();
         SetEvolutionPanel();
     }
@@ -40,6 +48,7 @@ public class MonsterEvolutionUI : MonoBehaviour
     public void Hide()
     {
         _evolutionUI.SetActive(false);
+        _sellButtonCanvas.SetActive(false);
         _evolutionStatUI.Hide();
         _typeACheck.SetActive(false);
         _typeBCheck.SetActive(false);
@@ -49,12 +58,14 @@ public class MonsterEvolutionUI : MonoBehaviour
     {
         ResetEvolutionImageSprite();
         ResetRequiredCoinsText();
+        ResetSellCoinsText();
     }
 
     private void SetEvolutionPanel()
     {
         SetEnvolutionImageSprite();
         SetRequiredCoinsText();
+        SetSellCoinsText();
     }
 
     // 진화 sprite 초기화
@@ -72,6 +83,11 @@ public class MonsterEvolutionUI : MonoBehaviour
         {
             text.text = null;
         }
+    }
+
+    private void ResetSellCoinsText()
+    {
+        _sellText.text = null;
     }
 
     // 진화 이미지 설정
@@ -95,6 +111,47 @@ public class MonsterEvolutionUI : MonoBehaviour
             _requiredCoins[i].text = coins[i].ToString();
             _requiredCoins[i].color = GetPurchaseStatusColor(_selectMonster.data.id, i);
         }
+    }
+
+    private void SetSellCoinsText()
+    {
+        _sellText.text = Mathf.RoundToInt(CalculateTotalSpent(_selectMonster) * 0.35f).ToString();
+    }
+
+    public void SellMonster()
+    {
+        if (_selectMonster == null) return;
+        // upgradeButton.interactable = false;
+        // sellButton.interactable = false;
+        int totalSpent = CalculateTotalSpent(_selectMonster); //여태 얼마 사용했는지 계산
+        float refundPercentage = 0.35f; // 35% 환불
+        int refundAmount = Mathf.RoundToInt(totalSpent * refundPercentage);
+        StageManager.Instance.ChangeGold(refundAmount); //UI에 표시
+        _selectMonster.gameObject.SetActive(false);
+        PoolManager.Instance.ReturnToPool(_selectMonster.data.poolTag, _selectMonster.gameObject);
+        // selectedMonster.ReturnToVillage();
+        Hide();
+    }
+
+    public int CalculateTotalSpent(Monster selectedMonster) //몬스터 스폰 & 업그레이드에 사용한 비용 계산
+    {
+        MonsterData monsterData = selectedMonster.data;
+        int totalSpent = DataManager.Instance.GetBaseMonsterById(monsterData.id).requiredCoins; //몬스터 스폰 비용
+        for (int level = 1; level <= monsterData.currentLevel; level++) //몬스터 업그레이드 비용
+        {
+            var upgrades = DataManager.Instance.GetUpgradeMonsters(monsterData.id, level);
+            if (upgrades.upgradeLevel > 0)
+            {
+                var upgradeData = upgrades;
+                totalSpent += upgradeData.requiredCoins;
+            }
+        }
+        if (monsterData.currentLevel == monsterData.maxLevel)
+        {
+            Evolution_Data evolution = DataManager.Instance.GetEvolutionData(monsterData.id, monsterData.currentLevel, monsterData.evolutionType);
+            totalSpent += evolution.requiredCoins;
+        }
+        return totalSpent;
     }
 
     // 구매 가능한지 확인 및 설정 Color 반환

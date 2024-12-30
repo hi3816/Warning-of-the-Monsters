@@ -539,18 +539,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     id: 15
-    monsterId: 0
-    currentLevel: 0
+    monsterId: 113200
+    currentLevel: 3
     poolTag: Medusa
     currentFatigue: 0
-    fatigue: 0
+    fatigue: 200
     minFearInflicted: 0
     maxFearInflicted: 0
-    cooldown: 0
+    cooldown: 15
     humanDetectRange: 0
-    humanScaringRange: 0
+    humanScaringRange: 3.3
     walkSpeed: 0
-    requiredCoins: 0
+    requiredCoins: 275
     maxLevel: 3
     monsterType: 2
     summonerId: 0

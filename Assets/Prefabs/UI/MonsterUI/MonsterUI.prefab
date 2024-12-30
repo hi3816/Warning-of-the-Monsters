@@ -732,6 +732,7 @@ MonoBehaviour:
   UiPanel: {fileID: 2830615643088655321}
   UpgradeButton: {fileID: 8379488673374121214}
   SellButton: {fileID: 4158769538921802904}
+  _sellButtonText: {fileID: 8472999761210867492}
 --- !u!1 &2949650378316373962
 GameObject:
   m_ObjectHideFlags: 0

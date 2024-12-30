@@ -1,9 +1,16 @@
+using DataTable;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Button = UnityEngine.UI.Button;
 
-public class MonsterUpgradeUI : MonoBehaviour
+public interface ISell
+{
+    void SellMonster();
+    int CalculateTotalSpent(Monster selectMonster);
+}
+
+public class MonsterUpgradeUI : MonoBehaviour, ISell
 {
     [SerializeField] private StageManager _stageManager;
     [SerializeField] private Canvas _upgradeCanvas;
@@ -13,6 +20,7 @@ public class MonsterUpgradeUI : MonoBehaviour
     public GameObject UiPanel;
     public Button UpgradeButton;
     public Button SellButton;
+    [SerializeField] private TextMeshProUGUI _sellButtonText;
     private Monster _selectedMonster;
     
     public void Show(Monster monster)
@@ -26,7 +34,7 @@ public class MonsterUpgradeUI : MonoBehaviour
     void UpdateUI()
     {
         Vector3 worldPosition = _selectedMonster.transform.position;
-        UiPanel.transform.position = worldPosition + new Vector3(0, 1, -1);
+        UiPanel.transform.position = worldPosition + (Vector3.up * 1.5f);
 
         var upgrades = DataManager.Instance.GetUpgradeMonsters(_selectedMonster.data.id, _selectedMonster.data.currentLevel + 1);
         if (upgrades != null)
@@ -46,8 +54,10 @@ public class MonsterUpgradeUI : MonoBehaviour
             _upgradeCostText.text = "0";
             UpgradeButton.interactable = false;
         }
+
+        _sellButtonText.text = Mathf.RoundToInt(CalculateTotalSpent(_selectedMonster) * 0.35f).ToString();
     }
-    
+
     public void UpgradeMonster()
     {
         if (_selectedMonster == null) return;
@@ -98,17 +108,24 @@ public class MonsterUpgradeUI : MonoBehaviour
         Hide();
     }
 
-    private int CalculateTotalSpent(Monster selectedMonster) //몬스터 스폰 & 업그레이드에 사용한 비용 계산
+    public int CalculateTotalSpent(Monster selectedMonster) //몬스터 스폰 & 업그레이드에 사용한 비용 계산
     {
-        int totalSpent = selectedMonster.data.requiredCoins; //몬스터 스폰 비용
-        for (int level = 1; level <= selectedMonster.data.currentLevel; level++) //몬스터 업그레이드 비용
-        { 
-            var upgrades = DataManager.Instance.GetUpgradeMonsters(selectedMonster.data.id, level);
+        MonsterData monsterData = selectedMonster.data;
+        int totalSpent = DataManager.Instance.GetBaseMonsterById(monsterData.id).requiredCoins; //몬스터 스폰 비용
+        for (int level = 1; level <= monsterData.currentLevel; level++) //몬스터 업그레이드 비용
+        {
+            var upgrades = DataManager.Instance.GetUpgradeMonsters(monsterData.id, level);
+            if (upgrades == null) continue;
             if (upgrades.upgradeLevel > 0)
             {
                 var upgradeData = upgrades;
                 totalSpent += upgradeData.requiredCoins;
             }
+        }
+        if(monsterData.currentLevel == monsterData.maxLevel)
+        {
+            Evolution_Data evolution = DataManager.Instance.GetEvolutionData(monsterData.id, monsterData.currentLevel, monsterData.evolutionType);
+            totalSpent += evolution.requiredCoins;
         }
         return totalSpent;
     }

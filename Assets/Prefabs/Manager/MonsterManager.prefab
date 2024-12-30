@@ -84,7 +84,7 @@ MonoBehaviour:
     prefab: {fileID: 8609092479553512321, guid: 996a59b814fab494d9c0e020bb10e207, type: 3}
     size: 20
   - tag: SerpentFly
-    prefab: {fileID: 8609092479553512321, guid: 46ab9f2adc91548d192cca4380417f15, type: 3}
+    prefab: {fileID: 8609092479553512321, guid: 5f300f73c047c4c44b90c4127972899f, type: 3}
     size: 20
   - tag: Djinn
     prefab: {fileID: 8609092479553512321, guid: 9c868947241799f43b2a01c008d004e8, type: 3}
