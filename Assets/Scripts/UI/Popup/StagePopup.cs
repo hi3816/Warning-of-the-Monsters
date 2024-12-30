@@ -9,6 +9,10 @@ using UnityEngine.UI;
 
 public class StagePopup : UIBase
 {
+    //[Header("StagePopup")]
+    //[SerializeField] CanvasGroup _PopupCanvasGroup;
+    //[SerializeField] Transform _PopupTransform;
+
     [Header("Button")]
     public GameObject btnSelectMonster;
     public GameObject btnEnemyInfo;
@@ -16,11 +20,11 @@ public class StagePopup : UIBase
     public GameObject btnGo;
 
     [Header("Display")]
-    [SerializeField] TextMeshProUGUI selectTitle;
+    [SerializeField] TextMeshProUGUI _selectTitle;
 
-    [SerializeField] GameObject displaySelectMonster;
-    [SerializeField] GameObject displayStageInfo;
-    [SerializeField] GameObject displayStory;
+    [SerializeField] GameObject _displaySelectMonster;
+    [SerializeField] GameObject _displayStageInfo;
+    [SerializeField] GameObject _displayStory;
     private int _stageIdx;
 
     [Header("MonsterSelectedSlot")]
@@ -38,19 +42,20 @@ public class StagePopup : UIBase
     private SpriteAtlas _sprites;
 
     [Header("disPlayStageInfo")]
-    [SerializeField] TextMeshProUGUI titleTxt;
-    [SerializeField] TextMeshProUGUI stageInfoWave;
-    [SerializeField] TextMeshProUGUI stageInfoHealth;
-    [SerializeField] TextMeshProUGUI stageInfoGold;
+    [SerializeField] TextMeshProUGUI _titleTxt;
+    [SerializeField] TextMeshProUGUI _stageInfoWave;
+    [SerializeField] TextMeshProUGUI _stageInfoHealth;
+    [SerializeField] TextMeshProUGUI _stageInfoGold;
 
     [Header("disPlayStroy")]
-    [SerializeField] TextMeshProUGUI storyTxt;
+    [SerializeField] TextMeshProUGUI _storyTxt;
+    [SerializeField] RectTransform _storyContent;
 
     [Header("etc")]
-    [SerializeField] TextMeshProUGUI warningTxt;
-    [SerializeField] TextMeshProUGUI testTxt;
+    [SerializeField] TextMeshProUGUI _warningTxt;
+    [SerializeField] TextMeshProUGUI _testTxt;
     
-    [SerializeField] Image[] arrowPoint;
+    [SerializeField] Image[] _arrowPoint;
 
     private enum Display
     {
@@ -80,15 +85,22 @@ public class StagePopup : UIBase
     public void SetStageIdx(int Idx)
     {
         _stageIdx = Idx;
+
+        InitializeStagePopup();
+    }
+
+    private void InitializeStagePopup()
+    {
         SetStageInfo(_stageIdx);
-        SetStageStory(_stageIdx);
+        SetStageStoryHeight(_stageIdx);
+        ShowSelectMonster();
     }
 
     private void LoadGameScene()
     {
         if (_selectedListData.Count != 4) 
         {
-            warningTxt.text = "몬스터를 모두 선택하세요";
+            _warningTxt.text = "몬스터를 모두 선택하세요";
             return; 
         }
         DataManager.Instance.selectedStageIdx = _stageIdx;              //선택된 스테이지
@@ -100,9 +112,9 @@ public class StagePopup : UIBase
     private void ShowSelectMonster()
     {
         HideSelectedDisplay(_currentDisplay);
-        displaySelectMonster.SetActive(true);
+        _displaySelectMonster.SetActive(true);
         _currentDisplay = Display.SelectMonster;
-        selectTitle.text = "SELCECT MONSTER";
+        _selectTitle.text = "SELCECT MONSTER";
     }
 
     private void SetMonsterScroll()
@@ -131,13 +143,13 @@ public class StagePopup : UIBase
     public void SelectSlotWithArrow(int slotIdx)
     {
         _crrSlotIdx = slotIdx;
-        for (int i = 0; i < arrowPoint.Length; i++) 
+        for (int i = 0; i < _arrowPoint.Length; i++) 
         {
             Color color1 = new Color(1, 1, 1, 0);
-            arrowPoint[i].color = color1;
+            _arrowPoint[i].color = color1;
         }
         Color color = new Color(1, 1, 1, 1);
-        arrowPoint[slotIdx].color = color;
+        _arrowPoint[slotIdx].color = color;
     }
 
     public void SelectListSlot(Sprite listSlotSprite)
@@ -153,12 +165,12 @@ public class StagePopup : UIBase
                 {
                     if (data.Value.MonsterId == Data.Value)
                     {
-                        warningTxt.text = "This monster \r\nis already selected!";
+                        _warningTxt.text = "This monster \r\nis already selected!";
 
-                        testTxt.text = "";
+                        _testTxt.text = "";
                         foreach (var asdf in _selectedListData)
                         {
-                            testTxt.text += $"{asdf.Key} : {asdf.Value}\n";
+                            _testTxt.text += $"{asdf.Key} : {asdf.Value}\n";
                         }
                         return;
                     }
@@ -169,12 +181,12 @@ public class StagePopup : UIBase
                     _selectedListData.Remove(_crrSlotIdx);
                 }
                 _selectedListData.Add(_crrSlotIdx, (Data.Value, Data.Key));
-                warningTxt.text = "";
+                _warningTxt.text = "";
 
-                testTxt.text = "";
+                _testTxt.text = "";
                 foreach (var asdf in _selectedListData)
                 {
-                    testTxt.text += $"{asdf.Key} : {asdf.Value}\n";
+                    _testTxt.text += $"{asdf.Key} : {asdf.Value}\n";
                 }
             }
         }
@@ -203,9 +215,9 @@ public class StagePopup : UIBase
     private void ShowStageInfo()
     {
         HideSelectedDisplay(_currentDisplay);
-        displayStageInfo.SetActive(true);
+        _displayStageInfo.SetActive(true);
         _currentDisplay = Display.EnemyInfo;
-        selectTitle.text = "STAGE INFO";
+        _selectTitle.text = "STAGE INFO";
     }
 
     public void SetStageInfo(int index)
@@ -213,35 +225,37 @@ public class StagePopup : UIBase
         //StageInfo Load
         int a = index;
         DataTable.Stage_Data stageSO = DataManager.Instance.GetStageByIndex(index);
-        titleTxt.text = $"{stageSO.id}";
-        stageInfoWave.text = $"{stageSO.wave}";
-        stageInfoHealth.text = $"{stageSO.health}";
-        stageInfoGold.text = $"{stageSO.gold}";
+        _titleTxt.text = $"{stageSO.id}";
+        _stageInfoWave.text = $"{stageSO.wave}";
+        _stageInfoHealth.text = $"{stageSO.health}";
+        _stageInfoGold.text = $"{stageSO.gold}";
+        _storyTxt.text = $"{stageSO.story}";
     }
 
     private void ShowStory()
     {
         HideSelectedDisplay(_currentDisplay);
-        displayStory.SetActive(true);
+        _displayStory.SetActive(true);
         _currentDisplay = Display.Story;
-        selectTitle.text = "STORY";
+        _selectTitle.text = "STORY";
     }
 
-    private void SetStageStory(int idx)
+    private void SetStageStoryHeight(int idx)
     {
-        //수정필요함
-        string stage1Story = $"괴물과 인간은 \r\n두려움 속에 공존하며 \r\n서로를 피하며 살아간다. \r\n\r\n어느 날, \r\n호기심 많은 몬스터 친구들은 \r\n인간 마을 근처로 놀러 갔다가 \r\n인간과 마주치게 된다. \r\n\r\n겁에 질린 주민은 마을로 돌아가\r\n 자신이 본 일을 이야기한다. \r\n\r\n이 소식에 마을 사람들은 \r\n몬스터 토벌대를 꾸려 숲으로 향하게 된다. \r\n\r\n몬스터들은 자신들의 터전을 지키기 위해 \r\n맞서 싸우고자 하지만, \r\n\r\n인간을 해치고 싶지 않은 그들은 \r\n놀라게 해서 인간을 내쫓기로 결정한다.";
-        string stage2Story = $"준비중입니다. \r\n\r\n\r\n";
+        _storyContent.localPosition = new Vector2(0,0);
+        int lineCount = _storyTxt.text.Split('\n').Length;
 
-        if (idx == 0)
+        float defaultwidth = 733f;
+        float defaultheight = 300f;
+
+        if (lineCount * 50 >= defaultheight)
         {
-            storyTxt.text = stage1Story;
+            _storyContent.sizeDelta = new Vector2(defaultwidth, lineCount * 50);
         }
         else 
         {
-            storyTxt.text = stage2Story;
+            _storyContent.sizeDelta = new Vector2(defaultwidth, defaultheight);
         }
-        
     }
 
     private void HideSelectedDisplay(Display display)
@@ -249,15 +263,15 @@ public class StagePopup : UIBase
         switch (display)
         {
             case Display.SelectMonster:
-                displaySelectMonster.SetActive(false);
+                _displaySelectMonster.SetActive(false);
                 break;
 
             case Display.EnemyInfo:
-                displayStageInfo.SetActive(false);
+                _displayStageInfo.SetActive(false);
                 break;
 
             case Display.Story:
-                displayStory.SetActive(false);
+                _displayStory.SetActive(false);
                 break;
         }
     }
@@ -274,4 +288,9 @@ public class StagePopup : UIBase
         //정보 없애기
         _selectedListData.Clear();
     }
+
+    //public void ShowStagePopup()
+    //{ 
+        
+    //}
 }
