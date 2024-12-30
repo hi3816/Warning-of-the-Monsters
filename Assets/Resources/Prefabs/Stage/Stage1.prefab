@@ -12332,7 +12332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce5798979af249f49752b636ea4387d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <SpawnPoints>k__BackingField: []
+  <SpawnPointList>k__BackingField: []
 --- !u!1 &7825591134834989075
 GameObject:
   m_ObjectHideFlags: 0
