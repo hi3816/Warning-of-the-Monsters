@@ -355,9 +355,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ded548fdb2ae03488c267698ba06d23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  humanEffect: {fileID: 0}
-  attackParticle: {fileID: 0}
+  animator: {fileID: 7430299337410943144}
+  humanEffect: {fileID: 6891671784675212167}
+  attackParticle: {fileID: 2062419455288480643}
   isSurprising: 0
 --- !u!114 &8184308960279727631
 MonoBehaviour:
@@ -371,8 +371,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebe0a5e47c8918245ae89405164284b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _human: {fileID: 0}
-  _humanFearGagueImg: {fileID: 0}
+  _human: {fileID: 638188332697755257}
+  _humanFearGagueImg: {fileID: 7221225698854853108}
 --- !u!1001 &3451077610204719412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -544,6 +544,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9034817750964492100, guid: 72c6501f44c300a428d961b0ee241c6f, type: 3}
   m_PrefabInstance: {fileID: 6245310439532147358}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7221225698854853108 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3647139726889085802, guid: 72c6501f44c300a428d961b0ee241c6f, type: 3}
+  m_PrefabInstance: {fileID: 6245310439532147358}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6337941721310431121
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -601,6 +612,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 023fe4270728f474d84f982b94e23c52, type: 3}
+--- !u!198 &2062419455288480643 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5434661654980006930, guid: 023fe4270728f474d84f982b94e23c52, type: 3}
+  m_PrefabInstance: {fileID: 6337941721310431121}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3890676942885555028 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7064620021215464645, guid: 023fe4270728f474d84f982b94e23c52, type: 3}

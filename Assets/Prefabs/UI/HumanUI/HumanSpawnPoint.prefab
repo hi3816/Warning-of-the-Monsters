@@ -57,3 +57,6 @@ MonoBehaviour:
   - tag: MysticHuman
     prefab: {fileID: 2330070577731405459, guid: a77dce28932863d41bbd21bec3850cba, type: 3}
     size: 5
+  - tag: SaintHuman
+    prefab: {fileID: 2330070577731405459, guid: e020228eb102d684caf1f4d06f470688, type: 3}
+    size: 5

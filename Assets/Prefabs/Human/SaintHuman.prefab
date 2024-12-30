@@ -178,7 +178,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 0d3443d50119ae84fbec1467b61b24fb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1469d0688687ee74e8000a9ac20c480c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -199,7 +199,7 @@ Animator:
   m_GameObject: {fileID: 1759230578926842857}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: fe08bfd30f8c87f40b2ababa124dd695, type: 2}
+  m_Controller: {fileID: 22100000, guid: c03dbab67500a82469649031b7861f2d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 2711220336945300611}
   - component: {fileID: 8184308960279727631}
   m_Layer: 7
-  m_Name: MysticHuman
+  m_Name: SaintHuman
   m_TagString: Human
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -340,9 +340,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273f6515403972b4798a9857bbe7352f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 30
+  id: 50
   isReturning: 0
-  controller: {fileID: 0}
+  controller: {fileID: 2711220336945300611}
 --- !u!114 &2711220336945300611
 MonoBehaviour:
   m_ObjectHideFlags: 0
