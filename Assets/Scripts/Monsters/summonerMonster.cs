@@ -17,21 +17,10 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
 
     private void InitializeSummonableMinions()
     {
-        _minionToSummon = new List<(string, int)>();
-
-        if (data.poolTag == "Lich")
+        if (DataManager.Instance != null && data.poolTag != null)
         {
-            _minionToSummon.Add(("Skeleton", 2));
-            _minionToSummon.Add(("Bat", 1));
+            _minionToSummon = DataManager.Instance.GetMinionsToSummon(data.poolTag);
         }
-        
-        if (data.poolTag == "Beholder")
-        {
-            _minionToSummon.Add(("BheurHag", 2));
-            _minionToSummon.Add(("SerpentFly", 1));
-        }
-
-        //add other summoner monster later
     }
 
     protected override void Scaring()
