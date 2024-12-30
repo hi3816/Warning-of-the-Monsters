@@ -7,6 +7,13 @@
       "dependencies": {},
       "hash": "6d8836e05af9cb9b5274e97d522ff0548423cf9e"
     },
+    "com.nobi.roundedcorners": {
+      "version": "https://github.com/kirevdokimov/Unity-UI-Rounded-Corners.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "33135342e868201eb0d4cef821ecab90caca373e"
+    },
     "com.shlifedev.ugs": {
       "version": "https://github.com/shlifedev/uni-google-sheets.git?path=src/",
       "depth": 0,

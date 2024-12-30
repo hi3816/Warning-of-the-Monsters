@@ -5,13 +5,13 @@ using UnityEngine.UI;
 public class OptionPanelController : MonoBehaviour
 {
     [Header("ToggleButton")]
-    [SerializeField] private Image _bgmImage;
-    [SerializeField] private Image _sfxImage;
+    [SerializeField] protected Image _bgmImage;
+    [SerializeField] protected Image _sfxImage;
 
     private float _onAlpha = 255f / 255f;
     private float _offAlpha = 200f / 255f;
 
-    private SoundManager _soundManager;
+    protected SoundManager _soundManager;
     private int _timeScale;
 
     private void Awake()
@@ -33,7 +33,7 @@ public class OptionPanelController : MonoBehaviour
     }
 
     // BGM 버튼 클릭 (On / Off)
-    public void ClickBgmButton()
+    public virtual void ClickBgmButton()
     {
         _soundManager.ChangeIsPlayBGM();
 
@@ -49,7 +49,7 @@ public class OptionPanelController : MonoBehaviour
     }
 
     // BGM On Off 변경시 이미지 alpha 값 변경
-    private void ChangeBgmImage()
+    protected virtual void ChangeBgmImage()
     {
         Color color = _bgmImage.color;
         color.a = _soundManager.IsPlayBGM ? _onAlpha : _offAlpha;
@@ -64,7 +64,7 @@ public class OptionPanelController : MonoBehaviour
     }
 
     // SFX On Off 변경시 SFX 이미지 alpha 값 변경
-    private void ChangeSfxImage()
+    protected virtual void ChangeSfxImage()
     {
         Color color = _sfxImage.color;
         color.a = _soundManager.IsPlaySFX ? _onAlpha : _offAlpha;
