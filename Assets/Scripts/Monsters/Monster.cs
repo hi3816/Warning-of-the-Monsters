@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public enum MonsterState
@@ -38,7 +37,6 @@ public class MonsterData
 public abstract class Monster : MonoBehaviour
 {
     public MonsterData data;
-    private MonsterUpgradeUI _upgradeUI;
     protected List<Human> TargetHumanList = new List<Human>();
     private SpriteRenderer _spriteRenderer;
     protected Animator Animator;
@@ -205,7 +203,7 @@ public abstract class Monster : MonoBehaviour
         Animator.SetFloat("Horizontal", direction.x);
         Animator.SetFloat("Vertical", direction.y);
     }
-    
+
     protected virtual void Scaring()
     {
         // 단일 공격
