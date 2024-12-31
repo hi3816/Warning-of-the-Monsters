@@ -210,21 +210,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     id: 7
-    monsterId: 0
-    currentLevel: 0
-    poolTag: Vampire
+    monsterId: 4320
+    currentLevel: 3
+    poolTag: Lich
     currentFatigue: 0
-    fatigue: 0
+    fatigue: 50
     minFearInflicted: 0
     maxFearInflicted: 0
-    cooldown: 0
+    cooldown: 10
     humanDetectRange: 0
-    humanScaringRange: 0
+    humanScaringRange: 3.2
     walkSpeed: 0
-    requiredCoins: 0
+    requiredCoins: 230
     maxLevel: 3
     monsterType: 2
     summonerId: 0
+    evolutionType: 1
   _fatigueGauge: {fileID: 0}
 --- !u!114 &2442583436384462644
 MonoBehaviour:
@@ -314,7 +315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 434464825468577490, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 434464825468577490, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

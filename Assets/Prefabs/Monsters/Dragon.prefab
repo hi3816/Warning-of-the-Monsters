@@ -203,6 +203,7 @@ MonoBehaviour:
     maxLevel: 3
     monsterType: 0
     summonerId: 0
+    evolutionType: 0
   _fatigueGauge: {fileID: 0}
 --- !u!114 &5337656445457459390
 MonoBehaviour:
@@ -282,9 +283,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.010284141}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.228011
+  m_Radius: 0.3
 --- !u!1001 &4957558944904568214
 PrefabInstance:
   m_ObjectHideFlags: 0
