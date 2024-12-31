@@ -78,8 +78,10 @@ public class MonsterEvolution : MonoBehaviour
             {
                 if (monsterID == selectedMonsterData[key].Item1)
                 {
-                    Sprite sprite1 = list[i].sprite;
-                    Sprite sprite2 = list[i + 1].sprite;
+                    SpriteAtlas _sprites = Resources.Load<SpriteAtlas>("UI/UISprites/MonsterEvolutionSprite");
+
+                    Sprite sprite1 = _sprites.GetSprite(list[i].monster.name);
+                    Sprite sprite2 = _sprites.GetSprite(list[i+1].monster.name);
                     Sprite[] spriteArr = { sprite1, sprite2 };
 
                     if (!evolutionSpriteDict.ContainsKey(monsterID))
