@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class MonsterEvolution : MonoBehaviour
 {
@@ -46,8 +47,13 @@ public class MonsterEvolution : MonoBehaviour
             {
                 if (monsterID == selectedMonsterData[key].Item1)
                 {
-                    Sprite sprite1 = pools[i].prefab.GetComponent<SpriteRenderer>().sprite;
-                    Sprite sprite2 = pools[i + 1].prefab.GetComponent<SpriteRenderer>().sprite;
+                    SpriteAtlas _sprites = Resources.Load<SpriteAtlas>("UI/UISprites/MonsterEvolutionSprite");
+
+                    Sprite sprite1 = _sprites.GetSprite(pools[i].prefab.name);
+                    Sprite sprite2 = _sprites.GetSprite(pools[i+1].prefab.name);
+
+                    //Sprite sprite1 = pools[i].prefab.GetComponent<SpriteRenderer>().sprite;
+                    //Sprite sprite2 = pools[i + 1].prefab.GetComponent<SpriteRenderer>().sprite;
                     Sprite[] spriteArr = { sprite1, sprite2 };
 
                     if (!evolutionSpriteDict.ContainsKey(monsterID))
