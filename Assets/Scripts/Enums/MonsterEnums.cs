@@ -16,3 +16,11 @@ public enum MonsterType
     Summoner,
     Minion,
 }
+
+[UGS(typeof(ProjectileType))]
+
+public enum ProjectileType
+{
+    BigRock, // 큰 바위 (추후 작은 바위 추가)
+    Frostbolt, // 눈
+}
