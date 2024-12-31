@@ -50,12 +50,12 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
 
     public void Hide()
     {
+        _monsterUI.HideRangeIndicator();
         _evolutionUI.SetActive(false);
         _sellButtonCanvas.SetActive(false);
         _evolutionStatUI.Hide();
         _typeACheck.SetActive(false);
         _typeBCheck.SetActive(false);
-        _monsterUI.HideRangeIndicator();
     }
 
     private void ResetEvolutionPanel()

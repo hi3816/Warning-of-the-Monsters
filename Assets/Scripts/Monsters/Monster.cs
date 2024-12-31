@@ -68,6 +68,7 @@ public abstract class Monster : MonoBehaviour
     private void OnEnable()
     {
         GameManager.Instance.activeObjects.Add(this.gameObject);
+        ResetMonster();
         _fatigueGauge.SetActive(true);
     }
     
@@ -96,6 +97,17 @@ public abstract class Monster : MonoBehaviour
                 UpdateAnimatorParameters(StageManager.Instance.EndPoint.position);
                 ReturnToVillage();
                 break;
+        }
+    }
+
+    private void ResetMonster()
+    {
+        SetState(MonsterState.Idle);
+        if (_spriteRenderer.color.a == 0f)
+        {
+            Color color = _spriteRenderer.color;
+            color.a = 1f;
+            _spriteRenderer.color = color;
         }
     }
 
@@ -150,6 +162,7 @@ public abstract class Monster : MonoBehaviour
         data.humanScaringRange = evolutionData.humanScaringRange;
         data.requiredCoins = evolutionData.requiredCoins;
         data.evolutionType = evolutionData.evolutionType;
+        SetState(MonsterState.Idle);
     }
 
     protected Transform GetNearestHuman()
@@ -303,17 +316,19 @@ public abstract class Monster : MonoBehaviour
         // Fade out
         float startAlpha = _spriteRenderer.color.a;
         float elapsedTime = 0f;
+        Color startColor = _spriteRenderer.color;
 
         while (elapsedTime < _fadeDuration)
         {
             elapsedTime += Time.deltaTime;
             float newAlpha = Mathf.Lerp(startAlpha, 0f, elapsedTime / _fadeDuration);
-            _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, newAlpha);
+            startColor.a = newAlpha;
+            _spriteRenderer.color = startColor;
             yield return null;
         }
 
-        _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 0f);
-        gameObject.SetActive(false);
+        startColor.a = 0f;
+        _spriteRenderer.color = startColor;
         PoolManager.Instance.ReturnToPool(data.poolTag, gameObject);
     }
     

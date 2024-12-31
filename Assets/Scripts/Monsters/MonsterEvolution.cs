@@ -153,7 +153,7 @@ public class MonsterEvolution : MonoBehaviour
             if (evolution.monsterType == MonsterType.Summoner)
             {
                 selectMonster.Evolution(DataManager.Instance.GetEvolutionData(selectMonster.data.id, selectMonster.data.maxLevel, evolutionType));
-                summonerMonster summoner = selectMonster.GetComponent<summonerMonster>();
+                summonerMonster summoner = selectMonster as summonerMonster;
                 summoner.InitializeSummonableMinions();
             }
             else
@@ -165,7 +165,6 @@ public class MonsterEvolution : MonoBehaviour
                 Monster _monster = evolutionMonster.GetComponent<Monster>();
                 _monster.Evolution(DataManager.Instance.GetEvolutionData(_monster.data.id, _monster.data.maxLevel, evolutionType));
             }
-
             monsterEvolutionUI.Hide();
         }
     }

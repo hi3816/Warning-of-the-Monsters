@@ -133,6 +133,6 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
     public void Hide()
     {
         _upgradeCanvas.gameObject.SetActive(false);
-        _monsterUI.HideRangeIndicator();
+        if(_monsterUI != null &&_monsterUI.gameObject.activeSelf) _monsterUI.HideRangeIndicator();
     }
 }

@@ -129,7 +129,6 @@ public class SoundManager : SingletonBase<SoundManager>
     {
         if (IsPlaySFX)
         {
-            // enum -> int 로 형변환
             GameObject obj = PoolManager.Instance.SpawnFromPool(sfxType.ToString());
             obj.SetActive(true);
             SfxSoundSource soundSource = obj.GetComponent<SfxSoundSource>();
