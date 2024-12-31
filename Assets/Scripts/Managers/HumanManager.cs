@@ -8,6 +8,7 @@ public enum HumanType
     MysticHuman = 30,
     SuperHuman = 40,
     SaintHuman = 50,
+    BossHuman = 60,
 }
 public class HumanManager : SingletonBase<HumanManager>
 {
