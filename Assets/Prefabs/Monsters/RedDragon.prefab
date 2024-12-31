@@ -203,6 +203,7 @@ MonoBehaviour:
     maxLevel: 3
     monsterType: 0
     summonerId: 0
+    evolutionType: 0
   _fatigueGauge: {fileID: 0}
 --- !u!114 &8062046377528113718
 MonoBehaviour:
@@ -244,7 +245,7 @@ Transform:
   m_GameObject: {fileID: 7904827550483429528}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.029, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -282,9 +283,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.0030639172}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.6035526
+  m_Radius: 0.5
 --- !u!1001 &8642865919764609309
 PrefabInstance:
   m_ObjectHideFlags: 0

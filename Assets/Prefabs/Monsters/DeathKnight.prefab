@@ -210,21 +210,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     id: 6
-    monsterId: 0
-    currentLevel: 0
-    poolTag: DeathKnight
+    monsterId: 4310
+    currentLevel: 3
+    poolTag: Lich
     currentFatigue: 0
-    fatigue: 0
+    fatigue: 50
     minFearInflicted: 0
     maxFearInflicted: 0
-    cooldown: 0
+    cooldown: 13
     humanDetectRange: 0
-    humanScaringRange: 0
+    humanScaringRange: 3.2
     walkSpeed: 0
-    requiredCoins: 0
+    requiredCoins: 230
     maxLevel: 3
     monsterType: 2
     summonerId: 0
+    evolutionType: 0
   _fatigueGauge: {fileID: 0}
 --- !u!114 &7382479616018171363
 MonoBehaviour:

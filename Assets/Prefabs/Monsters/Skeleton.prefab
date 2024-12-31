@@ -225,6 +225,7 @@ MonoBehaviour:
     maxLevel: 3
     monsterType: 2
     summonerId: 3
+    evolutionType: 0
   _fatigueGauge: {fileID: 0}
 --- !u!114 &-8495485629689998443
 MonoBehaviour:
