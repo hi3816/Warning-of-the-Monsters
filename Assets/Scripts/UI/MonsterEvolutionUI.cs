@@ -1,7 +1,4 @@
 using DataTable;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,15 +21,18 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
     private MonsterEvolution _monsterEvolution;
     private Monster _selectMonster; // 현재 클릭한 몬스터
     private EvolutionType _clickEvolutionType;
+    private MonsterUI _monsterUI;
 
     private void Awake()
     {
+        _monsterUI = GetComponentInParent<MonsterUI>();
         _monsterEvolution = GetComponent<MonsterEvolution>();
         _typeButtonA.onClick.AddListener(() => _monsterEvolution.Evolution(_selectMonster, EvolutionType.Atype));
         _typeButtonB.onClick.AddListener(() => _monsterEvolution.Evolution(_selectMonster, EvolutionType.Btype));
         _typeButtonA.onClick.AddListener(() => MonsterEvolutionStat(EvolutionType.Atype));
         _typeButtonB.onClick.AddListener(() => MonsterEvolutionStat(EvolutionType.Btype));
         _sellButton.onClick.AddListener(() => SellMonster());
+        _sellButton.onClick.AddListener(() => Hide());
     }
 
     public void Show(Monster monster)
@@ -43,6 +43,7 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
         _evolutionUI.SetActive(true);
         _sellButtonCanvas.transform.position = worldPosition + Vector3.down;
         _sellButtonCanvas.SetActive(true);
+        _monsterUI.ShowRangeIndicator();
         ResetEvolutionPanel();
         SetEvolutionPanel();
     }
@@ -54,6 +55,7 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
         _evolutionStatUI.Hide();
         _typeACheck.SetActive(false);
         _typeBCheck.SetActive(false);
+        _monsterUI.HideRangeIndicator();
     }
 
     private void ResetEvolutionPanel()
@@ -123,8 +125,6 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
     public void SellMonster()
     {
         if (_selectMonster == null) return;
-        // upgradeButton.interactable = false;
-        // sellButton.interactable = false;
         int totalSpent = CalculateTotalSpent(_selectMonster); //여태 얼마 사용했는지 계산
         float refundPercentage = 0.35f; // 35% 환불
         int refundAmount = Mathf.RoundToInt(totalSpent * refundPercentage);
@@ -135,7 +135,6 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
             _selectMonster.ReturnToVillage();
         }
         PoolManager.Instance.ReturnToPool(_selectMonster.data.poolTag, _selectMonster.gameObject);
-        Hide();
     }
 
     public int CalculateTotalSpent(Monster selectedMonster) //몬스터 스폰 & 업그레이드에 사용한 비용 계산
@@ -151,6 +150,7 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
                 totalSpent += upgradeData.requiredCoins;
             }
         }
+        // 혹시 진화 못했을 경우 대비
         if (monsterData.currentLevel == monsterData.maxLevel)
         {
             Evolution_Data evolution = DataManager.Instance.GetEvolutionData(monsterData.id, monsterData.currentLevel, monsterData.evolutionType);
@@ -189,6 +189,7 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
             _typeACheck.SetActive(false);
         }
         _evolutionStatUI.Show(evolution);
+        _monsterUI.ShowRangeIndicator(evolution);
         _clickEvolutionType = evolutionType;
     }
 }

@@ -1,9 +1,6 @@
 using DataTable;
-using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Button = UnityEngine.UI.Button;
 
 public interface ISell
@@ -18,19 +15,25 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
     [SerializeField] private Canvas _upgradeCanvas;
     [SerializeField] private TextMeshProUGUI _upgradeStatsText;
     [SerializeField] private TextMeshProUGUI _upgradeCostText;
-    [SerializeField] private GameObject _rangeIndicator;
+    [SerializeField] private TextMeshProUGUI _sellButtonText;
     public GameObject UiPanel;
     public Button UpgradeButton;
     public Button SellButton;
-    [SerializeField] private TextMeshProUGUI _sellButtonText;
     private Monster _selectedMonster;
-    
+    private MonsterUI _monsterUI;
+
+    private void Awake()
+    {
+        _stageManager = StageManager.Instance;
+        _monsterUI = GetComponentInParent<MonsterUI>();
+    }
+
     public void Show(Monster monster)
     {
         _selectedMonster = monster;
         _upgradeCanvas.gameObject.SetActive(true);
-        UpdateRangeIndicator();
         UpdateUI();
+        _monsterUI.ShowRangeIndicator();
     }
 
     void UpdateUI()
@@ -77,22 +80,13 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
             else
             {
                 UpdateUI();
-                UpdateRangeIndicator();
             }
+            _monsterUI.ShowRangeIndicator();
         }
         else
         {
             print("Not enough gold to upgrade!");
         }
-    }
-    
-    private void UpdateRangeIndicator()
-    {
-        if (_selectedMonster == null || _rangeIndicator == null) return;
-        float range = _selectedMonster.data.humanScaringRange;
-        _rangeIndicator.transform.localScale = new Vector3(range, range, 1);
-        _rangeIndicator.transform.position = _selectedMonster.transform.position;
-        _rangeIndicator.gameObject.SetActive(true);
     }
     
     public void SellMonster()
@@ -139,9 +133,6 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
     public void Hide()
     {
         _upgradeCanvas.gameObject.SetActive(false);
-        if (_selectedMonster != null && _rangeIndicator != null)
-        {
-            _rangeIndicator.SetActive(false);
-        }
+        _monsterUI.HideRangeIndicator();
     }
 }
