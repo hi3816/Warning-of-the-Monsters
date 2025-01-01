@@ -212,7 +212,7 @@ MonoBehaviour:
     id: 7
     monsterId: 4320
     currentLevel: 3
-    poolTag: Lich
+    poolTag: Vampire
     currentFatigue: 0
     fatigue: 50
     minFearInflicted: 0

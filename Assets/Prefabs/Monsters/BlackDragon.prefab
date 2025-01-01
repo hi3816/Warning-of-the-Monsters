@@ -190,7 +190,7 @@ MonoBehaviour:
     id: 2
     monsterId: 2
     currentLevel: 3
-    poolTag: Dragon
+    poolTag: BlackDragon
     currentFatigue: 0
     fatigue: 53
     minFearInflicted: 76

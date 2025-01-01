@@ -69,7 +69,7 @@ public class StageManager : SingletonBase<StageManager>
         _stage.name = $"Stage{_stageIdx + 1}";
         SpawnPointList = _stage.GetComponentInChildren<SpawnPoint>().SpawnPointList;
         
-        // startBattleBtn에 interWaveDelay필드에 값 저장하기 위해 StageSO 세팅 후에 캐싱
+        // startBattleBtn에 interWaveDelay필드에 값 저장하기 위해 StageData 세팅 후에 캐싱
         _startBattleBtnController = _stage.GetComponentInChildren<StartBattleButtonController>();
     }
 

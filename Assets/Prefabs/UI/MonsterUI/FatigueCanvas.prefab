@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7017753574722508507}
   - component: {fileID: 4710113901281135049}
   - component: {fileID: 290041002830247786}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: FatigueGauge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 2284823241643678672}
   - component: {fileID: 3721899802193921804}
   - component: {fileID: 3358331907313085173}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 1311936199838651306}
   - component: {fileID: 7250889420656654896}
   - component: {fileID: 9100357584515603679}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9014981195854102630}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

@@ -103,7 +103,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 955695621035806087}
-  - {fileID: 6505364941210272039}
+  - {fileID: 3975055963478628489}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2132654801010020403
@@ -286,7 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _monster: {fileID: 0}
   _monsterFatigueGagueImg: {fileID: 0}
---- !u!1001 &6647371901828769781
+--- !u!1001 &3543694238594498139
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -383,8 +383,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
---- !u!224 &6505364941210272039 stripped
+--- !u!224 &3975055963478628489 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 434464825468577490, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
-  m_PrefabInstance: {fileID: 6647371901828769781}
+  m_PrefabInstance: {fileID: 3543694238594498139}
   m_PrefabAsset: {fileID: 0}

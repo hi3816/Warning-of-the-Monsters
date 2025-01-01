@@ -190,7 +190,7 @@ MonoBehaviour:
     id: 1
     monsterId: 0
     currentLevel: 0
-    poolTag: Dog
+    poolTag: Hellhound
     currentFatigue: 0
     fatigue: 0
     minFearInflicted: 0

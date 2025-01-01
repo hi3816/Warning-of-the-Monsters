@@ -257,7 +257,7 @@ MonoBehaviour:
     id: 3
     monsterId: 4
     currentLevel: 3
-    poolTag: Cyclops
+    poolTag: Ogre
     currentFatigue: 0
     fatigue: 40
     minFearInflicted: 50

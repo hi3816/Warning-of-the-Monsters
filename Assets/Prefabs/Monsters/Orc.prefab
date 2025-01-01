@@ -190,7 +190,7 @@ MonoBehaviour:
     id: 3
     monsterId: 0
     currentLevel: 0
-    poolTag: Ogre
+    poolTag: Orc
     currentFatigue: 0
     fatigue: 0
     minFearInflicted: 0

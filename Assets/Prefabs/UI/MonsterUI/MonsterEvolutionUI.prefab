@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6405c8cf44ddbe748a8095309c57a773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolConfigs:
+  _poolConfigs:
   - tag: Hellhound
     prefab: {fileID: 4266746992223387529, guid: e8ea6fa14dcad71468d1b0d1bc157bec, type: 3}
     size: 12
@@ -105,16 +105,12 @@ MonoBehaviour:
   - tag: Planetar
     prefab: {fileID: 5747528317129110511, guid: 8b8b7769516e81e4e8b477a0173b7dd0, type: 3}
     size: 12
-  summonerMonsters:
-  - sprite: {fileID: -467170243, guid: d3aa29c3a199e459da660814724b5efa, type: 3}
-    monster: {fileID: -1437158679666821263, guid: ad778e652ac4f4b9b8594d2ac7b554ed, type: 3}
-  - sprite: {fileID: 813443917, guid: a0065b2588593468fb5855c269aa7b8d, type: 3}
-    monster: {fileID: -3380862154934517563, guid: 264843ee98e1f49308cb774d77b4692e, type: 3}
-  - sprite: {fileID: -521372907, guid: 4ba7b058ac0ba44f892a6f6f460c064f, type: 3}
-    monster: {fileID: 6033818287721747379, guid: 9c868947241799f43b2a01c008d004e8, type: 3}
-  - sprite: {fileID: -1379973632, guid: 531e0d30ae7974ca28bd86c746812093, type: 3}
-    monster: {fileID: 8113890656126382881, guid: 46ab9f2adc91548d192cca4380417f15, type: 3}
-  evolutionMonsterList: []
+  _minionMonsters:
+  - {fileID: -1437158679666821263, guid: ad778e652ac4f4b9b8594d2ac7b554ed, type: 3}
+  - {fileID: -3380862154934517563, guid: 264843ee98e1f49308cb774d77b4692e, type: 3}
+  - {fileID: 6033818287721747379, guid: 9c868947241799f43b2a01c008d004e8, type: 3}
+  - {fileID: 8113890656126382881, guid: 46ab9f2adc91548d192cca4380417f15, type: 3}
+  _evolutionMonsterList: []
 --- !u!1 &1208973493108306354
 GameObject:
   m_ObjectHideFlags: 0
