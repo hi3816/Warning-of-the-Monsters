@@ -4,10 +4,11 @@ using UnityEngine;
 public class DefenceHuman : Human
 {
     private float _defenceChance;
+    
     protected override void Awake()
     {
         base.Awake();
-        _defenceChance = base.controller.Cooldown;
+        _defenceChance = controller.Cooldown;
     }
 
     public override void IncreaseFear(float amount)
