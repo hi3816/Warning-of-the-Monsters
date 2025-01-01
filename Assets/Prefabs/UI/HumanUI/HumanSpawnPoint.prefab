@@ -60,6 +60,9 @@ MonoBehaviour:
   - tag: SaintHuman
     prefab: {fileID: 2330070577731405459, guid: e020228eb102d684caf1f4d06f470688, type: 3}
     size: 5
+  - tag: CaptainHuman
+    prefab: {fileID: 2330070577731405459, guid: 46732bb789f563b4eb44a05ebf8d4a97, type: 3}
+    size: 10
   - tag: BossHuman
     prefab: {fileID: 2330070577731405459, guid: 70c24785ec374bd44b2cc21b5319e1cd, type: 3}
     size: 1

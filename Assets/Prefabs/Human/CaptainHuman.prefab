@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 6097526258372461423}
   - component: {fileID: 2782478536638138749}
   - component: {fileID: 7430299337410943144}
-  - component: {fileID: 4835970376371550221}
+  - component: {fileID: 650730956785093554}
   m_Layer: 7
   m_Name: MainSprite
   m_TagString: Untagged
@@ -178,12 +178,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: c3e8804c55b2a1d4eb047746e377138b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c6266843e592806478ab05031c804dad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.34, y: 0.58}
+  m_Size: {x: 0.34, y: 0.6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -199,7 +199,7 @@ Animator:
   m_GameObject: {fileID: 1759230578926842857}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 2e1db83cb7f81004faf84ec510b1fc0e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 42f3bc583b06f014aa012761d2f1b583, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -210,7 +210,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4835970376371550221
+--- !u!114 &650730956785093554
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -236,9 +236,9 @@ GameObject:
   - component: {fileID: 638188332697755257}
   - component: {fileID: 5045224751481305426}
   - component: {fileID: 2711220336945300611}
-  - component: {fileID: 8184308960279727631}
+  - component: {fileID: 1622926551764045842}
   m_Layer: 7
-  m_Name: BossHuman
+  m_Name: CaptainHuman
   m_TagString: Human
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b64fec6aceb79d448de67d9dd0f34e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 400
+  id: 300
   isReturning: 0
   controller: {fileID: 2711220336945300611}
 --- !u!195 &5045224751481305426
@@ -357,9 +357,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 7430299337410943144}
   humanEffect: {fileID: 6891671784675212167}
-  attackParticle: {fileID: 661048327222020115}
+  attackParticle: {fileID: 730009317551743107}
   isSurprising: 0
---- !u!114 &8184308960279727631
+--- !u!114 &1622926551764045842
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -434,7 +434,7 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8088625683643470515, guid: 6957633796b4f7741a86c7337694ae1a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2327756766072492228}
+      addedObject: {fileID: 2540269998686451796}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6957633796b4f7741a86c7337694ae1a, type: 3}
 --- !u!4 &6891671784675212167 stripped
@@ -442,7 +442,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8088625683643470515, guid: 6957633796b4f7741a86c7337694ae1a, type: 3}
   m_PrefabInstance: {fileID: 3451077610204719412}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &4775865131880569857
+--- !u!1001 &4704652339722630289
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -453,6 +453,10 @@ PrefabInstance:
     - target: {fileID: 3585677040784215790, guid: 3e2de30eb36252f429a47e5ea68c2095, type: 3}
       propertyPath: m_Name
       value: Particle System_Explosion_epic
+      objectReference: {fileID: 0}
+    - target: {fileID: 5434661654980006930, guid: 3e2de30eb36252f429a47e5ea68c2095, type: 3}
+      propertyPath: simulationSpeed
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 7064620021215464645, guid: 3e2de30eb36252f429a47e5ea68c2095, type: 3}
       propertyPath: m_LocalPosition.x
@@ -499,15 +503,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e2de30eb36252f429a47e5ea68c2095, type: 3}
---- !u!198 &661048327222020115 stripped
+--- !u!198 &730009317551743107 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 5434661654980006930, guid: 3e2de30eb36252f429a47e5ea68c2095, type: 3}
-  m_PrefabInstance: {fileID: 4775865131880569857}
+  m_PrefabInstance: {fileID: 4704652339722630289}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2327756766072492228 stripped
+--- !u!4 &2540269998686451796 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7064620021215464645, guid: 3e2de30eb36252f429a47e5ea68c2095, type: 3}
-  m_PrefabInstance: {fileID: 4775865131880569857}
+  m_PrefabInstance: {fileID: 4704652339722630289}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6245310439532147358
 PrefabInstance:
