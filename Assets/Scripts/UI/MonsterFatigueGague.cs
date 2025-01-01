@@ -41,4 +41,10 @@ public class MonsterFatigueGague : MonoBehaviour
     {
         _monsterFatigueGagueImg.fillAmount = _monster.data.currentFatigue / _maxFatigue;
     }
+
+    public void SetMaxFatigue(float fatigue)
+    {
+        _maxFatigue = fatigue;
+        if(_monsterFatigueGagueImg != null) _monsterFatigueGagueImg.fillAmount = 0f;
+    }
 }

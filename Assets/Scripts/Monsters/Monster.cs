@@ -45,6 +45,7 @@ public abstract class Monster : MonoBehaviour
     protected float _lastScareTime;
     private Coroutine _coroutine;
     [SerializeField] private GameObject _fatigueGauge;
+    private MonsterFatigueGague _monsterFatigueGauge;
 
     public Action OnAttacked;
     
@@ -63,6 +64,7 @@ public abstract class Monster : MonoBehaviour
         {
             _fatigueGauge = gameObject.transform.Find("FatigueCanvas/FatigueGauge").gameObject;
         }
+        _monsterFatigueGauge = GetComponent<MonsterFatigueGague>();
     }
     
     private void OnEnable()
@@ -163,6 +165,7 @@ public abstract class Monster : MonoBehaviour
         data.requiredCoins = evolutionData.requiredCoins;
         data.evolutionType = evolutionData.evolutionType;
         SetState(MonsterState.Idle);
+        if(_monsterFatigueGauge != null) _monsterFatigueGauge.SetMaxFatigue(data.fatigue);
     }
 
     protected Transform GetNearestHuman()
@@ -223,11 +226,12 @@ public abstract class Monster : MonoBehaviour
         foreach (Human human in TargetHumanList)
         {
             if (human == null) continue;
-        
-            if (Time.time - _lastScareTime > data.cooldown)
+
+            _lastScareTime += Time.deltaTime;
+            if (_lastScareTime > data.cooldown)
             {
                 human.IncreaseFear(Random.Range(data.minFearInflicted, data.maxFearInflicted));
-                _lastScareTime = Time.time;
+                _lastScareTime = 0f;
             }
         }
 

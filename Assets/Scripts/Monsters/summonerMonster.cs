@@ -18,6 +18,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
 
     public void InitializeSummonableMinions()
     {
+        MinionList.Clear();
         _minionToSummon = new List<(int, string, int)>();
         Summon_Data summonData;
 

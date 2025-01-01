@@ -212,7 +212,7 @@ MonoBehaviour:
     id: 6
     monsterId: 4310
     currentLevel: 3
-    poolTag: Lich
+    poolTag: DeathKnight
     currentFatigue: 0
     fatigue: 50
     minFearInflicted: 0

@@ -56,14 +56,14 @@ public class StartBattleButtonController : MonoBehaviour
         _timeCircleImage.fillAmount = 0f;
         ButtonDisable();
 
-        if (!CheckClear())
+        if (!StageManager.Instance.CheckEndStage())
         {
             if (_interWaveCoroutine != null) StopCoroutine(_interWaveCoroutine);
             _interWaveCoroutine = StartCoroutine(CoInterWaveDelay());
             StageManager.Instance.UpdateWave();
         }
         
-        _humanSpawner.StartSpawningHumans(StageManager.Instance.CurrWave );
+        _humanSpawner.StartSpawningHumans(StageManager.Instance.CurrWave);
     }
 
     // 다음 웨이브 시간 계산
@@ -90,20 +90,6 @@ public class StartBattleButtonController : MonoBehaviour
             if(_interWaveCoroutine != null) StopCoroutine(_interWaveCoroutine);
             _isWaveStart = false;
         }   
-    }
-
-    // 현재 스테이지를 클리어 했는지 확인
-    private bool CheckClear()
-    {
-        if (StageManager.Instance.CheckEndStage())
-        {
-            // 클리어 조건 추가
-            // Time.timeScale = 0f;
-            SoundManager.Instance.StopBGM();
-            return true;
-            // 클리어 팝업 추가
-        }
-        return false;
     }
 
     private void ButtonEnable()
