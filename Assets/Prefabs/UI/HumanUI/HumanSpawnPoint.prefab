@@ -63,3 +63,6 @@ MonoBehaviour:
   - tag: BossHuman
     prefab: {fileID: 2330070577731405459, guid: 70c24785ec374bd44b2cc21b5319e1cd, type: 3}
     size: 1
+  - tag: LastHuman
+    prefab: {fileID: 2330070577731405459, guid: 4a000be24bae72544a6373d9eaf9da8b, type: 3}
+    size: 1
