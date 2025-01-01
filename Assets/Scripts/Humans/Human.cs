@@ -43,7 +43,7 @@ public class Human : MonoBehaviour
     }
 
     // 인간 공포 수치 증가시키기
-    public void IncreaseFear(float amount)
+    public virtual void IncreaseFear(float amount)
     {
         // 놀라는 효과음과 애니메이션 실행
         SoundManager.Instance.PlaySFX(SfxType.SurprisingHuman);

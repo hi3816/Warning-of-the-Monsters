@@ -10,7 +10,7 @@ public class HealerHuman : Human, IHealer
 {
     private float _healAmount;
     private float _healRadius;
-    private float _healDelay;
+    private float _healCooldown;
     private Coroutine _healCoroutine;
 
     protected override void Awake()
@@ -18,7 +18,7 @@ public class HealerHuman : Human, IHealer
         base.Awake();
         _healRadius = 2;
         _healAmount = base.controller.MaxFatigueInflicted * 0.8f;
-        _healDelay = base.controller.Cooldown * 0.5f;
+        _healCooldown = base.controller.Cooldown * 0.5f;
     }
     
     protected override void OnEnable()
@@ -43,7 +43,6 @@ public class HealerHuman : Human, IHealer
                 otherHuman.DecreaseFear(amount);
             }
         }
-        //Debug.Log("Healing fear");
     }
     
     private IEnumerator HealingCoroutine()
@@ -51,7 +50,7 @@ public class HealerHuman : Human, IHealer
         while (true)
         {
             HealFear(_healAmount);
-            yield return new WaitForSeconds(_healDelay);
+            yield return new WaitForSeconds(_healCooldown);
         }
     }
 

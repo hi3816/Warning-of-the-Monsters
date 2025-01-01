@@ -233,7 +233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3893102652453937651}
   - component: {fileID: 8211750753777422078}
-  - component: {fileID: 638188332697755257}
+  - component: {fileID: 6940878746977460848}
   - component: {fileID: 5045224751481305426}
   - component: {fileID: 2711220336945300611}
   - component: {fileID: 1622926551764045842}
@@ -306,7 +306,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.6}
   m_EdgeRadius: 0
---- !u!114 &638188332697755257
+--- !u!114 &6940878746977460848
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -315,7 +315,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2330070577731405459}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b64fec6aceb79d448de67d9dd0f34e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 22681bd36a7b4d04493ee2ac7d106906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 300
@@ -371,7 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebe0a5e47c8918245ae89405164284b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _human: {fileID: 638188332697755257}
+  _human: {fileID: 0}
   _humanFearGagueImg: {fileID: 7221225698854853108}
 --- !u!1001 &3451077610204719412
 PrefabInstance:
