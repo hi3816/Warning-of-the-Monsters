@@ -88,7 +88,7 @@ public abstract class Monster : MonoBehaviour
                 {
                     Vector2 directionToHuman = ((Vector2)nearestHuman.position - (Vector2)transform.position).normalized;
                     UpdateAnimatorParameters(directionToHuman);
-                    Scaring();
+                    Scaring(Time.deltaTime);
                 }
                 else
                 {
@@ -111,6 +111,7 @@ public abstract class Monster : MonoBehaviour
             color.a = 1f;
             _spriteRenderer.color = color;
         }
+        _lastScareTime = data.cooldown;
     }
 
     // 처음 데이터 저장
@@ -220,15 +221,15 @@ public abstract class Monster : MonoBehaviour
         Animator.SetFloat("Vertical", direction.y);
     }
 
-    protected virtual void Scaring()
+    protected virtual void Scaring(float time)
     {
         // 단일 공격
         foreach (Human human in TargetHumanList)
         {
             if (human == null) continue;
 
-            _lastScareTime += Time.deltaTime;
-            if (_lastScareTime > data.cooldown)
+            _lastScareTime += time;
+            if (_lastScareTime >= data.cooldown)
             {
                 human.IncreaseFear(Random.Range(data.minFearInflicted, data.maxFearInflicted));
                 _lastScareTime = 0f;
