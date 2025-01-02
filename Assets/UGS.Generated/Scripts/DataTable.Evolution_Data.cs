@@ -60,7 +60,7 @@ namespace DataTable
 		public System.Int32 upgradeLevel;
 		public EvolutionType evolutionType;
 		public MonsterType monsterType;
-		public System.String evolutionName;
+		public System.String name;
 		public System.Single fatigue;
 		public System.Single minFearInflicted;
 		public System.Single maxFearInflicted;

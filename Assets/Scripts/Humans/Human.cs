@@ -123,6 +123,14 @@ public class Human : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Monster"))
+        {
+            controller.ClearTargetMonster();
+        }
+    }
+
     protected virtual void OnDisable()
     {
         GameManager.Instance.activeObjects.Remove(gameObject);

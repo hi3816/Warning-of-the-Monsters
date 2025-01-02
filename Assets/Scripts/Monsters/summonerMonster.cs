@@ -18,7 +18,8 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
 
     public void InitializeSummonableMinions()
     {
-        MinionList.Clear();
+        ClearMinion();
+        ResetMonster();
         _minionToSummon = new List<(int, string, int)>();
         Summon_Data summonData;
 
@@ -123,6 +124,14 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     public void RemoveMinion(Minion minion)
     {
         MinionList.Remove(minion);
+    }
+
+    private void ClearMinion()
+    {
+        foreach (Minion minion in MinionList)
+        {
+            PoolManager.Instance.ReturnToPool(minion.gameObject.name, minion.gameObject);
+        }
     }
 
     public override void ReturnToVillage()

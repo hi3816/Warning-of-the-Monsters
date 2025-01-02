@@ -102,7 +102,7 @@ public abstract class Monster : MonoBehaviour
         }
     }
 
-    private void ResetMonster()
+    protected void ResetMonster()
     {
         SetState(MonsterState.Idle);
         if (_spriteRenderer.color.a == 0f)
@@ -134,10 +134,10 @@ public abstract class Monster : MonoBehaviour
     }
 
     // // 현재 데이터 변경
-    public void SetMonsterDataToMonsterData(MonsterData newMonsterData)
-    {
-        data = newMonsterData;
-    }
+    //public void SetMonsterDataToMonsterData(MonsterData newMonsterData)
+    //{
+    //    data = newMonsterData;
+    //}
 
     public void Upgrade(DataTable.Upgrade_Data upgradeData)
     {
@@ -159,7 +159,7 @@ public abstract class Monster : MonoBehaviour
         data.currentLevel = evolutionData.upgradeLevel;
         data.evolutionType = evolutionData.evolutionType;
         data.monsterType = evolutionData.monsterType;
-        data.poolTag = evolutionData.evolutionName;
+        data.poolTag = evolutionData.name;
         data.fatigue = evolutionData.fatigue;
         data.minFearInflicted = evolutionData.minFearInflicted;
         data.maxFearInflicted = evolutionData.maxFearInflicted;
@@ -276,7 +276,6 @@ public abstract class Monster : MonoBehaviour
         if (other.CompareTag("Human"))
         {
             Human human = other.GetComponent<Human>();
-            human.controller.ClearTargetMonster();
             if (human != null && TargetHumanList.Contains(human))
             {
                 TargetHumanList.Remove(human);

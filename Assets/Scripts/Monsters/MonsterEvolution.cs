@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
+using static UnityEditor.PlayerSettings;
 
 public class MonsterEvolution : MonoBehaviour
 {
@@ -72,8 +73,8 @@ public class MonsterEvolution : MonoBehaviour
                 {
                     SpriteAtlas _sprites = Resources.Load<SpriteAtlas>("UI/UISprites/MonsterEvolutionSprite");
 
-                    Sprite sprite1 = _sprites.GetSprite(list[i].data.poolTag);
-                    Sprite sprite2 = _sprites.GetSprite(list[i + 1].data.poolTag);
+                    Sprite sprite1 = _sprites.GetSprite(list[i].name);
+                    Sprite sprite2 = _sprites.GetSprite(list[i + 1].name);
                     Sprite[] spriteArr = { sprite1, sprite2 };
 
                     if (!_evolutionSpriteDict.ContainsKey(monsterID))
@@ -141,18 +142,19 @@ public class MonsterEvolution : MonoBehaviour
         if (evolution != null && StageManager.Instance.CurrGold >= evolution.requiredCoins)
         {
             StageManager.Instance.ChangeGold(-evolution.requiredCoins);
+            Vector3 pos = _selectMonster.gameObject.transform.position;
+            PoolManager.Instance.ReturnToPool(_selectMonster.data.poolTag, _selectMonster.gameObject);
 
             if (evolution.monsterType == MonsterType.Summoner)
             {
-                _selectMonster.Evolution(DataManager.Instance.GetEvolutionData(_selectMonster.data.id, _selectMonster.data.maxLevel, evolutionType));
-                summonerMonster summoner = _selectMonster as summonerMonster;
+                GameObject evolutionMonster = PoolManager.Instance.SpawnFromPool(_selectMonster.data.poolTag, pos, Quaternion.identity);
+                summonerMonster summoner = evolutionMonster.GetComponent<Monster>() as summonerMonster;
+                summoner.Evolution(DataManager.Instance.GetEvolutionData(summoner.data.id, summoner.data.maxLevel, evolutionType));
                 summoner.InitializeSummonableMinions();
             }
             else
             {
                 string evolutionMonsterName = GetMonsterEvolutionName(evolutionType);
-                Vector3 pos = _selectMonster.gameObject.transform.position;
-                PoolManager.Instance.ReturnToPool(_selectMonster.data.poolTag, _selectMonster.gameObject);
                 GameObject evolutionMonster = PoolManager.Instance.SpawnFromPool(evolutionMonsterName, pos, Quaternion.identity);
                 Monster _monster = evolutionMonster.GetComponent<Monster>();
                 _monster.Evolution(DataManager.Instance.GetEvolutionData(_monster.data.id, _monster.data.maxLevel, evolutionType));
@@ -173,11 +175,11 @@ public class MonsterEvolution : MonoBehaviour
             {
                 if (evolutionType == EvolutionType.Atype)
                 {
-                    return _evolutionMonsterList[i].gameObject.name;
+                    return _evolutionMonsterList[i].name;
                 }
                 else if (evolutionType == EvolutionType.Btype)
                 {
-                    return _evolutionMonsterList[i + 1].gameObject.name;
+                    return _evolutionMonsterList[i + 1].name;
                 }
             }
         }
