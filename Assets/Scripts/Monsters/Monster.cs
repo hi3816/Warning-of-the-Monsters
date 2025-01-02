@@ -134,11 +134,10 @@ public abstract class Monster : MonoBehaviour
     }
 
     // // 현재 데이터 변경
-    // public void SetMonsterDataToMonsterData(MonsterData newMonsterData)
-    // {
-    //     data = newMonsterData;
-    //     data.currentFatigue = 0f;
-    // }
+    public void SetMonsterDataToMonsterData(MonsterData newMonsterData)
+    {
+        data = newMonsterData;
+    }
 
     public void Upgrade(DataTable.Upgrade_Data upgradeData)
     {
@@ -150,21 +149,24 @@ public abstract class Monster : MonoBehaviour
         data.cooldown = upgradeData.cooldown;
         data.humanScaringRange = upgradeData.humanScaringRange;
         data.requiredCoins = upgradeData.requiredCoins;
+        if (_monsterFatigueGauge != null) _monsterFatigueGauge.SetMaxFatigue(data.fatigue);
     }
 
     public void Evolution(DataTable.Evolution_Data evolutionData)
     {
+        data.currentFatigue = 0f;
         data.monsterId = evolutionData.evolutionId;
         data.currentLevel = evolutionData.upgradeLevel;
-        data.poolTag = evolutionData.name;
-        data.currentFatigue = 0f;
+        data.evolutionType = evolutionData.evolutionType;
+        data.monsterType = evolutionData.monsterType;
+        data.poolTag = evolutionData.evolutionName;
         data.fatigue = evolutionData.fatigue;
         data.minFearInflicted = evolutionData.minFearInflicted;
         data.maxFearInflicted = evolutionData.maxFearInflicted;
         data.cooldown = evolutionData.cooldown;
         data.humanScaringRange = evolutionData.humanScaringRange;
+        if(data.monsterType != MonsterType.Minion) data.humanDetectRange = data.humanScaringRange;
         data.requiredCoins = evolutionData.requiredCoins;
-        data.evolutionType = evolutionData.evolutionType;
         SetState(MonsterState.Idle);
         if(_monsterFatigueGauge != null) _monsterFatigueGauge.SetMaxFatigue(data.fatigue);
     }
