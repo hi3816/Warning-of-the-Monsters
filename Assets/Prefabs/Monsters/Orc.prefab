@@ -188,22 +188,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     id: 3
-    monsterId: 0
-    currentLevel: 0
+    monsterId: 3320
+    currentLevel: 3
     poolTag: Orc
     currentFatigue: 0
-    fatigue: 0
-    minFearInflicted: 0
-    maxFearInflicted: 0
-    cooldown: 0
-    humanDetectRange: 0
-    humanScaringRange: 0
+    fatigue: 45
+    minFearInflicted: 60
+    maxFearInflicted: 110
+    cooldown: 4.4
+    humanDetectRange: 6.4
+    humanScaringRange: 6.4
     walkSpeed: 0
-    requiredCoins: 0
+    requiredCoins: 375
     maxLevel: 3
     monsterType: 0
-    summonerId: 0
-    evolutionType: 0
+    evolutionType: 1
   _fatigueGauge: {fileID: 0}
 --- !u!114 &2577834220339051797
 MonoBehaviour:

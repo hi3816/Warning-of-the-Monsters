@@ -188,21 +188,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     id: 9
-    monsterId: 0
-    currentLevel: 0
+    monsterId: 9310
+    currentLevel: 3
     poolTag: Owlbear
     currentFatigue: 0
-    fatigue: 0
-    minFearInflicted: 0
-    maxFearInflicted: 0
-    cooldown: 0
-    humanDetectRange: 0
-    humanScaringRange: 0
+    fatigue: 40
+    minFearInflicted: 25
+    maxFearInflicted: 40
+    cooldown: 1.8
+    humanDetectRange: 4.3
+    humanScaringRange: 4.3
     walkSpeed: 0
-    requiredCoins: 0
+    requiredCoins: 230
     maxLevel: 3
     monsterType: 0
-    summonerId: 0
     evolutionType: 0
   _fatigueGauge: {fileID: 0}
 --- !u!114 &5498141064545422496

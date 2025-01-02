@@ -188,22 +188,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     id: 10
-    monsterId: 0
-    currentLevel: 0
+    monsterId: 10320
+    currentLevel: 3
     poolTag: Planetar
     currentFatigue: 0
-    fatigue: 0
-    minFearInflicted: 0
-    maxFearInflicted: 0
-    cooldown: 0
-    humanDetectRange: 0
-    humanScaringRange: 0
+    fatigue: 40
+    minFearInflicted: 30
+    maxFearInflicted: 50
+    cooldown: 3.4
+    humanDetectRange: 7.8
+    humanScaringRange: 7.8
     walkSpeed: 0
-    requiredCoins: 0
+    requiredCoins: 375
     maxLevel: 3
     monsterType: 0
-    summonerId: 0
-    evolutionType: 0
+    evolutionType: 1
   _fatigueGauge: {fileID: 0}
 --- !u!114 &5498141064545422496
 MonoBehaviour:

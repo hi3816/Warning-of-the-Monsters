@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DataTable;
 using System.Linq;
+using System.Security.Cryptography;
 
 public class DataManager : SingletonBase<DataManager>
 {
@@ -14,6 +15,7 @@ public class DataManager : SingletonBase<DataManager>
     private Dictionary<string, Monster_Data> _minionDataDictionary;
     private List<Summon_Data> _summonDataList;
     private Dictionary<int, Summon_Data> _summonDataDictionary;
+    private List<int> _summonDataDictKeyList;
     private Dictionary<SfxType, float> _individualSfxVolumeDict;
     public Dictionary<int, (int, string)> selectedMonsterData;
     public int selectedStageIdx;
@@ -123,6 +125,8 @@ public class DataManager : SingletonBase<DataManager>
         {
             _summonDataDictionary[summonData.monsterId] = summonData;
         }
+
+        _summonDataDictKeyList = _summonDataDictionary.Keys.ToList<int>();
     }
 
     public List<Monster_Data> GetBaseMonsters()
@@ -171,19 +175,16 @@ public class DataManager : SingletonBase<DataManager>
         return _summonDataDictionary.TryGetValue(monsterId, out var summonData) ? summonData : null;
     }
 
-    public int GetSummonerIdByEvolutionMinionId(int monsterId)
+    public string[] GetEvolutionMinionNameBySummonerId(int summonerId)
     {
-        foreach(KeyValuePair<int, Summon_Data> pair in _summonDataDictionary)
-        {
-            foreach(int evolutionMinionId in pair.Value.minionId)
-            {
-                if (evolutionMinionId == monsterId)
-                {
-                    return (pair.Key / 1000);
-                }
-            }
-        }
-        return 0;
+        if (!_summonDataDictionary.ContainsKey(summonerId * 1000)) return null;
+        if (!_summonDataDictKeyList.Contains(summonerId * 1000)) return null;
+
+        int index = _summonDataDictKeyList.IndexOf(summonerId * 1000);
+        string[] evolutionMinions = new string[2];
+        evolutionMinions[0] = _summonDataDictionary[_summonDataDictKeyList[index + 1]].minionTag[0];
+        evolutionMinions[1] = _summonDataDictionary[_summonDataDictKeyList[index + 2]].minionTag[0];
+        return evolutionMinions;
     }
 
     private void SetIndividualSfxVolumeDict()

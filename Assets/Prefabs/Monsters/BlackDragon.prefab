@@ -188,21 +188,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     id: 2
-    monsterId: 2
+    monsterId: 2310
     currentLevel: 3
     poolTag: BlackDragon
     currentFatigue: 0
     fatigue: 53
     minFearInflicted: 76
     maxFearInflicted: 140
-    cooldown: 2
-    humanDetectRange: 0
-    humanScaringRange: 4
+    cooldown: 4
+    humanDetectRange: 4.7
+    humanScaringRange: 4.7
     walkSpeed: 0
     requiredCoins: 300
     maxLevel: 3
     monsterType: 0
-    summonerId: 0
     evolutionType: 0
   _fatigueGauge: {fileID: 0}
 --- !u!114 &5697816560405013254

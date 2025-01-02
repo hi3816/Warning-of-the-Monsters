@@ -188,21 +188,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     id: 1
-    monsterId: 0
-    currentLevel: 0
+    monsterId: 1310
+    currentLevel: 3
     poolTag: Hellhound
     currentFatigue: 0
-    fatigue: 0
-    minFearInflicted: 0
-    maxFearInflicted: 0
-    cooldown: 0
-    humanDetectRange: 0
-    humanScaringRange: 0
+    fatigue: 35
+    minFearInflicted: 13
+    maxFearInflicted: 19
+    cooldown: 1
+    humanDetectRange: 4.7
+    humanScaringRange: 4.7
     walkSpeed: 0
-    requiredCoins: 0
+    requiredCoins: 230
     maxLevel: 3
     monsterType: 0
-    summonerId: 0
     evolutionType: 0
   _fatigueGauge: {fileID: 0}
 --- !u!114 &3754409487111537890

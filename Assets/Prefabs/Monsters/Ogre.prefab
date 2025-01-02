@@ -255,21 +255,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     id: 3
-    monsterId: 4
+    monsterId: 3310
     currentLevel: 3
     poolTag: Ogre
     currentFatigue: 0
     fatigue: 40
     minFearInflicted: 50
     maxFearInflicted: 100
-    cooldown: 3.5
-    humanDetectRange: 0
-    humanScaringRange: 3.6
+    cooldown: 7
+    humanDetectRange: 6.6
+    humanScaringRange: 6.6
     walkSpeed: 0
     requiredCoins: 400
     maxLevel: 3
     monsterType: 0
-    summonerId: 0
     evolutionType: 0
   _fatigueGauge: {fileID: 0}
 --- !u!114 &1033469260566267576

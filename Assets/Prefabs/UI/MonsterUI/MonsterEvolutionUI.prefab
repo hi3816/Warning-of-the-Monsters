@@ -105,11 +105,11 @@ MonoBehaviour:
   - tag: Planetar
     prefab: {fileID: 5747528317129110511, guid: 8b8b7769516e81e4e8b477a0173b7dd0, type: 3}
     size: 12
-  _minionMonsters:
-  - {fileID: -1437158679666821263, guid: ad778e652ac4f4b9b8594d2ac7b554ed, type: 3}
-  - {fileID: -3380862154934517563, guid: 264843ee98e1f49308cb774d77b4692e, type: 3}
-  - {fileID: 6033818287721747379, guid: 9c868947241799f43b2a01c008d004e8, type: 3}
-  - {fileID: 8113890656126382881, guid: 46ab9f2adc91548d192cca4380417f15, type: 3}
+  _summonerMonsters:
+  - {fileID: 7125030679217324086, guid: fe818276475734e589ef2628bc5bf421, type: 3}
+  - {fileID: 7125030679217324086, guid: fe818276475734e589ef2628bc5bf421, type: 3}
+  - {fileID: 7125030679217324086, guid: a81715606951e46489d69dfca6cb27e4, type: 3}
+  - {fileID: 7125030679217324086, guid: a81715606951e46489d69dfca6cb27e4, type: 3}
   _evolutionMonsterList: []
 --- !u!1 &1208973493108306354
 GameObject:

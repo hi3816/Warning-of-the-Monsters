@@ -188,21 +188,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     id: 10
-    monsterId: 0
-    currentLevel: 0
+    monsterId: 10310
+    currentLevel: 3
     poolTag: FrostGiant
     currentFatigue: 0
-    fatigue: 0
-    minFearInflicted: 0
-    maxFearInflicted: 0
-    cooldown: 0
-    humanDetectRange: 0
-    humanScaringRange: 0
+    fatigue: 50
+    minFearInflicted: 60
+    maxFearInflicted: 100
+    cooldown: 7
+    humanDetectRange: 7.4
+    humanScaringRange: 7.4
     walkSpeed: 0
-    requiredCoins: 0
+    requiredCoins: 400
     maxLevel: 3
     monsterType: 0
-    summonerId: 0
     evolutionType: 0
   _fatigueGauge: {fileID: 0}
 --- !u!114 &5498141064545422496

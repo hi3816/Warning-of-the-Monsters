@@ -30,8 +30,30 @@ public class MonsterData
     public int requiredCoins; //필요재화
     public int maxLevel; // 최대 레벨 -> 진화
     public MonsterType monsterType;
-    public int summonerId;
     public EvolutionType evolutionType;
+
+    public MonsterData Clone()
+    {
+        return new MonsterData
+        {
+            id = this.id,
+            monsterId = this.monsterId,
+            currentLevel = this.currentLevel,
+            poolTag = this.poolTag,
+            currentFatigue = this.currentFatigue,
+            fatigue = this.fatigue,
+            minFearInflicted = this.minFearInflicted,
+            maxFearInflicted= this.maxFearInflicted,
+            cooldown = this.cooldown,
+            humanDetectRange = this.humanDetectRange,
+            humanScaringRange = this.humanScaringRange,
+            walkSpeed = this.walkSpeed,
+            requiredCoins = this.requiredCoins,
+            maxLevel = this.maxLevel,
+            monsterType = this.monsterType,
+            evolutionType = this.evolutionType,
+        };
+    }
 }
 
 public abstract class Monster : MonoBehaviour
@@ -102,7 +124,7 @@ public abstract class Monster : MonoBehaviour
         }
     }
 
-    protected void ResetMonster()
+    public void ResetMonster()
     {
         SetState(MonsterState.Idle);
         if (_spriteRenderer.color.a == 0f)
@@ -133,11 +155,11 @@ public abstract class Monster : MonoBehaviour
         data.monsterType = monsterData.monsterType;
     }
 
-    // // 현재 데이터 변경
-    //public void SetMonsterDataToMonsterData(MonsterData newMonsterData)
-    //{
-    //    data = newMonsterData;
-    //}
+    // 현재 데이터 변경
+    public void SetMonsterDataToMonsterData(MonsterData newMonsterData)
+    {
+        data = newMonsterData.Clone();
+    }
 
     public void Upgrade(DataTable.Upgrade_Data upgradeData)
     {
@@ -159,7 +181,7 @@ public abstract class Monster : MonoBehaviour
         data.currentLevel = evolutionData.upgradeLevel;
         data.evolutionType = evolutionData.evolutionType;
         data.monsterType = evolutionData.monsterType;
-        data.poolTag = evolutionData.name;
+        data.poolTag = evolutionData.evolutionName;
         data.fatigue = evolutionData.fatigue;
         data.minFearInflicted = evolutionData.minFearInflicted;
         data.maxFearInflicted = evolutionData.maxFearInflicted;

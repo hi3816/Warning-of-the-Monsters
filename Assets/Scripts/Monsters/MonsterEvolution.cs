@@ -9,8 +9,8 @@ public class MonsterEvolution : MonoBehaviour
 
     [Header("Pool")]
     [SerializeField] private PoolManager.PoolConfig[] _poolConfigs;
-    [SerializeField] private List<Monster> _minionMonsters;
-    [SerializeField] private List<Monster> _evolutionMonsterList;
+    [SerializeField] private List<Monster> _summonerMonsters;
+    [SerializeField] private List<MonsterData> _evolutionMonsterList;
 
     // 진화 스프라이트, 필요재화 담을 Dictionary
     private Dictionary<int, Sprite[]> _evolutionSpriteDict = new Dictionary<int, Sprite[]>();
@@ -22,9 +22,9 @@ public class MonsterEvolution : MonoBehaviour
     {
         _monsterEvolutionUI = GetComponent<MonsterEvolutionUI>();
         SetSprite(_poolConfigs);
-        SetSprite(_minionMonsters);
+        SetSprite(_summonerMonsters);
         SetEvolutionData(_poolConfigs);
-        SetEvolutionData(_minionMonsters);
+        SetEvolutionData(_summonerMonsters);
         PoolManager.Instance.AddPools(_poolConfigs);
     }
 
@@ -51,7 +51,7 @@ public class MonsterEvolution : MonoBehaviour
 
                     if (!_evolutionSpriteDict.ContainsKey(monsterID))
                     {
-                        _evolutionSpriteDict.Add(monsterID, spriteArr);
+                        _evolutionSpriteDict[monsterID] = spriteArr;
                     }
                 }
             }
@@ -65,7 +65,7 @@ public class MonsterEvolution : MonoBehaviour
         for (int i = 0; i < list.Count; i += 2)
         {
             Monster monster = list[i];
-            int monsterID = GetIdByType(monster);
+            int monsterID = monster.data.id;
 
             foreach (int key in selectedMonsterData.Keys)
             {
@@ -73,13 +73,14 @@ public class MonsterEvolution : MonoBehaviour
                 {
                     SpriteAtlas _sprites = Resources.Load<SpriteAtlas>("UI/UISprites/MonsterEvolutionSprite");
 
-                    Sprite sprite1 = _sprites.GetSprite(list[i].name);
-                    Sprite sprite2 = _sprites.GetSprite(list[i + 1].name);
+                    string[] stringArr = DataManager.Instance.GetEvolutionMinionNameBySummonerId(monsterID);
+                    Sprite sprite1 = _sprites.GetSprite(stringArr[0]);
+                    Sprite sprite2 = _sprites.GetSprite(stringArr[1]);
                     Sprite[] spriteArr = { sprite1, sprite2 };
 
                     if (!_evolutionSpriteDict.ContainsKey(monsterID))
                     {
-                        _evolutionSpriteDict.Add(monsterID, spriteArr);
+                        _evolutionSpriteDict[monsterID] = spriteArr;
                     }
                 }
             }
@@ -96,39 +97,32 @@ public class MonsterEvolution : MonoBehaviour
             int monsterId2 = monster2.data.id;
             monster1.Evolution(DataManager.Instance.GetEvolutionData(monsterId1, monster1.data.maxLevel, EvolutionType.Atype));
             monster2.Evolution(DataManager.Instance.GetEvolutionData(monsterId2, monster2.data.maxLevel, EvolutionType.Btype));
-            _evolutionMonsterList.Add(monster1);
-            _evolutionMonsterList.Add(monster2);
+            _evolutionMonsterList.Add(monster1.data.Clone());
+            _evolutionMonsterList.Add(monster2.data.Clone());
 
             int[] requiredCoins = { monster1.data.requiredCoins, monster2.data.requiredCoins };
-            _evolutionRequiredCoinsDict.Add(monsterId1, requiredCoins);
+            _evolutionRequiredCoinsDict[monsterId1] = requiredCoins;
         }
     }
 
-    private void SetEvolutionData(List<Monster> list)
+    private void SetEvolutionData(List<Monster> summonerList)
     {
-        for (int i = 0; i < list.Count; i += 2)
+        for (int i = 0; i < summonerList.Count; i += 2)
         {
-            Monster monster1 = list[i];
-            Monster monster2 = list[i + 1];
-            int monsterId1 = GetIdByType(monster1);
-            int monsterId2 = GetIdByType(monster2);
+            Monster monster1 = summonerList[i];
+            Monster monster2 = summonerList[i + 1];
+            int monsterId1 = monster1.data.id;
+            int monsterId2 = monster2.data.id;
+
             monster1.Evolution(DataManager.Instance.GetEvolutionData(monsterId1, monster1.data.maxLevel, EvolutionType.Atype));
+            _evolutionMonsterList.Add(monster1.data.Clone());
+
             monster2.Evolution(DataManager.Instance.GetEvolutionData(monsterId2, monster2.data.maxLevel, EvolutionType.Btype));
-            _evolutionMonsterList.Add(monster1);
-            _evolutionMonsterList.Add(monster2);
+            _evolutionMonsterList.Add(monster2.data.Clone());
 
             int[] requiredCoins = { monster1.data.requiredCoins, monster2.data.requiredCoins };
-            _evolutionRequiredCoinsDict.Add(monsterId1, requiredCoins);
+            _evolutionRequiredCoinsDict[monsterId1] = requiredCoins;
         }
-    }
-
-    private int GetIdByType(Monster monster)
-    {
-        if (monster.data.monsterType == MonsterType.Minion)
-        {
-            return DataManager.Instance.GetSummonerIdByEvolutionMinionId(monster.data.id);
-        }
-        return monster.data.id;
     }
 
     // 진화 (프리팹 변경)
@@ -142,22 +136,23 @@ public class MonsterEvolution : MonoBehaviour
         if (evolution != null && StageManager.Instance.CurrGold >= evolution.requiredCoins)
         {
             StageManager.Instance.ChangeGold(-evolution.requiredCoins);
-            Vector3 pos = _selectMonster.gameObject.transform.position;
-            PoolManager.Instance.ReturnToPool(_selectMonster.data.poolTag, _selectMonster.gameObject);
 
-            if (evolution.monsterType == MonsterType.Summoner)
+            if (_selectMonster.data.monsterType == MonsterType.Summoner)
             {
-                GameObject evolutionMonster = PoolManager.Instance.SpawnFromPool(_selectMonster.data.poolTag, pos, Quaternion.identity);
-                summonerMonster summoner = evolutionMonster.GetComponent<Monster>() as summonerMonster;
-                summoner.Evolution(DataManager.Instance.GetEvolutionData(summoner.data.id, summoner.data.maxLevel, evolutionType));
+                _selectMonster.data = GetMonsterEvolutionData(evolutionType).Clone();
+                _selectMonster.ResetMonster();
+                summonerMonster summoner = _selectMonster as summonerMonster;
                 summoner.InitializeSummonableMinions();
             }
             else
             {
+                Vector3 pos = _selectMonster.gameObject.transform.position;
                 string evolutionMonsterName = GetMonsterEvolutionName(evolutionType);
+                PoolManager.Instance.ReturnToPool(_selectMonster.data.poolTag, _selectMonster.gameObject);
                 GameObject evolutionMonster = PoolManager.Instance.SpawnFromPool(evolutionMonsterName, pos, Quaternion.identity);
                 Monster _monster = evolutionMonster.GetComponent<Monster>();
-                _monster.Evolution(DataManager.Instance.GetEvolutionData(_monster.data.id, _monster.data.maxLevel, evolutionType));
+                _monster.data = GetMonsterEvolutionData(evolutionType).Clone();
+                _monster.ResetMonster();
             }
             _monsterEvolutionUI.Hide();
         }
@@ -168,18 +163,18 @@ public class MonsterEvolution : MonoBehaviour
     {
         for (int i = 0; i < _evolutionMonsterList.Count; i += 2)
         {
-            Monster monster = _evolutionMonsterList[i];
-            int monsterID = monster.data.id;
+            MonsterData monster = _evolutionMonsterList[i];
+            int monsterID = monster.id;
 
             if (monsterID == _selectMonster.data.id)
             {
                 if (evolutionType == EvolutionType.Atype)
                 {
-                    return _evolutionMonsterList[i].name;
+                    return _evolutionMonsterList[i].poolTag;
                 }
                 else if (evolutionType == EvolutionType.Btype)
                 {
-                    return _evolutionMonsterList[i + 1].name;
+                    return _evolutionMonsterList[i + 1].poolTag;
                 }
             }
         }
@@ -187,12 +182,12 @@ public class MonsterEvolution : MonoBehaviour
     }
 
     // 미리 캐싱해둔 데이터 가져오기
-    private Monster GetMonsterEvolutionData(EvolutionType evolutionType)
+    private MonsterData GetMonsterEvolutionData(EvolutionType evolutionType)
     {
         for (int i = 0; i < _evolutionMonsterList.Count; i += 2)
         {
-            Monster monster = _evolutionMonsterList[i];
-            int monsterID = monster.data.id;
+            MonsterData monster = _evolutionMonsterList[i];
+            int monsterID = monster.id;
 
             if (monsterID == _selectMonster.data.id)
             {
