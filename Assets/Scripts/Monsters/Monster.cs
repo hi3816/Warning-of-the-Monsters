@@ -169,6 +169,7 @@ public abstract class Monster : MonoBehaviour
         data.minFearInflicted = upgradeData.minFearInflicted;
         data.maxFearInflicted = upgradeData.maxFearInflicted;
         data.cooldown = upgradeData.cooldown;
+        data.humanDetectRange = upgradeData.humanDetectRange;
         data.humanScaringRange = upgradeData.humanScaringRange;
         data.requiredCoins = upgradeData.requiredCoins;
         if (_monsterFatigueGauge != null) _monsterFatigueGauge.SetMaxFatigue(data.fatigue);
@@ -195,7 +196,7 @@ public abstract class Monster : MonoBehaviour
 
     protected Transform GetNearestHuman()
     {
-        Collider2D[] detectedHumans = Physics2D.OverlapCircleAll(transform.position, data.humanScaringRange, LayerMask.GetMask("Human"));
+        Collider2D[] detectedHumans = Physics2D.OverlapCircleAll(transform.position, data.humanDetectRange, LayerMask.GetMask("Human"));
         if (detectedHumans.Length > 0)
         {
             Transform nearestHuman = detectedHumans[0].transform;
