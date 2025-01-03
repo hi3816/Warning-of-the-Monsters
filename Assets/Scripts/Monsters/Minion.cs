@@ -1,11 +1,10 @@
-using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Minion : Monster //졸개
 {
-    private NavMeshAgent _navMeshAgent;
     private summonerMonster _summonerMonster;
+    private Vector3 _targetPosition;
+    private float _stoppingDistance = 0.5f;
 
     public void InitializeMinion(DataTable.Monster_Data minionData, summonerMonster summoner)
     {
@@ -18,20 +17,9 @@ public class Minion : Monster //졸개
         data.walkSpeed = minionData.walkSpeed;
 
         _summonerMonster = summoner;
-
-        _navMeshAgent.speed = minionData.walkSpeed;
-        Animator.speed = _navMeshAgent.speed;
         SetState(MonsterState.Idle);
     }
     
-    protected override void Awake()
-    {
-        base.Awake();
-        _navMeshAgent = GetComponent<NavMeshAgent>();
-        _navMeshAgent.updateRotation = false;
-        _navMeshAgent.updateUpAxis = false;
-    }
-
     protected override void Update()
     {
         base.Update();
@@ -41,6 +29,7 @@ public class Minion : Monster //졸개
              HandleWalking();
              break;
          case MonsterState.Walking:
+             MoveTowardsTarget();
              break;
         }
     }
@@ -65,21 +54,40 @@ public class Minion : Monster //졸개
             float distanceToHuman = Vector3.Distance(transform.position, nearestHuman.position);
             if (distanceToHuman <= data.humanDetectRange)
             {
-                _navMeshAgent.SetDestination(nearestHuman.position);
+                _targetPosition = nearestHuman.position;
                 SetState(MonsterState.Walking);
                 if (distanceToHuman <= data.humanScaringRange)
                 {
                     SetState(MonsterState.Scaring);
+                    return;
                 }
                 
                 if (distanceToSummoner > 5f) // 만약 미니언이 소환사와 너무 멀어지면
                 {
-                    _navMeshAgent.SetDestination(_summonerMonster.transform.position);
+                    Vector3 offset = (transform.position - _summonerMonster.transform.position).normalized * 1f;
+                    _targetPosition = _summonerMonster.transform.position + offset;
+                    UpdateAnimatorParameters(_summonerMonster.transform.position);
                     SetState(MonsterState.Walking);
                 }
             }
         }
         else
+        {
+            Vector3 offset = (transform.position - _summonerMonster.transform.position).normalized * 1f;
+            _targetPosition = _summonerMonster.transform.position + offset;
+            UpdateAnimatorParameters(_summonerMonster.transform.position);
+            SetState(MonsterState.Walking);
+        }
+    }
+    
+    private void MoveTowardsTarget()
+    {
+        if (_targetPosition != Vector3.zero)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, _targetPosition, data.walkSpeed * Time.deltaTime);
+        }
+
+        if (Vector3.Distance(transform.position, _targetPosition) <= _stoppingDistance)
         {
             SetState(MonsterState.Idle);
         }

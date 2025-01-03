@@ -238,7 +238,7 @@ public abstract class Monster : MonoBehaviour
         }
     }
     
-    private void UpdateAnimatorParameters(Vector2 direction)
+    protected void UpdateAnimatorParameters(Vector2 direction)
     {
         if (Animator == null) return;
         
