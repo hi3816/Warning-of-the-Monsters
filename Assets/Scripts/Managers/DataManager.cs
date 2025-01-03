@@ -249,6 +249,11 @@ public class DataManager : SingletonBase<DataManager>
         }
         return null;
     }
+
+    public List<Projectile_Data> GetProjectileData()
+    {
+        return Projectile_Data.GetList();
+    }
    
     public List<Monster_Data> GetMonsterSOs()
     {

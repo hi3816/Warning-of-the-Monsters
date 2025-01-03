@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class stationaryDefender : Monster //한자리를 지키고 있는 몬스터(=일반타워)
 {
@@ -10,22 +12,29 @@ public class stationaryDefender : Monster //한자리를 지키고 있는 몬스
         base.Update();
     }
 
-    protected override void Scaring(float time)
+    protected override void Scaring()
     {
-        base.Scaring(time);
-       
-        // 범위 공격
-        // if (Time.time - _lastScareTime > data.cooldown)
-        // {
-        //     foreach (Human human in _targetHumanList)
-        //     {
-        //         if (human == null) continue;
-        //
-        //         human.IncreaseFear(data.fearInflicted);
-        //         //human.controller.SetTargetMonster(transform);
-        //     }
-        //     _lastScareTime = Time.time;
-        // }
+        if (isSingleTargetAttack)
+        {
+            base.Scaring();
+            return;
+        }
+
+        foreach (Human human in TargetHumanList)
+        {
+            if (human == null) continue;
+
+            if (_lastScareTime >= data.cooldown)
+            {
+                GameObject obj = PoolManager.Instance.SpawnFromPool(projectileData.projectileType.ToString(), transform.position, Quaternion.identity);
+                MonsterProjectile projectile = obj.GetComponent<MonsterProjectile>();
+                projectile.SetProjectileInfo(human.transform.position, projectileData);
+                obj.SetActive(true);
+
+                human.IncreaseFear(Random.Range(data.minFearInflicted, data.maxFearInflicted));
+                _lastScareTime = 0f;
+            }
+        }
 
         if (TargetHumanList.Count == 0)
         {

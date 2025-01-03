@@ -9,10 +9,12 @@ public class MonsterManager : SingletonBase<MonsterManager>
     public int SelectedMonsterId => _selectedMonsterId;
 
     [SerializeField] private PoolManager.PoolConfig[] _poolConfigs; // 몬스터 풀
+    [SerializeField] private PoolManager.PoolConfig[] _monsterProjectiles;
     
     private void Start()
     {
         PoolManager.Instance.AddPools(_poolConfigs);
+        PoolManager.Instance.AddPools(_monsterProjectiles);
         LoadMonsterData();
         if (!_monstersById.ContainsKey(_selectedMonsterId) && _monstersById.Count > 0)
         {

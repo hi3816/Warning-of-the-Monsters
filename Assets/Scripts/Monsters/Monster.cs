@@ -1,3 +1,4 @@
+using DataTable;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -70,7 +71,9 @@ public abstract class Monster : MonoBehaviour
     private MonsterFatigueGague _monsterFatigueGauge;
 
     public Action OnAttacked;
-    
+    protected bool isSingleTargetAttack = true;
+    protected Projectile_Data projectileData;
+
     protected virtual void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -81,7 +84,21 @@ public abstract class Monster : MonoBehaviour
         {
             SetMonsterData(baseMonsterData);
         }
-        
+
+        List<Projectile_Data> list = DataManager.Instance.GetProjectileData();
+        foreach (Projectile_Data projectileData in list)
+        {
+            foreach (int id in projectileData.monsterId)
+            {
+                if (id == data.id)
+                {
+                    isSingleTargetAttack = false;
+                    this.projectileData = projectileData;
+                }
+            }
+        }
+        if (isSingleTargetAttack) projectileData = null;
+
         if (_fatigueGauge == null)
         {
             _fatigueGauge = gameObject.transform.Find("FatigueCanvas/FatigueGauge").gameObject;
