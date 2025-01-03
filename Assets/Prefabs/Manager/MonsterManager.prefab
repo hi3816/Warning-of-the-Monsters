@@ -92,6 +92,13 @@ MonoBehaviour:
   - tag: Medusa
     prefab: {fileID: 8609092479553512321, guid: 46ab9f2adc91548d192cca4380417f15, type: 3}
     size: 20
+  _monsterProjectiles:
+  - tag: BigRock
+    prefab: {fileID: 4348731988364683318, guid: 7431fc5b658f0304a9a8570c0b53a8e0, type: 3}
+    size: 30
+  - tag: Frostbolt
+    prefab: {fileID: 4348731988364683318, guid: 8be390d072fc7d643937c19275f73f91, type: 3}
+    size: 30
 --- !u!1 &4036041060090076002
 GameObject:
   m_ObjectHideFlags: 0
