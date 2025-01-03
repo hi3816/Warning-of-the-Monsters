@@ -39,7 +39,7 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
     {
         _selectMonster = monster;
         Vector3 worldPosition = monster.transform.position;
-        _evolutionUI.transform.position = worldPosition + (Vector3.up * 1.5f);
+        _evolutionUI.transform.position = worldPosition;
         _evolutionUI.SetActive(true);
         _sellButtonCanvas.transform.position = worldPosition + Vector3.down;
         _sellButtonCanvas.SetActive(true);

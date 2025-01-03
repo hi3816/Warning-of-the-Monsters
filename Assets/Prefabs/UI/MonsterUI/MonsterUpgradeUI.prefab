@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 4980735194649679256}
   - component: {fileID: 3376834696747158308}
   m_Layer: 5
-  m_Name: CoinImg
+  m_Name: UpgradImg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -259,7 +259,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1.25, y: -9}
+  m_AnchoredPosition: {x: 5, y: -9}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &4980735194649679256
@@ -290,7 +290,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1180158613, guid: 2ce97afc07e9d4d1bbd686e1d175ab83, type: 3}
+  m_Sprite: {fileID: 380767017, guid: 2ce97afc07e9d4d1bbd686e1d175ab83, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -448,8 +448,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
-    m_Right: 0
+    m_Left: 5
+    m_Right: 5
     m_Top: 0
     m_Bottom: 2
   m_ChildAlignment: 4
@@ -641,17 +641,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff5678d858ced4a208fe83c8280be152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _monsterUpgradeUI: {fileID: 0}
-  _monsterEvolutionUI: {fileID: 0}
-  _rangeIndicator: {fileID: 0}
   _stageManager: {fileID: 0}
   _upgradeCanvas: {fileID: 460866351190536399}
   _upgradeStatsText: {fileID: 1680155151738565009}
   _upgradeCostText: {fileID: 3441067362080631250}
+  _sellButtonText: {fileID: 8472999761210867492}
   UiPanel: {fileID: 2830615643088655321}
   UpgradeButton: {fileID: 8379488673374121214}
   SellButton: {fileID: 4158769538921802904}
-  _sellButtonText: {fileID: 8472999761210867492}
 --- !u!1 &2949650378316373962
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,7 +684,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 60, y: -82.5}
+  m_AnchoredPosition: {x: 60, y: -78.75}
   m_SizeDelta: {x: 100, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1189001599977296913
@@ -1038,7 +1035,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 26.25, y: -9}
+  m_AnchoredPosition: {x: 27.5, y: -9}
   m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2424676757606498039
@@ -1247,7 +1244,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1.25, y: -9}
+  m_AnchoredPosition: {x: 5, y: -9}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &5072388844719490679
@@ -1640,7 +1637,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 60, y: -27.5}
+  m_AnchoredPosition: {x: 60, y: -31.25}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3349295675322893489
@@ -1830,7 +1827,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5603270334954226865
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2032,8 +2029,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
-    m_Right: 0
+    m_Left: 5
+    m_Right: 5
     m_Top: 0
     m_Bottom: 2
   m_ChildAlignment: 4
@@ -2079,7 +2076,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 26.25, y: -9}
+  m_AnchoredPosition: {x: 27.5, y: -9}
   m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6829270980747224074

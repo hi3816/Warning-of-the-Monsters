@@ -14,10 +14,13 @@ public class UIManager : SingletonBase<UIManager>
 
     private List<UIBase> uiList = new List<UIBase>();
 
+    [SerializeField] private PoolManager.PoolConfig[] _poolConfigs;
+
     protected override void Awake()
     {
         base.Awake();
         DontDestroyOnLoad(gameObject);
+        PoolManager.Instance.AddPools(_poolConfigs);
     }
 
     public T Show<T>() where T : UIBase

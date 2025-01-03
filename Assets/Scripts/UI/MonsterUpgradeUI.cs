@@ -39,7 +39,7 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
     void UpdateUI()
     {
         Vector3 worldPosition = _selectedMonster.transform.position;
-        UiPanel.transform.position = worldPosition + (Vector3.up * 1.5f);
+        UiPanel.transform.position = worldPosition + (Vector3.right * 1.5f);
 
         var upgrades = DataManager.Instance.GetUpgradeMonsters(_selectedMonster.data.id, _selectedMonster.data.currentLevel + 1);
         if (upgrades != null)
