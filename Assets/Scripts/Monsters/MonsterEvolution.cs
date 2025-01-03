@@ -44,8 +44,8 @@ public class MonsterEvolution : MonoBehaviour
                 {
                     SpriteAtlas _sprites = Resources.Load<SpriteAtlas>("UI/UISprites/MonsterEvolutionSprite");
 
-                    Sprite sprite1 = _sprites.GetSprite(pools[i].prefab.name);
-                    Sprite sprite2 = _sprites.GetSprite(pools[i+1].prefab.name);
+                    Sprite sprite1 = _sprites.GetSprite(pools[i].prefab.GetComponent<Monster>().data.poolTag);
+                    Sprite sprite2 = _sprites.GetSprite(pools[i+1].prefab.GetComponent<Monster>().data.poolTag);
 
                     Sprite[] spriteArr = { sprite1, sprite2 };
 

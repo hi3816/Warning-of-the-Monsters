@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 6261578292318171179}
   - component: {fileID: 1033469260566267576}
   m_Layer: 6
-  m_Name: Ogre
+  m_Name: Orge
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -56,9 +56,9 @@ namespace DataTable
 
 /* Fields. */
 
-		public System.Int32 monsterId;
-		public System.String name;
+		public System.Int32 projectileId;
 		public ProjectileType projectileType;
+		public System.Collections.Generic.List<Int32> monsterId;
 		public System.Single damageRadius;
   
 
@@ -177,7 +177,7 @@ namespace DataTable
                               
                             }
                             List.Add(instance); 
-                            Map.Add(instance.monsterId, instance);
+                            Map.Add(instance.projectileId, instance);
                         }
                         if(isLoaded == false || forceReload)
                         { 

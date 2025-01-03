@@ -87,7 +87,7 @@ MonoBehaviour:
   - tag: RedDragon
     prefab: {fileID: 6068172569154698469, guid: c25b4064d3dd58642bef081d6b7bae92, type: 3}
     size: 12
-  - tag: Ogre
+  - tag: Orge
     prefab: {fileID: 6165253155495164036, guid: 1dcc307ce5b5cdc43a690f85eeb58466, type: 3}
     size: 12
   - tag: Orc
