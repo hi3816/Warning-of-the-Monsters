@@ -240,7 +240,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!114 &7125030679217324086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,22 +255,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     id: 4
-    monsterId: 0
-    currentLevel: 0
+    monsterId: 4320
+    currentLevel: 3
     poolTag: Lich
     currentFatigue: 0
-    fatigue: 0
+    fatigue: 50
     minFearInflicted: 0
     maxFearInflicted: 0
-    cooldown: 0
-    humanDetectRange: 0
-    humanScaringRange: 0
+    cooldown: 20
+    humanDetectRange: 4
+    humanScaringRange: 4
     walkSpeed: 0
-    requiredCoins: 0
+    requiredCoins: 230
     maxLevel: 3
     monsterType: 1
-    summonerId: 0
-    evolutionType: 0
+    evolutionType: 1
   _fatigueGauge: {fileID: 0}
 --- !u!114 &1164190097801783812
 MonoBehaviour:
