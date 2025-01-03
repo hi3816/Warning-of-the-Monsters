@@ -28,9 +28,8 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
         _minionToSummon.Add((summonData.minionId[1], summonData.minionTag[1], summonData.count[1]));
     }
 
-    protected override void Scaring(float time)
+    protected override void Scaring()
     {
-        _lastScareTime += time;
         if (_lastScareTime >= data.cooldown)
         {
             SummonMinions();

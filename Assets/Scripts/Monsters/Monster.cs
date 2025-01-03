@@ -110,7 +110,8 @@ public abstract class Monster : MonoBehaviour
                 {
                     Vector2 directionToHuman = ((Vector2)nearestHuman.position - (Vector2)transform.position).normalized;
                     UpdateAnimatorParameters(directionToHuman);
-                    Scaring(Time.deltaTime);
+                    _lastScareTime += Time.deltaTime;
+                    Scaring();
                 }
                 else
                 {
@@ -246,14 +247,13 @@ public abstract class Monster : MonoBehaviour
         Animator.SetFloat("Vertical", direction.y);
     }
 
-    protected virtual void Scaring(float time)
+    protected virtual void Scaring()
     {
         // 단일 공격
         foreach (Human human in TargetHumanList)
         {
             if (human == null) continue;
-
-            _lastScareTime += time;
+            
             if (_lastScareTime >= data.cooldown)
             {
                 human.IncreaseFear(Random.Range(data.minFearInflicted, data.maxFearInflicted));
