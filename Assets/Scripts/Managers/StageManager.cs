@@ -102,7 +102,7 @@ public class StageManager : SingletonBase<StageManager>
     // health 변경
     public void ChangeHealth(int health)
     {
-        CurrHealth += health;
+        CurrHealth = Mathf.Max(CurrHealth + health, 0);
         _stageInfoController.ChangeUI();
         if (CurrHealth <= 0)
         {
