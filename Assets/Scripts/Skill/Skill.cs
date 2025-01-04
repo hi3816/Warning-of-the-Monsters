@@ -5,7 +5,6 @@ using UnityEngine;
 public class Skill : MonoBehaviour
 {
     public DataTable.Skill_Data SkillData { get; private set; }
-    private RectTransform _rectTransform;
     private Animator _animator;
     private WaitForSeconds _animationTime;
     private Coroutine _attackCoroutine;

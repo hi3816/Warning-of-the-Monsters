@@ -116,7 +116,7 @@ public abstract class Monster : MonoBehaviour
     protected virtual void Update()
     {
         Transform nearestHuman = GetNearestHuman();
-        
+        _lastScareTime += Time.deltaTime;
         switch (MonsterState)
         {
             case MonsterState.Idle:
@@ -127,7 +127,6 @@ public abstract class Monster : MonoBehaviour
                 {
                     Vector2 directionToHuman = ((Vector2)nearestHuman.position - (Vector2)transform.position).normalized;
                     UpdateAnimatorParameters(directionToHuman);
-                    _lastScareTime += Time.deltaTime;
                     Scaring();
                 }
                 else
