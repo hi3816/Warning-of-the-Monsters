@@ -108,7 +108,7 @@ public abstract class Monster : MonoBehaviour
     
     private void OnEnable()
     {
-        GameManager.Instance.activeObjects.Add(this.gameObject);
+        GameManager.Instance.activeMonsters.Add(this);
         ResetMonster();
         _fatigueGauge.SetActive(true);
     }
@@ -375,7 +375,7 @@ public abstract class Monster : MonoBehaviour
 
         startColor.a = 0f;
         _spriteRenderer.color = startColor;
-        PoolManager.Instance.ReturnToPool(data.poolTag, gameObject);
+        PoolManager.Instance.ReturnToPool(data.poolTag, this);
     }
     
     public void Reset()
@@ -389,6 +389,6 @@ public abstract class Monster : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.Instance.activeObjects.Remove(gameObject);
+        GameManager.Instance.activeMonsters.Remove(this);
     }
 }

@@ -92,13 +92,12 @@ public class SkillButtonn : MonoBehaviour
         _isOnCoolDown = true;
         SetSkillRangeImage(false);
 
-        GameObject obj = PoolManager.Instance.SpawnFromPool(_skillData.skillName.ToString());
+        Skill skill = PoolManager.Instance.SpawnFromPool<Skill>(_skillData.skillName.ToString());
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         worldPosition.z = 0f; // Z축 값 고정
-        obj.transform.position = worldPosition;
-        Skill skill = obj.GetComponent<Skill>();
+        skill.transform.position = worldPosition;
         skill.StartSkill();
-        obj.SetActive(true);
+        skill.gameObject.SetActive(true);
     }
 
     // 쿨타임 이미지 변경

@@ -1,38 +1,29 @@
+using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.Pool;
 
 public class PoolManager : SingletonBase<PoolManager>
 {
     // Inspector에서 여러 풀 한번에 관리
-    [System.Serializable]
+    [Serializable]
     public class PoolConfig
     {
         public string tag;
         public GameObject prefab;
         public int size;
     }
-
+    
     private List<PoolConfig> _poolConfigs = new List<PoolConfig>();
-    private Dictionary<string, ObjectPool> _pools = new Dictionary<string, ObjectPool>();
+    private Dictionary<string, object> _pools = new Dictionary<string, object>();
 
     protected override void Awake()
     {
         base.Awake();
-        InitializePools();
         DontDestroyOnLoad(gameObject);
     }
 
-    private void InitializePools()
-    {
-        foreach (var config in _poolConfigs)
-        {
-            CreatePool(config.tag, config.prefab, config.size);
-        }
-    }
-
-    private void CreatePool(string tag, GameObject prefab, int size)
+    private void CreatePool<T>(string tag, GameObject prefab, int size) where T : Component
     {
         // 풀 딕셔너리에 이미 해당 태그와 일치하는 풀 있으면 리턴(중복 풀 생성 방지)
         if (_pools.ContainsKey(tag))
@@ -41,125 +32,161 @@ public class PoolManager : SingletonBase<PoolManager>
             return;
         }
 
-        /* 계층 구조 생성하여 정리 */
-        // PoolManager
-        // - Pool_XXX
-        // -- GameObject(Clone)
-        // -- GameObject(Clone)...
-        GameObject poolObject = new GameObject($"Pool_{tag}");  // 풀 관리할 빈 게임오브젝트 생성하고 태그로 이름 구별
-        poolObject.transform.SetParent(transform);  // PoolManager의 자식으로 설정
+        // 계층 구조 생성하여 정리
+        GameObject poolObject = new GameObject($"Pool_{tag}"); // 풀 관리할 빈 게임오브젝트 생성하고 태그로 이름 구별
+        poolObject.transform.SetParent(transform); // PoolManager의 자식으로 설정
 
         // Inspector에서 받아온 설정 정보 기반으로 새로운 오브젝트 풀 생성
-        ObjectPool objectPool = poolObject.AddComponent<ObjectPool>();
-        objectPool.Initialize(new ObjectPool.Pool
-        {
-            tag = tag,
-            prefab = prefab,
-            size = size
-        });
+        IObjectPool<T> objectPool = new ObjectPool<T>(
+            createFunc: () =>
+            {
+                GameObject obj = Instantiate(prefab);
+                obj.name = tag; // 생성되는 풀링 오브젝트의 이름을 태그명과 동일하게 설정
+                obj.transform.SetParent(poolObject.transform);
+                return obj.GetComponent<T>();
+            },
+            actionOnGet: obj => obj.gameObject.SetActive(true),
+            actionOnRelease: obj => obj.gameObject.SetActive(false),
+            actionOnDestroy: obj => Destroy(obj.gameObject),
+            defaultCapacity: size,
+            maxSize: 100
+        );
 
         _pools.Add(tag, objectPool);    // 풀 딕셔너리에 새로운 오브젝트 풀 추가
     }
-
-    public void AddPools(PoolConfig[] pools)
+    
+    public void AddPools<T>(PoolConfig[] newPools) where T : Component
     {
-        foreach(PoolConfig pool in pools)
+        if (newPools == null) return;
+        
+        foreach (var pool in newPools)
         {
-            _poolConfigs.Add(pool);
-            CreatePool(pool.tag, pool.prefab, pool.size);
+            if (_pools.ContainsKey(pool.tag)) continue; // 이미 있으면 추가 X
+            _poolConfigs.Add(pool); // 외부 클래스에서 받아온 풀 정보 리스트에 추가
         }
     }
 
-    public void AddPool(PoolConfig pool)
+    public T SpawnFromPool<T>(string tag, Vector3 position, Quaternion rotation) where T : Component
     {
-        _poolConfigs.Add(pool);
-        CreatePool(pool.tag, pool.prefab, pool.size);
-    }
-
-    // Transform 설정하는 SpawnFromPool
-    public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
-    {
-        // 태그와 일치하는 풀이 있는지 유효성 검사
-        if (!_pools.ContainsKey(tag))
+        // 태그와 일치하는 풀이 없으면 풀 생성
+        if (!_pools.TryGetValue(tag, out var pool))
         {
-            Debug.Log($"Pool with tag {tag} doesn't exist.");
+            foreach (var poolConfig in _poolConfigs)
+            {
+                if (poolConfig.tag == tag)
+                {
+                    CreatePool<T>(poolConfig.tag, poolConfig.prefab, poolConfig.size);
+                }
+            }
+        }
+        
+        // 풀 생성 실패 시 에러메시지 출력 후 null 반환
+        if (!_pools.TryGetValue(tag, out pool))
+        {
+            Debug.LogAssertion($"Pool with tag {tag} cannot be created.");
             return null;
         }
 
-        GameObject obj = _pools[tag].SpawnFromPool(tag);    // 풀에서 오브젝트 가져오기
-        // Object 있으면 Transform 설정하고 반환
-        if (obj != null)
+        // 태그와 일치하는 풀이 있으면 풀에서 오브젝트 가져와 Transform 설정 후 반환
+        if (pool is IObjectPool<T> typedPool)
         {
+            T obj = typedPool.Get();
             obj.transform.position = position;
             obj.transform.rotation = rotation;
+            return obj;
         }
-        return obj;
+
+        Debug.LogAssertion($"Type Error: Pool with tag {tag} is {typeof(T)}.");
+        return null;
     }
-    
-    // 게임오브젝트만 반환하는 SpawnFromPool
-    public GameObject SpawnFromPool(string tag)
+
+    public T SpawnFromPool<T>(string tag) where T : Component
     {
-        // 태그와 일치하는 풀이 있는지 유효성 검사
-        if (!_pools.ContainsKey(tag))
+        // 태그와 일치하는 풀이 없으면 풀 생성
+        if (!_pools.TryGetValue(tag, out var pool))
         {
-            Debug.Log($"Pool with tag {tag} doesn't exist.");
+            foreach (var poolConfig in _poolConfigs)
+            {
+                if (poolConfig.tag == tag)
+                {
+                    CreatePool<T>(poolConfig.tag, poolConfig.prefab, poolConfig.size);
+                }
+            }
+        }
+        
+        // 풀 생성 실패 시 에러메시지 출력 후 null 반환
+        if (!_pools.TryGetValue(tag, out pool))
+        {
+            Debug.LogAssertion($"Pool with tag {tag} cannot be created.");
             return null;
         }
 
-        // 풀에서 오브젝트 가져와 반환
-        GameObject obj = _pools[tag].SpawnFromPool(tag);
-        return obj;
-    }
-
-    public void ReturnToPool(string tag, GameObject obj)
-    {
-        if (obj == null) return;
-        // 태그와 일치하는 풀이 있는지 유효성 검사
-        if (!_pools.ContainsKey(tag))
+        // 태그와 일치하는 풀이 있으면 풀에서 오브젝트 가져와 반환
+        if (pool is IObjectPool<T> typedPool)
         {
-            Debug.Log($"Pool with tag {tag} doesn't exist.");
-            return;
+            T obj = typedPool.Get();
+            return obj;
         }
-        obj.SetActive(false);   // 오브젝트 비활성화
+
+        Debug.LogAssertion($"Type Error: Pool with tag {tag} is {typeof(T)}.");
+        return null;
     }
     
+    public void ReturnToPool<T>(string tag, T obj) where T : Component
+    {
+        if (obj == null) return;
+
+        // 태그와 일치하는 풀이 있는지 유효성 검사
+        if (!_pools.TryGetValue(tag, out var pool))
+        {
+            Debug.LogAssertion($"Pool with tag {tag} does not exist.");
+            return;
+        }
+
+        // 오브젝트 풀에 반환
+        if (pool is IObjectPool<T> typedPool)
+        {
+            typedPool.Release(obj);
+            return;
+        }
+
+        Debug.LogAssertion($"Type Error: Pool with tag {tag} is {typeof(T)}.");
+    }
+
     // 특정 태그의 오브젝트 풀을 삭제
     public void DeletePool(string tag)
     {
         // 태그와 일치하는 풀이 있는지 유효성 검사
         if (!_pools.ContainsKey(tag))
         {
-            Debug.Log($"Pool with tag {tag} doesn't exist.");
+            Debug.LogAssertion($"Pool with tag {tag} does not exist.");
             return;
         }
 
-        Destroy(_pools[tag].gameObject);    // 오브젝트 풀 삭제
-        _pools.Remove(tag); // 풀 목록에서 태그 제거
+        if (_pools[tag] is IObjectPool<Component> pool)
+        {
+            pool.Clear();   // 퓰 딕셔너리에서 제거
+        }
 
-        // 인자로 들어온 tag가 PoolConfig의 tag와 일치하면 해당 PoolConfig 삭제
-        _poolConfigs.RemoveAll(config => config.tag == tag);
-
-        Debug.Log($"Pool with tag {tag} deleted successfully.");
-        
-        EditorUtility.SetDirty(this);   // Asset 상태 갱신 에디터에 전달
+        Transform poolObject = transform.Find($"Pool_{tag}");
+        if (poolObject != null)
+        {
+            Destroy(poolObject.gameObject);  // 오브젝트 풀 삭제
+        }
     }
 
     // 풀 딕셔너리에 등록된 모든 오브젝트 풀 삭제
     public void DeleteAllPools()
     {
-        if (_pools == null) return;
-        
         // 풀 딕셔너리에 있는 오브젝트 풀로 생성된 게임오브젝트 삭제
-        foreach (var pool in _pools.Values)
+        foreach (var key in _pools.Keys)
         {
-            Destroy(pool.gameObject);
+            Transform poolObject = transform.Find($"Pool_{key}");
+            if (poolObject != null)
+            {
+                Destroy(poolObject.gameObject);
+            }
         }
-
-        _pools.Clear();         // 풀 딕셔너리에서 모든 항목 삭제
-        _poolConfigs.Clear();    // 풀 설정 리스트에서 모든 항목 삭제
-
-        Debug.Log("All pools have been deleted.");
-
-        EditorUtility.SetDirty(this);   // Asset 상태 갱신 에디터에 전달
+        _pools.Clear(); // 풀 딕셔너리에서 모든 항목 삭제
     }
 }

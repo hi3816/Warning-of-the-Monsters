@@ -88,17 +88,13 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     {
         Vector3 pos = position;
         pos.z = 0f;
-        GameObject minion = PoolManager.Instance.SpawnFromPool(minionTag, pos, Quaternion.identity);
+        Minion minion = PoolManager.Instance.SpawnFromPool<Minion>(minionTag, pos, Quaternion.identity);
         if (minion != null)
         {
-            minion.SetActive(true);
-            Minion minionComponent = minion.GetComponent<Minion>();
-            MinionList.Add(minionComponent);
+            minion.gameObject.SetActive(true);
+            MinionList.Add(minion);
 
-            if (minionComponent != null)
-            {
-                minionComponent.InitializeMinion(minionData, this);
-            }
+            minion.InitializeMinion(minionData, this);
         }
     }
 
@@ -124,7 +120,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     {
         foreach (Minion minion in MinionList)
         {
-            PoolManager.Instance.ReturnToPool(minion.gameObject.name, minion.gameObject);
+            PoolManager.Instance.ReturnToPool(minion.gameObject.name, minion);
         }
     }
 
@@ -133,7 +129,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
         base.ReturnToVillage();
         foreach(Minion minion in MinionList)
         {
-            PoolManager.Instance.ReturnToPool(minion.gameObject.name, minion.gameObject);
+            PoolManager.Instance.ReturnToPool(minion.gameObject.name, minion);
         }
     }
 }

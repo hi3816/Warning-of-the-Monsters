@@ -23,7 +23,7 @@ public class SkillButtonController : MonoBehaviour
             SkillSpriteArr[i] = _poolConfigArr[i].prefab.GetComponent<SpriteRenderer>().sprite;
             SkillIdxArr[i] = _poolConfigArr[i].prefab.GetComponent<Skill>().SkillIdx;
         }
-        PoolManager.Instance.AddPools(_poolConfigArr);
+        PoolManager.Instance.AddPools<Skill>(_poolConfigArr);
     }
 
     public bool CheckOtherSkillClick(int buttonIdx)

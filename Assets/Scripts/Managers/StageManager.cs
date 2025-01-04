@@ -33,7 +33,7 @@ public class StageManager : SingletonBase<StageManager>
     protected override void Awake()
     {
         base.Awake();
-        PoolManager.Instance.AddPools(_poolConfigs);
+        PoolManager.Instance.AddPools<SfxSoundSource>(_poolConfigs);
         SoundManager.Instance.PlayBGM(BgmType.Stage);
         SetStageInfo();
         SetStageObject();

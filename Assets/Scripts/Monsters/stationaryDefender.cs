@@ -26,10 +26,9 @@ public class stationaryDefender : Monster //한자리를 지키고 있는 몬스
 
             if (_lastScareTime >= data.cooldown)
             {
-                GameObject obj = PoolManager.Instance.SpawnFromPool(projectileData.projectileType.ToString(), transform.position, Quaternion.identity);
-                MonsterProjectile projectile = obj.GetComponent<MonsterProjectile>();
+                MonsterProjectile projectile = PoolManager.Instance.SpawnFromPool<MonsterProjectile>(projectileData.projectileType.ToString(), transform.position, Quaternion.identity);
                 projectile.SetProjectileInfo(human.transform.position, projectileData);
-                obj.SetActive(true);
+                projectile.gameObject.SetActive(true);
 
                 human.IncreaseFear(Random.Range(data.minFearInflicted, data.maxFearInflicted));
                 _lastScareTime = 0f;

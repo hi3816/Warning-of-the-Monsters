@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GameManager : SingletonBase<GameManager>
 {
-    public List<GameObject> activeObjects = new List<GameObject>();
+    public List<Human> activeHumans = new List<Human>();
+    public List<Monster> activeMonsters = new List<Monster>();
     
     protected override void Awake()
     {
@@ -40,10 +41,15 @@ public class GameManager : SingletonBase<GameManager>
 
     public void ReturnObjects()
     {
-        while (activeObjects.Count > 0)
+        while (activeHumans.Count > 0)
         {
-            string objectName = activeObjects[0].name;
-            PoolManager.Instance.ReturnToPool(objectName, activeObjects[0]);
+            string objectName = activeHumans[0].name;
+            PoolManager.Instance.ReturnToPool(objectName, activeHumans[0]);
+        }
+        while (activeMonsters.Count > 0)
+        {
+            string objectName = activeMonsters[0].name;
+            PoolManager.Instance.ReturnToPool(objectName, activeMonsters[0]);
         }
     }
 
