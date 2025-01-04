@@ -140,7 +140,6 @@ public class MonsterEvolution : MonoBehaviour
             if (_selectMonster.data.monsterType == MonsterType.Summoner)
             {
                 _selectMonster.data = GetMonsterEvolutionData(evolutionType).Clone();
-                _selectMonster.ResetMonster();
                 summonerMonster summoner = _selectMonster as summonerMonster;
                 summoner.InitializeSummonableMinions();
             }
@@ -151,7 +150,6 @@ public class MonsterEvolution : MonoBehaviour
                 PoolManager.Instance.ReturnToPool(_selectMonster.data.poolTag, _selectMonster);
                 Monster evolutionMonster = PoolManager.Instance.SpawnFromPool<Monster>(evolutionMonsterName, pos, Quaternion.identity);
                 evolutionMonster.data = GetMonsterEvolutionData(evolutionType).Clone();
-                evolutionMonster.ResetMonster();
             }
             _monsterEvolutionUI.Hide();
         }

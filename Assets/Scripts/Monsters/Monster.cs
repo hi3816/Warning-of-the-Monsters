@@ -141,10 +141,10 @@ public abstract class Monster : MonoBehaviour
         }
     }
 
-    public void ResetMonster()
+    protected void ResetMonster()
     {
         SetState(MonsterState.Idle);
-        if (_spriteRenderer.color.a == 0f)
+        if (_spriteRenderer.color.a <= 1f)
         {
             Color color = _spriteRenderer.color;
             color.a = 1f;
@@ -154,7 +154,7 @@ public abstract class Monster : MonoBehaviour
     }
 
     // 처음 데이터 저장
-    private void SetMonsterData(DataTable.Monster_Data monsterData)
+    private void SetMonsterData(Monster_Data monsterData)
     {
         data.id = monsterData.id;
         data.currentLevel = 0;
@@ -178,7 +178,7 @@ public abstract class Monster : MonoBehaviour
         data = newMonsterData.Clone();
     }
 
-    public void Upgrade(DataTable.Upgrade_Data upgradeData)
+    public void Upgrade(Upgrade_Data upgradeData)
     {
         data.monsterId = upgradeData.monsterId;
         data.currentLevel = upgradeData.upgradeLevel;
@@ -192,7 +192,7 @@ public abstract class Monster : MonoBehaviour
         if (_monsterFatigueGauge != null) _monsterFatigueGauge.SetMaxFatigue(data.fatigue);
     }
 
-    public void Evolution(DataTable.Evolution_Data evolutionData)
+    public void Evolution(Evolution_Data evolutionData)
     {
         data.currentFatigue = 0f;
         data.monsterId = evolutionData.evolutionId;

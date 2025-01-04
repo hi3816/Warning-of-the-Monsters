@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class MonsterProjectile : MonoBehaviour
 {
-    private Human _human;
     private MonsterData _monsterData;
     private Projectile_Data _data;
     private Vector2 _direction;
@@ -22,10 +21,10 @@ public class MonsterProjectile : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
-        _animationTime = new WaitForSeconds(stateInfo.length * 1.5f);
+        _animationTime = new WaitForSeconds(stateInfo.length * 1f);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!_isStart)
         {
@@ -42,14 +41,13 @@ public class MonsterProjectile : MonoBehaviour
         {
             Human human = collision.GetComponent<Human>();
             
-            if (_humanList.Contains(collision.gameObject)) return;
+            if (_humanList.Contains(collision.gameObject) || human.FearLevel >= human.MaxFear) return;
 
             // 리스트에 없으면 추가하고 스킬 공격력 만큼 피해 입히기
             _humanList.Add(collision.gameObject);
 
             human.IncreaseFear(Random.Range(_monsterData.minFearInflicted, _monsterData.maxFearInflicted));
-            if (coroutine != null) StopCoroutine(coroutine);
-            StartCoroutine(CoDestroy());
+            Destroy();
         }
     }
 
@@ -63,6 +61,7 @@ public class MonsterProjectile : MonoBehaviour
         //transform.rotation = Quaternion.LookRotation(_direction).normalized;
         _isStart = true;
         _humanList.Clear();
+        Destroy();
     }
 
     private Vector2 GetDirection(Vector2 target, Vector3 current)
@@ -84,6 +83,12 @@ public class MonsterProjectile : MonoBehaviour
         Vector2 offset = Random.insideUnitSphere;
         Vector2 newTarget = target + (offset * _data.damageRadius * 0.5f);
         return newTarget;
+    }
+
+    private void Destroy()
+    {
+        if (coroutine != null) StopCoroutine(coroutine);
+        StartCoroutine(CoDestroy());
     }
 
     private IEnumerator CoDestroy()
