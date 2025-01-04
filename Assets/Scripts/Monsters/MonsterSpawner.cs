@@ -38,18 +38,13 @@ public class MonsterSpawner : MonoBehaviour
         if (StageManager.CurrGold >= selectedMonsterData.requiredCoins)
         {
             StageManager.ChangeGold(-selectedMonsterData.requiredCoins);
-            GameObject monster = PoolManager.Instance.SpawnFromPool(selectedMonsterData.name, spawnPosition, Quaternion.identity);
-            if (monster != null)
+            Monster monster = PoolManager.Instance.SpawnFromPool<Monster>(selectedMonsterData.name, spawnPosition, Quaternion.identity);            if (monster != null)
             {
                 monster.transform.position = spawnPosition;
-                monster.SetActive(true);
+                monster.gameObject.SetActive(true);
 
-                var monsterComponent = monster.GetComponent<Monster>();
-                if (monsterComponent != null)
-                {
-                    SetMonsterData(monsterComponent.data, selectedMonsterData);
-                    monsterComponent.Reset();
-                }
+                SetMonsterData(monster.data, selectedMonsterData);
+                monster.Reset();
                 
                 // 나중에 big 몬스터인지 small 몬스터인지 판별하는 조건 추가
                 SoundManager.Instance.PlaySFX(SfxType.SpawnSmallMonster);

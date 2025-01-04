@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 public class summonerMonster : Monster //졸개들을 불러 인간을 막는 몬스터(=병영타워)
 {
     public List<Minion> MinionList { get; private set; } = new List<Minion>(); 
-    private List<(int minionId, string minionTag, int count)> _minionToSummon;
+    private List<(int minionId, string minionTag, int count)> _minionToSummon = new List<(int, string, int)>();
     private CircleCollider2D _collider;
 
     private void Start()
@@ -18,14 +18,13 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     public void InitializeSummonableMinions()
     {
         ClearMinion();
-        ResetMonster();
-        _minionToSummon = new List<(int, string, int)>();
+        _minionToSummon.Clear();
         Summon_Data summonData;
-
         if (data.currentLevel < data.maxLevel) summonData = DataManager.Instance.GetSummonData(data.id * 1000);
         else summonData = DataManager.Instance.GetSummonData(data.monsterId);
         _minionToSummon.Add((summonData.minionId[0], summonData.minionTag[0], summonData.count[0]));
         _minionToSummon.Add((summonData.minionId[1], summonData.minionTag[1], summonData.count[1]));
+        SummonMinions();
     }
 
     protected override void Scaring()
@@ -88,17 +87,13 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     {
         Vector3 pos = position;
         pos.z = 0f;
-        GameObject minion = PoolManager.Instance.SpawnFromPool(minionTag, pos, Quaternion.identity);
+        Minion minion = PoolManager.Instance.SpawnFromPool<Minion>(minionTag, pos, Quaternion.identity);
         if (minion != null)
         {
-            minion.SetActive(true);
-            Minion minionComponent = minion.GetComponent<Minion>();
-            MinionList.Add(minionComponent);
+            minion.gameObject.SetActive(true);
+            MinionList.Add(minion);
 
-            if (minionComponent != null)
-            {
-                minionComponent.InitializeMinion(minionData, this);
-            }
+            minion.InitializeMinion(minionData, this);
         }
     }
 
@@ -124,16 +119,14 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     {
         foreach (Minion minion in MinionList)
         {
-            PoolManager.Instance.ReturnToPool(minion.gameObject.name, minion.gameObject);
+            PoolManager.Instance.ReturnToPool(minion.data.poolTag, minion);
         }
+        MinionList.Clear();
     }
 
     public override void ReturnToVillage()
     {
+        ClearMinion();
         base.ReturnToVillage();
-        foreach(Minion minion in MinionList)
-        {
-            PoolManager.Instance.ReturnToPool(minion.gameObject.name, minion.gameObject);
-        }
     }
 }

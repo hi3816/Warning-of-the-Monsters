@@ -108,7 +108,7 @@ public abstract class Monster : MonoBehaviour
     
     private void OnEnable()
     {
-        GameManager.Instance.activeObjects.Add(this.gameObject);
+        GameManager.Instance.activeMonsters.Add(this);
         ResetMonster();
         _fatigueGauge.SetActive(true);
     }
@@ -116,7 +116,7 @@ public abstract class Monster : MonoBehaviour
     protected virtual void Update()
     {
         Transform nearestHuman = GetNearestHuman();
-        
+        _lastScareTime += Time.deltaTime;
         switch (MonsterState)
         {
             case MonsterState.Idle:
@@ -127,7 +127,6 @@ public abstract class Monster : MonoBehaviour
                 {
                     Vector2 directionToHuman = ((Vector2)nearestHuman.position - (Vector2)transform.position).normalized;
                     UpdateAnimatorParameters(directionToHuman);
-                    _lastScareTime += Time.deltaTime;
                     Scaring();
                 }
                 else
@@ -142,10 +141,10 @@ public abstract class Monster : MonoBehaviour
         }
     }
 
-    public void ResetMonster()
+    protected void ResetMonster()
     {
         SetState(MonsterState.Idle);
-        if (_spriteRenderer.color.a == 0f)
+        if (_spriteRenderer.color.a <= 1f)
         {
             Color color = _spriteRenderer.color;
             color.a = 1f;
@@ -155,7 +154,7 @@ public abstract class Monster : MonoBehaviour
     }
 
     // 처음 데이터 저장
-    private void SetMonsterData(DataTable.Monster_Data monsterData)
+    private void SetMonsterData(Monster_Data monsterData)
     {
         data.id = monsterData.id;
         data.currentLevel = 0;
@@ -179,7 +178,7 @@ public abstract class Monster : MonoBehaviour
         data = newMonsterData.Clone();
     }
 
-    public void Upgrade(DataTable.Upgrade_Data upgradeData)
+    public void Upgrade(Upgrade_Data upgradeData)
     {
         data.monsterId = upgradeData.monsterId;
         data.currentLevel = upgradeData.upgradeLevel;
@@ -193,7 +192,7 @@ public abstract class Monster : MonoBehaviour
         if (_monsterFatigueGauge != null) _monsterFatigueGauge.SetMaxFatigue(data.fatigue);
     }
 
-    public void Evolution(DataTable.Evolution_Data evolutionData)
+    public void Evolution(Evolution_Data evolutionData)
     {
         data.currentFatigue = 0f;
         data.monsterId = evolutionData.evolutionId;
@@ -375,7 +374,7 @@ public abstract class Monster : MonoBehaviour
 
         startColor.a = 0f;
         _spriteRenderer.color = startColor;
-        PoolManager.Instance.ReturnToPool(data.poolTag, gameObject);
+        PoolManager.Instance.ReturnToPool(data.poolTag, this);
     }
     
     public void Reset()
@@ -389,6 +388,6 @@ public abstract class Monster : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.Instance.activeObjects.Remove(gameObject);
+        GameManager.Instance.activeMonsters.Remove(this);
     }
 }

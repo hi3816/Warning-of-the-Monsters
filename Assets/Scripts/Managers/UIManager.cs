@@ -20,7 +20,7 @@ public class UIManager : SingletonBase<UIManager>
     {
         base.Awake();
         DontDestroyOnLoad(gameObject);
-        PoolManager.Instance.AddPools(_poolConfigs);
+        PoolManager.Instance.AddPools<UIBase>(_poolConfigs);
     }
 
     public T Show<T>() where T : UIBase

@@ -39,7 +39,7 @@ public class Human : MonoBehaviour
         // 활성화 시 매번 공포 수치와 UI 초기화
         FearLevel = 0;
         isReturning = false;   // 반환하고 있지 않은 상태로 전환
-        GameManager.Instance.activeObjects.Add(gameObject);
+        GameManager.Instance.activeHumans.Add(this);
     }
 
     // 인간 공포 수치 증가시키기
@@ -86,7 +86,7 @@ public class Human : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         HumanManager.Instance.SubHumanCount(SpawnedWaveIdx);    // 스폰된 웨이브에서 인간 카운트 횟수 차감
-        PoolManager.Instance.ReturnToPool(gameObject.name, gameObject);
+        PoolManager.Instance.ReturnToPool(gameObject.name, this);
     }
     
     private void OnTriggerEnter2D(Collider2D other)
@@ -133,6 +133,6 @@ public class Human : MonoBehaviour
 
     protected virtual void OnDisable()
     {
-        GameManager.Instance.activeObjects.Remove(gameObject);
+        GameManager.Instance.activeHumans.Remove(this);
     }
 }

@@ -12,7 +12,7 @@ public class HumanSpawner : MonoBehaviour
 
     private void Awake()
     {
-        PoolManager.Instance.AddPools(_poolConfigs);
+        PoolManager.Instance.AddPools<Human>(_poolConfigs);
         _curStageIdx = DataManager.Instance.selectedStageIdx;
     }
     
@@ -55,8 +55,7 @@ public class HumanSpawner : MonoBehaviour
             HumanManager.Instance.countPerWave[waveIdx]++;
 
         string humanType = ((HumanType)humanId).ToString(); // 스폰할 인간 종류를 태그 문자열로 변환
-        GameObject obj = PoolManager.Instance.SpawnFromPool(humanType, transform.position, Quaternion.identity);
-        Human human = obj.GetComponent<Human>();
+        Human human = PoolManager.Instance.SpawnFromPool<Human>(humanType, transform.position, Quaternion.identity);
         human.SpawnedWaveIdx = waveIdx;
     }
     

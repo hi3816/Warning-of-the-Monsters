@@ -25,7 +25,7 @@ public class MonsterEvolution : MonoBehaviour
         SetSprite(_summonerMonsters);
         SetEvolutionData(_poolConfigs);
         SetEvolutionData(_summonerMonsters);
-        PoolManager.Instance.AddPools(_poolConfigs);
+        PoolManager.Instance.AddPools<Monster>(_poolConfigs);
     }
 
     private void SetSprite(PoolManager.PoolConfig[] pools)
@@ -140,7 +140,6 @@ public class MonsterEvolution : MonoBehaviour
             if (_selectMonster.data.monsterType == MonsterType.Summoner)
             {
                 _selectMonster.data = GetMonsterEvolutionData(evolutionType).Clone();
-                _selectMonster.ResetMonster();
                 summonerMonster summoner = _selectMonster as summonerMonster;
                 summoner.InitializeSummonableMinions();
             }
@@ -148,11 +147,9 @@ public class MonsterEvolution : MonoBehaviour
             {
                 Vector3 pos = _selectMonster.gameObject.transform.position;
                 string evolutionMonsterName = GetMonsterEvolutionName(evolutionType);
-                PoolManager.Instance.ReturnToPool(_selectMonster.data.poolTag, _selectMonster.gameObject);
-                GameObject evolutionMonster = PoolManager.Instance.SpawnFromPool(evolutionMonsterName, pos, Quaternion.identity);
-                Monster _monster = evolutionMonster.GetComponent<Monster>();
-                _monster.data = GetMonsterEvolutionData(evolutionType).Clone();
-                _monster.ResetMonster();
+                PoolManager.Instance.ReturnToPool(_selectMonster.data.poolTag, _selectMonster);
+                Monster evolutionMonster = PoolManager.Instance.SpawnFromPool<Monster>(evolutionMonsterName, pos, Quaternion.identity);
+                evolutionMonster.data = GetMonsterEvolutionData(evolutionType).Clone();
             }
             _monsterEvolutionUI.Hide();
         }

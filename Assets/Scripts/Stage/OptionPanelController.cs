@@ -83,7 +83,7 @@ public class OptionPanelController : MonoBehaviour
     public void ClickExitButton()
     {
         PoolManager.Instance.DeleteAllPools();
-        PoolManager.Instance.AddPools(SoundManager.Instance.poolconfigs);
+        PoolManager.Instance.AddPools<SfxSoundSource>(SoundManager.Instance.poolconfigs);
         gameObject.SetActive(false);
         Time.timeScale = 1f;
         SceneManager.LoadScene("LobbyScene");

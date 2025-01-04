@@ -5,7 +5,6 @@ using UnityEngine;
 public class Skill : MonoBehaviour
 {
     public DataTable.Skill_Data SkillData { get; private set; }
-    private RectTransform _rectTransform;
     private Animator _animator;
     private WaitForSeconds _animationTime;
     private Coroutine _attackCoroutine;
@@ -95,7 +94,7 @@ public class Skill : MonoBehaviour
 
         if (SkillData.skillType == SkillType.Attack)
         {
-            PoolManager.Instance.ReturnToPool(SkillData.skillName.ToString(), gameObject);
+            PoolManager.Instance.ReturnToPool(SkillData.skillName.ToString(), this);
             _humanList.Clear();
         }
         else
@@ -123,6 +122,6 @@ public class Skill : MonoBehaviour
         _spriteRenderer.enabled = true;
         _skillCollider.enabled = true;
         _humanList.Clear();
-        PoolManager.Instance.ReturnToPool(SkillData.skillName.ToString(), gameObject);
+        PoolManager.Instance.ReturnToPool(SkillData.skillName.ToString(), this);
     }
 }

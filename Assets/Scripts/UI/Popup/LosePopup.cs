@@ -27,6 +27,7 @@ public class LosePopup : UIBase
     }
     private void LoadLobby()
     {
-        SceneManager.LoadScene("LobbyScene");
+        Time.timeScale = 1f;
+        MySceneManager.Instance.ChangeScene("LobbyScene");
     }
 }
