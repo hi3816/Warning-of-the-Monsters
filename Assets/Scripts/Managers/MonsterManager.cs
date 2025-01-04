@@ -13,8 +13,8 @@ public class MonsterManager : SingletonBase<MonsterManager>
     
     private void Start()
     {
-        PoolManager.Instance.AddPools(_poolConfigs);
-        PoolManager.Instance.AddPools(_monsterProjectiles);
+        PoolManager.Instance.AddPools<Monster>(_poolConfigs);
+        PoolManager.Instance.AddPools<MonsterProjectile>(_monsterProjectiles);
         LoadMonsterData();
         if (!_monstersById.ContainsKey(_selectedMonsterId) && _monstersById.Count > 0)
         {

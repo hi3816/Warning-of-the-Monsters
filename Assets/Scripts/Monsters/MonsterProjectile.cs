@@ -35,7 +35,7 @@ public class MonsterProjectile : MonoBehaviour
     {
         if (gameObject != null && collision.gameObject.layer == LayerMask.NameToLayer("Human"))
         {
-            PoolManager.Instance.ReturnToPool(_data.projectileType.ToString(), transform.gameObject);
+            PoolManager.Instance.ReturnToPool(_data.projectileType.ToString(), this);
         }
     }
 
@@ -57,7 +57,7 @@ public class MonsterProjectile : MonoBehaviour
         yield return _animationTime;
         if (gameObject != null)
         {
-            PoolManager.Instance.ReturnToPool(_data.projectileType.ToString(), transform.gameObject);
+            PoolManager.Instance.ReturnToPool(_data.projectileType.ToString(), this);
         }
     }
 }

@@ -134,7 +134,7 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
         {
             _selectMonster.ReturnToVillage();
         }
-        PoolManager.Instance.ReturnToPool(_selectMonster.data.poolTag, _selectMonster.gameObject);
+        PoolManager.Instance.ReturnToPool(_selectMonster.data.poolTag, _selectMonster);
     }
 
     public int CalculateTotalSpent(Monster selectedMonster) //몬스터 스폰 & 업그레이드에 사용한 비용 계산

@@ -53,7 +53,7 @@ public class SoundManager : SingletonBase<SoundManager>
         SetBgmDictionary();
         SetSfxDictionary();
         SetSfxVolumeDictionary();
-        PoolManager.Instance.AddPools(poolconfigs);
+        PoolManager.Instance.AddPools<SfxSoundSource>(poolconfigs);
         DontDestroyOnLoad(gameObject);
     }
 
@@ -129,9 +129,8 @@ public class SoundManager : SingletonBase<SoundManager>
     {
         if (IsPlaySFX)
         {
-            GameObject obj = PoolManager.Instance.SpawnFromPool(sfxType.ToString());
-            obj.SetActive(true);
-            SfxSoundSource soundSource = obj.GetComponent<SfxSoundSource>();
+            SfxSoundSource soundSource = PoolManager.Instance.SpawnFromPool<SfxSoundSource>(sfxType.ToString());
+            soundSource.gameObject.SetActive(true);
             soundSource.Play(sfxDict[sfxType], sfxType, globalSfxVolume * individualSfxVolumeDict[sfxType], sfxPitchVariance);
         }
     }

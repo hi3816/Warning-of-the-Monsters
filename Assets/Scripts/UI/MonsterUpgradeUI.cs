@@ -103,7 +103,7 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
         {
             _selectedMonster.ReturnToVillage();
         }
-        PoolManager.Instance.ReturnToPool(_selectedMonster.data.poolTag, _selectedMonster.gameObject);
+        PoolManager.Instance.ReturnToPool(_selectedMonster.data.poolTag, _selectedMonster);
         // selectedMonster.ReturnToVillage();
         Hide();
     }

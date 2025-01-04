@@ -95,7 +95,7 @@ public class Skill : MonoBehaviour
 
         if (SkillData.skillType == SkillType.Attack)
         {
-            PoolManager.Instance.ReturnToPool(SkillData.skillName.ToString(), gameObject);
+            PoolManager.Instance.ReturnToPool(SkillData.skillName.ToString(), this);
             _humanList.Clear();
         }
         else
@@ -123,6 +123,6 @@ public class Skill : MonoBehaviour
         _spriteRenderer.enabled = true;
         _skillCollider.enabled = true;
         _humanList.Clear();
-        PoolManager.Instance.ReturnToPool(SkillData.skillName.ToString(), gameObject);
+        PoolManager.Instance.ReturnToPool(SkillData.skillName.ToString(), this);
     }
 }

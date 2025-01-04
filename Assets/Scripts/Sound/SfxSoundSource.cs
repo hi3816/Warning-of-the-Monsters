@@ -26,6 +26,6 @@ public class SfxSoundSource : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(length);
         gameObject.SetActive(false);
-        PoolManager.Instance.ReturnToPool(_type.ToString(), gameObject);
+        PoolManager.Instance.ReturnToPool(_type.ToString(), this);
     }
 }
