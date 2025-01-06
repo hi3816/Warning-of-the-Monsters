@@ -108,7 +108,7 @@ public abstract class Monster : MonoBehaviour
     
     protected virtual void OnEnable()
     {
-        GameManager.Instance.activeMonsters.Add(this);
+        GameManager.Instance.AddActiveList(this);
         ResetMonster();
         _fatigueGauge.SetActive(true);
     }
@@ -388,6 +388,6 @@ public abstract class Monster : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.Instance.activeMonsters.Remove(this);
+        GameManager.Instance.RemoveActiveList(this);
     }
 }

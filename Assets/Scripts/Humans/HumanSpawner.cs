@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HumanSpawner : MonoBehaviour
@@ -66,7 +65,7 @@ public class HumanSpawner : MonoBehaviour
     
     private int GetLastWaveIdx(int stageIdx)
     {
-        int totalWaves = StageManager.Instance.TotalWave;
+        int totalWaves = StageManager.Instance.TotalWave;   // 현재 스테이지의 총 웨이브 개수
 
         if (totalWaves <= 0)
         {

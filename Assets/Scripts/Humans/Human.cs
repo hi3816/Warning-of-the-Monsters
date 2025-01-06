@@ -39,7 +39,7 @@ public class Human : MonoBehaviour
         // 활성화 시 매번 공포 수치와 UI 초기화
         FearLevel = 0;
         isReturning = false;   // 반환하고 있지 않은 상태로 전환
-        GameManager.Instance.activeHumans.Add(this);
+        GameManager.Instance.AddActiveList(this);
     }
 
     // 인간 공포 수치 증가시키기
@@ -51,10 +51,10 @@ public class Human : MonoBehaviour
         
         if (isReturning) return;    // 반환 중인 상태면 공포 수치 올리지 않고 리턴
         
-        FearLevel = Mathf.Min(FearLevel + amount, MaxFear); // 최대값 넘지 않도록 제한
+        FearLevel = Mathf.Min(FearLevel + amount, MaxFear); // 최댓값 넘지 않도록 제한
         OnFearChanged?.Invoke();
         
-        if (FearLevel >= MaxFear) // 갱신된 값이 최대값보다 크면
+        if (FearLevel >= MaxFear) // 갱신된 값이 최댓값보다 크면
         {
             controller.animator.SetBool("IsBattle", false);
             controller.ClearTargetMonster();
@@ -64,9 +64,10 @@ public class Human : MonoBehaviour
         }
     }
     
+    // 인간 공포 수치 감소시키기
     public void DecreaseFear(float amount)
     {
-        FearLevel = Mathf.Max(FearLevel - amount, 0);
+        FearLevel = Mathf.Max(FearLevel - amount, 0);   // 최솟값 벗어나지 않도록 제한
         OnFearChanged?.Invoke();
     }
     
@@ -125,6 +126,7 @@ public class Human : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        // 몬스터 콜라이더 범위 벗어나면 타겟 몬스터 해제
         if (other.CompareTag("Monster"))
         {
             controller.ClearTargetMonster();
@@ -133,6 +135,6 @@ public class Human : MonoBehaviour
 
     protected virtual void OnDisable()
     {
-        GameManager.Instance.activeHumans.Remove(this);
+        GameManager.Instance.RemoveActiveList(this);
     }
 }

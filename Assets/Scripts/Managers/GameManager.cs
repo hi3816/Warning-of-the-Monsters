@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class GameManager : SingletonBase<GameManager>
 {
-    public List<Human> activeHumans = new List<Human>();
-    public List<Monster> activeMonsters = new List<Monster>();
+    private List<Human> activeHumans = new List<Human>();
+    private List<Monster> activeMonsters = new List<Monster>();
     
     protected override void Awake()
     {
         base.Awake();
         
-        // 매니저 중 DontDestroyOnLoad 인 인스턴스만 주석 활성화하여 사용
         DontDestroyOnLoad(this);
     }
 
@@ -41,6 +40,7 @@ public class GameManager : SingletonBase<GameManager>
 
     public void ReturnObjects()
     {
+        // 활성화된 인간이나 몬스터 오브젝트 풀에 반환
         while (activeHumans.Count > 0)
         {
             string objectName = activeHumans[0].name;
@@ -50,6 +50,34 @@ public class GameManager : SingletonBase<GameManager>
         {
             string objectName = activeMonsters[0].name;
             PoolManager.Instance.ReturnToPool(objectName, activeMonsters[0]);
+        }
+    }
+
+    public void AddActiveList<T>(T obj)
+    {
+        if (obj is Human)
+        {
+            activeHumans.Add(obj as Human);
+            return;
+        }
+
+        if (obj is Monster)
+        {
+            activeMonsters.Add(obj as Monster);
+        }
+    }
+    
+    public void RemoveActiveList<T>(T obj)
+    {
+        if (obj is Human)
+        {
+            activeHumans.Remove(obj as Human);
+            return;
+        }
+
+        if (obj is Monster)
+        {
+            activeMonsters.Remove(obj as Monster);
         }
     }
 

@@ -138,7 +138,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
 
     private void OnDisable()
     {
-        GameManager.Instance.activeMonsters.Remove(this);
+        GameManager.Instance.RemoveActiveList(this);
         ClearMinion();
     }
 }

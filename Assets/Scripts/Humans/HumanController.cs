@@ -35,11 +35,6 @@ public class HumanController : MonoBehaviour
         // Sprite가 화면상에 보이도록 조정
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
-
-        if (humanEffect == null)
-            humanEffect = transform.Find("Effects").transform;
-        if (attackParticle == null)
-            attackParticle = humanEffect.gameObject.GetComponentInChildren<ParticleSystem>();
         
         // 상태머신 세팅
         stateMachine = new HumanStateMachine();
@@ -62,6 +57,9 @@ public class HumanController : MonoBehaviour
         // 애니메이션 초기화
         animator.SetBool("IsBattle", false);
         animator.speed = 1.0f;
+        // 파티클 초기화
+        humanEffect = HumanManager.Instance.humanEffect;
+        attackParticle = HumanManager.Instance.attackParticle;
     }
     
     private void Update()
@@ -108,6 +106,8 @@ public class HumanController : MonoBehaviour
     public void PlayAttackParticle()
     {
         if (TargetMonster == null) return;  // 타겟 몬스터 없으면 리턴
+        
+        humanEffect.transform.position = transform.position;    // 파티클 시작 위치 설정
         
         // 현재 위치에서 타겟 몬스터로의 방향 구하고 정규화
         Vector3 directionToTarget = (TargetMonster.position - gameObject.transform.position).normalized;
