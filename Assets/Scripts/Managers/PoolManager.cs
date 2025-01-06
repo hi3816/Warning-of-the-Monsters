@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.UI;
 
 public class PoolManager : SingletonBase<PoolManager>
 {
@@ -35,6 +36,18 @@ public class PoolManager : SingletonBase<PoolManager>
         // 계층 구조 생성하여 정리
         GameObject poolObject = new GameObject($"Pool_{tag}"); // 풀 관리할 빈 게임오브젝트 생성하고 태그로 이름 구별
         poolObject.transform.SetParent(transform); // PoolManager의 자식으로 설정
+
+        //UI일 시
+        if (typeof(UIBase).IsAssignableFrom(typeof(T)))
+        {
+            var canvas = poolObject.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+
+            var canvasScaler = poolObject.AddComponent<CanvasScaler>();
+            canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            canvasScaler.referenceResolution = new Vector2(UIManager.Instance.screenWidth, UIManager.Instance.screenHeight);
+            canvasScaler.matchWidthOrHeight = 1f;
+        }
 
         // Inspector에서 받아온 설정 정보 기반으로 새로운 오브젝트 풀 생성
         IObjectPool<T> objectPool = new ObjectPool<T>(

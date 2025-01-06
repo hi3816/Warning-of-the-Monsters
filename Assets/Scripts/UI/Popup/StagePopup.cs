@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Pool;
 using UnityEngine.SceneManagement;
 using UnityEngine.U2D;
 using UnityEngine.UI;
@@ -52,7 +54,8 @@ public class StagePopup : UIBase
     [SerializeField] RectTransform _storyContent;
 
     [Header("etc")]
-    [SerializeField] TextMeshProUGUI _warningTxt;
+    [SerializeField] Transform _warningPopupPosition;
+    [SerializeField] string _warningTxt;
     [SerializeField] TextMeshProUGUI _testTxt;
     
     [SerializeField] Image[] _arrowPoint;
@@ -100,7 +103,11 @@ public class StagePopup : UIBase
     {
         if (_selectedListData.Count != 4) 
         {
-            _warningTxt.text = "몬스터를 모두 선택하세요";
+            _warningTxt = "몬스터를 모두 선택하세요";
+
+            UIBase warningBox = PoolManager.Instance.SpawnFromPool<WarningBox>("WarningBox");
+            warningBox.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _warningTxt;
+
             return; 
         }
         DataManager.Instance.selectedStageIdx = _stageIdx;              //선택된 스테이지
@@ -165,7 +172,10 @@ public class StagePopup : UIBase
                 {
                     if (data.Value.MonsterId == Data.Value)
                     {
-                        _warningTxt.text = "This monster \r\nis already selected!";
+                        _warningTxt = "This monster \r\nis already selected!";
+                        
+                        UIBase warningBox = PoolManager.Instance.SpawnFromPool<WarningBox>("WarningBox");
+                        warningBox.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _warningTxt;
 
                         _testTxt.text = "";
                         foreach (var asdf in _selectedListData)
@@ -181,7 +191,7 @@ public class StagePopup : UIBase
                     _selectedListData.Remove(_crrSlotIdx);
                 }
                 _selectedListData.Add(_crrSlotIdx, (Data.Value, Data.Key));
-                _warningTxt.text = "";
+                _warningTxt = "";
 
                 _testTxt.text = "";
                 foreach (var asdf in _selectedListData)
