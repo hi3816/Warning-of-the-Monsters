@@ -106,7 +106,7 @@ public abstract class Monster : MonoBehaviour
         _monsterFatigueGauge = GetComponent<MonsterFatigueGague>();
     }
     
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         GameManager.Instance.activeMonsters.Add(this);
         ResetMonster();
