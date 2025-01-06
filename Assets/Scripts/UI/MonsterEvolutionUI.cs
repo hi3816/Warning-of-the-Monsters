@@ -31,8 +31,8 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
         _typeButtonB.onClick.AddListener(() => _monsterEvolution.Evolution(_selectMonster, EvolutionType.Btype));
         _typeButtonA.onClick.AddListener(() => MonsterEvolutionStat(EvolutionType.Atype));
         _typeButtonB.onClick.AddListener(() => MonsterEvolutionStat(EvolutionType.Btype));
-        _sellButton.onClick.AddListener(() => SellMonster());
-        _sellButton.onClick.AddListener(() => Hide());
+        _sellButton.onClick.AddListener(SellMonster);
+        _sellButton.onClick.AddListener(Hide);
     }
 
     public void Show(Monster monster)
