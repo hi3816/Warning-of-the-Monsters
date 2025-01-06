@@ -47,7 +47,7 @@ MonoBehaviour:
   _poolConfigs:
   - tag: NormalHuman
     prefab: {fileID: 2330070577731405459, guid: 499e5e11e4fc0f444b2364c66ab115d3, type: 3}
-    size: 40
+    size: 35
   - tag: StrongHuman
     prefab: {fileID: 2330070577731405459, guid: 148edb10fa94865478effd689c9d0fa9, type: 3}
     size: 30
