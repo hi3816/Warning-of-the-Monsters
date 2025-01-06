@@ -35,7 +35,7 @@ public class WinPopup : UIBase
     private void LoadGameScene()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainScene");
+        MySceneManager.Instance.ChangeScene("MainScene");
     }
     private void LoadNextStage()
     {

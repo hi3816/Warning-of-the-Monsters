@@ -23,7 +23,6 @@ public class StartScreen : UIBase
     public void OnButtonClicked()
     {
         MySceneManager.Instance.ChangeScene("LobbyScene");
-        //SceneManager.LoadScene("LobbyScene");
     }
 
     public void ShowTitle()

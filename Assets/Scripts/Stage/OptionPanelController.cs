@@ -76,7 +76,7 @@ public class OptionPanelController : MonoBehaviour
     {
         gameObject.SetActive(false);
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainScene");
+        MySceneManager.Instance.ChangeScene("MainScene");
     }
 
     // Exit 버튼 클릭
@@ -86,7 +86,7 @@ public class OptionPanelController : MonoBehaviour
         PoolManager.Instance.AddPools<SfxSoundSource>(SoundManager.Instance.poolconfigs);
         gameObject.SetActive(false);
         Time.timeScale = 1f;
-        SceneManager.LoadScene("LobbyScene");
+        MySceneManager.Instance.ChangeScene("LobbyScene");
     }
 
     // X 버튼 클릭
