@@ -66,9 +66,7 @@ public class MonsterProjectile : MonoBehaviour
             time += Time.deltaTime;
             float linearT = time / duration;
             float heightT = _curve.Evaluate(linearT);
-
             float height = Mathf.Lerp(0.0f, _data.maxHeight, heightT);
-
             transform.position = Vector2.Lerp(start, end, linearT) + new Vector2(0.0f, height);
 
             yield return null;
