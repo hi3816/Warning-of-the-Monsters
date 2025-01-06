@@ -23,12 +23,19 @@ public class StageButton : MonoBehaviour
         
         SaveManager.Instance.GetStagePlayInfo(stageIdx, out isCleared);
 
-        if (isCleared)                                                                                                                                                                          
+        if (isCleared)
         {
             stageTxt.text = "Clear";
             Image btnImg = stageButton.GetComponent<Image>();
             btnImg.sprite = _isClearImg;
         }
+        else
+        {
+            bool previousClear = false ;
+            SaveManager.Instance.GetStagePlayInfo(stageIdx -1 , out previousClear);
+            if (previousClear == true) isEnable = true;
+        }
+
         
         if (!isEnable)
         {

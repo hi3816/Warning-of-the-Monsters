@@ -267,6 +267,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8946175037633493843, guid: 9698c92b8648a6940b70a0c2abb4b718, type: 3}
+      propertyPath: _poolConfigs.Array.data[0].tag
+      value: WarningBox
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
