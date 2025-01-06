@@ -12,11 +12,12 @@ public class HealerHuman : Human, IHealer
     private float _healRadius;
     private float _healCooldown;
 
+    // 힐 범위 시각적 표현
     [SerializeField] private Transform _healTransform;
     [SerializeField] private SpriteRenderer _healRenderer;
     
-    private Coroutine _healCoroutine;
-    private Coroutine _colorCoroutine;
+    private Coroutine _healCoroutine;   // 힐 실행하는 코루틴
+    private Coroutine _colorCoroutine;  // 힐 범위 색상 표현하는 코루틴
 
     protected override void Awake()
     {
@@ -38,17 +39,19 @@ public class HealerHuman : Human, IHealer
         base.OnEnable();
         if (_healCoroutine == null)
         {
-            _healCoroutine = StartCoroutine(HealingCoroutine());
+            _healCoroutine = StartCoroutine(HealingCoroutine());    // 활성화하며 힐 코루틴 시작
         }
         _healRenderer.color = Color.clear;  // 시작 시 투명으로 초기화
     }
     
     public void HealFear(float amount)
     {
+        // 도망가고 있거나 비전투 중에는 실행 X
         if (isReturning || controller.TargetMonster == null) return;
         
-        ShowHealRange();
+        ShowHealRange();    // 힐 범위 화면에 출력
 
+        // 힐 범위 내 반환하고 있는 상태가 아닌 인간들의 공포 수치 낮춤 (본인 포함)
         Collider2D[] humansInRange = Physics2D.OverlapCircleAll(transform.position, _healRadius);
         foreach (Collider2D collider in humansInRange)
         {
@@ -68,7 +71,7 @@ public class HealerHuman : Human, IHealer
     
     private IEnumerator HealingCoroutine()
     {
-        while (true)
+        while (true)    // 쿨타임 동안 기다렸다가 힐 반복 실행
         {
             HealFear(_healAmount);
             yield return new WaitForSeconds(_healCooldown);
@@ -78,10 +81,17 @@ public class HealerHuman : Human, IHealer
     protected override void OnDisable()
     {
         base.OnDisable();
+        
         if (_healCoroutine != null)
         {
             StopCoroutine(_healCoroutine);
             _healCoroutine = null;
+        }
+        
+        if (_colorCoroutine != null)
+        {
+            StopCoroutine(_colorCoroutine);
+            _colorCoroutine = null;
         }
     }
     
