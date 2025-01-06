@@ -51,8 +51,22 @@ public class PoolManager : SingletonBase<PoolManager>
             defaultCapacity: size,
             maxSize: 100
         );
+        
+        ExpandPool(objectPool, prefab, tag, poolObject.transform, size);    // size만큼 미리 생성
 
         _pools.Add(tag, objectPool);    // 풀 딕셔너리에 새로운 오브젝트 풀 추가
+    }
+    
+    private void ExpandPool<T>(IObjectPool<T> pool, GameObject prefab, string tag, Transform parent, int count) where T : Component
+    {
+        for (int i = 0; i < count; i++)
+        {
+            GameObject obj = Instantiate(prefab);
+            obj.name = tag;
+            obj.transform.SetParent(parent);
+            obj.SetActive(false);
+            pool.Release(obj.GetComponent<T>());
+        }
     }
     
     public void AddPools<T>(PoolConfig[] newPools) where T : Component
@@ -87,9 +101,21 @@ public class PoolManager : SingletonBase<PoolManager>
             return null;
         }
 
-        // 태그와 일치하는 풀이 있으면 풀에서 오브젝트 가져와 Transform 설정 후 반환
+        // 태그와 일치하는 풀이 있으면 
         if (pool is IObjectPool<T> typedPool)
         {
+            // 모든 오브젝트가 사용 중이면 풀 확장
+            if (typedPool.CountInactive == 0)   
+            {
+                var poolConfig = _poolConfigs.Find(config => config.tag == tag);
+                if (poolConfig != null)
+                {
+                    Transform parentTransform = transform.Find($"Pool_{tag}");
+                    ExpandPool(typedPool, poolConfig.prefab, tag, parentTransform, poolConfig.size);
+                }
+            }
+            
+            // 풀에서 오브젝트 가져와 Transform 설정 후 반환
             T obj = typedPool.Get();
             obj.transform.position = position;
             obj.transform.rotation = rotation;
@@ -121,9 +147,21 @@ public class PoolManager : SingletonBase<PoolManager>
             return null;
         }
 
-        // 태그와 일치하는 풀이 있으면 풀에서 오브젝트 가져와 반환
+        // 태그와 일치하는 풀이 있으면 
         if (pool is IObjectPool<T> typedPool)
         {
+            // 모든 오브젝트가 사용 중이면 풀 확장
+            if (typedPool.CountInactive == 0)
+            {
+                var poolConfig = _poolConfigs.Find(config => config.tag == tag);
+                if (poolConfig != null)
+                {
+                    Transform parentTransform = transform.Find($"Pool_{tag}");
+                    ExpandPool(typedPool, poolConfig.prefab, tag, parentTransform, poolConfig.size);
+                }
+            }
+            
+            // 풀에서 오브젝트 가져와 반환
             T obj = typedPool.Get();
             return obj;
         }
