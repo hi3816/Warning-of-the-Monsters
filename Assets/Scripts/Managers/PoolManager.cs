@@ -64,21 +64,22 @@ public class PoolManager : SingletonBase<PoolManager>
             defaultCapacity: size,
             maxSize: 100
         );
-        
-        ExpandPool(objectPool, prefab, tag, poolObject.transform, size);    // size만큼 미리 생성
+
+        ExpandPool(objectPool, size);    // size만큼 미리 생성
 
         _pools.Add(tag, objectPool);    // 풀 딕셔너리에 새로운 오브젝트 풀 추가
     }
     
-    private void ExpandPool<T>(IObjectPool<T> pool, GameObject prefab, string tag, Transform parent, int count) where T : Component
+    private void ExpandPool<T>(IObjectPool<T> pool, int size) where T : Component
     {
-        for (int i = 0; i < count; i++)
+        Stack<T> temp = new Stack<T>();
+        for (int i = 0; i < size; i++)
         {
-            GameObject obj = Instantiate(prefab);
-            obj.name = tag;
-            obj.transform.SetParent(parent);
-            obj.SetActive(false);
-            pool.Release(obj.GetComponent<T>());
+            temp.Push(pool.Get());
+        }
+        for (int i = 0; i < size; i++)
+        {
+            pool.Release(temp.Pop());
         }
     }
     
@@ -123,8 +124,7 @@ public class PoolManager : SingletonBase<PoolManager>
                 var poolConfig = _poolConfigs.Find(config => config.tag == tag);
                 if (poolConfig != null)
                 {
-                    Transform parentTransform = transform.Find($"Pool_{tag}");
-                    ExpandPool(typedPool, poolConfig.prefab, tag, parentTransform, poolConfig.size);
+                    ExpandPool(typedPool, poolConfig.size);
                 }
             }
             
@@ -169,8 +169,7 @@ public class PoolManager : SingletonBase<PoolManager>
                 var poolConfig = _poolConfigs.Find(config => config.tag == tag);
                 if (poolConfig != null)
                 {
-                    Transform parentTransform = transform.Find($"Pool_{tag}");
-                    ExpandPool(typedPool, poolConfig.prefab, tag, parentTransform, poolConfig.size);
+                    ExpandPool(typedPool, poolConfig.size);
                 }
             }
             
