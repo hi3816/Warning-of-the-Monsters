@@ -19,6 +19,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     {
         ClearMinion();
         _minionToSummon.Clear();
+        if(_monsterFatigueGauge != null) _monsterFatigueGauge.SetFatigue();
         Summon_Data summonData;
         if (data.currentLevel < data.maxLevel) summonData = DataManager.Instance.GetSummonData(data.id * 1000);
         else summonData = DataManager.Instance.GetSummonData(data.monsterId);
