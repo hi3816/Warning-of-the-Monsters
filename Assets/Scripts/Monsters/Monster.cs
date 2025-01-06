@@ -68,7 +68,7 @@ public abstract class Monster : MonoBehaviour
     protected float _lastScareTime;
     private Coroutine _coroutine;
     [SerializeField] private GameObject _fatigueGauge;
-    private MonsterFatigueGague _monsterFatigueGauge;
+    protected MonsterFatigueGague _monsterFatigueGauge;
 
     public Action OnAttacked;
     protected bool isSingleTargetAttack = true;
@@ -189,7 +189,7 @@ public abstract class Monster : MonoBehaviour
         data.humanDetectRange = upgradeData.humanDetectRange;
         data.humanScaringRange = upgradeData.humanScaringRange;
         data.requiredCoins = upgradeData.requiredCoins;
-        if (_monsterFatigueGauge != null) _monsterFatigueGauge.SetMaxFatigue(data.fatigue);
+        if (_monsterFatigueGauge != null) _monsterFatigueGauge.SetFatigue();
     }
 
     public void Evolution(Evolution_Data evolutionData)
@@ -208,7 +208,7 @@ public abstract class Monster : MonoBehaviour
         if(data.monsterType != MonsterType.Minion) data.humanDetectRange = data.humanScaringRange;
         data.requiredCoins = evolutionData.requiredCoins;
         SetState(MonsterState.Idle);
-        if(_monsterFatigueGauge != null) _monsterFatigueGauge.SetMaxFatigue(data.fatigue);
+        if(_monsterFatigueGauge != null) _monsterFatigueGauge.SetFatigue();
     }
 
     protected Transform GetNearestHuman()
@@ -302,7 +302,7 @@ public abstract class Monster : MonoBehaviour
         if (other.CompareTag("Human"))
         {
             Human human = other.GetComponent<Human>();
-            if (human != null && !TargetHumanList.Contains(human))
+            if (human != null && !TargetHumanList.Contains(human) && human.FearLevel < human.MaxFear)
             {
                 TargetHumanList.Add(human);
                 SetState(MonsterState.Scaring);

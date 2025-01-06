@@ -1,18 +1,21 @@
 using DataTable;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class MonsterProjectile : MonoBehaviour
 {
+    [SerializeField] private AnimationCurve _curve;
     private MonsterData _monsterData;
     private Projectile_Data _data;
-    private Vector2 _direction;
-    private bool _isStart = false;
+    private Vector2 _target;
     private Rigidbody2D _rigidbody;
     private Animator _animator;
-    private Coroutine coroutine;
     private WaitForSeconds _animationTime;
+    private Coroutine _flightCoroutine;
+    private Coroutine _destroyCoroutine;
     private List<GameObject> _humanList = new List<GameObject>();
 
     private void Awake()
@@ -21,18 +24,7 @@ public class MonsterProjectile : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
-        _animationTime = new WaitForSeconds(stateInfo.length * 1f);
-    }
-
-    private void FixedUpdate()
-    {
-        if (!_isStart)
-        {
-            return;
-        }
-
-        _rigidbody.velocity = _direction * _data.speed;
-        //_rigidbody.AddForce(transform.forward * 45f, ForceMode2D.Impulse);
+        _animationTime = new WaitForSeconds(stateInfo.length * 2);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -47,47 +39,46 @@ public class MonsterProjectile : MonoBehaviour
             _humanList.Add(collision.gameObject);
 
             human.IncreaseFear(Random.Range(_monsterData.minFearInflicted, _monsterData.maxFearInflicted));
-            Destroy();
+            DestroyProjectile();
         }
     }
 
     public void SetProjectileInfo(Vector2 target, MonsterData monsterData, Projectile_Data projectileData)
     {
-        //Vector2 pos = transform.position + (Random.insideUnitSphere * _data.damageRadius * 0.5f);
         _monsterData = monsterData;
-        _direction = GetDirection(target, transform.position);
+        _target = target;
         _data = projectileData;
         transform.localScale = Vector2.one * _data.damageRadius;
-        //transform.rotation = Quaternion.LookRotation(_direction).normalized;
-        _isStart = true;
         _humanList.Clear();
-        Destroy();
+        if (_flightCoroutine != null) StopCoroutine(_flightCoroutine);
+        StartCoroutine(CoFlight());
     }
 
-    private Vector2 GetDirection(Vector2 target, Vector3 current)
+    private IEnumerator CoFlight()
     {
-        Vector2 curr = current;
-        Vector2 direction = (target - curr).normalized;
-        return direction;
+        float duration = _data.durationTime;
+        float time = 0.0f;
+        Vector3 start = transform.position;
+        Vector3 end = _target;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            float linearT = time / duration;
+            float heightT = _curve.Evaluate(linearT);
+
+            float height = Mathf.Lerp(0.0f, _data.maxHeight, heightT);
+
+            transform.position = Vector2.Lerp(start, end, linearT) + new Vector2(0.0f, height);
+
+            yield return null;
+        }
+        PoolManager.Instance.ReturnToPool(_data.projectileType.ToString(), this);
     }
 
-    private float GetDistance(Vector2 target, Vector3 current)
+    private void DestroyProjectile()
     {
-        Vector2 curr = current;
-        float distance = Vector2.Distance(target, curr);
-        return distance;
-    }
-
-    private Vector2 GetNewTarget(Vector2 target)
-    {
-        Vector2 offset = Random.insideUnitSphere;
-        Vector2 newTarget = target + (offset * _data.damageRadius * 0.5f);
-        return newTarget;
-    }
-
-    private void Destroy()
-    {
-        if (coroutine != null) StopCoroutine(coroutine);
+        if (_destroyCoroutine != null) StopCoroutine(_destroyCoroutine);
         StartCoroutine(CoDestroy());
     }
 

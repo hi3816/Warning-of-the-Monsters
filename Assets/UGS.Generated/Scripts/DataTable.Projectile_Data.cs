@@ -60,7 +60,8 @@ namespace DataTable
 		public ProjectileType projectileType;
 		public System.Collections.Generic.List<Int32> monsterId;
 		public System.Single damageRadius;
-		public System.Single speed;
+		public System.Single durationTime;
+		public System.Single maxHeight;
   
 
 #region fuctions
