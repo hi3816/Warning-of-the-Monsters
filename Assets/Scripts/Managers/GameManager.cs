@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameManager : SingletonBase<GameManager>
 {
-    public List<Human> activeHumans = new List<Human>();
-    public List<Monster> activeMonsters = new List<Monster>();
+    private List<Human> activeHumans = new List<Human>();
+    private List<Monster> activeMonsters = new List<Monster>();
     
     protected override void Awake()
     {
@@ -50,6 +50,34 @@ public class GameManager : SingletonBase<GameManager>
         {
             string objectName = activeMonsters[0].name;
             PoolManager.Instance.ReturnToPool(objectName, activeMonsters[0]);
+        }
+    }
+
+    public void AddActiveList<T>(T obj)
+    {
+        if (obj is Human)
+        {
+            activeHumans.Add(obj as Human);
+            return;
+        }
+
+        if (obj is Monster)
+        {
+            activeMonsters.Add(obj as Monster);
+        }
+    }
+    
+    public void RemoveActiveList<T>(T obj)
+    {
+        if (obj is Human)
+        {
+            activeHumans.Remove(obj as Human);
+            return;
+        }
+
+        if (obj is Monster)
+        {
+            activeMonsters.Remove(obj as Monster);
         }
     }
 

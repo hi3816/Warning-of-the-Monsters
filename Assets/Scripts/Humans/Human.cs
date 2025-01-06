@@ -39,7 +39,7 @@ public class Human : MonoBehaviour
         // 활성화 시 매번 공포 수치와 UI 초기화
         FearLevel = 0;
         isReturning = false;   // 반환하고 있지 않은 상태로 전환
-        GameManager.Instance.activeHumans.Add(this);    // 활성화된 인간 리스트에 추가
+        GameManager.Instance.AddActiveList(this);
     }
 
     // 인간 공포 수치 증가시키기
@@ -135,6 +135,6 @@ public class Human : MonoBehaviour
 
     protected virtual void OnDisable()
     {
-        GameManager.Instance.activeHumans.Remove(this); // 활성화된 인간 리스트에서 삭제
+        GameManager.Instance.RemoveActiveList(this);
     }
 }
