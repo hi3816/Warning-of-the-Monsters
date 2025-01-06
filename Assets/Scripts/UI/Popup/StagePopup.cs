@@ -30,7 +30,7 @@ public class StagePopup : UIBase
     private int _stageIdx;
 
     [Header("MonsterSelectedSlot")]
-    public List<GameObject> monsterSelectedSlots;
+    public List<MonsterSelectedSlot> monsterSelectedSlots;
     
     private int _crrSlotIdx;
 
@@ -57,8 +57,6 @@ public class StagePopup : UIBase
     [SerializeField] Transform _warningPopupPosition;
     [SerializeField] string _warningTxt;
     [SerializeField] TextMeshProUGUI _testTxt;
-    
-    [SerializeField] Image[] _arrowPoint;
 
     private enum Display
     {
@@ -150,13 +148,13 @@ public class StagePopup : UIBase
     public void SelectSlotWithArrow(int slotIdx)
     {
         _crrSlotIdx = slotIdx;
-        for (int i = 0; i < _arrowPoint.Length; i++) 
+        for (int i = 0; i < monsterSelectedSlots.Count; i++) 
         {
             Color color1 = new Color(1, 1, 1, 0);
-            _arrowPoint[i].color = color1;
+            monsterSelectedSlots[i].arrowImg.color = color1;
         }
         Color color = new Color(1, 1, 1, 1);
-        _arrowPoint[slotIdx].color = color;
+        monsterSelectedSlots[slotIdx].arrowImg.color = color;
     }
 
     public void SelectListSlot(Sprite listSlotSprite)
@@ -217,7 +215,7 @@ public class StagePopup : UIBase
 
     private void UpdateSelectedSlot(Sprite listSlotSprite)
     {
-        var slotImg = monsterSelectedSlots[_crrSlotIdx].transform.GetChild(0).GetComponent<Image>();
+        var slotImg = monsterSelectedSlots[_crrSlotIdx].slotImg;
         slotImg.sprite = listSlotSprite;
         slotImg.color = new Color(1, 1, 1, 1);
     }
@@ -291,16 +289,11 @@ public class StagePopup : UIBase
         foreach (var slot in monsterSelectedSlots)
         {
             //스프라이트 지워주기
-            var slotImg = slot.transform.GetChild(0).GetComponent<Image>();
+            var slotImg = slot.slotImg;
             slotImg.sprite = null;
             slotImg.color = new Color(1, 1, 1, 0);
         }
         //정보 없애기
         _selectedListData.Clear();
     }
-
-    //public void ShowStagePopup()
-    //{ 
-        
-    //}
 }
