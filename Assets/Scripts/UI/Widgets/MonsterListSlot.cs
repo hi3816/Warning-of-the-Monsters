@@ -4,10 +4,11 @@ using UnityEngine.UI;
 
 public class MonsterListSlot : MonoBehaviour
 {
+    [SerializeField] Image slotSprite;
 
     public void SelectListSlot()
     {
-        Sprite sprite = transform.GetChild(0).GetComponent<Image>().sprite;
+        Sprite sprite = slotSprite.sprite;
 
         UIManager.Instance.OnClickListSlot?.Invoke(sprite);
     }
