@@ -136,11 +136,11 @@ public class StageManager : SingletonBase<StageManager>
         {
             StarsCount = 3;
         }
-        else if (CurrHealth > 10 && CurrHealth <= 20)
+        else if (CurrHealth > 10 && CurrHealth < 20)
         {
             StarsCount = 2;
         }
-        else if (CurrHealth <= 10)
+        else if (CurrHealth >= 1 && CurrHealth <= 10)
         {
             StarsCount = 1;
         }
