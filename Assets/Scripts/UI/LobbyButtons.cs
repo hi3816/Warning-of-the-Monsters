@@ -1,10 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class LobbyButtons : MonoBehaviour
 {
     [SerializeField] private GameObject _soundOptionPanel;
+    [SerializeField] private TextMeshProUGUI startCountTxt;
+    private int starCount;
+
+    private void Start()
+    {
+        SaveManager.Instance.GetStarCount(out starCount);
+        startCountTxt.text = $"{starCount.ToString()} / 24";
+    }
 
     public void OnToggleOptionsPanel()
     {

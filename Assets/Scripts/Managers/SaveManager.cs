@@ -117,4 +117,13 @@ public class SaveManager : SingletonBase<SaveManager>
             isCleared = false;
         }
     }
+
+    public void GetStarCount(out int count)
+    {
+        count = 0;
+        for (int i = 0; i < _gamePlayInfo.playInfos.Count; i++)
+        {
+            count += _gamePlayInfo.playInfos[i].starsCount;
+        }
+    }
 }
