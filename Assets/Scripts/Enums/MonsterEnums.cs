@@ -4,8 +4,8 @@ using UnityEngine;
 [UGS(typeof(EvolutionType))]
 public enum EvolutionType // 몬스터 진화 타입
 {
-    Atype,
-    Btype,
+    Atype, // 진화 시 왼쪽 몬스터
+    Btype, // 진화 시 오른쪽 몬스터
 }
 
 [UGS(typeof(MonsterType))]
