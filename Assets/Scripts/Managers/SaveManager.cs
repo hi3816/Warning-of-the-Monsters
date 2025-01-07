@@ -106,6 +106,7 @@ public class SaveManager : SingletonBase<SaveManager>
     
     public void GetStagePlayInfo(int stageIdx, out bool isCleared)
     {
+        if (stageIdx < 0) stageIdx = 0;
         StagePlayInfo info = _gamePlayInfo.playInfos.Find(x => x.stageIdx == stageIdx);
         if (info != null)
         {
