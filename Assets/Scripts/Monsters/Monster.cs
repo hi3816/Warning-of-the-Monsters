@@ -117,7 +117,6 @@ public abstract class Monster : MonoBehaviour
     
     protected virtual void Update()
     {
-        Transform nearestHuman = GetNearestHuman();
         _lastScareTime += Time.deltaTime;
         switch (MonsterState)
         {
@@ -129,9 +128,9 @@ public abstract class Monster : MonoBehaviour
                 }
                 break;
             case MonsterState.Scaring:
-                if (nearestHuman != null)
+                if (TargetHumanList != null)
                 {
-                    Vector2 directionToHuman = ((Vector2)nearestHuman.position - (Vector2)transform.position).normalized;
+                    Vector2 directionToHuman = ((Vector2)TargetHumanList[0].transform.position - (Vector2)transform.position).normalized;
                     UpdateAnimatorParameters(directionToHuman);
                     Scaring();
                 }
@@ -216,29 +215,7 @@ public abstract class Monster : MonoBehaviour
         SetState(MonsterState.Idle);
         if(_monsterFatigueGauge != null) _monsterFatigueGauge.SetFatigue();
     }
-
-    protected Transform GetNearestHuman()
-    {
-        Collider2D[] detectedHumans = Physics2D.OverlapCircleAll(transform.position, data.humanDetectRange, LayerMask.GetMask("Human"));
-        if (detectedHumans.Length > 0)
-        {
-            Transform nearestHuman = detectedHumans[0].transform;
-            float minDistance = Vector2.Distance(transform.position, nearestHuman.position);
-
-            foreach (Collider2D human in detectedHumans)
-            {
-                float distance = Vector2.Distance(transform.position, human.transform.position);
-                if (distance < minDistance)
-                {
-                    minDistance = distance;
-                    nearestHuman = human.transform;
-                }
-            }
-            return nearestHuman;
-        }
-        return null;
-    }
-
+    
     protected void SetState(MonsterState state)
     {
         if (MonsterState == state) return;
@@ -312,7 +289,6 @@ public abstract class Monster : MonoBehaviour
             if (human != null && !TargetHumanList.Contains(human) && human.FearLevel < human.MaxFear)
             {
                 TargetHumanList.Add(human);
-                // SetState(MonsterState.Scaring);
             }
         }
     }
