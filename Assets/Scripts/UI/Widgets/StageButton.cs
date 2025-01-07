@@ -29,12 +29,10 @@ public class StageButton : MonoBehaviour
             Image btnImg = stageButton.GetComponent<Image>();
             btnImg.sprite = _isClearImg;
         }
-        else
-        {
-            bool previousClear = false ;
-            SaveManager.Instance.GetStagePlayInfo(stageIdx -1 , out previousClear);
-            if (previousClear == true) isEnable = true;
-        }
+
+        bool previousClear = false ;
+        SaveManager.Instance.GetStagePlayInfo(stageIdx -1 , out previousClear);
+        if (previousClear == true) isEnable = true;
 
         
         if (!isEnable)
