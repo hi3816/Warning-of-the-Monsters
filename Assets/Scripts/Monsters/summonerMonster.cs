@@ -34,10 +34,6 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
         {
             SummonMinions();
             _lastScareTime = 0f;
-        }
-
-        if (TargetHumanList.Count == 0)
-        {
             SetState(MonsterState.Idle);
         }
     }

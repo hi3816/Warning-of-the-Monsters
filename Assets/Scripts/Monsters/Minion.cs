@@ -25,27 +25,27 @@ public class Minion : Monster //졸개
         switch (MonsterState)
         {
          case MonsterState.Idle:
-             HandleWalking();
+             UpdateAnimatorParameters(Vector2.zero);
+             if (TargetHumanList.Count > 0)
+             {
+                 HandleWalking();
+             }
              break;
          case MonsterState.Walking:
              transform.position = Vector3.MoveTowards(transform.position, _targetPosition, data.walkSpeed * Time.deltaTime);
              Vector2 direction = (_targetPosition - transform.position).normalized;
              UpdateAnimatorParameters(direction);
+             if (TargetHumanList.Count == 0)
+             {
+                 MonsterState = MonsterState.Idle;
+             }
              break;
-        }
-    }
-    
-    protected override void SetState(MonsterState state)
-    {
-        base.SetState(state);
-        switch (MonsterState)
-        {
-            case MonsterState.Idle:
-                Animator.SetBool("Walking", false);
-                break;
-            case MonsterState.Walking:
-                Animator.SetBool("Walking", true);
-                break;
+         case MonsterState.Scaring:
+             transform.position = Vector3.MoveTowards(transform.position, _targetPosition, data.walkSpeed * Time.deltaTime);
+             Vector2 faceToTarget = (_targetPosition - transform.position).normalized;
+             UpdateAnimatorParameters(faceToTarget);
+             Scaring();
+             break;
         }
     }
     
@@ -62,15 +62,15 @@ public class Minion : Monster //졸개
                 SetState(MonsterState.Walking);
                 if (distanceToHuman <= data.humanScaringRange)
                 {
+                    _targetPosition = nearestHuman.position;
                     SetState(MonsterState.Scaring);
-                    return;
                 }
-            }
-            
-            if (distanceToSummoner > 5f && Vector3.Distance(_targetPosition, _summonerMonster.transform.position) > 1f)
-            {
-                Vector3 offset = (transform.position - _summonerMonster.transform.position).normalized * 1f;
-                _targetPosition = _summonerMonster.transform.position + offset;
+                // else if (distanceToSummoner < 5f)
+                // {
+                //     Vector3 offset = (transform.position - _summonerMonster.transform.position).normalized * 1f;
+                //     _targetPosition = _summonerMonster.transform.position + offset;
+                //     SetState(MonsterState.Walking);
+                // }
             }
         }
         else
@@ -80,7 +80,7 @@ public class Minion : Monster //졸개
             SetState(MonsterState.Walking);
         }
     }
-
+    
     public override void ReturnToVillage()
     {
         base.ReturnToVillage();

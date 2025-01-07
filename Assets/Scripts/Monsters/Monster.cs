@@ -239,7 +239,7 @@ public abstract class Monster : MonoBehaviour
         return null;
     }
 
-    protected virtual void SetState(MonsterState state)
+    protected void SetState(MonsterState state)
     {
         if (MonsterState == state) return;
         
@@ -247,7 +247,6 @@ public abstract class Monster : MonoBehaviour
         switch (MonsterState)
         {
             case MonsterState.Idle:
-                //Animator.ResetTrigger("Scare");
                 break;
 
             case MonsterState.Scaring:
@@ -284,21 +283,7 @@ public abstract class Monster : MonoBehaviour
             _lastScareTime = 0f;
             SetState(MonsterState.Idle);
         }
-
         
-        
-        // 단일 공격
-        // foreach (Human human in TargetHumanList)
-        // {
-        //     if (human == null) continue;
-        //     
-        //     if (_lastScareTime >= data.cooldown)
-        //     {
-        //         human.IncreaseFear(Random.Range(data.minFearInflicted, data.maxFearInflicted));
-        //         _lastScareTime = 0f;
-        //     }
-        // }
-
         // 범위 공격
         // if (Time.time - _lastScareTime > data.cooldown)
         // {
