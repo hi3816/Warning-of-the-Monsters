@@ -17,4 +17,9 @@ public class LobbyButtons : MonoBehaviour
             _soundOptionPanel.SetActive(true);
         }
     }
+
+    public void LoadTitleScene()
+    {
+        MySceneManager.Instance.ChangeScene("TitleScene");
+    }
 }
