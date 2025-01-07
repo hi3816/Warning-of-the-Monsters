@@ -12,6 +12,7 @@ public class HumanController : MonoBehaviour
     public Animator animator;
     public NavMeshAgent Agent { get; private set; }
     public Transform TargetMonster { get; private set; }
+    public int SpawnedPointIdx { get; set; }
     
     public Transform humanEffect;
     public ParticleSystem attackParticle;
@@ -47,8 +48,8 @@ public class HumanController : MonoBehaviour
     {
         // 초기화 설정
         Agent.enabled = false;
-        if (StageManager.Instance.SpawnPoint == null) return;
-        transform.position = StageManager.Instance.SpawnPoint.position;   // 시작 위치 설정
+        if (StageManager.Instance.StartPointList == null) return;
+        transform.position = StageManager.Instance.StartPointList[SpawnedPointIdx].position;   // 시작 위치 설정
         ClearTargetMonster();   // 타겟 몬스터 삭제
         Agent.enabled = true;
         Agent.ResetPath();  // 경로 초기화

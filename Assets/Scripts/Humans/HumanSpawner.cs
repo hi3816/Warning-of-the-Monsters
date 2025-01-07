@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class HumanSpawner : MonoBehaviour
@@ -6,6 +8,7 @@ public class HumanSpawner : MonoBehaviour
     private int _curStageIdx;
     private int _curWaveIdx;
     private WaitForSeconds _spawnDelay = new WaitForSeconds(2.5f);  // 인간 스폰 되는 간격
+    private List<Transform> _spawnPoints = new List<Transform>();
     
     [SerializeField] private PoolManager.PoolConfig[] _poolConfigs; // 인간 풀
 
@@ -13,6 +16,11 @@ public class HumanSpawner : MonoBehaviour
     {
         PoolManager.Instance.AddPools<Human>(_poolConfigs);
         _curStageIdx = DataManager.Instance.selectedStageIdx;
+    }
+
+    private void Start()
+    {
+        _spawnPoints = StageManager.Instance.StartPointList;
     }
     
     public void StartSpawningHumans(int waveIdx)
@@ -54,8 +62,15 @@ public class HumanSpawner : MonoBehaviour
             HumanManager.Instance.countPerWave[waveIdx]++;
 
         string humanType = ((HumanType)humanId).ToString(); // 스폰할 인간 종류를 태그 문자열로 변환
-        Human human = PoolManager.Instance.SpawnFromPool<Human>(humanType, transform.position, Quaternion.identity);
-        human.SpawnedWaveIdx = waveIdx;
+
+        
+        int spawnPointCount = _spawnPoints.Count;
+        for (int i = 0; i < spawnPointCount; i++)
+        {
+            Human human = PoolManager.Instance.SpawnFromPool<Human>(humanType, _spawnPoints[i].transform.position, quaternion.identity);
+            human.controller.SpawnedPointIdx = i;    
+            human.SpawnedWaveIdx = waveIdx;
+        }
     }
     
     private int ConvertWaveIdx(int stageIdx, int waveIdx)
