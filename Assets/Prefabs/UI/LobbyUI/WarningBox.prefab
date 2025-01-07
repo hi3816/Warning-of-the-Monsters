@@ -227,7 +227,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   _warningGroup: {fileID: 1216073830917987471}
   _warningTransform: {fileID: 40576013848889427}
-  text: {fileID: 8089837966795907705}
+  _text: {fileID: 8089837966795907705}
 --- !u!225 &1216073830917987471
 CanvasGroup:
   m_ObjectHideFlags: 0

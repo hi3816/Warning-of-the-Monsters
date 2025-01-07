@@ -103,8 +103,8 @@ public class StagePopup : UIBase
         {
             _warningTxt = "몬스터를 모두 선택하세요";
 
-            UIBase warningBox = PoolManager.Instance.SpawnFromPool<WarningBox>("WarningBox");
-            warningBox.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _warningTxt;
+            WarningBox warningBox = PoolManager.Instance.SpawnFromPool<WarningBox>("WarningBox");
+            warningBox.SetText(_warningTxt);
 
             return; 
         }
@@ -198,7 +198,7 @@ public class StagePopup : UIBase
                 }
             }
         }
-        UpdateSelectedSlot(listSlotSprite);
+        monsterSelectedSlots[_crrSlotIdx].UpdateSelectedSlot(listSlotSprite);
 
         //다음 선택으로
         if (_crrSlotIdx == 3)
@@ -211,13 +211,6 @@ public class StagePopup : UIBase
             SelectSlotWithArrow(_crrSlotIdx);
         }
 
-    }
-
-    private void UpdateSelectedSlot(Sprite listSlotSprite)
-    {
-        var slotImg = monsterSelectedSlots[_crrSlotIdx].slotImg;
-        slotImg.sprite = listSlotSprite;
-        slotImg.color = new Color(1, 1, 1, 1);
     }
 
     private void ShowStageInfo()
