@@ -97,12 +97,14 @@ public abstract class Monster : MonoBehaviour
                 }
             }
         }
+        
         if (isSingleTargetAttack) projectileData = null;
 
         if (_fatigueGauge == null)
         {
             _fatigueGauge = gameObject.transform.Find("FatigueCanvas/FatigueGauge").gameObject;
         }
+        
         _monsterFatigueGauge = GetComponent<MonsterFatigueGague>();
     }
     
@@ -121,6 +123,10 @@ public abstract class Monster : MonoBehaviour
         {
             case MonsterState.Idle:
                 UpdateAnimatorParameters(Vector2.zero);
+                if (TargetHumanList.Count > 0)
+                {
+                    SetState(MonsterState.Scaring);
+                }
                 break;
             case MonsterState.Scaring:
                 if (nearestHuman != null)
@@ -241,11 +247,12 @@ public abstract class Monster : MonoBehaviour
         switch (MonsterState)
         {
             case MonsterState.Idle:
-                Animator.SetBool("Scare", false);
+                //Animator.ResetTrigger("Scare");
                 break;
 
             case MonsterState.Scaring:
-                Animator.SetBool("Scare", true);
+                Animator.SetTrigger("Scare");
+                _lastScareTime = 0f;
                 break;
 
             case MonsterState.ReturningVillage:
@@ -265,17 +272,32 @@ public abstract class Monster : MonoBehaviour
 
     protected virtual void Scaring()
     {
-        // 단일 공격
-        foreach (Human human in TargetHumanList)
+        if (_lastScareTime >= data.cooldown)
         {
-            if (human == null) continue;
-            
-            if (_lastScareTime >= data.cooldown)
+            foreach (Human human in TargetHumanList)
             {
+                if (human == null) continue;
+
                 human.IncreaseFear(Random.Range(data.minFearInflicted, data.maxFearInflicted));
-                _lastScareTime = 0f;
             }
+
+            _lastScareTime = 0f;
+            SetState(MonsterState.Idle);
         }
+
+        
+        
+        // 단일 공격
+        // foreach (Human human in TargetHumanList)
+        // {
+        //     if (human == null) continue;
+        //     
+        //     if (_lastScareTime >= data.cooldown)
+        //     {
+        //         human.IncreaseFear(Random.Range(data.minFearInflicted, data.maxFearInflicted));
+        //         _lastScareTime = 0f;
+        //     }
+        // }
 
         // 범위 공격
         // if (Time.time - _lastScareTime > data.cooldown)
@@ -305,7 +327,7 @@ public abstract class Monster : MonoBehaviour
             if (human != null && !TargetHumanList.Contains(human) && human.FearLevel < human.MaxFear)
             {
                 TargetHumanList.Add(human);
-                SetState(MonsterState.Scaring);
+                // SetState(MonsterState.Scaring);
             }
         }
     }
@@ -386,7 +408,7 @@ public abstract class Monster : MonoBehaviour
         SetState(MonsterState.Idle);
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         GameManager.Instance.RemoveActiveList(this);
     }

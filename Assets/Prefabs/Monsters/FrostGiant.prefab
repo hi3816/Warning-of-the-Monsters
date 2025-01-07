@@ -146,7 +146,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.9
+  m_Radius: 4.5
 --- !u!50 &2400284206175671139
 Rigidbody2D:
   serializedVersion: 4
@@ -195,7 +195,7 @@ MonoBehaviour:
     fatigue: 50
     minFearInflicted: 60
     maxFearInflicted: 100
-    cooldown: 7
+    cooldown: 3.5
     humanDetectRange: 7.4
     humanScaringRange: 7.4
     walkSpeed: 0
