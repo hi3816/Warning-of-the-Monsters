@@ -1,19 +1,16 @@
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Pool;
-using UnityEngine.SceneManagement;
 using UnityEngine.U2D;
 using UnityEngine.UI;
+using DG.Tweening;
 
 
 public class StagePopup : UIBase
 {
-    //[Header("StagePopup")]
-    //[SerializeField] CanvasGroup _PopupCanvasGroup;
-    //[SerializeField] Transform _PopupTransform;
+    [Header("StagePopup")]
+    [SerializeField] Transform _PopupTransform;
 
     [Header("Button")]
     public GameObject btnSelectMonster;
@@ -81,6 +78,25 @@ public class StagePopup : UIBase
         SelectSlotWithArrow(_crrSlotIdx);
 
         ShowSelectMonster();
+    }
+
+    private void OnEnable()
+    {
+        _PopupTransform.localPosition = new Vector3(0, -1200, 0);
+        _PopupTransform.DOLocalMove(new Vector3(0, 0, 0), 0.5f)
+            .SetEase(Ease.OutBack);
+    }
+
+    public void Close()
+    {
+        ResetSelectedMonster();
+
+        _PopupTransform.DOLocalMove(new Vector3(0, -1200, 0), 0.5f)
+            .SetEase(Ease.InBack)
+            .OnComplete(() =>
+            {
+                gameObject.SetActive(false);
+            });
     }
 
     public void SetStageIdx(int Idx)
@@ -277,7 +293,7 @@ public class StagePopup : UIBase
         }
     }
 
-    public void ResetSelectedMonster()
+    private void ResetSelectedMonster()
     {
         foreach (var slot in monsterSelectedSlots)
         {
