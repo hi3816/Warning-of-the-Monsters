@@ -56,6 +56,7 @@ public class HumanController : MonoBehaviour
         Agent.speed = _speed;   // 속도 초기화
         stateMachine.ChangeState(WalkHumanState);   // 걷는 상태로 전환
         // 애니메이션 초기화
+        animator.SetBool("IsWalk", true);
         animator.SetBool("IsBattle", false);
         animator.speed = 1.0f;
         // 파티클 초기화
