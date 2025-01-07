@@ -6,7 +6,6 @@ using UnityEngine.UIElements;
 
 public class stationaryDefender : Monster //한자리를 지키고 있는 몬스터(=일반타워)
 {
-    
     void Update()
     {
         base.Update();
@@ -31,6 +30,7 @@ public class stationaryDefender : Monster //한자리를 지키고 있는 몬스
                 projectile.gameObject.SetActive(true);
 
                 _lastScareTime = 0f;
+                SetState(MonsterState.Idle);
             }
         }
 

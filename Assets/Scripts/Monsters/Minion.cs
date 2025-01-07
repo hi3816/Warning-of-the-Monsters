@@ -4,8 +4,7 @@ public class Minion : Monster //졸개
 {
     private summonerMonster _summonerMonster;
     private Vector3 _targetPosition;
-    private float _stoppingDistance = 0.5f;
-
+    
     public void InitializeMinion(DataTable.Monster_Data minionData, summonerMonster summoner)
     {
         data.fatigue = minionData.fatigue;
@@ -29,7 +28,9 @@ public class Minion : Monster //졸개
              HandleWalking();
              break;
          case MonsterState.Walking:
-             MoveTowardsTarget();
+             transform.position = Vector3.MoveTowards(transform.position, _targetPosition, data.walkSpeed * Time.deltaTime);
+             Vector2 direction = (_targetPosition - transform.position).normalized;
+             UpdateAnimatorParameters(direction);
              break;
         }
     }
@@ -39,6 +40,9 @@ public class Minion : Monster //졸개
         base.SetState(state);
         switch (MonsterState)
         {
+            case MonsterState.Idle:
+                Animator.SetBool("Walking", false);
+                break;
             case MonsterState.Walking:
                 Animator.SetBool("Walking", true);
                 break;
@@ -61,35 +65,19 @@ public class Minion : Monster //졸개
                     SetState(MonsterState.Scaring);
                     return;
                 }
-                
-                if (distanceToSummoner > 5f) // 만약 미니언이 소환사와 너무 멀어지면
-                {
-                    Vector3 offset = (transform.position - _summonerMonster.transform.position).normalized * 1f;
-                    _targetPosition = _summonerMonster.transform.position + offset;
-                    UpdateAnimatorParameters(_summonerMonster.transform.position);
-                    SetState(MonsterState.Walking);
-                }
+            }
+            
+            if (distanceToSummoner > 5f && Vector3.Distance(_targetPosition, _summonerMonster.transform.position) > 1f)
+            {
+                Vector3 offset = (transform.position - _summonerMonster.transform.position).normalized * 1f;
+                _targetPosition = _summonerMonster.transform.position + offset;
             }
         }
         else
         {
             Vector3 offset = (transform.position - _summonerMonster.transform.position).normalized * 1f;
             _targetPosition = _summonerMonster.transform.position + offset;
-            UpdateAnimatorParameters(_summonerMonster.transform.position);
             SetState(MonsterState.Walking);
-        }
-    }
-    
-    private void MoveTowardsTarget()
-    {
-        if (_targetPosition != Vector3.zero)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, _targetPosition, data.walkSpeed * Time.deltaTime);
-        }
-
-        if (Vector3.Distance(transform.position, _targetPosition) <= _stoppingDistance)
-        {
-            SetState(MonsterState.Idle);
         }
     }
 
