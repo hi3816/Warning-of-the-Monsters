@@ -24,7 +24,7 @@ public class StageManager : SingletonBase<StageManager>
     public List<Transform> SpawnPointList { get; private set; }
     
     private int _stageIdx;
-    public Transform SpawnPoint { get; private set; }
+    public List<Transform> StartPointList { get; private set; }
     public Transform EndPoint { get; private set; }
 
     [Header("Sfx Pools")]
@@ -76,12 +76,23 @@ public class StageManager : SingletonBase<StageManager>
     // 스테이지의 시작점과 종료지점 캐싱
     private void SetPointInfo()
     {
-        SpawnPoint = GameObject.FindGameObjectWithTag("HumanSpawnPoint").transform;
-        if (SpawnPoint == null)
-            Debug.LogAssertion("Spawnpoint not found");
-        EndPoint = GameObject.FindGameObjectWithTag("DestinationPoint").transform;
+        StartPointList = new List<Transform>();
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("HumanSpawnPoint");
+        if (spawnPoints == null || spawnPoints.Length == 0)
+        {
+            Debug.LogAssertion("Startpoints not found");
+            return;
+        }
+        foreach (GameObject point in spawnPoints)
+        {
+            StartPointList.Add(point.transform);
+        }
+        
+        EndPoint = GameObject.FindWithTag("DestinationPoint").transform;
         if (EndPoint == null)
+        {
             Debug.LogAssertion("Endpoint not found");
+        }
     }
 
     // Wave 업데이트
