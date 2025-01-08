@@ -110,6 +110,7 @@ public abstract class Monster : MonoBehaviour
     protected virtual void OnEnable()
     {
         ResetMonster();
+        _fatigueGauge.SetActive(true);
     }
     
     protected virtual void Update()
@@ -315,7 +316,8 @@ public abstract class Monster : MonoBehaviour
         }
         
         TargetHumanList.Clear();
-        
+        _fatigueGauge.SetActive(false);
+
         // Fade out
         float startAlpha = _spriteRenderer.color.a;
         float elapsedTime = 0f;
