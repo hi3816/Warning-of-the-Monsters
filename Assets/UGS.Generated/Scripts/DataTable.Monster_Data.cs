@@ -58,15 +58,15 @@ namespace DataTable
 
 		public System.Int32 id;
 		public System.String name;
-		public System.Single fatigue;
-		public System.Single minFearInflicted;
-		public System.Single maxFearInflicted;
-		public System.Single cooldown;
-		public System.Single humanDetectRange;
-		public System.Single humanScaringRange;
-		public System.Int32 requiredCoins;
+		public System.Collections.Generic.List<Single> fatigue;
+		public System.Collections.Generic.List<Single> minFearInflicted;
+		public System.Collections.Generic.List<Single> maxFearInflicted;
+		public System.Collections.Generic.List<Single> cooldown;
+		public System.Collections.Generic.List<Single> humanDetectRange;
+		public System.Collections.Generic.List<Single> humanScaringRange;
+		public System.Collections.Generic.List<Int32> requiredCoins;
 		public System.Int32 maxLevel;
-		public System.Single walkSpeed;
+		public System.Collections.Generic.List<Single> walkSpeed;
 		public MonsterType monsterType;
   
 

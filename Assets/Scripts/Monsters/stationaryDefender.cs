@@ -6,10 +6,6 @@ using UnityEngine.UIElements;
 
 public class stationaryDefender : Monster //한자리를 지키고 있는 몬스터(=일반타워)
 {
-    void Update()
-    {
-        base.Update();
-    }
 
     protected override void Scaring()
     {
@@ -30,11 +26,6 @@ public class stationaryDefender : Monster //한자리를 지키고 있는 몬스
                 _lastScareTime = 0f;
                 SetState(MonsterState.Idle);
             }
-        }
-
-        if (TargetHumanList.Count == 0)
-        {
-            SetState(MonsterState.Idle);
         }
     }
 }

@@ -1,4 +1,5 @@
 using DataTable;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -140,17 +141,12 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
     public int CalculateTotalSpent(Monster selectedMonster) //몬스터 스폰 & 업그레이드에 사용한 비용 계산
     {
         MonsterData monsterData = selectedMonster.data;
-        int totalSpent = DataManager.Instance.GetBaseMonsterById(monsterData.id).requiredCoins; //몬스터 스폰 비용
-        for (int level = 1; level <= monsterData.currentLevel; level++) //몬스터 업그레이드 비용
+        List<int> goldList = DataManager.Instance.GetBaseMonsterById(monsterData.id).requiredCoins;
+        int totalSpent = 0;
+        for (int level = 0; level <= monsterData.currentLevel; level++) //몬스터 업그레이드 비용
         {
-            var upgrades = DataManager.Instance.GetUpgradeMonsters(monsterData.id, level);
-            if (upgrades.upgradeLevel > 0)
-            {
-                var upgradeData = upgrades;
-                totalSpent += upgradeData.requiredCoins;
-            }
+            totalSpent += goldList[level];
         }
-        // 혹시 진화 못했을 경우 대비
         if (monsterData.currentLevel == monsterData.maxLevel)
         {
             Evolution_Data evolution = DataManager.Instance.GetEvolutionData(monsterData.id, monsterData.currentLevel, monsterData.evolutionType);

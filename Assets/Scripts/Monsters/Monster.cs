@@ -159,21 +159,21 @@ public abstract class Monster : MonoBehaviour
     }
 
     // 처음 데이터 저장
-    private void SetMonsterData(Monster_Data monsterData)
+    protected void SetMonsterData(Monster_Data monsterData)
     {
         data.id = monsterData.id;
         data.currentLevel = 0;
         data.poolTag = monsterData.name;
         data.currentFatigue = 0f;
-        data.fatigue = monsterData.fatigue;
-        data.minFearInflicted = monsterData.minFearInflicted;
-        data.maxFearInflicted = monsterData.maxFearInflicted;
-        data.cooldown = monsterData.cooldown;
-        data.humanDetectRange = monsterData.humanDetectRange;
-        data.humanScaringRange = monsterData.humanScaringRange;
-        data.requiredCoins = monsterData.requiredCoins;
+        data.fatigue = monsterData.fatigue[data.currentLevel];
+        data.minFearInflicted = monsterData.minFearInflicted[data.currentLevel];
+        data.maxFearInflicted = monsterData.maxFearInflicted[data.currentLevel];
+        data.cooldown = monsterData.cooldown[data.currentLevel];
+        data.humanDetectRange = monsterData.humanDetectRange[data.currentLevel];
+        data.humanScaringRange = monsterData.humanScaringRange[data.currentLevel];
+        data.requiredCoins = monsterData.requiredCoins[data.currentLevel];
         data.maxLevel = monsterData.maxLevel;
-        data.walkSpeed = monsterData.walkSpeed;
+        data.walkSpeed = monsterData.walkSpeed[data.currentLevel];
         data.monsterType = monsterData.monsterType;
     }
 
@@ -183,17 +183,18 @@ public abstract class Monster : MonoBehaviour
         data = newMonsterData.Clone();
     }
 
-    public void Upgrade(Upgrade_Data upgradeData)
+    public void Upgrade(Monster_Data monsterData)
     {
-        data.monsterId = upgradeData.monsterId;
-        data.currentLevel = upgradeData.upgradeLevel;
-        data.fatigue = upgradeData.fatigue;
-        data.minFearInflicted = upgradeData.minFearInflicted;
-        data.maxFearInflicted = upgradeData.maxFearInflicted;
-        data.cooldown = upgradeData.cooldown;
-        data.humanDetectRange = upgradeData.humanDetectRange;
-        data.humanScaringRange = upgradeData.humanScaringRange;
-        data.requiredCoins = upgradeData.requiredCoins;
+        int nextLevel = data.currentLevel + 1;
+        data.currentLevel = nextLevel;
+        data.monsterId = monsterData.id;
+        data.fatigue = monsterData.fatigue[nextLevel];
+        data.minFearInflicted = monsterData.minFearInflicted[nextLevel];
+        data.maxFearInflicted = monsterData.maxFearInflicted[nextLevel];
+        data.cooldown = monsterData.cooldown[nextLevel];
+        data.humanDetectRange = monsterData.humanDetectRange[nextLevel];
+        data.humanScaringRange = monsterData.humanScaringRange[nextLevel];
+        data.requiredCoins = monsterData.requiredCoins[nextLevel];
         if (_monsterFatigueGauge != null) _monsterFatigueGauge.SetFatigue();
     }
 
@@ -228,7 +229,6 @@ public abstract class Monster : MonoBehaviour
 
             case MonsterState.Scaring:
                 Animator.SetTrigger("Scare");
-                _lastScareTime = 0f;
                 break;
 
             case MonsterState.ReturningVillage:
@@ -258,11 +258,6 @@ public abstract class Monster : MonoBehaviour
             }
 
             _lastScareTime = 0f;
-            SetState(MonsterState.Idle);
-        }
-        
-        if (TargetHumanList.Count == 0)
-        {
             SetState(MonsterState.Idle);
         }
     }

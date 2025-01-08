@@ -1,4 +1,5 @@
 using DataTable;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Button = UnityEngine.UI.Button;
@@ -41,16 +42,17 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
         Vector3 worldPosition = _selectedMonster.transform.position;
         UiPanel.transform.position = worldPosition + (Vector3.right * 1.5f);
 
-        var upgrades = DataManager.Instance.GetUpgradeMonsters(_selectedMonster.data.id, _selectedMonster.data.currentLevel + 1);
-        if (upgrades != null)
+        int nextLevel = _selectedMonster.data.currentLevel + 1;
+        var upgrade = DataManager.Instance.GetBaseMonsterById(_selectedMonster.data.id);
+        if (_selectedMonster.data.currentLevel < _selectedMonster.data.maxLevel)
         {
-            var nextUpgrade = upgrades;
+            var nextUpgrade = upgrade;
             
-            _upgradeStatsText.text = $"Fatigue: \t{nextUpgrade.fatigue}\n" +
-                                    $"Min Fear: \t{nextUpgrade.minFearInflicted}\n" +
-                                    $"Max Fear: \t{nextUpgrade.maxFearInflicted}\n" + 
-                                    $"Cooldown: \t{nextUpgrade.cooldown}";
-            _upgradeCostText.text = $"{nextUpgrade.requiredCoins}";
+            _upgradeStatsText.text = $"Fatigue: \t{nextUpgrade.fatigue[nextLevel]}\n" +
+                                    $"Min Fear: \t{nextUpgrade.minFearInflicted[nextLevel]}\n" +
+                                    $"Max Fear: \t{nextUpgrade.maxFearInflicted[nextLevel]}\n" + 
+                                    $"Cooldown: \t{nextUpgrade.cooldown[nextLevel]}";
+            _upgradeCostText.text = $"{nextUpgrade.requiredCoins[nextLevel]}";
             UpgradeButton.interactable = true;
         }
         else
@@ -66,14 +68,15 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
     public void UpgradeMonster()
     {
         if (_selectedMonster == null) return;
-        
-        var upgrades = DataManager.Instance.GetUpgradeMonsters(_selectedMonster.data.id, _selectedMonster.data.currentLevel + 1);
-        if (upgrades.upgradeLevel > 0 && _stageManager.CurrGold >= upgrades.requiredCoins)
+
+        int nextLevel = _selectedMonster.data.currentLevel + 1;
+        var upgrade = DataManager.Instance.GetBaseMonsterById(_selectedMonster.data.id);
+        if (upgrade.fatigue.Count < nextLevel) return;
+        if (upgrade.maxLevel > 0 && _stageManager.CurrGold >= upgrade.requiredCoins[nextLevel])
         {
-            var nextUpgrade = upgrades;
-            _stageManager.ChangeGold(-nextUpgrade.requiredCoins);
-            _selectedMonster.Upgrade(nextUpgrade);
-            if (DataManager.Instance.GetUpgradeMonsters(_selectedMonster.data.id, _selectedMonster.data.currentLevel + 1) == null)
+            _stageManager.ChangeGold(-upgrade.requiredCoins[nextLevel]);
+            _selectedMonster.Upgrade(upgrade);
+            if (upgrade.maxLevel <= _selectedMonster.data.currentLevel + 1)
             {
                 _upgradeCanvas.gameObject.SetActive(false);
             }
@@ -111,18 +114,14 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
     public int CalculateTotalSpent(Monster selectedMonster) //몬스터 스폰 & 업그레이드에 사용한 비용 계산
     {
         MonsterData monsterData = selectedMonster.data;
-        int totalSpent = DataManager.Instance.GetBaseMonsterById(monsterData.id).requiredCoins; //몬스터 스폰 비용
-        for (int level = 1; level <= monsterData.currentLevel; level++) //몬스터 업그레이드 비용
+        List<int> goldList = DataManager.Instance.GetBaseMonsterById(monsterData.id).requiredCoins;
+        int totalSpent = 0;
+        int maxLevelToCalculate = monsterData.currentLevel < monsterData.maxLevel ? monsterData.currentLevel : monsterData.maxLevel - 1;
+        for (int level = 0; level <= maxLevelToCalculate; level++) //몬스터 업그레이드 비용
         {
-            var upgrades = DataManager.Instance.GetUpgradeMonsters(monsterData.id, level);
-            if (upgrades == null) continue;
-            if (upgrades.upgradeLevel > 0)
-            {
-                var upgradeData = upgrades;
-                totalSpent += upgradeData.requiredCoins;
-            }
+            totalSpent += goldList[level];
         }
-        if(monsterData.currentLevel == monsterData.maxLevel)
+        if (monsterData.currentLevel == monsterData.maxLevel)
         {
             Evolution_Data evolution = DataManager.Instance.GetEvolutionData(monsterData.id, monsterData.currentLevel, monsterData.evolutionType);
             totalSpent += evolution.requiredCoins;
