@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : SingletonBase<GameManager>
 {
     private List<Human> activeHumans = new List<Human>();
+    private List<Minion> activeMinons = new List<Minion>();
     private List<Monster> activeMonsters = new List<Monster>();
     
     protected override void Awake()
@@ -44,17 +45,42 @@ public class GameManager : SingletonBase<GameManager>
         HumanSpawner.Instance.StopSpawningHumans();
         
         // 활성화된 인간이나 몬스터 오브젝트 풀에 반환
-        for (int i = activeHumans.Count - 1; i >= 0; i--)
+        // for (int i = activeHumans.Count - 1; i >= 0; i--)
+        // {
+        //     string objectName = activeHumans[i].name;
+        //     PoolManager.Instance.ReturnToPool(objectName, activeHumans[i]);
+        //     activeHumans.RemoveAt(i);
+        // }
+        // for (int i = activeMinons.Count - 1; i >= 0; i--)
+        // {
+        //     string objectName = activeMinons[i].name;
+        //     PoolManager.Instance.ReturnToPool(objectName, activeMinons[i]);
+        //     activeMinons.RemoveAt(i);
+        // }
+        // for (int i = activeMonsters.Count - 1; i >= 0; i--)
+        // {
+        //     string objectName = activeMonsters[i].name;
+        //     PoolManager.Instance.ReturnToPool(objectName, activeMonsters[i]);
+        //     activeMonsters.RemoveAt(i);
+        // }
+        // TODO: index 에러 없이 for로 변경
+        while (activeHumans.Count > 0)
         {
-            string objectName = activeHumans[i].name;
-            PoolManager.Instance.ReturnToPool(objectName, activeHumans[i]);
-            activeHumans.RemoveAt(i);
+            string objectName = activeHumans[0].name;
+            PoolManager.Instance.ReturnToPool(objectName, activeHumans[0]);
+            activeHumans.RemoveAt(0);
         }
-        for (int i = activeMonsters.Count - 1; i >= 0; i--)
+        while (activeMinons.Count > 0)
         {
-            string objectName = activeMonsters[i].name;
-            PoolManager.Instance.ReturnToPool(objectName, activeMonsters[i]);
-            activeMonsters.RemoveAt(i);
+            string objectName = activeMinons[0].name;
+            PoolManager.Instance.ReturnToPool(objectName, activeMinons[0]);
+            activeMinons.RemoveAt(0);
+        }
+        while (activeMonsters.Count > 0)
+        {
+            string objectName = activeMonsters[0].name;
+            PoolManager.Instance.ReturnToPool(objectName, activeMonsters[0]);
+            activeMonsters.RemoveAt(0);
         }
     }
 
@@ -63,6 +89,12 @@ public class GameManager : SingletonBase<GameManager>
         if (obj is Human)
         {
             activeHumans.Add(obj as Human);
+            return;
+        }
+        
+        if (obj is Minion)
+        {
+            activeMinons.Add(obj as Minion);
             return;
         }
 
@@ -77,6 +109,12 @@ public class GameManager : SingletonBase<GameManager>
         if (obj is Human)
         {
             activeHumans.Remove(obj as Human);
+            return;
+        }
+        
+        if (obj is Minion)
+        {
+            activeMinons.Remove(obj as Minion);
             return;
         }
 
