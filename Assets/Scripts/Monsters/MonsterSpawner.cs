@@ -5,7 +5,6 @@ public class MonsterSpawner : MonoBehaviour
 {
     public List<Transform> SpawnPointList { get; private set; }
     protected StageManager StageManager;
-    private Monster _monster;
     
     private void Start()
     {
@@ -35,9 +34,9 @@ public class MonsterSpawner : MonoBehaviour
             return;
         }
         
-        if (StageManager.CurrGold >= selectedMonsterData.requiredCoins)
+        if (StageManager.CurrGold >= selectedMonsterData.requiredCoins[0])
         {
-            StageManager.ChangeGold(-selectedMonsterData.requiredCoins);
+            StageManager.ChangeGold(-selectedMonsterData.requiredCoins[0]);
             Monster monster = PoolManager.Instance.SpawnFromPool<Monster>(selectedMonsterData.name, spawnPosition, Quaternion.identity);            if (monster != null)
             {
                 SetMonsterData(monster.data, selectedMonsterData);
@@ -58,13 +57,13 @@ public class MonsterSpawner : MonoBehaviour
         data.id = selectedMonsterData.id;
         data.currentLevel = 0;
         data.poolTag = selectedMonsterData.name;
-        data.fatigue = selectedMonsterData.fatigue; 
-        data.minFearInflicted = selectedMonsterData.minFearInflicted;
-        data.maxFearInflicted = selectedMonsterData.maxFearInflicted;
-        data.cooldown = selectedMonsterData.cooldown; 
-        data.humanScaringRange = selectedMonsterData.humanScaringRange; 
-        data.walkSpeed = selectedMonsterData.walkSpeed; 
-        data.requiredCoins = selectedMonsterData.requiredCoins; 
+        data.fatigue = selectedMonsterData.fatigue[data.currentLevel]; 
+        data.minFearInflicted = selectedMonsterData.minFearInflicted[data.currentLevel];
+        data.maxFearInflicted = selectedMonsterData.maxFearInflicted[data.currentLevel];
+        data.cooldown = selectedMonsterData.cooldown[data.currentLevel]; 
+        data.humanScaringRange = selectedMonsterData.humanScaringRange[data.currentLevel]; 
+        data.walkSpeed = selectedMonsterData.walkSpeed[data.currentLevel]; 
+        data.requiredCoins = selectedMonsterData.requiredCoins[data.currentLevel]; 
         data.maxLevel = selectedMonsterData.maxLevel; 
     }
 }

@@ -124,7 +124,7 @@ public class PopupMonsterSpawner : MonsterSpawner
 
     private bool IsMonsterSelectable(int idx, DataTable.Monster_Data data)
     {
-        _costTxts[idx].text = data.requiredCoins.ToString();
-        return StageManager.CurrGold >= data.requiredCoins;
+        _costTxts[idx].text = data.requiredCoins[0].ToString();
+        return StageManager.CurrGold >= data.requiredCoins[0];
     }
 }

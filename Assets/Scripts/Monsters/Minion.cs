@@ -6,13 +6,13 @@ public class Minion : Monster //졸개
     
     public void InitializeMinion(DataTable.Monster_Data minionData, summonerMonster summoner)
     {
-        data.fatigue = minionData.fatigue;
-        data.minFearInflicted = minionData.minFearInflicted;
-        data.maxFearInflicted = minionData.maxFearInflicted;
-        data.cooldown = minionData.cooldown;
-        data.humanDetectRange = minionData.humanDetectRange;
-        data.humanScaringRange = minionData.humanScaringRange;
-        data.walkSpeed = minionData.walkSpeed;
+        data.fatigue = minionData.fatigue[data.currentLevel];
+        data.minFearInflicted = minionData.minFearInflicted[data.currentLevel];
+        data.maxFearInflicted = minionData.maxFearInflicted[data.currentLevel];
+        data.cooldown = minionData.cooldown[data.currentLevel];
+        data.humanDetectRange = minionData.humanDetectRange[data.currentLevel];
+        data.humanScaringRange = minionData.humanScaringRange[data.currentLevel];
+        data.walkSpeed = minionData.walkSpeed[data.currentLevel];
 
         _summonerMonster = summoner;
         SetState(MonsterState.Idle);

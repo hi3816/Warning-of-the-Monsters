@@ -10,7 +10,6 @@ public class DataManager : SingletonBase<DataManager>
     private Dictionary<int, Wave_Data> _waveDataDictionary;
     private List<Monster_Data> _baseMonsterDataList;
     private Dictionary<int, Monster_Data> _baseMonsterDataDictionary;
-    private List<Upgrade_Data> _upgradeMonsterDataList;
     private List<Monster_Data> _minionDataList;
     private Dictionary<string, Monster_Data> _minionDataDictionary;
     private List<Summon_Data> _summonDataList;
@@ -29,7 +28,6 @@ public class DataManager : SingletonBase<DataManager>
         LoadHumanData();
         LoadWaveData();
         LoadBaseMonsterData();
-        LoadUpgradeMonsterData();
         LoadMinionData();
         LoadSummonData();
     }
@@ -100,11 +98,6 @@ public class DataManager : SingletonBase<DataManager>
         }
     }
 
-    private void LoadUpgradeMonsterData()
-    {
-        _upgradeMonsterDataList = Upgrade_Data.GetList();
-    }
-
     private void LoadMinionData()
     {
         _minionDataList = Monster_Data.GetList();
@@ -112,7 +105,10 @@ public class DataManager : SingletonBase<DataManager>
 
         foreach (var minionData in _minionDataList)
         {
-            _minionDataDictionary[minionData.name] = minionData;
+            if (minionData.monsterType == MonsterType.Minion)
+            {
+                _minionDataDictionary[minionData.name] = minionData;
+            }
         }
     }
 
@@ -132,21 +128,6 @@ public class DataManager : SingletonBase<DataManager>
     public List<Monster_Data> GetBaseMonsters()
     {
         return _baseMonsterDataList;
-    }
-
-    public Upgrade_Data GetUpgradeMonsters(int monsterId, int level)
-    {
-        var upgrades = Upgrade_Data.GetList();
-         foreach (var upgrade in upgrades)
-         {
-             int baseMonsterId = upgrade.monsterId / 1000; //base id (1, 2, etc.)
-             int upgradePart = upgrade.monsterId % 1000 / 100; //upgrade level (1, 2, etc.)
-             if (baseMonsterId == monsterId && upgradePart == level)
-             {
-                 return upgrade;
-             }
-         }
-         return null;
     }
 
     public Monster_Data GetBaseMonsterByIdx(int id)
