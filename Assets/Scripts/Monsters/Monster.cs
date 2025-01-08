@@ -145,8 +145,9 @@ public abstract class Monster : MonoBehaviour
         }
     }
 
-    protected void ResetMonster()
+    private void ResetMonster()
     {
+        if (_coroutine != null) StopCoroutine(_coroutine);
         SetState(MonsterState.Idle);
         if (_spriteRenderer.color.a <= 1f)
         {
@@ -155,6 +156,8 @@ public abstract class Monster : MonoBehaviour
             _spriteRenderer.color = color;
         }
         _lastScareTime = data.cooldown;
+        data.currentFatigue = 0f;
+        TargetHumanList.Clear();
     }
 
     // 처음 데이터 저장
@@ -348,14 +351,5 @@ public abstract class Monster : MonoBehaviour
         _spriteRenderer.color = startColor;
         GameManager.Instance.RemoveActiveList(this);
         PoolManager.Instance.ReturnToPool(data.poolTag, this);
-    }
-    
-    public void Reset()
-    {
-        if (_coroutine != null) StopCoroutine(_coroutine);
-        data.currentFatigue = 0f;
-        TargetHumanList.Clear();
-        _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 1f);
-        SetState(MonsterState.Idle);
     }
 }

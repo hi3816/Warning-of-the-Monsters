@@ -28,7 +28,7 @@ public class MonsterFatigueGague : MonoBehaviour
             UpdateFatigueGauge();
         _monster.OnAttacked -= UpdateFatigueGauge;
         _monster.OnAttacked += UpdateFatigueGauge;
-        _monsterFatigueGagueImg.fillAmount = 0;
+        SetFatigue();
     }
     
     private void Start()
