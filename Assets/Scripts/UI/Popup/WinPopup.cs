@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,6 +11,7 @@ public class WinPopup : UIBase
     public Button btnNextStage;
 
     [Header("Display")]
+    [SerializeField] RectTransform _winPopup;
     public TextMeshProUGUI displayResultInfo;
 
     [Header("Star")]
@@ -32,9 +34,20 @@ public class WinPopup : UIBase
         SetSortOrder(UILayerOrder.Popup);
     }
 
+    private void OnEnable()
+    {
+        // 초기화
+        _winPopup.localScale = Vector3.zero;
+
+        //시간 재개. 없으면 애니메이션이 실행안됨.
+        Time.timeScale = 1f;
+        // 애니메이션
+        _winPopup.DOScale(Vector3.one, 0.5f)
+            .SetEase(Ease.OutBack);
+    }
+
     private void LoadGameScene()
     {
-        Time.timeScale = 1f;
         MySceneManager.Instance.ChangeScene("MainScene");
     }
     private void LoadNextStage()

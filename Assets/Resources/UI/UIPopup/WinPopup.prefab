@@ -198,6 +198,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   btnRetry: {fileID: 6511347721265765768}
   btnNextStage: {fileID: 4072196579712372366}
+  _winPopup: {fileID: 8149754423760183461}
   displayResultInfo: {fileID: 2106474751585267735}
   emptyStar1: {fileID: 3013805091463133489}
   emptyStar2: {fileID: 5267719870850144243}

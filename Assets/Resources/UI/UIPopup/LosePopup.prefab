@@ -202,6 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
+  _losePopupPosition: {fileID: 5565180449306400759}
   btnRetry: {fileID: 1535491337470081693}
   btnExit: {fileID: 4723486075541409179}
   displayResultInfo: {fileID: 4726507616297320183}
