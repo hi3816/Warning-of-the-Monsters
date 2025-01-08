@@ -96,40 +96,10 @@ public class PoolManager : SingletonBase<PoolManager>
 
     public T SpawnFromPool<T>(string tag, Vector3 position, Quaternion rotation) where T : Component
     {
-        // 태그와 일치하는 풀이 없으면 풀 생성
-        if (!_pools.TryGetValue(tag, out var pool))
+        // 풀에서 오브젝트 가져와 Transform 설정 후 반환
+        T obj = SpawnFromPool<T>(tag);
+        if (obj != null)
         {
-            foreach (var poolConfig in _poolConfigs)
-            {
-                if (poolConfig.tag == tag)
-                {
-                    CreatePool<T>(poolConfig.tag, poolConfig.prefab, poolConfig.size);
-                }
-            }
-        }
-        
-        // 풀 생성 실패 시 에러메시지 출력 후 null 반환
-        if (!_pools.TryGetValue(tag, out pool))
-        {
-            Debug.LogAssertion($"Pool with tag {tag} cannot be created.");
-            return null;
-        }
-
-        // 태그와 일치하는 풀이 있으면 
-        if (pool is IObjectPool<T> typedPool)
-        {
-            // 모든 오브젝트가 사용 중이면 풀 확장
-            if (typedPool.CountInactive == 0)   
-            {
-                var poolConfig = _poolConfigs.Find(config => config.tag == tag);
-                if (poolConfig != null)
-                {
-                    ExpandPool(typedPool, poolConfig.size);
-                }
-            }
-            
-            // 풀에서 오브젝트 가져와 Transform 설정 후 반환
-            T obj = typedPool.Get();
             obj.transform.position = position;
             obj.transform.rotation = rotation;
             return obj;
