@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4053593452554380148}
   - component: {fileID: 7014077436232182821}
   - component: {fileID: 3444832835389032056}
-  - component: {fileID: 8997616194576272798}
   m_Layer: 5
   m_Name: RetryBtn
   m_TagString: Untagged
@@ -134,7 +133,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8997616194576272798}
+      - m_Target: {fileID: 3473048772599492789}
         m_TargetAssemblyTypeName: ReturnToPoolBtn, Assembly-CSharp
         m_MethodName: OnReturnBtnClicked
         m_Mode: 1
@@ -146,18 +145,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8997616194576272798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 608588690702206229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77f868fa9aca5ae408262b43ea3214d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &903376899756373678
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,6 +269,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1022626214531268214}
         m_TargetAssemblyTypeName: OptionPanelController, Assembly-CSharp
         m_MethodName: ClickExitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3473048772599492789}
+        m_TargetAssemblyTypeName: ReturnToPoolBtn, Assembly-CSharp
+        m_MethodName: OnReturnBtnClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1578,6 +1577,7 @@ GameObject:
   - component: {fileID: 1077952586408790107}
   - component: {fileID: 7588241834687486646}
   - component: {fileID: 1022626214531268214}
+  - component: {fileID: 3473048772599492789}
   m_Layer: 5
   m_Name: OptionPanel
   m_TagString: Untagged
@@ -1629,6 +1629,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bgmImage: {fileID: 7511060226103709108}
   _sfxImage: {fileID: 8277039549738289426}
+--- !u!114 &3473048772599492789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8179583286680606036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77f868fa9aca5ae408262b43ea3214d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8458124203347639777
 GameObject:
   m_ObjectHideFlags: 0

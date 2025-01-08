@@ -41,16 +41,20 @@ public class GameManager : SingletonBase<GameManager>
 
     public void ReturnObjects()
     {
+        HumanSpawner.Instance.StopSpawningHumans();
+        
         // 활성화된 인간이나 몬스터 오브젝트 풀에 반환
-        while (activeHumans.Count > 0)
+        for (int i = activeHumans.Count - 1; i >= 0; i--)
         {
-            string objectName = activeHumans[0].name;
-            PoolManager.Instance.ReturnToPool(objectName, activeHumans[0]);
+            string objectName = activeHumans[i].name;
+            PoolManager.Instance.ReturnToPool(objectName, activeHumans[i]);
+            activeHumans.RemoveAt(i);
         }
-        while (activeMonsters.Count > 0)
+        for (int i = activeMonsters.Count - 1; i >= 0; i--)
         {
-            string objectName = activeMonsters[0].name;
-            PoolManager.Instance.ReturnToPool(objectName, activeMonsters[0]);
+            string objectName = activeMonsters[i].name;
+            PoolManager.Instance.ReturnToPool(objectName, activeMonsters[i]);
+            activeMonsters.RemoveAt(i);
         }
     }
 
