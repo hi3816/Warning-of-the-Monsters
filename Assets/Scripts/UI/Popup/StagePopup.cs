@@ -127,7 +127,7 @@ public class StagePopup : UIBase
         DataManager.Instance.selectedStageIdx = _stageIdx;              //선택된 스테이지
         DataManager.Instance.selectedMonsterData = _selectedListData;    //선택된 몬스터
         
-        MySceneManager.Instance.ChangeScene("MainScene");
+        LoadingManager.Instance.ChangeScene("MainScene");
     }
 
     private void ShowSelectMonster()

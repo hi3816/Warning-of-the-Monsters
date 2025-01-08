@@ -33,7 +33,7 @@ public class StartScreen : UIBase
 
     public void OnButtonClicked()
     {
-        MySceneManager.Instance.ChangeScene("LobbyScene");
+        LoadingManager.Instance.ChangeScene("LobbyScene");
     }
 
     private void OnGuideButtonCliked()

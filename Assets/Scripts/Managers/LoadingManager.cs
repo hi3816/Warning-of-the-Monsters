@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class MySceneManager : SingletonBase<MySceneManager>
+public class LoadingManager : SingletonBase<LoadingManager>
 {
     public CanvasGroup fadeImg;
     float fadeDuration = 0.5f; //암전되는 시간.
@@ -30,7 +30,7 @@ public class MySceneManager : SingletonBase<MySceneManager>
             })
             .OnComplete(() =>
             {
-                StartCoroutine("LoadScene", sceneName);
+                StartCoroutine(LoadScene(sceneName));
             });
     }
 

@@ -27,11 +27,11 @@ public class LosePopup : UIBase
     }
     private void LoadGameScene()
     {
-        MySceneManager.Instance.ChangeScene("MainScene");
+        LoadingManager.Instance.ChangeScene("MainScene");
     }
     private void LoadLobby()
     {
-        MySceneManager.Instance.ChangeScene("LobbyScene");
+        LoadingManager.Instance.ChangeScene("LobbyScene");
     }
 
     private void OnEnable()

@@ -29,6 +29,6 @@ public class LobbyButtons : MonoBehaviour
 
     public void LoadTitleScene()
     {
-        MySceneManager.Instance.ChangeScene("TitleScene");
+        LoadingManager.Instance.ChangeScene("TitleScene");
     }
 }

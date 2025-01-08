@@ -34,9 +34,9 @@ public class GameManager : SingletonBase<GameManager>
     private IEnumerator EndGameProcess<T>() where T : UIBase
     {
         Time.timeScale = 0;
-        ReturnObjects();
         yield return new WaitForSecondsRealtime(0.5f);
         UIManager.Instance.ShowPopup<T>();
+        ReturnObjects();
     }
 
     public void ReturnObjects()
