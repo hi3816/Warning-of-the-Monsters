@@ -23,6 +23,7 @@ public class LoadingManager : SingletonBase<LoadingManager>
 
     public void ChangeScene(string sceneName)
     {
+        _loadingTxt.text = "0%";
         fadeImg.DOFade(1, fadeDuration)
             .OnStart(() =>
             {
