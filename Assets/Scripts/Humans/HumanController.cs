@@ -60,8 +60,8 @@ public class HumanController : MonoBehaviour
         animator.SetBool("IsBattle", false);
         animator.speed = 1.0f;
         // 파티클 초기화
-        humanEffect = HumanManager.Instance.humanEffect;
-        attackParticle = HumanManager.Instance.attackParticle;
+        humanEffect = HumanParticle.Instance.humanEffect;
+        attackParticle = HumanParticle.Instance.attackParticle;
     }
     
     private void Update()
