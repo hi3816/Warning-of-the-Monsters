@@ -78,10 +78,8 @@ public class HealerHuman : Human, IHealer
         }
     }
 
-    protected override void OnDisable()
+    private void OnDisable()
     {
-        base.OnDisable();
-        
         if (_healCoroutine != null)
         {
             StopCoroutine(_healCoroutine);

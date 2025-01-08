@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class HumanSpawner : MonoBehaviour
+public class HumanSpawner : SingletonBase<HumanSpawner>
 {
     private int _curStageIdx;
     private int _curWaveIdx;
@@ -12,8 +12,11 @@ public class HumanSpawner : MonoBehaviour
     
     [SerializeField] private PoolManager.PoolConfig[] _poolConfigs; // 인간 풀
 
-    private void Awake()
+    private Coroutine _spawnCoroutine;
+    
+    protected override void Awake()
     {
+        base.Awake();
         PoolManager.Instance.AddPools<Human>(_poolConfigs);
         _curStageIdx = DataManager.Instance.selectedStageIdx;
     }
@@ -27,6 +30,11 @@ public class HumanSpawner : MonoBehaviour
     {
         _curWaveIdx = ConvertWaveIdx(_curStageIdx, waveIdx);
         StartCoroutine(SpawnHumansCoroutine(waveIdx));  // 현재 웨이브의 인간 스폰 코루틴 실행
+    }
+
+    public void StopSpawningHumans()
+    {
+        StopAllCoroutines();    // 모든 스폰 코루틴 중지
     }
 
     private IEnumerator SpawnHumansCoroutine(int waveIdx)
@@ -70,6 +78,7 @@ public class HumanSpawner : MonoBehaviour
             Human human = PoolManager.Instance.SpawnFromPool<Human>(humanType, _spawnPoints[i].transform.position, quaternion.identity);
             human.controller.SpawnedPointIdx = i;    
             human.SpawnedWaveIdx = waveIdx;
+            GameManager.Instance.AddActiveList(human);
         }
     }
     
