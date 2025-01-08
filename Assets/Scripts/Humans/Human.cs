@@ -39,6 +39,8 @@ public class Human : MonoBehaviour
         // 활성화 시 매번 공포 수치와 UI 초기화
         FearLevel = 0;
         isReturning = false;   // 반환하고 있지 않은 상태로 전환
+        OnFearChanged -= SetBattleState;
+        OnFearChanged += SetBattleState;
     }
 
     // 인간 공포 수치 증가시키기
@@ -51,8 +53,18 @@ public class Human : MonoBehaviour
         if (isReturning) return;    // 반환 중인 상태면 공포 수치 올리지 않고 리턴
         
         FearLevel = Mathf.Min(FearLevel + amount, MaxFear); // 최댓값 넘지 않도록 제한
+        OnFearChanged?.Invoke();    // UI 갱신 & 상태 전이 검사
+    }
+    
+    // 인간 공포 수치 감소시키기
+    public void DecreaseFear(float amount)
+    {
+        FearLevel = Mathf.Max(FearLevel - amount, 0);   // 최솟값 벗어나지 않도록 제한
         OnFearChanged?.Invoke();
-        
+    }
+
+    private void SetBattleState()
+    {
         if (FearLevel >= MaxFear) // 갱신된 값이 최댓값보다 크면
         {
             controller.animator.SetBool("IsBattle", false);
@@ -61,13 +73,6 @@ public class Human : MonoBehaviour
             StageManager.Instance.ChangeGold(_coin);    // 스테이지 보유 재화 갱신
             ReturnHumanToPool(3.0f); // 인간을 풀로 반환
         }
-    }
-    
-    // 인간 공포 수치 감소시키기
-    public void DecreaseFear(float amount)
-    {
-        FearLevel = Mathf.Max(FearLevel - amount, 0);   // 최솟값 벗어나지 않도록 제한
-        OnFearChanged?.Invoke();
     }
     
     // 지연시간 이후에 인간을 풀로 반환
