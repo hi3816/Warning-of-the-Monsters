@@ -9,11 +9,6 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     public List<Minion> MinionList { get; private set; } = new List<Minion>(); 
     private List<(int minionId, string minionTag, int count)> _minionToSummon = new List<(int, string, int)>();
 
-    private void Start()
-    {
-        InitializeSummonableMinions();
-    }
-
     public void InitializeSummonableMinions()
     {
         ClearMinion();
@@ -110,7 +105,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
 
     private void ClearMinion()
     {
-        if (MinionList == null) return;
+        if (MinionList == null || MinionList.Count == 0) return;
 
         foreach (Minion minion in MinionList)
         {
