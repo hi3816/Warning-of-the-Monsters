@@ -72,7 +72,7 @@ public class Skill : MonoBehaviour
                 HumanController humanController = humanObj.GetComponent<HumanController>();
                 CheckSkillName(humanObj, humanController);
                 if (_debuffCoroutine != null) StopCoroutine(_debuffCoroutine);
-                StartCoroutine(CoEndDebuffSkill());
+                _debuffCoroutine = StartCoroutine(CoEndDebuffSkill());
                 break;
         }
     }
@@ -104,7 +104,7 @@ public class Skill : MonoBehaviour
             if(_humanList.Count == 0)
             {
                 if(_debuffCoroutine != null) StopCoroutine(_debuffCoroutine);
-                StartCoroutine(CoEndDebuffSkill());
+                _debuffCoroutine = StartCoroutine(CoEndDebuffSkill());
             }
         }
     }
