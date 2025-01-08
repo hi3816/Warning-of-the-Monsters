@@ -69,7 +69,6 @@ public abstract class Monster : MonoBehaviour
     private Coroutine _coroutine;
     [SerializeField] private GameObject _fatigueGauge;
     protected MonsterFatigueGague _monsterFatigueGauge;
-    protected Vector3 _targetPosition;
     public Action OnAttacked;
     protected bool isSingleTargetAttack = true;
     protected Projectile_Data projectileData;
@@ -285,14 +284,6 @@ public abstract class Monster : MonoBehaviour
             if (human != null)
             {
                 TargetHumanList.Remove(human);
-                if (TargetHumanList.Count > 0)
-                {
-                    _targetPosition = TargetHumanList[0].transform.position;
-                }
-                else
-                {
-                    _targetPosition = transform.position;
-                }
             }
         }
     }

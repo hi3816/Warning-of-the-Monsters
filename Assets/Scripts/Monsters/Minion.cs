@@ -3,7 +3,8 @@ using UnityEngine;
 public class Minion : Monster //졸개
 {
     private summonerMonster _summonerMonster;
-    
+    protected Vector3 _targetPosition;
+
     public void InitializeMinion(DataTable.Monster_Data minionData, summonerMonster summoner)
     {
         data.fatigue = minionData.fatigue[data.currentLevel];
@@ -15,6 +16,7 @@ public class Minion : Monster //졸개
         data.walkSpeed = minionData.walkSpeed[data.currentLevel];
 
         _summonerMonster = summoner;
+        _targetPosition = transform.position;
         SetState(MonsterState.Idle);
     }
     
@@ -23,25 +25,25 @@ public class Minion : Monster //졸개
         base.Update();
         switch (MonsterState)
         {
-         case MonsterState.Idle:
-             UpdateAnimatorParameters(Vector2.zero);
-             if (TargetHumanList.Count > 0)
-             {
-                 SetState(MonsterState.Walking);
-             }
-             break;
-         case MonsterState.Walking:
-             HandleWalking();
-             transform.position = Vector3.MoveTowards(transform.position, _targetPosition, data.walkSpeed * Time.deltaTime);
-             Vector2 direction = (_targetPosition - transform.position).normalized;
-             UpdateAnimatorParameters(direction);
-             break;
-         case MonsterState.Scaring:
-             transform.position = Vector3.MoveTowards(transform.position, _targetPosition, data.walkSpeed * Time.deltaTime);
-             Vector2 faceToTarget = (_targetPosition - transform.position).normalized;
-             UpdateAnimatorParameters(faceToTarget);
-             Scaring();
-             break;
+             case MonsterState.Idle:
+                 UpdateAnimatorParameters(Vector2.zero);
+                 if (TargetHumanList.Count > 0)
+                 {
+                     SetState(MonsterState.Walking);
+                 }
+                 break;
+             case MonsterState.Walking:
+                 HandleWalking();
+                 transform.position = Vector3.MoveTowards(transform.position, _targetPosition, data.walkSpeed * Time.deltaTime);
+                 Vector2 direction = (_targetPosition - transform.position).normalized;
+                 UpdateAnimatorParameters(direction);
+                 break;
+             case MonsterState.Scaring:
+                 transform.position = Vector3.MoveTowards(transform.position, _targetPosition, data.walkSpeed * Time.deltaTime);
+                 Vector2 faceToTarget = (_targetPosition - transform.position).normalized;
+                 UpdateAnimatorParameters(faceToTarget);
+                 Scaring();
+                 break;
         }
     }
     
@@ -62,13 +64,13 @@ public class Minion : Monster //졸개
             }
             else if (distanceToSummoner >= 1.5f)
             {
-                Vector3 offset = (transform.position - _summonerMonster.transform.position).normalized * 1f;
+                Vector3 offset = (transform.position - _summonerMonster.transform.position).normalized;
                 _targetPosition = _summonerMonster.transform.position + offset;
             }
         }
         if (TargetHumanList.Count == 0)
         {
-            Vector3 offset = (transform.position - _summonerMonster.transform.position).normalized * 1f;
+            Vector3 offset = (transform.position - _summonerMonster.transform.position).normalized;
             _targetPosition = _summonerMonster.transform.position + offset;
             SetState(MonsterState.Idle);
         }
