@@ -80,6 +80,7 @@ public class Minion : Monster //졸개
     {
         base.ReturnToVillage();
         _summonerMonster.RemoveMinion(this);
+        GameManager.Instance.RemoveActiveList(this);
         PoolManager.Instance.ReturnToPool<Minion>(data.poolTag, this);
     }
 }

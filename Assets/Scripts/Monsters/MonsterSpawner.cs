@@ -41,6 +41,8 @@ public class MonsterSpawner : MonoBehaviour
             {
                 GameManager.Instance.AddActiveList(monster);
                 SetMonsterData(monster.data, selectedMonsterData);
+                summonerMonster summoner = monster as summonerMonster;
+                if (summoner != null) summoner.InitializeSummonableMinions();
                 
                 // 나중에 big 몬스터인지 small 몬스터인지 판별하는 조건 추가
                 SoundManager.Instance.PlaySFX(SfxType.SpawnSmallMonster);
@@ -52,7 +54,7 @@ public class MonsterSpawner : MonoBehaviour
         }
     }
 
-    private void SetMonsterData(MonsterData data,DataTable.Monster_Data selectedMonsterData)
+    private void SetMonsterData(MonsterData data, DataTable.Monster_Data selectedMonsterData)
     {
         data.id = selectedMonsterData.id;
         data.currentLevel = 0;

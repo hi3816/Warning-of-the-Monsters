@@ -101,13 +101,8 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
         float refundPercentage = 0.35f; // 35% 환불
         int refundAmount = Mathf.RoundToInt(totalSpent * refundPercentage);
         _stageManager.ChangeGold(refundAmount); //UI에 표시
+        _selectedMonster.ReturnToVillage();
         _selectedMonster.gameObject.SetActive(false);
-        if (_selectedMonster.data.monsterType == MonsterType.Summoner)
-        {
-            _selectedMonster.ReturnToVillage();
-        }
-        PoolManager.Instance.ReturnToPool(_selectedMonster.data.poolTag, _selectedMonster);
-        // selectedMonster.ReturnToVillage();
         Hide();
     }
 

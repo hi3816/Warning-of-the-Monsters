@@ -110,7 +110,6 @@ public abstract class Monster : MonoBehaviour
     protected virtual void OnEnable()
     {
         ResetMonster();
-        _fatigueGauge.SetActive(true);
     }
     
     protected virtual void Update()
@@ -176,12 +175,6 @@ public abstract class Monster : MonoBehaviour
         data.maxLevel = monsterData.maxLevel;
         data.walkSpeed = monsterData.walkSpeed[data.currentLevel];
         data.monsterType = monsterData.monsterType;
-    }
-
-    // 현재 데이터 변경
-    public void SetMonsterDataToMonsterData(MonsterData newMonsterData)
-    {
-        data = newMonsterData.Clone();
     }
 
     public void Upgrade(Monster_Data monsterData)
@@ -308,7 +301,7 @@ public abstract class Monster : MonoBehaviour
     public virtual void ReturnToVillage()
     {
         if (_coroutine != null) StopCoroutine(_coroutine);
-        StartCoroutine(FadeOutAndReturnToPool());
+        _coroutine = StartCoroutine(FadeOutAndReturnToPool());
     }
 
     private IEnumerator FadeOutAndReturnToPool()
@@ -322,7 +315,6 @@ public abstract class Monster : MonoBehaviour
         }
         
         TargetHumanList.Clear();
-        _fatigueGauge.SetActive(false);
         
         // Fade out
         float startAlpha = _spriteRenderer.color.a;

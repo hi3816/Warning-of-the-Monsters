@@ -130,12 +130,8 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
         float refundPercentage = 0.35f; // 35% 환불
         int refundAmount = Mathf.RoundToInt(totalSpent * refundPercentage);
         StageManager.Instance.ChangeGold(refundAmount); //UI에 표시
+        _selectMonster.ReturnToVillage();
         _selectMonster.gameObject.SetActive(false);
-        if(_selectMonster.data.monsterType == MonsterType.Summoner)
-        {
-            _selectMonster.ReturnToVillage();
-        }
-        PoolManager.Instance.ReturnToPool(_selectMonster.data.poolTag, _selectMonster);
     }
 
     public int CalculateTotalSpent(Monster selectedMonster) //몬스터 스폰 & 업그레이드에 사용한 비용 계산
