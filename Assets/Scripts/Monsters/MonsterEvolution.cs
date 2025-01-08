@@ -147,10 +147,11 @@ public class MonsterEvolution : MonoBehaviour
             {
                 Vector3 pos = _selectMonster.gameObject.transform.position;
                 string evolutionMonsterName = GetMonsterEvolutionName(evolutionType);
+                GameManager.Instance.RemoveActiveList(_selectMonster);
                 PoolManager.Instance.ReturnToPool(_selectMonster.data.poolTag, _selectMonster);
                 Monster evolutionMonster = PoolManager.Instance.SpawnFromPool<Monster>(evolutionMonsterName, pos, Quaternion.identity);
                 evolutionMonster.data = GetMonsterEvolutionData(evolutionType).Clone();
-                GameManager.Instance.AddActiveList(monster);
+                GameManager.Instance.AddActiveList(evolutionMonster);
             }
             _monsterEvolutionUI.Hide();
         }
