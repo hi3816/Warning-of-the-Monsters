@@ -96,6 +96,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
             minion.transform.position = position;
             minion.InitializeMinion(minionData, this);
             MinionList.Add(minion);
+            GameManager.Instance.AddActiveList(minion);
         }
     }
 
@@ -121,6 +122,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     {
         foreach (Minion minion in MinionList)
         {
+            GameManager.Instance.RemoveActiveList(minion);
             PoolManager.Instance.ReturnToPool(minion.data.poolTag, minion);
         }
         MinionList.Clear();
@@ -130,12 +132,6 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     {
         ClearMinion();
         base.ReturnToVillage();
-    }
-
-    protected override void OnDisable()
-    { 
-        base.OnDisable();
-        ClearMinion();
     }
     
     private IEnumerator SummonMinionsWithDelay(float delay)

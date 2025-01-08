@@ -110,7 +110,6 @@ public abstract class Monster : MonoBehaviour
     
     protected virtual void OnEnable()
     {
-        GameManager.Instance.AddActiveList(this);
         ResetMonster();
         _fatigueGauge.SetActive(true);
     }
@@ -347,6 +346,7 @@ public abstract class Monster : MonoBehaviour
 
         startColor.a = 0f;
         _spriteRenderer.color = startColor;
+        GameManager.Instance.RemoveActiveList(this);
         PoolManager.Instance.ReturnToPool(data.poolTag, this);
     }
     
@@ -357,10 +357,5 @@ public abstract class Monster : MonoBehaviour
         TargetHumanList.Clear();
         _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, 1f);
         SetState(MonsterState.Idle);
-    }
-
-    protected virtual void OnDisable()
-    {
-        GameManager.Instance.RemoveActiveList(this);
     }
 }
