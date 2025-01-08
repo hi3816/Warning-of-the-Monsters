@@ -147,7 +147,6 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
         {
             totalSpent += goldList[level];
         }
-        // 혹시 진화 못했을 경우 대비
         if (monsterData.currentLevel == monsterData.maxLevel)
         {
             Evolution_Data evolution = DataManager.Instance.GetEvolutionData(monsterData.id, monsterData.currentLevel, monsterData.evolutionType);

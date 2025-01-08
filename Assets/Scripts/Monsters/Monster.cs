@@ -159,7 +159,7 @@ public abstract class Monster : MonoBehaviour
     }
 
     // 처음 데이터 저장
-    private void SetMonsterData(Monster_Data monsterData)
+    protected void SetMonsterData(Monster_Data monsterData)
     {
         data.id = monsterData.id;
         data.currentLevel = 0;
@@ -229,7 +229,6 @@ public abstract class Monster : MonoBehaviour
 
             case MonsterState.Scaring:
                 Animator.SetTrigger("Scare");
-                _lastScareTime = 0f;
                 break;
 
             case MonsterState.ReturningVillage:
@@ -259,11 +258,6 @@ public abstract class Monster : MonoBehaviour
             }
 
             _lastScareTime = 0f;
-            SetState(MonsterState.Idle);
-        }
-        
-        if (TargetHumanList.Count == 0)
-        {
             SetState(MonsterState.Idle);
         }
     }
