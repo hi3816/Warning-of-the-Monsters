@@ -1,3 +1,4 @@
+using System.Collections;
 using DataTable;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     public List<Minion> MinionList { get; private set; } = new List<Minion>(); 
     private List<(int minionId, string minionTag, int count)> _minionToSummon = new List<(int, string, int)>();
     private CircleCollider2D _collider;
+    private Minion _minion;
 
     private void Start()
     {
@@ -41,7 +43,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     protected override void OnEnable()
     {
         base.OnEnable();
-        SummonMinions();
+        StartCoroutine(SummonMinionsWithDelay(0.05f));
     }
     
     private void SummonMinions()
@@ -55,14 +57,14 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
         
         Vector3[] spawnOffsets = new Vector3[]
         {
-            new Vector3(1f, 0f, 0f), // 오른쪽
-            new Vector3(-1f, 0f, 0f), // 왼쪽
-            new Vector3(0f, 1f, 0f), // 위
-            new Vector3(0f, -1f, 0f), // 아래
-            new Vector3(1f, 1f, 0f), // 우측상단
-            new Vector3(-1f, 1f, 0f), // 좌측상단
-            new Vector3(1f, -1f, 0f), // 우측하단
-            new Vector3(-1f, -1f, 0f) // 좌측하단
+            new Vector3(0.5f, 0f, 0f), // 오른쪽
+            new Vector3(-0.5f, 0f, 0f), // 왼쪽
+            new Vector3(0f, 0.5f, 0f), // 위
+            new Vector3(0f, -0.5f, 0f), // 아래
+            new Vector3(0.5f, 0.5f, 0f), // 우측상단
+            new Vector3(-0.5f, 0.5f, 0f), // 좌측상단
+            new Vector3(0.5f, -0.5f, 0f), // 우측하단
+            new Vector3(-0.5f, -0.5f, 0f) // 좌측하단
         };
 
         foreach (var minionEntry in _minionToSummon)
@@ -86,17 +88,14 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
         }
     }
     
-    private void MinionSetPosition(Vector3 position, string minionTag, DataTable.Monster_Data minionData)
+    private void MinionSetPosition(Vector3 position, string minionTag, Monster_Data minionData)
     {
-        Vector3 pos = position;
-        pos.z = 0f;
-        Minion minion = PoolManager.Instance.SpawnFromPool<Minion>(minionTag, pos, Quaternion.identity);
+        Minion minion = PoolManager.Instance.SpawnFromPool<Minion>(minionTag, position, Quaternion.identity);
         if (minion != null)
         {
-            minion.gameObject.SetActive(true);
-            MinionList.Add(minion);
-
+            minion.transform.position = position;
             minion.InitializeMinion(minionData, this);
+            MinionList.Add(minion);
         }
     }
 
@@ -137,5 +136,11 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     { 
         base.OnDisable();
         ClearMinion();
+    }
+    
+    private IEnumerator SummonMinionsWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SummonMinions();
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+
 public class StartScreen : UIBase
 {
     [SerializeField] private Button _startButton;

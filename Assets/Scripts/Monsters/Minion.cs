@@ -3,7 +3,6 @@ using UnityEngine;
 public class Minion : Monster //졸개
 {
     private summonerMonster _summonerMonster;
-    private Vector3 _targetPosition;
     
     public void InitializeMinion(DataTable.Monster_Data minionData, summonerMonster summoner)
     {
@@ -36,10 +35,6 @@ public class Minion : Monster //졸개
              transform.position = Vector3.MoveTowards(transform.position, _targetPosition, data.walkSpeed * Time.deltaTime);
              Vector2 direction = (_targetPosition - transform.position).normalized;
              UpdateAnimatorParameters(direction);
-             if (TargetHumanList.Count == 0)
-             {
-                 SetState(MonsterState.Idle);
-             }
              break;
          case MonsterState.Scaring:
              transform.position = Vector3.MoveTowards(transform.position, _targetPosition, data.walkSpeed * Time.deltaTime);
@@ -52,47 +47,31 @@ public class Minion : Monster //졸개
     
     private void HandleWalking()
     {
-        Transform nearestHuman = GetNearestHuman();
         float distanceToSummoner = Vector3.Distance(transform.position, _summonerMonster.transform.position);
-        if (TargetHumanList != null)
+        if (TargetHumanList.Count > 0)
         {
+            Transform nearestHuman = TargetHumanList[0].transform;
             float distanceToHuman = Vector3.Distance(transform.position, nearestHuman.position);
-            if (distanceToHuman <= data.humanDetectRange)
+            if (distanceToSummoner < 1.5f && distanceToHuman <= data.humanDetectRange)
             {
                 _targetPosition = nearestHuman.position;
-                if (distanceToSummoner > 2.5f)
-                {
-                    Vector3 offset = (transform.position - _summonerMonster.transform.position).normalized * 1f;
-                    _targetPosition = _summonerMonster.transform.position + offset;
-                    SetState(MonsterState.Walking);
-                }
-                else if (distanceToHuman <= data.humanScaringRange)
+                if (distanceToHuman <= data.humanScaringRange)
                 {
                     SetState(MonsterState.Scaring);
                 }
             }
-        }
-    }
-    
-    private Transform GetNearestHuman()
-    {
-        Collider2D[] detectedHumans = Physics2D.OverlapCircleAll(transform.position, data.humanDetectRange, LayerMask.GetMask("Human"));
-        if (detectedHumans.Length > 0)
-        {
-            Transform nearestHuman = detectedHumans[0].transform;
-            float minDistance = Vector2.Distance(transform.position, nearestHuman.position);
-            foreach (Collider2D human in detectedHumans)
+            else if (distanceToSummoner >= 1.5f)
             {
-                float distance = Vector2.Distance(transform.position, human.transform.position);
-                if (distance < minDistance)
-                {
-                    minDistance = distance;
-                    nearestHuman = human.transform;
-                }
+                Vector3 offset = (transform.position - _summonerMonster.transform.position).normalized * 1f;
+                _targetPosition = _summonerMonster.transform.position + offset;
             }
-            return nearestHuman;
         }
-        return null;
+        if (TargetHumanList.Count == 0)
+        {
+            Vector3 offset = (transform.position - _summonerMonster.transform.position).normalized * 1f;
+            _targetPosition = _summonerMonster.transform.position + offset;
+            SetState(MonsterState.Idle);
+        }
     }
     
     public override void ReturnToVillage()

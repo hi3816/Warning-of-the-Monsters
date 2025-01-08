@@ -27,8 +27,6 @@ public class stationaryDefender : Monster //한자리를 지키고 있는 몬스
             {
                 MonsterProjectile projectile = PoolManager.Instance.SpawnFromPool<MonsterProjectile>(projectileData.projectileType.ToString(), transform.position, Quaternion.identity);
                 projectile.SetProjectileInfo(human.transform.position, data, projectileData);
-                projectile.gameObject.SetActive(true);
-
                 _lastScareTime = 0f;
                 SetState(MonsterState.Idle);
             }

@@ -40,9 +40,6 @@ public class MonsterSpawner : MonoBehaviour
             StageManager.ChangeGold(-selectedMonsterData.requiredCoins);
             Monster monster = PoolManager.Instance.SpawnFromPool<Monster>(selectedMonsterData.name, spawnPosition, Quaternion.identity);            if (monster != null)
             {
-                monster.transform.position = spawnPosition;
-                monster.gameObject.SetActive(true);
-
                 SetMonsterData(monster.data, selectedMonsterData);
                 monster.Reset();
                 

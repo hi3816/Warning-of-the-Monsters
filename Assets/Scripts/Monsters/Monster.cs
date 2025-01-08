@@ -69,7 +69,7 @@ public abstract class Monster : MonoBehaviour
     private Coroutine _coroutine;
     [SerializeField] private GameObject _fatigueGauge;
     protected MonsterFatigueGague _monsterFatigueGauge;
-
+    protected Vector3 _targetPosition;
     public Action OnAttacked;
     protected bool isSingleTargetAttack = true;
     protected Projectile_Data projectileData;
@@ -128,7 +128,7 @@ public abstract class Monster : MonoBehaviour
                 }
                 break;
             case MonsterState.Scaring:
-                if (TargetHumanList != null)
+                if (TargetHumanList.Count> 0)
                 {
                     Vector2 directionToHuman = ((Vector2)TargetHumanList[0].transform.position - (Vector2)transform.position).normalized;
                     UpdateAnimatorParameters(directionToHuman);
@@ -261,19 +261,6 @@ public abstract class Monster : MonoBehaviour
             SetState(MonsterState.Idle);
         }
         
-        // 범위 공격
-        // if (Time.time - _lastScareTime > data.cooldown)
-        // {
-        //     foreach (Human human in _targetHumanList)
-        //     {
-        //         if (human == null) continue;
-        //
-        //         human.IncreaseFear(data.fearInflicted);
-        //         //human.controller.SetTargetMonster(transform);
-        //     }
-        //     _lastScareTime = Time.time;
-        // }
-        
         if (TargetHumanList.Count == 0)
         {
             SetState(MonsterState.Idle);
@@ -298,9 +285,17 @@ public abstract class Monster : MonoBehaviour
         if (other.CompareTag("Human"))
         {
             Human human = other.GetComponent<Human>();
-            if (human != null && TargetHumanList.Contains(human))
+            if (human != null)
             {
                 TargetHumanList.Remove(human);
+                if (TargetHumanList.Count > 0)
+                {
+                    _targetPosition = TargetHumanList[0].transform.position;
+                }
+                else
+                {
+                    _targetPosition = transform.position;
+                }
             }
         }
     }
@@ -337,8 +332,8 @@ public abstract class Monster : MonoBehaviour
                 human.controller.ClearTargetMonster();
             }
         }
-        TargetHumanList.Clear();
         
+        TargetHumanList.Clear();
         _fatigueGauge.SetActive(false);
         
         // Fade out

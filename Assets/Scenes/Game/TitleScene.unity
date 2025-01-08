@@ -1154,10 +1154,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
   _startButton: {fileID: 0}
+  _guidePanel: {fileID: 0}
+  _guideButton: {fileID: 0}
+  _guideExitButton: {fileID: 0}
   _titleCanvasGroup: {fileID: 0}
   _titleTransform: {fileID: 0}
   _buttonCanvasGroup: {fileID: 0}
   _buttonTransform: {fileID: 0}
+  _guideButtonCanvasGroup: {fileID: 0}
+  _guideButtonTransform: {fileID: 0}
+  _pages:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _bookmark1Button: {fileID: 0}
+  _bookmark2LeftButton: {fileID: 0}
+  _bookmark2RightButton: {fileID: 0}
+  _bookmark3Button: {fileID: 0}
 --- !u!224 &2846596002273515093
 RectTransform:
   m_ObjectHideFlags: 0
