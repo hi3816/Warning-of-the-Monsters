@@ -99,6 +99,11 @@ public class StagePopup : UIBase
             });
     }
 
+    public void SetCurSlotIdx(int Idx)
+    {
+        _crrSlotIdx = Idx;
+    }
+
     public void SetStageIdx(int Idx)
     {
         _stageIdx = Idx;
