@@ -13,6 +13,8 @@ public class WarningBox : UIBase
 
     private void OnEnable()
     {
+        transform.SetAsLastSibling();
+
         _warningGroup.DOFade(1f, 0.5f)
             .OnStart(() => 
             {
@@ -36,8 +38,7 @@ public class WarningBox : UIBase
             })
             .OnComplete(() =>
             {
-                gameObject.SetActive(false);
-                PoolManager.Instance.ReturnToPool(gameObject.name, this);
+                PoolManager.Instance.ReturnToPool(this.name, this);
             });
     }
 
