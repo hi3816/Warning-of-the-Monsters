@@ -8,20 +8,16 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
 {
     public List<Minion> MinionList { get; private set; } = new List<Minion>(); 
     private List<(int minionId, string minionTag, int count)> _minionToSummon = new List<(int, string, int)>();
-    private CircleCollider2D _collider;
-    private Minion _minion;
 
     private void Start()
     {
         InitializeSummonableMinions();
-        _collider = GetComponent<CircleCollider2D>();
     }
 
     public void InitializeSummonableMinions()
     {
         ClearMinion();
         _minionToSummon.Clear();
-        if(_monsterFatigueGauge != null) _monsterFatigueGauge.SetFatigue();
         Summon_Data summonData;
         if (data.currentLevel < data.maxLevel) summonData = DataManager.Instance.GetSummonData(data.id * 1000);
         else summonData = DataManager.Instance.GetSummonData(data.monsterId);
@@ -38,12 +34,6 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
             _lastScareTime = 0f;
             SetState(MonsterState.Idle);
         }
-    }
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        StartCoroutine(SummonMinionsWithDelay(0.05f));
     }
     
     private void SummonMinions()
@@ -120,6 +110,8 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
 
     private void ClearMinion()
     {
+        if (MinionList == null) return;
+
         foreach (Minion minion in MinionList)
         {
             GameManager.Instance.RemoveActiveList(minion);
@@ -132,11 +124,5 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     {
         ClearMinion();
         base.ReturnToVillage();
-    }
-    
-    private IEnumerator SummonMinionsWithDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        SummonMinions();
     }
 }

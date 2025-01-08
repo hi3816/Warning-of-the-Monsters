@@ -41,7 +41,6 @@ public class MonsterSpawner : MonoBehaviour
             {
                 GameManager.Instance.AddActiveList(monster);
                 SetMonsterData(monster.data, selectedMonsterData);
-                monster.Reset();
                 
                 // 나중에 big 몬스터인지 small 몬스터인지 판별하는 조건 추가
                 SoundManager.Instance.PlaySFX(SfxType.SpawnSmallMonster);
@@ -62,6 +61,7 @@ public class MonsterSpawner : MonoBehaviour
         data.minFearInflicted = selectedMonsterData.minFearInflicted[data.currentLevel];
         data.maxFearInflicted = selectedMonsterData.maxFearInflicted[data.currentLevel];
         data.cooldown = selectedMonsterData.cooldown[data.currentLevel]; 
+        data.humanDetectRange = selectedMonsterData.humanDetectRange[data.currentLevel];
         data.humanScaringRange = selectedMonsterData.humanScaringRange[data.currentLevel]; 
         data.walkSpeed = selectedMonsterData.walkSpeed[data.currentLevel]; 
         data.requiredCoins = selectedMonsterData.requiredCoins[data.currentLevel]; 
