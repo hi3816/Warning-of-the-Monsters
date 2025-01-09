@@ -120,4 +120,10 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
         ClearMinion();
         base.ReturnToVillage();
     }
+
+    public void SetFatigue(float value)
+    {
+        data.currentFatigue = value;
+        if (_monsterFatigueGauge != null) _monsterFatigueGauge.SetFatigue();
+    }
 }
