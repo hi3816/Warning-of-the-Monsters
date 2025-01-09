@@ -298,11 +298,6 @@ public abstract class Monster : MonoBehaviour
         OnAttacked?.Invoke();
     }
 
-    public void SetFatigue(float value)
-    {
-        data.currentFatigue = value;
-    }
-
     public virtual void ReturnToVillage()
     {
         if (_coroutine != null) StopCoroutine(_coroutine);
