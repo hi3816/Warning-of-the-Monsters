@@ -27,7 +27,7 @@ public class UIBase : MonoBehaviour
         Canvas canavas = GetComponentInParent<Canvas>();
         if (canavas == null)
         {
-            Debug.Log("No Canvas found in parent hierarchy.");
+            //Debug.Log("No Canvas found in parent hierarchy.");
             return;
         }
         canvas.sortingOrder = (int)order;
