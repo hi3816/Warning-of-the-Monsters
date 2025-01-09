@@ -48,7 +48,7 @@ public class HumanSpawner : SingletonBase<HumanSpawner>
 
         if (waveData == null)
         {
-            Debug.LogError($"Wave data is missing: {_curWaveIdx}");
+            // Debug.LogError($"Wave data is missing: {_curWaveIdx}");
             yield break;
         }
 
@@ -93,7 +93,7 @@ public class HumanSpawner : SingletonBase<HumanSpawner>
 
         if (totalWaves <= 0)
         {
-            Debug.LogAssertion($"TotalWave is invalid: {totalWaves}");
+            // Debug.LogAssertion($"TotalWave is invalid: {totalWaves}");
             return -1;
         }
 

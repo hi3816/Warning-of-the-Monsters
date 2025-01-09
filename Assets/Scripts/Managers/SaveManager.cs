@@ -98,7 +98,7 @@ public class SaveManager : SingletonBase<SaveManager>
         }
         else
         {
-            Debug.LogAssertion("Stage Play Info Not Found");
+            // Debug.LogAssertion("Stage Play Info Not Found");
             starsCount = 0;
             isCleared = false;
         }
@@ -114,7 +114,7 @@ public class SaveManager : SingletonBase<SaveManager>
         }
         else
         {
-            Debug.LogAssertion("Stage Play Info Not Found");
+            // Debug.LogAssertion("Stage Play Info Not Found");
             isCleared = false;
         }
     }
