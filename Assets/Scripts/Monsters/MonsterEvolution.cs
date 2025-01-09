@@ -141,6 +141,7 @@ public class MonsterEvolution : MonoBehaviour
                 _selectMonster.data = GetMonsterEvolutionData(evolutionType).Clone();
                 summonerMonster summoner = _selectMonster as summonerMonster;
                 summoner.InitializeSummonableMinions();
+                summoner.SetFatigue(0);
             }
             else
             {
