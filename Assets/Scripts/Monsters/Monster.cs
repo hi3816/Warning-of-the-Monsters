@@ -72,6 +72,7 @@ public abstract class Monster : MonoBehaviour
     public Action OnAttacked;
     protected bool _isSingleTargetAttack = true;
     protected Projectile_Data _projectileData;
+    private CircleCollider2D _rangeCircleCollider;
     private Collider2D[] _collider2Ds;
 
     protected virtual void Awake()
@@ -108,6 +109,7 @@ public abstract class Monster : MonoBehaviour
         _monsterFatigueGauge = GetComponent<MonsterFatigueGague>();
 
         _collider2Ds = GetComponentsInChildren<Collider2D>();
+        ChangeDetectRangeCollider();
     }
     
     protected virtual void OnEnable()
@@ -199,8 +201,10 @@ public abstract class Monster : MonoBehaviour
         data.humanScaringRange = monsterData.humanScaringRange[nextLevel];
         data.requiredCoins = monsterData.requiredCoins[nextLevel];
         if (_monsterFatigueGauge != null) _monsterFatigueGauge.SetFatigue();
+        ChangeDetectRangeCollider();
     }
 
+    // 단순 데이터 변경용
     public void Evolution(Evolution_Data evolutionData)
     {
         data.currentFatigue = 0f;
@@ -214,12 +218,20 @@ public abstract class Monster : MonoBehaviour
         data.maxFearInflicted = evolutionData.maxFearInflicted;
         data.cooldown = evolutionData.cooldown;
         data.humanScaringRange = evolutionData.humanScaringRange;
-        if(data.monsterType != MonsterType.Minion) data.humanDetectRange = data.humanScaringRange;
+        // 미니언 진화 X -> 소환사 및 일반 몬스터 humanScaringRange == humanDetectRange
+        data.humanDetectRange = data.humanScaringRange;
         data.requiredCoins = evolutionData.requiredCoins;
+
         SetState(MonsterState.Idle);
-        if(_monsterFatigueGauge != null) _monsterFatigueGauge.SetFatigue();
+        if (_monsterFatigueGauge != null) _monsterFatigueGauge.SetFatigue();
     }
-    
+
+    public void ChangeDetectRangeCollider()
+    {
+        if (_rangeCircleCollider == null) _rangeCircleCollider = GetComponent<CircleCollider2D>();
+        _rangeCircleCollider.radius = data.humanDetectRange * 0.5f;
+    }
+
     protected void SetState(MonsterState state)
     {
         if (MonsterState == state) return;

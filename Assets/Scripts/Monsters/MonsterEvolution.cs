@@ -151,6 +151,7 @@ public class MonsterEvolution : MonoBehaviour
                 PoolManager.Instance.ReturnToPool(_selectMonster.data.poolTag, _selectMonster);
                 Monster evolutionMonster = PoolManager.Instance.SpawnFromPool<Monster>(evolutionMonsterName, pos, Quaternion.identity);
                 evolutionMonster.data = GetMonsterEvolutionData(evolutionType).Clone();
+                evolutionMonster.ChangeDetectRangeCollider();
                 GameManager.Instance.AddActiveList(evolutionMonster);
             }
             _monsterEvolutionUI.Hide();

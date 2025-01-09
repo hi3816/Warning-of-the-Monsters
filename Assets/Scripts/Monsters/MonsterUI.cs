@@ -58,7 +58,7 @@ public class MonsterUI : MonoBehaviour
     {
         if (_clickedMonster == null || _rangeIndicator == null) return;
         float range = _clickedMonster.data.humanScaringRange;
-        _rangeIndicator.transform.localScale = new Vector3(range, range, 1);
+        _rangeIndicator.transform.localScale = Vector2.one * range;
         _rangeIndicator.transform.position = _clickedMonster.transform.position;
         _rangeIndicator.SetActive(true);
     }
@@ -67,7 +67,7 @@ public class MonsterUI : MonoBehaviour
     {
         if (evolution == null || _rangeIndicator == null) return;
         float range = evolution.humanScaringRange;
-        _rangeIndicator.transform.localScale = new Vector3(range, range, 1);
+        _rangeIndicator.transform.localScale = Vector2.one * range;
         _rangeIndicator.transform.position = _clickedMonster.transform.position;
         _rangeIndicator.SetActive(true);
     }
