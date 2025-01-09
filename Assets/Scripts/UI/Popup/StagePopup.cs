@@ -102,6 +102,7 @@ public class StagePopup : UIBase
     public void SetCurSlotIdx(int Idx)
     {
         _crrSlotIdx = Idx;
+        SelectSlotWithArrow(_crrSlotIdx);
     }
 
     public void SetStageIdx(int Idx)

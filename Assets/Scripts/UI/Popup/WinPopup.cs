@@ -97,7 +97,7 @@ public class WinPopup : UIBase
         }
         else
         {
-            Debug.LogAssertion("Stars count is incorrect");
+            //Debug.LogAssertion("Stars count is incorrect");
         }
     }
 }
