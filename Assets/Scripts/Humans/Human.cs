@@ -69,6 +69,7 @@ public class Human : MonoBehaviour
         {
             controller.animator.SetBool("IsBattle", false);
             controller.ClearTargetMonster();
+            controller.targetMonsterList.Clear();
             controller.stateMachine.ChangeState(controller.RunHumanState); // 도망 상태로 전환
             StageManager.Instance.ChangeGold(_coin);    // 스테이지 보유 재화 갱신
             ReturnHumanToPool(3.0f); // 인간을 풀로 반환
@@ -113,19 +114,8 @@ public class Human : MonoBehaviour
         // 가장 가까이에 있는 몬스터 공격하도록 설정
         if (other.CompareTag("Monster"))
         {
-            if (controller.TargetMonster == null)   // 타겟 몬스터가 없으면
-            {
-                controller.SetTargetMonster(other.gameObject.transform);    // 트리거된 몬스터를 타겟 몬스터로 설정
-                return;
-            }
-            
-            // 타겟 몬스터가 있는 상태이면
-            float newDistance = (other.transform.position - transform.position).magnitude;
-            float distance = (controller.TargetMonster.position - transform.position).magnitude;    
-            if (newDistance < distance) // 새로 트리거된 몬스터가 기존 몬스터보다 가까우면
-            {
-                controller.SetTargetMonster(other.gameObject.transform);    // 타겟 몬스터 변경
-            }
+            controller.targetMonsterList.Add(other.transform);
+            controller.SetTargetMonster();
         }
     }
 
@@ -135,6 +125,8 @@ public class Human : MonoBehaviour
         if (other.CompareTag("Monster"))
         {
             controller.ClearTargetMonster();
+            controller.targetMonsterList.Remove(other.transform);
+            controller.SetTargetMonster();
         }
     }
 }

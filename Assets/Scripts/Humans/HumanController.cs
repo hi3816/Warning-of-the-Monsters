@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DataTable;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,6 +12,7 @@ public class HumanController : MonoBehaviour
     
     public Animator animator;
     public NavMeshAgent Agent { get; private set; }
+    public List<Transform> targetMonsterList = new List<Transform>();
     public Transform TargetMonster { get; private set; }
     public int SpawnedPointIdx { get; set; }
     
@@ -51,6 +53,7 @@ public class HumanController : MonoBehaviour
         if (StageManager.Instance.StartPointList == null) return;
         transform.position = StageManager.Instance.StartPointList[SpawnedPointIdx].position;   // 시작 위치 설정
         ClearTargetMonster();   // 타겟 몬스터 삭제
+        targetMonsterList.Clear();
         Agent.enabled = true;
         Agent.ResetPath();  // 경로 초기화
         Agent.speed = _speed;   // 속도 초기화
@@ -94,9 +97,30 @@ public class HumanController : MonoBehaviour
         animator.SetFloat("Vertical", direction.y);
     }
     
-    public void SetTargetMonster(Transform monster)
+    // 가장 가까이에 있는 타겟 몬스터 설정
+    public void SetTargetMonster()
     {
-        TargetMonster = monster;
+        if (targetMonsterList.Count == 0) return;
+        // 타겟 몬스터 리스트 요소가 1개이면 해당 몬스터를 타겟 몬스터로 설정
+        if (targetMonsterList.Count == 1)
+        {
+            TargetMonster = targetMonsterList[0];
+            return;
+        }
+
+        // 타겟 몬스터 리스트 요소가 2개 이상이면 거리를 비교하여 가장 가까이 있는 것을 타겟 몬스터로 설정
+        TargetMonster = targetMonsterList[1];   // 비교 대상 초기화
+        float distance = (TargetMonster.position - transform.position).magnitude;   // 기존 타겟 몬스터와의 거리
+        for (int i = targetMonsterList.Count - 2; i >= 0; i--)
+        {
+            if (targetMonsterList[i] == null) continue; // 중간에 몬스터 사라지는 경우 예외 처리
+            float newDistance = (targetMonsterList[i].transform.position - transform.position).magnitude;
+            if (newDistance < distance) // 기존 타겟 몬스터보다 거리가 가까우면
+            {
+                distance = newDistance; // 최단 거리 갱신
+                TargetMonster = targetMonsterList[i];   // 타겟 몬스터 변경
+            }  
+        }
     }
 
     public void ClearTargetMonster()

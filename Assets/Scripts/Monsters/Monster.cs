@@ -321,6 +321,8 @@ public abstract class Monster : MonoBehaviour
             if (human != null)
             {
                 human.controller.ClearTargetMonster();
+                human.controller.targetMonsterList.Remove(transform);
+                human.controller.SetTargetMonster();
             }
         }
 
