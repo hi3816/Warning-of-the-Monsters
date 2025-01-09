@@ -30,7 +30,7 @@ public class MonsterSpawner : MonoBehaviour
         var selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
         if (IsSpawnPointOccupied(spawnPosition, 0.5f))
         {
-            print("Spawn point is already occupied by another monster.");
+            //print("Spawn point is already occupied by another monster.");
             return;
         }
         
@@ -49,7 +49,7 @@ public class MonsterSpawner : MonoBehaviour
             }
             else
             {
-                print("You do not have enough gold to spawn monster");
+                //print("You do not have enough gold to spawn monster");
             }
         }
     }
