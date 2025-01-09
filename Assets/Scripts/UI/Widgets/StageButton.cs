@@ -34,6 +34,11 @@ public class StageButton : MonoBehaviour
         SaveManager.Instance.GetStagePlayInfo(stageIdx -1 , out previousClear);
         if (previousClear == true) isEnable = true;
 
+        if (stageIdx > 7)
+        {
+            isCleared = false;
+            isEnable = false; // 스테이지 8까지만 열리도록 제한
+        }
         
         if (!isEnable)
         {
