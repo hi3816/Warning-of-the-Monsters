@@ -1339,7 +1339,6 @@ GameObject:
   - component: {fileID: 484161073096514227}
   - component: {fileID: 10780580087704696}
   - component: {fileID: 2326340242649197656}
-  - component: {fileID: 4557124145811270071}
   m_Layer: 5
   m_Name: Medusa
   m_TagString: Untagged
@@ -1404,27 +1403,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!95 &4557124145811270071
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 921402492524169524}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cd0c5b518b15d4e9a86f7bcec933c353, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1007388268786839969
 GameObject:
   m_ObjectHideFlags: 0
@@ -3580,7 +3558,6 @@ GameObject:
   - component: {fileID: 26142948153131721}
   - component: {fileID: 5580266108507161622}
   - component: {fileID: 3028071954663410213}
-  - component: {fileID: 8723034253855539820}
   m_Layer: 5
   m_Name: Cyclops
   m_TagString: Untagged
@@ -3645,27 +3622,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!95 &8723034253855539820
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2360994672603114015}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6a4b6e042e6a3421f82a1e40be702e58, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2426988712015273416
 GameObject:
   m_ObjectHideFlags: 0
@@ -6046,7 +6002,6 @@ GameObject:
   - component: {fileID: 5305707195295094383}
   - component: {fileID: 2540706045197480383}
   - component: {fileID: 1301275308418354687}
-  - component: {fileID: 8563380622779730309}
   m_Layer: 5
   m_Name: Dog
   m_TagString: Untagged
@@ -6111,27 +6066,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!95 &8563380622779730309
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4578400224380848738}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 64c6bf06afb344ea4bb4dbac63abf883, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4616859336317142690
 GameObject:
   m_ObjectHideFlags: 0
@@ -6958,7 +6892,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 487008056, guid: 2beab7216e3d51247957d0eae7f4821f, type: 3}
+    m_HighlightedSprite: {fileID: -1336984154, guid: 2beab7216e3d51247957d0eae7f4821f, type: 3}
     m_PressedSprite: {fileID: -1336984154, guid: 2beab7216e3d51247957d0eae7f4821f, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
@@ -10928,7 +10862,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -870584538, guid: 2dede40a60a40724b80ab3f5b1145b66, type: 3}
+  m_Sprite: {fileID: -870584538, guid: 2beab7216e3d51247957d0eae7f4821f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10967,7 +10901,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: -870584538, guid: 2beab7216e3d51247957d0eae7f4821f, type: 3}
+    m_HighlightedSprite: {fileID: -1755573059, guid: 2beab7216e3d51247957d0eae7f4821f, type: 3}
     m_PressedSprite: {fileID: -1755573059, guid: 2beab7216e3d51247957d0eae7f4821f, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
@@ -13363,7 +13297,6 @@ GameObject:
   - component: {fileID: 2742682588992297780}
   - component: {fileID: 8664435373596574651}
   - component: {fileID: 4026671709795823654}
-  - component: {fileID: 8348059471217985088}
   m_Layer: 5
   m_Name: Dragon
   m_TagString: Untagged
@@ -13428,27 +13361,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!95 &8348059471217985088
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8714772022988624711}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 255715eda92fc437086e031e074234f8, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8733956230708183342
 GameObject:
   m_ObjectHideFlags: 0
