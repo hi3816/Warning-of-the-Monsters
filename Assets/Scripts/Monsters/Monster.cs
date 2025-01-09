@@ -70,8 +70,9 @@ public abstract class Monster : MonoBehaviour
     [SerializeField] private GameObject _fatigueGauge;
     protected MonsterFatigueGague _monsterFatigueGauge;
     public Action OnAttacked;
-    protected bool isSingleTargetAttack = true;
-    protected Projectile_Data projectileData;
+    protected bool _isSingleTargetAttack = true;
+    protected Projectile_Data _projectileData;
+    private Collider2D[] _collider2Ds;
 
     protected virtual void Awake()
     {
@@ -91,13 +92,13 @@ public abstract class Monster : MonoBehaviour
             {
                 if (id == data.id)
                 {
-                    isSingleTargetAttack = false;
-                    this.projectileData = projectileData;
+                    _isSingleTargetAttack = false;
+                    this._projectileData = projectileData;
                 }
             }
         }
         
-        if (isSingleTargetAttack) projectileData = null;
+        if (_isSingleTargetAttack) _projectileData = null;
 
         if (_fatigueGauge == null)
         {
@@ -105,12 +106,13 @@ public abstract class Monster : MonoBehaviour
         }
         
         _monsterFatigueGauge = GetComponent<MonsterFatigueGague>();
+
+        _collider2Ds = GetComponentsInChildren<Collider2D>();
     }
     
     protected virtual void OnEnable()
     {
         ResetMonster();
-        _fatigueGauge.SetActive(true);
     }
     
     protected virtual void Update()
@@ -146,17 +148,23 @@ public abstract class Monster : MonoBehaviour
 
     private void ResetMonster()
     {
-        if (_coroutine != null) StopCoroutine(_coroutine);
         SetState(MonsterState.Idle);
+        _lastScareTime = data.cooldown;
+        data.currentFatigue = 0f;
+        TargetHumanList.Clear();
+        _fatigueGauge.SetActive(true);
+        
         if (_spriteRenderer.color.a <= 1f)
         {
             Color color = _spriteRenderer.color;
             color.a = 1f;
             _spriteRenderer.color = color;
         }
-        _lastScareTime = data.cooldown;
-        data.currentFatigue = 0f;
-        TargetHumanList.Clear();
+
+        foreach (Collider2D collider in _collider2Ds)
+        {
+            collider.enabled = true;
+        }
     }
 
     // 처음 데이터 저장
@@ -228,7 +236,6 @@ public abstract class Monster : MonoBehaviour
 
             case MonsterState.ReturningVillage:
                 Animator.SetBool("Return", true);
-                _coroutine = StartCoroutine(FadeOutAndReturnToPool());
                 break;
         }
     }
@@ -307,6 +314,11 @@ public abstract class Monster : MonoBehaviour
 
     private IEnumerator FadeOutAndReturnToPool()
     {
+        foreach (Collider2D collider in _collider2Ds)
+        {
+            collider.enabled = false;
+        }
+
         foreach (var human in TargetHumanList)
         {
             if (human != null)
@@ -314,27 +326,29 @@ public abstract class Monster : MonoBehaviour
                 human.controller.ClearTargetMonster();
             }
         }
-        
+
         TargetHumanList.Clear();
         _fatigueGauge.SetActive(false);
 
-        // Fade out
-        float startAlpha = _spriteRenderer.color.a;
-        float elapsedTime = 0f;
-        Color startColor = _spriteRenderer.color;
+        //// Fade out
+        //float startAlpha = _spriteRenderer.color.a;
+        //float elapsedTime = 0f;
+        //Color startColor = _spriteRenderer.color;
 
-        while (elapsedTime < _fadeDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            float newAlpha = Mathf.Lerp(startAlpha, 0f, elapsedTime / _fadeDuration);
-            startColor.a = newAlpha;
-            _spriteRenderer.color = startColor;
-            yield return null;
-        }
+        //while (elapsedTime < _fadeDuration)
+        //{
+        //    elapsedTime += Time.deltaTime;
+        //    float newAlpha = Mathf.Lerp(startAlpha, 0f, elapsedTime / _fadeDuration);
+        //    startColor.a = newAlpha;
+        //    _spriteRenderer.color = startColor;
+        //    yield return null;
+        //}
+        //startColor.a = 0f;
+        //_spriteRenderer.color = startColor;
 
-        startColor.a = 0f;
-        _spriteRenderer.color = startColor;
         GameManager.Instance.RemoveActiveList(this);
         PoolManager.Instance.ReturnToPool(data.poolTag, this);
+
+        yield return null;
     }
 }
