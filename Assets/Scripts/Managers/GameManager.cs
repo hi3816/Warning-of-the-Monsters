@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : SingletonBase<GameManager>
 {
+    public bool isPlaying;
     private List<Human> _activeHumans = new List<Human>();
     private List<Minion> _activeMinons = new List<Minion>();
     private List<Monster> _activeMonsters = new List<Monster>();
@@ -30,19 +31,24 @@ public class GameManager : SingletonBase<GameManager>
     public void GameOver()
     {
         StartCoroutine(EndGameProcess<LosePopup>());
+        HumanSpawner.Instance.StopSpawningHumans(); // 인간 스폰 코루틴 중지
+        for (int i = _activeHumans.Count - 1; i >= 0; i--)
+        {
+            _activeHumans[i].controller.Agent.speed = 0;    // 인간 이동 중지시키기
+        }
     }
 
     private IEnumerator EndGameProcess<T>() where T : UIBase
     {
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
+        isPlaying = false;
         yield return new WaitForSecondsRealtime(0.5f);
         UIManager.Instance.ShowPopup<T>();
-        ReturnObjects();
     }
 
     public void ReturnObjects()
     {
-        HumanSpawner.Instance.StopSpawningHumans();
+        HumanSpawner.Instance.StopSpawningHumans();  // 인간 스폰 코루틴 중지
         
         // 활성화된 인간이나 몬스터 오브젝트 풀에 반환
         for (int i = _activeHumans.Count - 1; i >= 0; i--)

@@ -43,6 +43,7 @@ public class StageManager : SingletonBase<StageManager>
     private void OnEnable()
     {
         Time.timeScale = 1;
+        GameManager.Instance.isPlaying = true;
     }
 
     // stage에 대한 정보 초기화

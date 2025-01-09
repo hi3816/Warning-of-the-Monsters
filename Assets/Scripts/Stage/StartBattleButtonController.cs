@@ -40,6 +40,8 @@ public class StartBattleButtonController : MonoBehaviour
                 StartWave();
             }
         }
+        if (!GameManager.Instance.isPlaying)
+            StopCoroutine(_interWaveCoroutine);
     }
 
     // StartBattleBtn 클릭
@@ -56,7 +58,8 @@ public class StartBattleButtonController : MonoBehaviour
         _interWaveCoroutine = StartCoroutine(CoInterWaveDelay());
         StageManager.Instance.UpdateWave();
         
-        HumanSpawner.Instance.StartSpawningHumans(StageManager.Instance.CurrWave);
+        if (GameManager.Instance.isPlaying)
+            HumanSpawner.Instance.StartSpawningHumans(StageManager.Instance.CurrWave);
     }
 
     // 다음 웨이브 시간 계산

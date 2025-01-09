@@ -35,6 +35,8 @@ public class HumanSpawner : SingletonBase<HumanSpawner>
     public void StopSpawningHumans()
     {
         StopAllCoroutines();    // 모든 스폰 코루틴 중지
+        Destroy(gameObject);
+        Destroy(this);
     }
 
     private IEnumerator SpawnHumansCoroutine(int waveIdx)
