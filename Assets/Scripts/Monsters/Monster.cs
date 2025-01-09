@@ -340,9 +340,11 @@ public abstract class Monster : MonoBehaviour
         //startColor.a = 0f;
         //_spriteRenderer.color = startColor;
 
-        GameManager.Instance.RemoveActiveList(this);
-        PoolManager.Instance.ReturnToPool(data.poolTag, this);
-
+        if (this.GetType().Name != "Minion")
+        {
+            GameManager.Instance.RemoveActiveList(this);
+            PoolManager.Instance.ReturnToPool(data.poolTag, this);
+        }
         yield return null;
     }
 }

@@ -106,13 +106,20 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     private void ClearMinion()
     {
         if (MinionList == null || MinionList.Count == 0) return;
-
-        foreach (Minion minion in MinionList)
+        
+        int mCount = MinionList.Count;
+        for (int i = 0; i < mCount; i++)
         {
-            GameManager.Instance.RemoveActiveList(minion);
-            PoolManager.Instance.ReturnToPool(minion.data.poolTag, minion);
+            if (MinionList[MinionList.Count - 1].gameObject.activeSelf)
+            {
+                MinionList[MinionList.Count - 1].ReturnToVillage(true);
+            }
         }
-        MinionList.Clear();
+
+        if (MinionList.Count > 0)
+        {
+            MinionList.Clear();
+        }
     }
 
     public override void ReturnToVillage()

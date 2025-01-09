@@ -45,42 +45,23 @@ public class GameManager : SingletonBase<GameManager>
         HumanSpawner.Instance.StopSpawningHumans();
         
         // 활성화된 인간이나 몬스터 오브젝트 풀에 반환
-        // for (int i = activeHumans.Count - 1; i >= 0; i--)
-        // {
-        //     string objectName = activeHumans[i].name;
-        //     PoolManager.Instance.ReturnToPool(objectName, activeHumans[i]);
-        //     activeHumans.RemoveAt(i);
-        // }
-        // for (int i = activeMinons.Count - 1; i >= 0; i--)
-        // {
-        //     string objectName = activeMinons[i].name;
-        //     PoolManager.Instance.ReturnToPool(objectName, activeMinons[i]);
-        //     activeMinons.RemoveAt(i);
-        // }
-        // for (int i = activeMonsters.Count - 1; i >= 0; i--)
-        // {
-        //     string objectName = activeMonsters[i].name;
-        //     PoolManager.Instance.ReturnToPool(objectName, activeMonsters[i]);
-        //     activeMonsters.RemoveAt(i);
-        // }
-        // TODO: index 에러 없이 for로 변경
-        while (_activeHumans.Count > 0)
+        for (int i = _activeHumans.Count - 1; i >= 0; i--)
         {
-            string objectName = _activeHumans[0].name;
-            PoolManager.Instance.ReturnToPool(objectName, _activeHumans[0]);
-            _activeHumans.RemoveAt(0);
+            string objectName = _activeHumans[i].name;
+            PoolManager.Instance.ReturnToPool(objectName, _activeHumans[i]);
+            _activeHumans.RemoveAt(i);
         }
-        while (_activeMinons.Count > 0)
+        for (int i = _activeMinons.Count - 1; i >= 0; i--)
         {
-            string objectName = _activeMinons[0].name;
-            PoolManager.Instance.ReturnToPool(objectName, _activeMinons[0]);
-            _activeMinons.RemoveAt(0);
+            string objectName = _activeMinons[i].name;
+            PoolManager.Instance.ReturnToPool(objectName, _activeMinons[i]);
+            _activeMinons.RemoveAt(i);
         }
-        while (_activeMonsters.Count > 0)
+        for (int i = _activeMonsters.Count - 1; i >= 0; i--)
         {
-            string objectName = _activeMonsters[0].name;
-            PoolManager.Instance.ReturnToPool(objectName, _activeMonsters[0]);
-            _activeMonsters.RemoveAt(0);
+            string objectName = _activeMonsters[i].name;
+            PoolManager.Instance.ReturnToPool(objectName, _activeMonsters[i]);
+            _activeMonsters.RemoveAt(i);
         }
     }
 
