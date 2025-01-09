@@ -9,6 +9,7 @@ public class WinPopup : UIBase
     [Header("Button")]
     public Button btnRetry;
     public Button btnNextStage;
+    public Button btnExit;
 
     [Header("Display")]
     [SerializeField] RectTransform _winPopup;
@@ -27,6 +28,7 @@ public class WinPopup : UIBase
     {
         btnRetry.onClick.AddListener(LoadGameScene);
         btnNextStage.onClick.AddListener(LoadNextStage);
+        btnExit.onClick.AddListener(LoadLobby);
 
         //SetStars(StageManager.Instance.CurrHealth);
         SetStars(StageManager.Instance.StarsCount);
@@ -53,6 +55,10 @@ public class WinPopup : UIBase
     private void LoadNextStage()
     {
         //Debug.Log("다음 스테이지 로드");
+    }
+    private void LoadLobby()
+    {
+        LoadingManager.Instance.ChangeScene("LobbyScene");
     }
 
     private void ShowResultInfo()
