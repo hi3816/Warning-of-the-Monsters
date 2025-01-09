@@ -25,18 +25,6 @@ public class HumanManager : SingletonBase<HumanManager>
     private int _currentWave;
     private int _totalHumansInWave;
     
-    public Transform humanEffect;
-    public ParticleSystem attackParticle;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        if (humanEffect == null)
-            humanEffect = transform.Find("Effects").transform;
-        if (attackParticle == null)
-            attackParticle = humanEffect.gameObject.GetComponentInChildren<ParticleSystem>();
-    }
-    
     private void OnEnable()
     {
         isLastWave = false;

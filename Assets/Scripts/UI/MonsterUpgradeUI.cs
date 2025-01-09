@@ -88,7 +88,7 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
         }
         else
         {
-            print("Not enough gold to upgrade!");
+            //print("Not enough gold to upgrade!");
         }
     }
     

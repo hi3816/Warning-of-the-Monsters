@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class StartBattleButtonController : MonoBehaviour
 {
     [SerializeField] private Image _timeCircleImage;
-    [SerializeField] private HumanSpawner _humanSpawner;
 
     private bool _isWaveStart = true; // 웨이브가 시작했는지 확인
     private float _waveStartDelay; // 현재 웨이브 시작하기 전 지연 시간
@@ -27,9 +26,6 @@ public class StartBattleButtonController : MonoBehaviour
         
         _button = GetComponent<Button>();
         _images = GetComponentsInChildren<Image>();
-        
-        if (_humanSpawner == null)
-            _humanSpawner = FindObjectOfType<HumanSpawner>();
     }
 
     private void Update()
@@ -63,7 +59,7 @@ public class StartBattleButtonController : MonoBehaviour
             StageManager.Instance.UpdateWave();
         }
         
-        _humanSpawner.StartSpawningHumans(StageManager.Instance.CurrWave);
+        HumanSpawner.Instance.StartSpawningHumans(StageManager.Instance.CurrWave);
     }
 
     // 다음 웨이브 시간 계산

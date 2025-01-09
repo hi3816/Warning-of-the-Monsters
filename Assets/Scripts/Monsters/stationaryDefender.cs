@@ -9,7 +9,7 @@ public class stationaryDefender : Monster //한자리를 지키고 있는 몬스
 
     protected override void Scaring()
     {
-        if (isSingleTargetAttack)
+        if (_isSingleTargetAttack)
         {
             base.Scaring();
             return;
@@ -21,8 +21,8 @@ public class stationaryDefender : Monster //한자리를 지키고 있는 몬스
 
             if (_lastScareTime >= data.cooldown)
             {
-                MonsterProjectile projectile = PoolManager.Instance.SpawnFromPool<MonsterProjectile>(projectileData.projectileType.ToString(), transform.position, Quaternion.identity);
-                projectile.SetProjectileInfo(human.transform.position, data, projectileData);
+                MonsterProjectile projectile = PoolManager.Instance.SpawnFromPool<MonsterProjectile>(_projectileData.projectileType.ToString(), transform.position, Quaternion.identity);
+                projectile.SetProjectileInfo(human.transform.position, data, _projectileData);
                 _lastScareTime = 0f;
                 SetState(MonsterState.Idle);
             }
