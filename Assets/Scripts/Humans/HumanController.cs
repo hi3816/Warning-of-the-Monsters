@@ -28,11 +28,11 @@ public class HumanController : MonoBehaviour
     {
         // 애니메이터 & NavMeshAgent 세팅
         animator = GetComponentInChildren<Animator>();
-        if (animator == null)
-            Debug.LogAssertion("Animator not found");
+        // if (animator == null)
+        //      Debug.LogAssertion("Animator not found");
         Agent = GetComponent<NavMeshAgent>();
-        if (Agent == null)
-            Debug.LogError("NavMeshAgent not found");
+        // if (Agent == null)
+        //     Debug.LogError("NavMeshAgent not found");
         // Sprite가 화면상에 보이도록 조정
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
