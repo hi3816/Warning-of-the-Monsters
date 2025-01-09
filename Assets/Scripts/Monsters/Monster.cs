@@ -252,12 +252,9 @@ public abstract class Monster : MonoBehaviour
     {
         if (_lastScareTime >= data.cooldown)
         {
-            foreach (Human human in TargetHumanList)
-            {
-                if (human == null) continue;
-
-                human.IncreaseFear(Random.Range(data.minFearInflicted, data.maxFearInflicted));
-            }
+            Human human = TargetHumanList[0];
+            if (human == null) return;
+            human.IncreaseFear(Random.Range(data.minFearInflicted, data.maxFearInflicted));
 
             _lastScareTime = 0f;
             SetState(MonsterState.Idle);
