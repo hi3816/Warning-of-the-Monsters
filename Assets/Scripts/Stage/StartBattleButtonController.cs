@@ -45,19 +45,16 @@ public class StartBattleButtonController : MonoBehaviour
     // StartBattleBtn 클릭
     public void StartWave()
     {
-        if (HumanManager.Instance.isLastWave) return;
+        if (StageManager.Instance.CheckLastWave()) return;
         
         _isWaveStart = true;
         _currWaveStartDelayTime = 0f;
         _timeCircleImage.fillAmount = 0f;
         ButtonDisable();
 
-        if (!StageManager.Instance.CheckEndStage())
-        {
-            if (_interWaveCoroutine != null) StopCoroutine(_interWaveCoroutine);
-            _interWaveCoroutine = StartCoroutine(CoInterWaveDelay());
-            StageManager.Instance.UpdateWave();
-        }
+        if (_interWaveCoroutine != null) StopCoroutine(_interWaveCoroutine);
+        _interWaveCoroutine = StartCoroutine(CoInterWaveDelay());
+        StageManager.Instance.UpdateWave();
         
         HumanSpawner.Instance.StartSpawningHumans(StageManager.Instance.CurrWave);
     }
@@ -67,7 +64,7 @@ public class StartBattleButtonController : MonoBehaviour
     {
         yield return _coroutineInterSeconds;
         _isWaveStart = false;
-        if (!HumanManager.Instance.isLastWave)
+        if (!StageManager.Instance.CheckLastWave())
             ButtonEnable();
     }
 
@@ -77,10 +74,10 @@ public class StartBattleButtonController : MonoBehaviour
         _timeCircleImage.fillAmount = _currWaveStartDelayTime / _waveStartDelay;
     }
 
-    // 웨이브가 끝났을 때
-    public void EndWave()
+    // EndWaveBtn 클릭했을 때만 실행 (테스트용)
+    public void ClickEndWave()
     {
-        if (!_button.enabled && !HumanManager.Instance.isLastWave)
+        if (!StageManager.Instance.CheckLastWave())
         {
             ButtonEnable();
             if(_interWaveCoroutine != null) StopCoroutine(_interWaveCoroutine);

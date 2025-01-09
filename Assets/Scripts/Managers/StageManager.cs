@@ -104,7 +104,7 @@ public class StageManager : SingletonBase<StageManager>
     }
 
     // 현재 스테이지의 모든 웨이브가 끝났는지 확인
-    public bool CheckEndStage()
+    public bool CheckLastWave()
     {
         return (CurrWave == TotalWave);
     }
@@ -137,7 +137,7 @@ public class StageManager : SingletonBase<StageManager>
     // 테스트 버튼 클릭
     public void ClickEndWaveBtn()
     {
-        _startBattleBtnController.EndWave();
+        _startBattleBtnController.ClickEndWave();
     }
 
     public void CaculateStars()

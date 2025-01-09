@@ -40,7 +40,7 @@ public class HumanManager : SingletonBase<HumanManager>
             if (countPerWave[spawnedIdx] == 0)  // 해당 웨이브에서 스폰된 모든 인원이 없어지면
             {
                 countPerWave.Remove(spawnedIdx);    // 딕셔너리에서 제거
-                StageManager.Instance.ClickEndWaveBtn();    // 웨이브를 종료하고 새로운 웨이브 활성화
+                //StageManager.Instance.ClickEndWaveBtn();    // 웨이브를 종료하고 새로운 웨이브 활성화
             }
         }
         
