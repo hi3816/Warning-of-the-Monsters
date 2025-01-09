@@ -63,12 +63,6 @@ public class HealerHuman : Human, IHealer
         }
     }
     
-    private void OnDrawGizmos() // 범위 확인용 (빌드 시 삭제하기)
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, _healRadius);
-    }
-    
     private IEnumerator HealingCoroutine()
     {
         while (true)    // 쿨타임 동안 기다렸다가 힐 반복 실행

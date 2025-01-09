@@ -41,7 +41,7 @@ public class DataManager : SingletonBase<DataManager>
         }
         if (_humanDataList.Count <= 0)
         {
-            Debug.LogAssertion($"Human data not Loaded");
+            // Debug.LogAssertion($"Human data not Loaded");
         }
     }
     
@@ -69,7 +69,7 @@ public class DataManager : SingletonBase<DataManager>
         }
         if (_waveDataDictionary.Count <= 0)
         {
-            Debug.LogAssertion($"Wave data not Loaded");
+            // Debug.LogAssertion($"Wave data not Loaded");
         }
     }
     
@@ -83,7 +83,7 @@ public class DataManager : SingletonBase<DataManager>
         {
             return waveData;
         }
-        Debug.LogAssertion($"Wave data not Found: {waveIdx}");
+        // Debug.LogAssertion($"Wave data not Found: {waveIdx}");
         return null;
     }
     
