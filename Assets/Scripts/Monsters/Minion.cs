@@ -62,7 +62,7 @@ public class Minion : Monster //졸개
                     SetState(MonsterState.Scaring);
                 }
             }
-            else if (distanceToSummoner >= 1.5f)
+            else if (distanceToSummoner >= 3.5f)
             {
                 Vector3 offset = (transform.position - _summonerMonster.transform.position).normalized;
                 _targetPosition = _summonerMonster.transform.position + offset;
