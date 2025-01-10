@@ -142,6 +142,7 @@ public class MonsterEvolution : MonoBehaviour
                 summonerMonster summoner = _selectMonster as summonerMonster;
                 summoner.InitializeSummonableMinions();
                 summoner.SetFatigue(0);
+                summoner.ChangeDetectRangeCollider();
             }
             else
             {
