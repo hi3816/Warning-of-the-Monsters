@@ -248,7 +248,7 @@ public class StagePopup : UIBase
         //StageInfo Load
         int a = index;
         DataTable.Stage_Data stageSO = DataManager.Instance.GetStageByIndex(index);
-        _titleTxt.text = $"{stageSO.id}";
+        _titleTxt.text = $"STAGE {stageSO.id + 1}";
         _stageInfoWave.text = $"{stageSO.wave}";
         _stageInfoHealth.text = $"{stageSO.health}";
         _stageInfoGold.text = $"{stageSO.gold}";
