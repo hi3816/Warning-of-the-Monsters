@@ -35,7 +35,6 @@ public class SkillButtonn : MonoBehaviour
         _skillData = DataManager.Instance.GetSkillByIndex(_skillButtonController.SkillIdxArr[_skillButtonIdx]);
         _skillImage.sprite = _skillButtonController.SkillSpriteArr[_skillButtonIdx];
         _skillRangeSprite = _skillButtonController.SkillRangeSpriteArr[_skillButtonIdx];
-        _skillRangeSprite.transform.SetParent(transform);
         _skillRangeSprite.transform.localScale = Vector2.one * _skillData.range;
     }
 
