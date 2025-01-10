@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class StageManager : SingletonBase<StageManager>
@@ -39,6 +41,10 @@ public class StageManager : SingletonBase<StageManager>
     {
         Time.timeScale = 1;
         GameManager.Instance.isPlaying = true;
+    }
+
+    private void Start()
+    {
         PoolManager.Instance.AddPools<SfxSoundSource>(_poolConfigs);
         SoundManager.Instance.PlayBGM(BgmType.Stage);
         SetStageInfo();
