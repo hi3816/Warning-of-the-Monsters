@@ -35,16 +35,6 @@ public class StageManager : SingletonBase<StageManager>
     protected override void Awake()
     {
         base.Awake();
-    }
-
-    private void OnEnable()
-    {
-        Time.timeScale = 1;
-        GameManager.Instance.isPlaying = true;
-    }
-
-    private void Start()
-    {
         PoolManager.Instance.AddPools<SfxSoundSource>(_poolConfigs);
         SoundManager.Instance.PlayBGM(BgmType.Stage);
         SetStageInfo();
@@ -52,6 +42,12 @@ public class StageManager : SingletonBase<StageManager>
         SetPointInfo();
     }
 
+    private void OnEnable()
+    {
+        Time.timeScale = 1;
+        GameManager.Instance.isPlaying = true;
+    }
+    
     // stage에 대한 정보 초기화
     private void SetStageInfo()
     {
