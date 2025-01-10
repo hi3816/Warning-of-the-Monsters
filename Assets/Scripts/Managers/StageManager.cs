@@ -40,6 +40,12 @@ public class StageManager : SingletonBase<StageManager>
         SetPointInfo();
     }
 
+    private void Start()
+    {
+        _stageInfoController = _stageInfo.GetComponent<StageInfoController>();
+        _stageInfoController.ChangeUI();
+    }
+
     private void OnEnable()
     {
         Time.timeScale = 1;
@@ -57,8 +63,6 @@ public class StageManager : SingletonBase<StageManager>
         CurrHealth = StageData.health;
         CurrGold = StageData.gold;
         StarsCount = 0;
-        _stageInfoController = _stageInfo.GetComponent<StageInfoController>();
-        _stageInfoController.ChangeUI();
     }
 
     // Stage 및 하위 오브젝트 캐싱
