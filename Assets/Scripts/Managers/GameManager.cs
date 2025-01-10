@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : SingletonBase<GameManager>
 {
@@ -113,6 +114,8 @@ public class GameManager : SingletonBase<GameManager>
 
     private void OnDestroy()
     {
-        ReturnObjects();
+        // MainScene에서 종료될 때만 활성화된 오브젝트 삭제
+        if (SceneManager.GetActiveScene().name == "MainScene")
+            ReturnObjects();
     }
 }
