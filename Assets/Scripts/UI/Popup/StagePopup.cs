@@ -197,11 +197,11 @@ public class StagePopup : UIBase
                         UIBase warningBox = PoolManager.Instance.SpawnFromPool<WarningBox>("WarningBox");
                         warningBox.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _warningTxt;
 
-                        _testTxt.text = "";
-                        foreach (var asdf in _selectedListData)
-                        {
-                            _testTxt.text += $"{asdf.Key} : {asdf.Value}\n";
-                        }
+                        //_testTxt.text = "";
+                        //foreach (var asdf in _selectedListData)
+                        //{
+                        //    _testTxt.text += $"{asdf.Key} : {asdf.Value}\n";
+                        //}
                         return;
                     }
                 }
@@ -213,11 +213,11 @@ public class StagePopup : UIBase
                 _selectedListData.Add(_crrSlotIdx, (Data.Value, Data.Key));
                 _warningTxt = "";
 
-                _testTxt.text = "";
-                foreach (var asdf in _selectedListData)
-                {
-                    _testTxt.text += $"{asdf.Key} : {asdf.Value}\n";
-                }
+                //_testTxt.text = "";
+                //foreach (var asdf in _selectedListData)
+                //{
+                //    _testTxt.text += $"{asdf.Key} : {asdf.Value}\n";
+                //}
             }
         }
         monsterSelectedSlots[_crrSlotIdx].UpdateSelectedSlot(listSlotSprite);
@@ -248,7 +248,7 @@ public class StagePopup : UIBase
         //StageInfo Load
         int a = index;
         DataTable.Stage_Data stageSO = DataManager.Instance.GetStageByIndex(index);
-        _titleTxt.text = $"{stageSO.id}";
+        _titleTxt.text = $"STAGE {stageSO.id + 1}";
         _stageInfoWave.text = $"{stageSO.wave}";
         _stageInfoHealth.text = $"{stageSO.health}";
         _stageInfoGold.text = $"{stageSO.gold}";

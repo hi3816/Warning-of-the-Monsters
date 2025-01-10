@@ -54,7 +54,7 @@ public class WinPopup : UIBase
     }
     private void LoadNextStage()
     {
-        //Debug.Log("다음 스테이지 로드");
+        LoadingManager.Instance.ChangeScene("GameScene");
     }
     private void LoadLobby()
     {
