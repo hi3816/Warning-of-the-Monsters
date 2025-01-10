@@ -54,18 +54,21 @@ public class GameManager : SingletonBase<GameManager>
         // 활성화된 인간이나 몬스터 오브젝트 풀에 반환
         for (int i = _activeHumans.Count - 1; i >= 0; i--)
         {
+            if (_activeHumans[i] == null) continue;
             string objectName = _activeHumans[i].name;
             PoolManager.Instance.ReturnToPool(objectName, _activeHumans[i]);
             _activeHumans.RemoveAt(i);
         }
         for (int i = _activeMinons.Count - 1; i >= 0; i--)
         {
+            if (_activeMinons[i] == null) continue;
             string objectName = _activeMinons[i].name;
             PoolManager.Instance.ReturnToPool(objectName, _activeMinons[i]);
             _activeMinons.RemoveAt(i);
         }
         for (int i = _activeMonsters.Count - 1; i >= 0; i--)
         {
+            if (_activeMonsters[i] == null) continue;
             string objectName = _activeMonsters[i].name;
             PoolManager.Instance.ReturnToPool(objectName, _activeMonsters[i]);
             _activeMonsters.RemoveAt(i);
@@ -110,12 +113,5 @@ public class GameManager : SingletonBase<GameManager>
         {
             _activeMonsters.Remove(obj as Monster);
         }
-    }
-
-    private void OnDestroy()
-    {
-        // MainScene에서 종료될 때만 활성화된 오브젝트 삭제
-        if (SceneManager.GetActiveScene().name == "MainScene")
-            ReturnObjects();
     }
 }
