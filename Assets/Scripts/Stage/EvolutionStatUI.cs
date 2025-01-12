@@ -6,16 +6,24 @@ public class EvolutionStatUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _evolutionNameText;
 
+    [Header("CurrStat")]
     [SerializeField] private TextMeshProUGUI _fatigueText;
     [SerializeField] private TextMeshProUGUI _minFearInflictedText;
     [SerializeField] private TextMeshProUGUI _maxFearInflictedText;
     [SerializeField] private TextMeshProUGUI _cooldownText;
     [SerializeField] private TextMeshProUGUI _rangeText;
 
-    public void Show(Evolution_Data evolution)
+    [Header("DiffStat")]
+    [SerializeField] private TextMeshProUGUI _diffFatigueText;
+    [SerializeField] private TextMeshProUGUI _diffMinFearInflictedText;
+    [SerializeField] private TextMeshProUGUI _diffMaxFearInflictedText;
+    [SerializeField] private TextMeshProUGUI _diffCooldownText;
+    [SerializeField] private TextMeshProUGUI _diffRangeText;
+
+    public void Show(MonsterData currData, Evolution_Data evolution)
     {
         gameObject.SetActive(true);
-        SetText(evolution);
+        SetText(currData, evolution);
     }
 
     public void Hide()
@@ -23,12 +31,37 @@ public class EvolutionStatUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void SetText(Evolution_Data evolutionData)
+    private void SetText(MonsterData currData, Evolution_Data evolutionData)
     {
-        _fatigueText.text = evolutionData.fatigue.ToString();
-        _minFearInflictedText.text = evolutionData.minFearInflicted.ToString();
-        _maxFearInflictedText.text = evolutionData.maxFearInflicted.ToString();
-        _cooldownText.text = evolutionData.cooldown.ToString();
-        _rangeText.text = evolutionData.humanScaringRange.ToString();
+
+        _evolutionNameText.text = evolutionData.evolutionName;
+
+        _fatigueText.text = currData.fatigue.ToString();
+        _minFearInflictedText.text = currData.minFearInflicted.ToString();
+        _maxFearInflictedText.text = currData.maxFearInflicted.ToString();
+        _cooldownText.text = currData.cooldown.ToString();
+        _rangeText.text = currData.humanScaringRange.ToString();
+        _diffFatigueText.text = CalcDiffValueToString(currData.fatigue, evolutionData.fatigue);
+        _diffMinFearInflictedText.text = CalcDiffValueToString(currData.minFearInflicted, evolutionData.minFearInflicted);
+        _diffMaxFearInflictedText.text = CalcDiffValueToString(currData.maxFearInflicted, evolutionData.maxFearInflicted);
+        _diffCooldownText.text = CalcDiffValueToString(currData.cooldown, evolutionData.cooldown);
+        _diffRangeText.text = CalcDiffValueToString(currData.humanScaringRange, evolutionData.humanScaringRange);
+    }
+
+    private string CalcDiffValueToString(float curr, float evolution)
+    {
+        float diff = Mathf.Round((evolution - curr) * 10f) / 10f; ;
+        if (diff > 0)
+        {
+            return $"+ {diff.ToString()}";
+        }
+        else if (diff == 0)
+        {
+            return $"0";
+        }
+        else
+        {
+            return $"- {Mathf.Abs(diff).ToString()}";
+        }
     }
 }

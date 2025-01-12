@@ -1,6 +1,7 @@
 using DataTable;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
     [SerializeField] private TextMeshProUGUI[] _requiredCoins;
     [SerializeField] private Button _typeButtonA;
     [SerializeField] private Button _typeButtonB;
+    [SerializeField] private GameObject _evolutionStat;
     [SerializeField] private EvolutionStatUI _evolutionStatUI;
     [SerializeField] private GameObject _typeACheck;
     [SerializeField] private GameObject _typeBCheck;
@@ -42,6 +44,7 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
         Vector3 worldPosition = monster.transform.position;
         _evolutionUI.transform.position = worldPosition;
         _evolutionUI.SetActive(true);
+        SetMonsterStatPosition();
         _sellButtonCanvas.transform.position = worldPosition + Vector3.down;
         _sellButtonCanvas.SetActive(true);
         _monsterUI.ShowRangeIndicator();
@@ -180,8 +183,14 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
             _typeBCheck.SetActive(true);
             _typeACheck.SetActive(false);
         }
-        _evolutionStatUI.Show(evolution);
+        _evolutionStatUI.Show(_selectMonster.data, evolution);
         _monsterUI.ShowRangeIndicator(evolution);
         _clickEvolutionType = evolutionType;
+    }
+
+    private void SetMonsterStatPosition()
+    {
+        Vector3 posX = _selectMonster.transform.position.x > 0 ? Vector3.left : Vector3.right;
+        _evolutionStatUI.transform.position = _selectMonster.transform.position + (posX * 2.5f);
     }
 }

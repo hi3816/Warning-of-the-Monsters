@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,40 +12,44 @@ public class SpeedButton : MonoBehaviour
     [SerializeField] private Sprite _enableSprite;
     [SerializeField] private Sprite _disableSprite;
 
-    private int _timeScale;
+    private int _timeScaleListIdx;
+    private List<float> _timeScaleList = new List<float>();
 
     private void Awake()
     {
-        _speedButton.onClick.AddListener(() => ClickSpeedButton());
+        _speedButton.onClick.AddListener(ClickSpeedButton);
+        _timeScaleList.Add(1f);
+        _timeScaleList.Add(1.5f);
+        _timeScaleList.Add(2.0f);
     }
 
     private void OnEnable()
     {
-        _timeScale = 1;
-        Time.timeScale = (float)_timeScale;
+        _timeScaleListIdx = 0;
+        Time.timeScale = _timeScaleList[_timeScaleListIdx];
     }
 
     private void ClickSpeedButton()
     {
         // 1, 2, 3 돌리기
-        _timeScale = (_timeScale == 3) ? 1 : ++_timeScale;
-        Time.timeScale = (float)_timeScale;
+        _timeScaleListIdx = (_timeScaleListIdx == 2) ? 0 : ++_timeScaleListIdx;
+        Time.timeScale = _timeScaleList[_timeScaleListIdx];
         ChangeButton();
     }
 
     public void ChangeButton()
     {
-        _speedButtonText.text = $"x {_timeScale}";
+        _speedButtonText.text = $"x {_timeScaleList[_timeScaleListIdx]}";
 
-        switch (_timeScale)
+        switch (_timeScaleListIdx)
         {
-            case 1:
+            case 0:
                 _speedButtonImage.sprite = _disableSprite;
                 break;
-            case 2:
+            case 1:
                 _speedButtonImage.sprite = _enableSprite;
                 break;
-            case 3:
+            case 2:
                 _speedButtonImage.sprite = _enableSprite;
                 break;
         }

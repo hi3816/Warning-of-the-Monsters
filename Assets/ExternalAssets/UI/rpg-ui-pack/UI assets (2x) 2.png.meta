@@ -132,6 +132,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -25885,10 +25898,10 @@ TextureImporter:
       name: UI assets (2x)_1226
       rect:
         serializedVersion: 2
-        x: 204
-        y: 620
-        width: 8
-        height: 10
+        x: 200
+        y: 614
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -26087,27 +26100,6 @@ TextureImporter:
       bones: []
       spriteID: 59e031c391d9c1b48986a8802ebc2bb5
       internalID: 1781875666
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI assets (2x)_1236
-      rect:
-        serializedVersion: 2
-        x: 206
-        y: 614
-        width: 4
-        height: 4
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5df0e2511bd23da4c8e17a957c3f02ca
-      internalID: 1651506491
       vertices: []
       indices: 
       edges: []
@@ -27271,9 +27263,9 @@ TextureImporter:
       name: UI assets (2x)_1292
       rect:
         serializedVersion: 2
-        x: 202
+        x: 198
         y: 484
-        width: 12
+        width: 20
         height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

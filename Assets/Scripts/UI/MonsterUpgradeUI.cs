@@ -14,7 +14,9 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
 {
     [SerializeField] private StageManager _stageManager;
     [SerializeField] private Canvas _upgradeCanvas;
+    [SerializeField] private GameObject _upgradeStat;
     [SerializeField] private TextMeshProUGUI _upgradeStatsText;
+    [SerializeField] private GameObject _maxUpgradePanel;
     [SerializeField] private TextMeshProUGUI _upgradeCostText;
     [SerializeField] private TextMeshProUGUI _sellButtonText;
     public GameObject UiPanel;
@@ -48,18 +50,21 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
         {
             var nextUpgrade = upgrade;
             
-            _upgradeStatsText.text = $"Fatigue: \t{nextUpgrade.fatigue[nextLevel]}\n" +
-                                    $"Min Fear: \t{nextUpgrade.minFearInflicted[nextLevel]}\n" +
-                                    $"Max Fear: \t{nextUpgrade.maxFearInflicted[nextLevel]}\n" + 
-                                    $"Cooldown: \t{nextUpgrade.cooldown[nextLevel]}";
+            _upgradeStatsText.text = $"{nextUpgrade.fatigue[nextLevel]}\n" +
+                                    $"{nextUpgrade.minFearInflicted[nextLevel]}\n" +
+                                    $"{nextUpgrade.maxFearInflicted[nextLevel]}\n" + 
+                                    $"{nextUpgrade.cooldown[nextLevel]}";
             _upgradeCostText.text = $"{nextUpgrade.requiredCoins[nextLevel]}";
             UpgradeButton.interactable = true;
+            _upgradeStat.SetActive(true);
+            _maxUpgradePanel.SetActive(false);
         }
         else
         {
-            _upgradeStatsText.text = "Max Upgrade Reached";
             _upgradeCostText.text = "0";
             UpgradeButton.interactable = false;
+            _upgradeStat.SetActive(false);
+            _maxUpgradePanel.SetActive(true);
         }
 
         _sellButtonText.text = Mathf.RoundToInt(CalculateTotalSpent(_selectedMonster) * 0.35f).ToString();
