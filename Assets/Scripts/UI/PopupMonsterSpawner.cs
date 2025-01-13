@@ -21,6 +21,9 @@ public class PopupMonsterSpawner : MonsterSpawner
 
         if (_selectedMonsterList == null) return;
 
+        StageManager.Instance.SetMonsterUI(this, null);
+        StageManager.Instance.OnChangeGold += ShowMonsterSelectionPopup;
+
         SetMonsterSprite();
     }
 
@@ -61,11 +64,18 @@ public class PopupMonsterSpawner : MonsterSpawner
             return;
         }
 
+        UpdateMonsterImgState();
         if (_monsterSelectionPopup != null)
         {
             _monsterSelectionPopup.transform.position = position;
             _monsterSelectionPopup.SetActive(true);
         }
+    }
+
+    private void ShowMonsterSelectionPopup()
+    {
+        if (_monsterSelectionPopup == null && !_monsterSelectionPopup.activeSelf) return;
+        ShowMonsterSelectionPopup(_monsterSelectionPopup.transform.position);
     }
 
     public void OnMonsterSelected(int slotIdx)
@@ -125,6 +135,6 @@ public class PopupMonsterSpawner : MonsterSpawner
     private bool IsMonsterSelectable(int idx, DataTable.Monster_Data data)
     {
         _costTxts[idx].text = data.requiredCoins[0].ToString();
-        return StageManager.CurrGold >= data.requiredCoins[0];
+        return _stageManager.CurrGold >= data.requiredCoins[0];
     }
 }
