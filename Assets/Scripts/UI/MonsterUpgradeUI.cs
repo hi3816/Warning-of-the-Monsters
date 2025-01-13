@@ -13,11 +13,13 @@ public interface ISell
 public class MonsterUpgradeUI : MonoBehaviour, ISell
 {
     [SerializeField] private StageManager _stageManager;
-    [SerializeField] private Canvas _upgradeCanvas;
+    [SerializeField] private GameObject _upgradeCanvas;
     [SerializeField] private GameObject _upgradeStat;
     [SerializeField] private GameObject _maxUpgradePanel;
+    [SerializeField] private Button _upgradeButton;
     [SerializeField] private TextMeshProUGUI _upgradeCostText;
     [SerializeField] private TextMeshProUGUI _sellButtonText;
+    [SerializeField] private TextMeshProUGUI _nameText;
 
     [Header("Stats")]
     [SerializeField] private TextMeshProUGUI _fatigueText;
@@ -25,9 +27,12 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
     [SerializeField] private TextMeshProUGUI _maxFearInflictedText;
     [SerializeField] private TextMeshProUGUI _cooldownText;
 
-    public GameObject UiPanel;
-    public Button UpgradeButton;
-    public Button SellButton;
+    [Header("DiffStat")]
+    [SerializeField] private TextMeshProUGUI _diffFatigueText;
+    [SerializeField] private TextMeshProUGUI _diffMinFearInflictedText;
+    [SerializeField] private TextMeshProUGUI _diffMaxFearInflictedText;
+    [SerializeField] private TextMeshProUGUI _diffCooldownText;
+
     private Monster _selectedMonster;
     private MonsterUI _monsterUI;
 
@@ -40,35 +45,40 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
     public void Show(Monster monster)
     {
         _selectedMonster = monster;
-        _upgradeCanvas.gameObject.SetActive(true);
+        _upgradeCanvas.SetActive(true);
         UpdateUI();
         _monsterUI.ShowRangeIndicator();
     }
 
     void UpdateUI()
     {
-        Vector3 worldPosition = _selectedMonster.transform.position;
-        UiPanel.transform.position = worldPosition + (Vector3.right * 1.5f);
+        SetMonsterStatPosition();
 
-        int nextLevel = _selectedMonster.data.currentLevel + 1;
-        var upgrade = DataManager.Instance.GetBaseMonsterById(_selectedMonster.data.id);
-        if (_selectedMonster.data.currentLevel < _selectedMonster.data.maxLevel)
+        MonsterData data = _selectedMonster.data;
+        _nameText.text = data.poolTag;
+        int nextLevel = data.currentLevel + 1;
+        var upgrade = DataManager.Instance.GetBaseMonsterById(data.id);
+        if (data.currentLevel < data.maxLevel)
         {
             var nextUpgrade = upgrade;
 
-            _fatigueText.text = $"{nextUpgrade.fatigue[nextLevel]}";
-            _minFearInflictedText.text = $"{nextUpgrade.minFearInflicted[nextLevel]}";
-            _maxFearInflictedText.text = $"{nextUpgrade.maxFearInflicted[nextLevel]}"; 
-            _cooldownText.text = $"{nextUpgrade.cooldown[nextLevel]}";
+            _fatigueText.text = $"{data.fatigue}";
+            _minFearInflictedText.text = $"{data.minFearInflicted}";
+            _maxFearInflictedText.text = $"{data.maxFearInflicted}"; 
+            _cooldownText.text = $"{data.cooldown}";
+            _diffFatigueText.text = CalcDiffValueToString(data.fatigue, nextUpgrade.fatigue[nextLevel]);
+            _diffMinFearInflictedText.text = CalcDiffValueToString(data.minFearInflicted, nextUpgrade.minFearInflicted[nextLevel]);
+            _diffMaxFearInflictedText.text = CalcDiffValueToString(data.maxFearInflicted, nextUpgrade.maxFearInflicted[nextLevel]);
+            _diffCooldownText.text = CalcDiffValueToString(data.cooldown, nextUpgrade.cooldown[nextLevel]);
             _upgradeCostText.text = $"{nextUpgrade.requiredCoins[nextLevel]}";
-            UpgradeButton.interactable = true;
+            _upgradeButton.interactable = true;
             _upgradeStat.SetActive(true);
             _maxUpgradePanel.SetActive(false);
         }
         else
         {
             _upgradeCostText.text = "0";
-            UpgradeButton.interactable = false;
+            _upgradeButton.interactable = false;
             _upgradeStat.SetActive(false);
             _maxUpgradePanel.SetActive(true);
         }
@@ -89,7 +99,7 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
             _selectedMonster.Upgrade(upgrade);
             if (upgrade.maxLevel <= _selectedMonster.data.currentLevel + 1)
             {
-                _upgradeCanvas.gameObject.SetActive(false);
+                _upgradeCanvas.SetActive(false);
             }
             else
             {
@@ -106,8 +116,6 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
     public void SellMonster()
     {
         if (_selectedMonster == null) return;
-        // upgradeButton.interactable = false;
-        // sellButton.interactable = false;
         int totalSpent = CalculateTotalSpent(_selectedMonster); //여태 얼마 사용했는지 계산
         float refundPercentage = 0.35f; // 35% 환불
         int refundAmount = Mathf.RoundToInt(totalSpent * refundPercentage);
@@ -137,7 +145,30 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
     
     public void Hide()
     {
-        _upgradeCanvas.gameObject.SetActive(false);
+        _upgradeCanvas.SetActive(false);
         if(_monsterUI != null && _monsterUI.gameObject.activeSelf) _monsterUI.HideRangeIndicator();
+    }
+
+    private string CalcDiffValueToString(float curr, float upgrade)
+    {
+        float diff = Mathf.Round((upgrade - curr) * 10f) / 10f;
+        if (diff > 0)
+        {
+            return $"+ {diff.ToString()}";
+        }
+        else if (diff == 0)
+        {
+            return $"0";
+        }
+        else
+        {
+            return $"- {Mathf.Abs(diff).ToString()}";
+        }
+    }
+
+    private void SetMonsterStatPosition()
+    {
+        Vector3 posX = _selectedMonster.transform.position.x > 0 ? Vector3.left : Vector3.right;
+        _upgradeCanvas.transform.position = _selectedMonster.transform.position + (posX * 1.75f);
     }
 }

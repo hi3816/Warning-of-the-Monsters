@@ -46,7 +46,7 @@ public class EvolutionStatUI : MonoBehaviour
 
     private string CalcDiffValueToString(float curr, float evolution)
     {
-        float diff = Mathf.Round((evolution - curr) * 10f) / 10f; ;
+        float diff = Mathf.Round((evolution - curr) * 10f) / 10f;
         if (diff > 0)
         {
             return $"+ {diff.ToString()}";
