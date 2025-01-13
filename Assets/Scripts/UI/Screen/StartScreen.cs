@@ -8,6 +8,8 @@ public class StartScreen : UIBase
     [SerializeField] private GameObject _guidePanel;
     [SerializeField] private Button _guideButton;
     [SerializeField] private Button _guideExitButton;
+    [SerializeField] private Button _enBtn;
+    [SerializeField] private Button _krBtn;
 
     [Header("Title")]
     [SerializeField] private CanvasGroup _titleCanvasGroup;
@@ -20,6 +22,12 @@ public class StartScreen : UIBase
     [Header("GuideButton")]
     [SerializeField] private CanvasGroup _guideButtonCanvasGroup;
     [SerializeField] private Transform _guideButtonTransform;
+    
+    [Header("FlagButton")]
+    [SerializeField] private CanvasGroup _flagCanvasGroup;
+    [SerializeField] private Transform _flagTransform;
+    
+    [SerializeField] private LocalSelector selector;
 
     // Start is called before the first frame update
     void Start()
@@ -27,8 +35,12 @@ public class StartScreen : UIBase
         _startButton.onClick.AddListener(OnButtonClicked);
         _guideButton.onClick.AddListener(OnGuideButtonCliked);
         _guideExitButton.onClick.AddListener(OnGuideExitButtonClicked);
+        _enBtn.onClick.AddListener(() => selector.ChangeLocal(0));
+        _krBtn.onClick.AddListener(() => selector.ChangeLocal(1));
+
         ShowTitle();
         ShowButton();
+        ShowFlag();
     }
 
     public void OnButtonClicked()
@@ -45,7 +57,7 @@ public class StartScreen : UIBase
     {
         _guidePanel.SetActive(false);
     }
-
+    
     public void ShowTitle()
     {
         _titleCanvasGroup.DOFade(1, 0.3f)
@@ -73,5 +85,11 @@ public class StartScreen : UIBase
 
         _guideButtonTransform.DOLocalMove(Vector3.up * 10, 0.5f)
             .SetRelative();
+    }
+
+    private void ShowFlag()
+    {
+        _flagCanvasGroup.DOFade(1, 0.3f);
+        _flagTransform.DOLocalMove(Vector3.up * 10, 0.5f).SetRelative();
     }
 }
