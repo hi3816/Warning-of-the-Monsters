@@ -8,6 +8,9 @@ public class OptionPanelController : MonoBehaviour
     [SerializeField] protected Image _bgmImage;
     [SerializeField] protected Image _sfxImage;
 
+    [SerializeField] protected Slider _sfxSlider;
+    [SerializeField] protected Slider _bgmSlider;
+
     private float _onAlpha = 255f / 255f;
     private float _offAlpha = 200f / 255f;
 
@@ -18,6 +21,26 @@ public class OptionPanelController : MonoBehaviour
     {
         _soundManager = SoundManager.Instance;
         SetMusicButton();
+    }
+
+    private void Start()
+    {
+        if (SoundManager.Instance != null)
+        {
+            _sfxSlider.value = SoundManager.Instance.globalSfxVolume;
+            _bgmSlider.value = SoundManager.Instance.bgmVolume;
+
+            // 슬라이더 값 변경 시 사운드 매니저의 볼륨 조절
+            _sfxSlider.onValueChanged.AddListener((value) =>
+            {
+                SoundManager.Instance.SetSfxVolume(value);
+            });
+
+            _bgmSlider.onValueChanged.AddListener((value) =>
+            {
+                SoundManager.Instance.SetBgmVolume(value);
+            });
+        }
     }
 
     private void OnEnable()

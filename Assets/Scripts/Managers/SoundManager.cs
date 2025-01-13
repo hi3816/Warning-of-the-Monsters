@@ -29,10 +29,10 @@ public class SoundManager : SingletonBase<SoundManager>
     private AudioSource audioBgm;
     
     // BGM 볼륨
-    [SerializeField][Range(0f, 1f)] private float bgmVolume;
+    [Range(0f, 1f)] public float bgmVolume;
 
     // SFX 볼륨 및 음 높낮이 조절
-    [SerializeField][Range(0f, 1f)] private float globalSfxVolume;
+    [Range(0f, 1f)] public float globalSfxVolume;
     [SerializeField][Range(0f, 1f)] private float sfxPitchVariance; // 높은 음이 나옴
 
     private Dictionary<SfxType, float> individualSfxVolumeDict;
@@ -155,5 +155,16 @@ public class SoundManager : SingletonBase<SoundManager>
         {
             PlaySFX(SfxType.Click);
         }
+    }
+
+    public void SetSfxVolume(float volume)
+    {
+        globalSfxVolume = volume;
+    }
+
+    public void SetBgmVolume(float volume)
+    {
+        bgmVolume = volume;
+        audioBgm.volume = bgmVolume;
     }
 }
