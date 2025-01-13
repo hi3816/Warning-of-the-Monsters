@@ -32,6 +32,11 @@ public class StageManager : SingletonBase<StageManager>
     [Header("Sfx Pools")]
     [SerializeField] private PoolManager.PoolConfig[] _poolConfigs;
 
+    private MonsterSpawner _monsterSpawner;
+    private MonsterEvolutionUI _monsterEvolutionUI;
+
+    public Action OnChangeGold;
+
     protected override void Awake()
     {
         base.Awake();
@@ -77,6 +82,12 @@ public class StageManager : SingletonBase<StageManager>
         
         // startBattleBtn에 interWaveDelay필드에 값 저장하기 위해 StageData 세팅 후에 캐싱
         _startBattleBtnController = _stage.GetComponentInChildren<StartBattleButtonController>();
+    }
+
+    public void SetMonsterUI(MonsterSpawner spawner, MonsterEvolutionUI evolutionUI)
+    {
+        if (spawner != null) _monsterSpawner = spawner;
+        if (evolutionUI != null) _monsterEvolutionUI = evolutionUI;
     }
 
     // 스테이지의 시작점과 종료지점 캐싱
@@ -132,6 +143,8 @@ public class StageManager : SingletonBase<StageManager>
     {
         CurrGold += gold;
         _stageInfoController.ChangeUI();
+
+        OnChangeGold?.Invoke();
     }
 
     // StopPanel 활성화

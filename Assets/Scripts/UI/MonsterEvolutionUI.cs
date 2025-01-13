@@ -13,7 +13,6 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
     [SerializeField] private TextMeshProUGUI[] _requiredCoins;
     [SerializeField] private Button _typeButtonA;
     [SerializeField] private Button _typeButtonB;
-    [SerializeField] private GameObject _evolutionStat;
     [SerializeField] private EvolutionStatUI _evolutionStatUI;
     [SerializeField] private GameObject _typeACheck;
     [SerializeField] private GameObject _typeBCheck;
@@ -35,6 +34,9 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
         _typeButtonB.onClick.AddListener(() => MonsterEvolutionStat(EvolutionType.Btype));
         _sellButton.onClick.AddListener(SellMonster);
         _sellButton.onClick.AddListener(Hide);
+
+        StageManager.Instance.SetMonsterUI(null, this);
+        StageManager.Instance.OnChangeGold += Show;
     }
 
     public void Show(Monster monster)
@@ -49,6 +51,12 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
         SetEvolutionPanel();
     }
 
+    public void Show()
+    {
+        if (_selectMonster == null && !_evolutionUI.activeSelf) return;
+        Show(_selectMonster);
+    }
+
     public void Hide()
     {
         _monsterUI.HideRangeIndicator();
@@ -56,6 +64,7 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
         _evolutionStatUI.Hide();
         _typeACheck.SetActive(false);
         _typeBCheck.SetActive(false);
+        _selectMonster = null;
     }
 
     private void ResetEvolutionPanel()
@@ -167,6 +176,7 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
 
     private void MonsterEvolutionStat(EvolutionType evolutionType)
     {
+        if (_selectMonster == null) return;
         var evolution = DataManager.Instance.GetEvolutionData(_selectMonster.data.id, _selectMonster.data.currentLevel + 1, evolutionType);
         if (evolution == null) return;
         if (evolutionType == EvolutionType.Atype)

@@ -4,12 +4,12 @@ using UnityEngine;
 public class MonsterSpawner : MonoBehaviour
 {
     public List<Transform> SpawnPointList { get; private set; }
-    protected StageManager StageManager;
+    protected StageManager _stageManager;
     
     private void Start()
     {
         SpawnPointList = StageManager.Instance.SpawnPointList;
-        StageManager = StageManager.Instance;
+        _stageManager = StageManager.Instance;
     }
     
     protected bool IsSpawnPointOccupied(Vector3 spawnPosition, float checkRadius)
@@ -34,9 +34,9 @@ public class MonsterSpawner : MonoBehaviour
             return;
         }
         
-        if (StageManager.CurrGold >= selectedMonsterData.requiredCoins[0])
+        if (_stageManager.CurrGold >= selectedMonsterData.requiredCoins[0])
         {
-            StageManager.ChangeGold(-selectedMonsterData.requiredCoins[0]);
+            _stageManager.ChangeGold(-selectedMonsterData.requiredCoins[0]);
             Monster monster = PoolManager.Instance.SpawnFromPool<Monster>(selectedMonsterData.name, spawnPosition, Quaternion.identity);            if (monster != null)
             {
                 GameManager.Instance.AddActiveList(monster);
