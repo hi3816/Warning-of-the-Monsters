@@ -17,7 +17,6 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
     [SerializeField] private EvolutionStatUI _evolutionStatUI;
     [SerializeField] private GameObject _typeACheck;
     [SerializeField] private GameObject _typeBCheck;
-    [SerializeField] private GameObject _sellButtonCanvas;
     [SerializeField] private Button _sellButton;
     [SerializeField] private TextMeshProUGUI _sellText;
 
@@ -45,8 +44,6 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
         _evolutionUI.transform.position = worldPosition;
         _evolutionUI.SetActive(true);
         SetMonsterStatPosition();
-        _sellButtonCanvas.transform.position = worldPosition + Vector3.down;
-        _sellButtonCanvas.SetActive(true);
         _monsterUI.ShowRangeIndicator();
         ResetEvolutionPanel();
         SetEvolutionPanel();
@@ -56,7 +53,6 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
     {
         _monsterUI.HideRangeIndicator();
         _evolutionUI.SetActive(false);
-        _sellButtonCanvas.SetActive(false);
         _evolutionStatUI.Hide();
         _typeACheck.SetActive(false);
         _typeBCheck.SetActive(false);

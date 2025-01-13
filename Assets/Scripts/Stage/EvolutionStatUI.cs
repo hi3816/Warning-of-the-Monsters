@@ -11,14 +11,12 @@ public class EvolutionStatUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _minFearInflictedText;
     [SerializeField] private TextMeshProUGUI _maxFearInflictedText;
     [SerializeField] private TextMeshProUGUI _cooldownText;
-    [SerializeField] private TextMeshProUGUI _rangeText;
 
     [Header("DiffStat")]
     [SerializeField] private TextMeshProUGUI _diffFatigueText;
     [SerializeField] private TextMeshProUGUI _diffMinFearInflictedText;
     [SerializeField] private TextMeshProUGUI _diffMaxFearInflictedText;
     [SerializeField] private TextMeshProUGUI _diffCooldownText;
-    [SerializeField] private TextMeshProUGUI _diffRangeText;
 
     public void Show(MonsterData currData, Evolution_Data evolution)
     {
@@ -40,12 +38,10 @@ public class EvolutionStatUI : MonoBehaviour
         _minFearInflictedText.text = currData.minFearInflicted.ToString();
         _maxFearInflictedText.text = currData.maxFearInflicted.ToString();
         _cooldownText.text = currData.cooldown.ToString();
-        _rangeText.text = currData.humanScaringRange.ToString();
         _diffFatigueText.text = CalcDiffValueToString(currData.fatigue, evolutionData.fatigue);
         _diffMinFearInflictedText.text = CalcDiffValueToString(currData.minFearInflicted, evolutionData.minFearInflicted);
         _diffMaxFearInflictedText.text = CalcDiffValueToString(currData.maxFearInflicted, evolutionData.maxFearInflicted);
         _diffCooldownText.text = CalcDiffValueToString(currData.cooldown, evolutionData.cooldown);
-        _diffRangeText.text = CalcDiffValueToString(currData.humanScaringRange, evolutionData.humanScaringRange);
     }
 
     private string CalcDiffValueToString(float curr, float evolution)
