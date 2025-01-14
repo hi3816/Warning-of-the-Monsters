@@ -78,7 +78,7 @@ public class PopupMonsterSpawner : MonsterSpawner
         }
 
         UpdateMonsterImgState();
-        if (_monsterSelectionPopup != null)
+        if (_monsterSelectionPopup != null && !_monsterSelectionPopup.activeSelf)
         {
             _monsterSelectionPopup.transform.position = position;
             _monsterSelectionPopup.SetActive(true);
