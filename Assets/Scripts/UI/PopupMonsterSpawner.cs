@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.U2D;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class PopupMonsterSpawner : MonsterSpawner
 {
@@ -10,30 +11,42 @@ public class PopupMonsterSpawner : MonsterSpawner
     private Vector3 _pendingSpawnPosition; // 선택된 스폰 위치
     private Transform _pendingSpawnPoint; // 선택된 스폰 포인트
 
-    private Dictionary<int, (int monsterId, string monsterName)> _selectedMonsterList;
+    private Dictionary<int, (int monsterId, string monsterName)> _selectedMonsterDict;
     [SerializeField] private List<GameObject> _slots;
     [SerializeField] private List<GameObject> _slotsOverlay;
+    [SerializeField] private List<GameObject> _checkList;
     [SerializeField] private List<TextMeshProUGUI> _costTxts;
+    [SerializeField] private GameObject _statUIObj;
+    [SerializeField] private GameObject _rangeIndicator;
+    
+    private StatUI _statUI;
 
     private void Awake()
     {
-        _selectedMonsterList = DataManager.Instance.selectedMonsterData;
+        _selectedMonsterDict = DataManager.Instance.selectedMonsterData;
 
-        if (_selectedMonsterList == null) return;
+        if (_selectedMonsterDict == null) return;
 
         StageManager.Instance.SetMonsterUI(this, null);
         StageManager.Instance.OnChangeGold += ShowMonsterSelectionPopup;
+        _statUI = _statUIObj.GetComponent<StatUI>();
 
         SetMonsterSprite();
     }
 
     void Update()
     {
-        if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+
+        if (EventSystem.current.IsPointerOverGameObject())
             return;
 
         if (Input.GetMouseButtonDown(0)) // 마우스 클릭
         {
+            if(!EventSystem.current.IsPointerOverGameObject() && _monsterSelectionPopup.activeSelf)
+            {
+                HideSelectionPopup();
+            }
+
             Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             touchPosition.z = 0f;
 
@@ -80,23 +93,37 @@ public class PopupMonsterSpawner : MonsterSpawner
 
     public void OnMonsterSelected(int slotIdx)
     {
+        if (!_checkList[slotIdx].activeSelf)
+        {
+            foreach (GameObject check in _checkList)
+            {
+                check.SetActive(false);
+            }
+            _checkList[slotIdx].SetActive(true);
+            _statUIObj.SetActive(true);
+            
+            if (_selectedMonsterDict.TryGetValue(slotIdx, out var monsterInfo))
+            {
+                DataTable.Monster_Data selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData(monsterInfo.monsterId);
+                _statUI.Show(_monsterSelectionPopup.transform.position, selectedMonsterData);
+                ShowRangeIndicator(_pendingSpawnPosition, selectedMonsterData.humanDetectRange[0]);
+            }
+            return;
+        }
+
         // 몬스터 선택 후 부모 클래스의 SpawnMonster 호출
         if (_pendingSpawnPoint != null 
             //&& selectedMonsterData != null
             )
         {
-            if (_selectedMonsterList.TryGetValue(slotIdx, out var monsterInfo))
+            if (_selectedMonsterDict.TryGetValue(slotIdx, out var monsterInfo))
             {
                 MonsterManager.Instance.SelectMonster(monsterInfo.monsterId);
             }
             DataTable.Monster_Data selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
             base.SpawnMonster(_pendingSpawnPosition, selectedMonsterData.id);
 
-            // 팝업 닫기
-            if (_monsterSelectionPopup != null)
-            {
-                _monsterSelectionPopup.SetActive(false);
-            }
+            HideSelectionPopup();
         }
     }
 
@@ -106,7 +133,7 @@ public class PopupMonsterSpawner : MonsterSpawner
 
         for (int i = 0; i < _slots.Count; i++)
         {
-            if (_selectedMonsterList.TryGetValue(i, out var monsterData))
+            if (_selectedMonsterDict.TryGetValue(i, out var monsterData))
             {
                 var slotImg = _slots[i].transform.GetChild(0).GetComponent<Image>();
                 slotImg.sprite = _sprites.GetSprite(monsterData.monsterName);
@@ -119,7 +146,7 @@ public class PopupMonsterSpawner : MonsterSpawner
     {
         for (int i = 0; i < _slots.Count; i++)
         {
-            if (_selectedMonsterList.TryGetValue(i, out var monsterInfo))
+            if (_selectedMonsterDict.TryGetValue(i, out var monsterInfo))
             {
                 MonsterManager.Instance.SelectMonster(monsterInfo.monsterId);
                 var selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
@@ -136,5 +163,29 @@ public class PopupMonsterSpawner : MonsterSpawner
     {
         _costTxts[idx].text = data.requiredCoins[0].ToString();
         return _stageManager.CurrGold >= data.requiredCoins[0];
+    }
+
+    private void HideSelectionPopup()
+    {
+        // 팝업 닫기
+        if (_monsterSelectionPopup != null)
+        {
+            foreach(GameObject check in _checkList)
+            {
+                check.SetActive(false);
+            }
+            _statUIObj.SetActive(false);
+            _rangeIndicator.SetActive(false);
+            _monsterSelectionPopup.SetActive(false);
+        }
+    }
+
+    private void ShowRangeIndicator(Vector3 pos, float humanDetactRange)
+    {
+        if (_rangeIndicator == null) return;
+        float range = humanDetactRange;
+        _rangeIndicator.transform.localScale = Vector2.one * range;
+        _rangeIndicator.transform.position = pos;
+        _rangeIndicator.SetActive(true);
     }
 }
