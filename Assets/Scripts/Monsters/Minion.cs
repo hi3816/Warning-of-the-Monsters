@@ -1,9 +1,14 @@
+using System.Collections;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class Minion : Monster //졸개
 {
     private summonerMonster _summonerMonster;
     protected Vector3 _targetPosition;
+
+    private float _minionMoveDuration = 2f;
+    private Coroutine _minionMove;
 
     public void InitializeMinion(DataTable.Monster_Data minionData, summonerMonster summoner)
     {
@@ -93,5 +98,28 @@ public class Minion : Monster //졸개
         }
         GameManager.Instance.RemoveActiveList(this);
         PoolManager.Instance.ReturnToPool<Minion>(data.poolTag, this);
+    }
+
+    public void MoveToTarget(Vector2 targetPos)
+    {
+        if (_minionMove != null) StopCoroutine(_minionMove);
+        _minionMove = StartCoroutine(CoMoveToTarget(transform.position, targetPos));
+    }
+
+    private IEnumerator CoMoveToTarget(Vector3 startPos, Vector3 targetPos)
+    {
+        float elapsedTime = 0.0f;
+
+        while (elapsedTime < _minionMoveDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float time = elapsedTime / _minionMoveDuration;
+            Vector2 currentPosition = Vector2.Lerp(startPos, targetPos, time);
+            transform.position = new Vector2(currentPosition.x, currentPosition.y); // Z값 유지
+            yield return null;
+        }
+
+        // 최종 위치 보정
+        transform.position = new Vector2(targetPos.x, targetPos.y);
     }
 }

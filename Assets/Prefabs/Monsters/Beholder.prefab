@@ -104,6 +104,7 @@ Transform:
   m_Children:
   - {fileID: 955695621035806087}
   - {fileID: 3975055963478628489}
+  - {fileID: 1027262199628280995}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2132654801010020403
@@ -271,6 +272,7 @@ MonoBehaviour:
     monsterType: 1
     evolutionType: 1
   _fatigueGauge: {fileID: 0}
+  _location: {fileID: 5946016736894021438}
 --- !u!114 &1164190097801783812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,6 +375,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5813892846688784808, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 9014981195854102630, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
       propertyPath: m_Name
       value: FatigueCanvas
@@ -387,3 +393,116 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 434464825468577490, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
   m_PrefabInstance: {fileID: 3543694238594498139}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4994353941924316627
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7156001574280759744}
+    m_Modifications:
+    - target: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_Pivot.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6233591992951734028, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+      propertyPath: m_Name
+      value: LocationCanvas
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+--- !u!224 &1027262199628280995 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5408282148912181616, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+  m_PrefabInstance: {fileID: 4994353941924316627}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5946016736894021438 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1714742031582030573, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
+  m_PrefabInstance: {fileID: 4994353941924316627}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,4 +1,5 @@
 using DataTable;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -48,12 +49,14 @@ public class MonsterUI : MonoBehaviour
             if (data != null && data.upgradeLevel == _clickedMonster.data.maxLevel)
             {
                 _monsterEvolutionUI.Show(_clickedMonster);
+                ShowRangeIndicator();
             }
             else
             {
                 if (_clickedMonster.data.currentLevel <= _clickedMonster.data.maxLevel)
                 {
                     _monsterUpgradeUI.Show(_clickedMonster);
+                    ShowRangeIndicator();
                 }
             }
         }

@@ -3,11 +3,49 @@ using DataTable;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
+using TMPro;
 
 public class summonerMonster : Monster //졸개들을 불러 인간을 막는 몬스터(=병영타워)
 {
     public List<Minion> MinionList { get; private set; } = new List<Minion>(); 
     private List<(int minionId, string minionTag, int count)> _minionToSummon = new List<(int, string, int)>();
+    private Vector3[] _spawnOffsets;
+
+    [SerializeField] private Button _location;
+    private bool _isPositioningMode; // 미니언 위치 지정
+
+    private void Awake()
+    {
+        base.Awake();
+
+        _spawnOffsets = new Vector3[]
+        {
+            new Vector3(0.5f, 0f, 0f), // 오른쪽
+            new Vector3(-0.5f, 0f, 0f), // 왼쪽
+            new Vector3(0f, 0.5f, 0f), // 위
+            new Vector3(0f, -0.5f, 0f), // 아래
+            new Vector3(0.5f, 0.5f, 0f), // 우측상단
+            new Vector3(-0.5f, 0.5f, 0f), // 좌측상단
+            new Vector3(0.5f, -0.5f, 0f), // 우측하단
+            new Vector3(-0.5f, -0.5f, 0f) // 좌측하단
+        };
+
+        if(_location != null) _location.onClick.AddListener(ClickLocation);
+    }
+
+    private void Update()
+    {
+        base.Update();
+        if (_isPositioningMode && Input.GetMouseButton(0))
+        {
+            Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if(Vector3.Distance(transform.position, clickPos) <= data.humanDetectRange)
+            {
+                MoveMinions(clickPos);
+            }
+        }
+    }
 
     public void InitializeSummonableMinions()
     {
@@ -40,18 +78,6 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
         }
         if (totalCount == MinionList.Count) return;
         
-        Vector3[] spawnOffsets = new Vector3[]
-        {
-            new Vector3(0.5f, 0f, 0f), // 오른쪽
-            new Vector3(-0.5f, 0f, 0f), // 왼쪽
-            new Vector3(0f, 0.5f, 0f), // 위
-            new Vector3(0f, -0.5f, 0f), // 아래
-            new Vector3(0.5f, 0.5f, 0f), // 우측상단
-            new Vector3(-0.5f, 0.5f, 0f), // 좌측상단
-            new Vector3(0.5f, -0.5f, 0f), // 우측하단
-            new Vector3(-0.5f, -0.5f, 0f) // 좌측하단
-        };
-
         foreach (var minionEntry in _minionToSummon)
         {
             int minionId = minionEntry.minionId;
@@ -65,7 +91,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
             {
                 for (int i = 0; i < count; i++)
                 {
-                    Vector3 randomOffset = spawnOffsets[Random.Range(0, spawnOffsets.Length)];
+                    Vector3 randomOffset = _spawnOffsets[Random.Range(0, _spawnOffsets.Length)];
                     Vector3 spawnPosition = transform.position + randomOffset;
                     MinionSetPosition(spawnPosition, minionTag, minionData);
                 }
@@ -132,5 +158,20 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     {
         data.currentFatigue = value;
         if (_monsterFatigueGauge != null) _monsterFatigueGauge.SetFatigue();
+    }
+
+    private void ClickLocation()
+    {
+        _isPositioningMode = true;
+    }
+
+    private void MoveMinions(Vector3 pos)
+    {
+        foreach (Minion minion in MinionList)
+        {
+            Vector3 randomOffset = _spawnOffsets[Random.Range(0, _spawnOffsets.Length)];
+            minion.MoveToTarget(pos + randomOffset);
+        }
+        _isPositioningMode = false;
     }
 }

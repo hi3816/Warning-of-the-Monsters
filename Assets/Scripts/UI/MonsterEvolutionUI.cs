@@ -46,7 +46,6 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
         _evolutionUI.transform.position = worldPosition;
         _evolutionUI.SetActive(true);
         SetMonsterStatPosition();
-        _monsterUI.ShowRangeIndicator();
         ResetEvolutionPanel();
         SetEvolutionPanel();
     }

@@ -47,7 +47,6 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
         _selectedMonster = monster;
         _upgradeCanvas.SetActive(true);
         UpdateUI();
-        _monsterUI.ShowRangeIndicator();
     }
 
     void UpdateUI()
