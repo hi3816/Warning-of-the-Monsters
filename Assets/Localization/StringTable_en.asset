@@ -1,0 +1,153 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: StringTable_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 1a98d7fadea75427d8ec70bcfdd06665, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 142915657728
+    m_Localized: Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3215939592192
+    m_Localized: Guide
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24701588987904
+    m_Localized: Scare off the humans to stop them from invading the monster village!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31565328408576
+    m_Localized: "\u2191The human invaders are attacking here! Click to start the
+      game!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32207082086400
+    m_Localized: "\u2191Stop the human invaders from crossing this line!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32548540375040
+    m_Localized: Reduce human movement speed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32774391062528
+    m_Localized: Fixed damage to humans
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33377242570752
+    m_Localized: Pick four monsters to clear the stage!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33815236960256
+    m_Localized: Click the monster selection panel (inside the red box) and move
+      left or right to view more monsters.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34420542136320
+    m_Localized: "\u2191Click the spawn point on various terrains!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34942154170368
+    m_Localized: Pick one of the four monsters you selected earlier and spawn it!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35588890681344
+    m_Localized: 'Monster fatigue
+
+      It will return to the monster village once
+      it reaches max fatigue.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35523866386432
+    m_Localized: 'Human fear
+
+      Human fear increases when scared by a monster,
+      and once it reaches its maximum, they will flee from the monster.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36494189256704
+    m_Localized: '1. Upgrade
+
+      You can upgrade the monster if you have enough
+      coins.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36631200391168
+    m_Localized: '2. Sell
+
+      You can refund a portion of the coins used on the
+      monster when you sell it.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 55687534075904
+    m_Localized: If you click the monster that has been upgraded twice, a surprising
+      event will occur!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 105833865142272
+    m_Localized: The number of stars will vary depending on the remaining player
+      hearts when you win.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 106505813614592
+    m_Localized: "Player hearts 1 to 10 \u2192 1 star\nPlayer hearts 11 to 19 \u2192
+      2 stars\nPlayer hearts 20 \u2192 3 stars"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 107044739735552
+    m_Localized: Enjoy our game!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 107576921415680
+    m_Localized: 'Skills: Use your skills to help the monsters when the cooldown
+      reaches 0.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 113736382668800
+    m_Localized: "Well played! \nYou are victorious!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 114099596812288
+    m_Localized: "Game Over \nOne more try?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 114583640465408
+    m_Localized: You have already selected this monster.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 114983135338496
+    m_Localized: Fatigue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 115096507375616
+    m_Localized: Min Fear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 115167525330944
+    m_Localized: Max Fear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 115315018031104
+    m_Localized: Cooldown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116342618316800
+    m_Localized: Max Upgrade Reached
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
