@@ -1,3 +1,4 @@
+using DataTable;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -57,7 +58,7 @@ public class MonsterUI : MonoBehaviour
     public void ShowRangeIndicator()
     {
         if (_clickedMonster == null || _rangeIndicator == null) return;
-        float range = _clickedMonster.data.humanScaringRange;
+        float range = _clickedMonster.data.humanDetectRange;
         _rangeIndicator.transform.localScale = Vector2.one * range;
         _rangeIndicator.transform.position = _clickedMonster.transform.position;
         _rangeIndicator.SetActive(true);
@@ -66,7 +67,7 @@ public class MonsterUI : MonoBehaviour
     public void ShowRangeIndicator(DataTable.Evolution_Data evolution)
     {
         if (evolution == null || _rangeIndicator == null) return;
-        float range = evolution.humanScaringRange;
+        float range = evolution.humanScaringRange; // humanScaringRange == humanDetactRange
         _rangeIndicator.transform.localScale = Vector2.one * range;
         _rangeIndicator.transform.position = _clickedMonster.transform.position;
         _rangeIndicator.SetActive(true);

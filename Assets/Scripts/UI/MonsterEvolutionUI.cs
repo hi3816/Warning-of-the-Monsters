@@ -197,6 +197,6 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
     private void SetMonsterStatPosition()
     {
         Vector3 posX = _selectMonster.transform.position.x > 0 ? Vector3.left : Vector3.right;
-        _evolutionStatUI.transform.position = _selectMonster.transform.position + (posX * 2.5f);
+        _evolutionStatUI.transform.position = _selectMonster.transform.position + (posX * 3f);
     }
 }

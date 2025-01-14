@@ -54,4 +54,13 @@ public class MonsterManager : SingletonBase<MonsterManager>
         }
         return null;
     }
+
+    public DataTable.Monster_Data GetSelectedMonsterData(int selectMonsterId)
+    {
+        if (_monstersById.TryGetValue(selectMonsterId, out var monsterData))
+        {
+            return monsterData;
+        }
+        return null;
+    }
 }
