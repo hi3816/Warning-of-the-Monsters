@@ -74,7 +74,7 @@ public abstract class Monster : MonoBehaviour
     protected Projectile_Data _projectileData;
     private CircleCollider2D _rangeCircleCollider;
     private Collider2D[] _collider2Ds;
-
+    public Action OnReturnToVillage;
     protected virtual void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -312,6 +312,7 @@ public abstract class Monster : MonoBehaviour
 
     public virtual void ReturnToVillage()
     {
+        OnReturnToVillage?.Invoke();
         if (_coroutine != null) StopCoroutine(_coroutine);
         _coroutine = StartCoroutine(FadeOutAndReturnToPool());
     }
