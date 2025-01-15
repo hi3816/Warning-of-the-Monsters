@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using System;
 using static UnityEditor.PlayerSettings;
 
 public class Minion : Monster //졸개
@@ -7,24 +8,8 @@ public class Minion : Monster //졸개
     private summonerMonster _summonerMonster;
     protected Vector3 _targetPosition;
 
-    private float _minionMoveDuration = 2f;
     private Coroutine _minionMove;
 
-    public void InitializeMinion(DataTable.Monster_Data minionData, summonerMonster summoner)
-    {
-        data.fatigue = minionData.fatigue[data.currentLevel];
-        data.minFearInflicted = minionData.minFearInflicted[data.currentLevel];
-        data.maxFearInflicted = minionData.maxFearInflicted[data.currentLevel];
-        data.cooldown = minionData.cooldown[data.currentLevel];
-        data.humanDetectRange = minionData.humanDetectRange[data.currentLevel];
-        data.humanScaringRange = minionData.humanScaringRange[data.currentLevel];
-        data.walkSpeed = minionData.walkSpeed[data.currentLevel];
-
-        _summonerMonster = summoner;
-        _targetPosition = transform.position;
-        SetState(MonsterState.Idle);
-    }
-    
     protected override void Update()
     {
         base.Update();
@@ -51,7 +36,23 @@ public class Minion : Monster //졸개
                  break;
         }
     }
-    
+
+    public void InitializeMinion(DataTable.Monster_Data minionData, summonerMonster summoner)
+    {
+        data.fatigue = minionData.fatigue[data.currentLevel];
+        data.minFearInflicted = minionData.minFearInflicted[data.currentLevel];
+        data.maxFearInflicted = minionData.maxFearInflicted[data.currentLevel];
+        data.cooldown = minionData.cooldown[data.currentLevel];
+        data.humanDetectRange = minionData.humanDetectRange[data.currentLevel];
+        data.humanScaringRange = minionData.humanScaringRange[data.currentLevel];
+        data.walkSpeed = minionData.walkSpeed[data.currentLevel];
+
+        _summonerMonster = summoner;
+        _targetPosition = transform.position;
+
+        SetState(MonsterState.Idle);
+    }
+
     private void HandleWalking()
     {
         float distanceToSummoner = Vector3.Distance(transform.position, _summonerMonster.transform.position);
@@ -108,18 +109,21 @@ public class Minion : Monster //졸개
 
     private IEnumerator CoMoveToTarget(Vector3 startPos, Vector3 targetPos)
     {
-        float elapsedTime = 0.0f;
+        float distanceToTarget = Vector2.Distance(startPos, targetPos);
+        float threshold = 0.01f; // 목표 위치와의 최소 거리
 
-        while (elapsedTime < _minionMoveDuration)
+        while (distanceToTarget > threshold)
         {
-            elapsedTime += Time.deltaTime;
-            float time = elapsedTime / _minionMoveDuration;
-            Vector2 currentPosition = Vector2.Lerp(startPos, targetPos, time);
-            transform.position = new Vector2(currentPosition.x, currentPosition.y); // Z값 유지
+            Vector2 direction = (targetPos - transform.position).normalized;
+            UpdateAnimatorParameters(direction);
+            Vector3 moveStep = direction * data.walkSpeed * Time.deltaTime;
+            transform.position += moveStep;
+            _targetPosition = transform.position; // 주위에 인간 없을 때를 대비
+            distanceToTarget = Vector2.Distance(transform.position, targetPos);
             yield return null;
         }
 
-        // 최종 위치 보정
-        transform.position = new Vector2(targetPos.x, targetPos.y);
+        // 최종 위치
+        transform.position = targetPos;
     }
 }
