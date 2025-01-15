@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class stationaryDefender : Monster //한자리를 지키고 있는 몬스터(=일반타워)
 {
@@ -23,6 +19,7 @@ public class stationaryDefender : Monster //한자리를 지키고 있는 몬스
             {
                 MonsterProjectile projectile = PoolManager.Instance.SpawnFromPool<MonsterProjectile>(_projectileData.projectileType.ToString(), transform.position, Quaternion.identity);
                 projectile.SetProjectileInfo(human.transform.position, data, _projectileData);
+                StartCoroutine(ShowBooText());
                 _lastScareTime = 0f;
                 SetState(MonsterState.Idle);
             }

@@ -2,6 +2,7 @@ using DataTable;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -75,6 +76,8 @@ public abstract class Monster : MonoBehaviour
     private CircleCollider2D _rangeCircleCollider;
     private Collider2D[] _collider2Ds;
     public Action OnReturnToVillage;
+    public TMP_Text boo;
+    
     protected virtual void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -267,10 +270,33 @@ public abstract class Monster : MonoBehaviour
             Human human = TargetHumanList[0];
             if (human == null) return;
             human.IncreaseFear(Random.Range(data.minFearInflicted, data.maxFearInflicted));
-
+            StartCoroutine(ShowBooText());
             _lastScareTime = 0f;
             SetState(MonsterState.Idle);
         }
+    }
+    
+    protected IEnumerator ShowBooText()
+    {
+        if (boo != null)
+        {
+            boo.text = "Boo!";
+            Vector3 randomOffset = GetRandomOffset();
+            boo.transform.position = transform.position + randomOffset;
+            float zRotation = Random.Range(-10f, 10f);
+            boo.transform.rotation = Quaternion.Euler(0f, 0f, zRotation);
+            boo.gameObject.SetActive(true);
+            yield return new WaitForSeconds(1f);
+            boo.gameObject.SetActive(false);
+            boo.transform.rotation = Quaternion.identity;
+        }
+    }
+    
+    private Vector3 GetRandomOffset()
+    {
+        float xOffset = Random.Range(-0.5f, 1.2f);
+        float yOffset = Random.Range(0.5f, 1f);
+        return new Vector3(xOffset, yOffset, 0);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

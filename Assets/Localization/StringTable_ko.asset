@@ -155,6 +155,10 @@ MonoBehaviour:
       \uB3C4\uB2EC\uD558\uC600\uC2B5\uB2C8\uB2E4"
     m_Metadata:
       m_Items: []
+  - m_Id: 662075398414336
+    m_Localized: "\uC641!"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

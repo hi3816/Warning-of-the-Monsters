@@ -1,10 +1,8 @@
-using System.Collections;
 using DataTable;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using UnityEngine.UI;
-using TMPro;
 
 public class summonerMonster : Monster //졸개들을 불러 인간을 막는 몬스터(=병영타워)
 {
@@ -64,6 +62,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
         if (_lastScareTime >= data.cooldown)
         {
             SummonMinions();
+            StartCoroutine(ShowBooText());
             _lastScareTime = 0f;
             SetState(MonsterState.Idle);
         }

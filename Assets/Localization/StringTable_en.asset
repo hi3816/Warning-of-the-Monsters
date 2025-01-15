@@ -148,6 +148,10 @@ MonoBehaviour:
     m_Localized: Max Upgrade Reached
     m_Metadata:
       m_Items: []
+  - m_Id: 662075398414336
+    m_Localized: Boo!
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

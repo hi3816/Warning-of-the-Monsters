@@ -127,6 +127,10 @@ MonoBehaviour:
     m_Key: MaxUpgrade
     m_Metadata:
       m_Items: []
+  - m_Id: 662075398414336
+    m_Key: Boo!
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
