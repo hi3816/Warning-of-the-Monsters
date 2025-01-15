@@ -78,6 +78,7 @@ public abstract class Monster : MonoBehaviour
     public Action OnHideMonsterUI;
     public Action OnPositionMode;
     public TMP_Text boo;
+    protected Coroutine CoBoo;
     
     protected virtual void Awake()
     {
@@ -271,7 +272,8 @@ public abstract class Monster : MonoBehaviour
             Human human = TargetHumanList[0];
             if (human == null) return;
             human.IncreaseFear(Random.Range(data.minFearInflicted, data.maxFearInflicted));
-            StartCoroutine(ShowBooText());
+            if (CoBoo != null) StopCoroutine(CoBoo);
+            CoBoo = StartCoroutine(ShowBooText());
             _lastScareTime = 0f;
             SetState(MonsterState.Idle);
         }

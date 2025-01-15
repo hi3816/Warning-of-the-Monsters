@@ -77,7 +77,8 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
         if (_lastScareTime >= data.cooldown)
         {
             SummonMinions();
-            StartCoroutine(ShowBooText());
+            if (CoBoo != null) StopCoroutine(CoBoo);
+            CoBoo = StartCoroutine(ShowBooText());
             _lastScareTime = 0f;
             SetState(MonsterState.Idle);
         }
