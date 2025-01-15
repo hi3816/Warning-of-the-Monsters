@@ -46,16 +46,13 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     private void Update()
     {
         base.Update();
-        if (Input.GetMouseButton(0)) {
-            if (_isPositioningMode && _location.gameObject.activeSelf)
+        if (_isPositioningMode && _location.gameObject.activeSelf && Input.GetMouseButton(0)) {
+            Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (Vector3.Distance(transform.position, clickPos) <= (data.humanDetectRange * 0.5f))
             {
-                Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                if (Vector3.Distance(transform.position, clickPos) <= (data.humanDetectRange * 0.5f))
-                {
-                    MoveMinions(clickPos);
-                }
+                MoveMinions(clickPos);
             }
-            else if (_isPositioningMode && !EventSystem.current.IsPointerOverGameObject())
+            else
             {
                 _isPositioningMode = false;
                 _location.gameObject.SetActive(false);
