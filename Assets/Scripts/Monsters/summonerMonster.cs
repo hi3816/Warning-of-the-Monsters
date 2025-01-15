@@ -1,7 +1,7 @@
 using DataTable;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using System;
 using Random = UnityEngine.Random;
 using UnityEngine.UI;
 
@@ -12,7 +12,8 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     private Vector3[] _spawnOffsets;
 
     [SerializeField] private Button _location;
-    private bool _isPositioningMode; // 미니언 위치 지정
+    public bool isPositioningMode { get; private set; }  // 미니언 위치 지정
+    public Action OnMoveMode; // 미니언 위치 지정 모드
     private Vector2[] _minionPositionOffset;
 
     private void Awake()
@@ -40,22 +41,19 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
 
         if(_location != null) _location.onClick.AddListener(ClickLocation);
 
-        OnPositionMode += (() => _location.gameObject.SetActive(true));
+        OnMoveMode += (() => _location.gameObject.SetActive(true));
     }
 
     private void Update()
     {
         base.Update();
-        if (_isPositioningMode && _location.gameObject.activeSelf && Input.GetMouseButton(0)) {
+        if (Input.GetMouseButton(0) && _location.gameObject.activeSelf) {
             Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (Vector3.Distance(transform.position, clickPos) <= (data.humanDetectRange * 0.5f))
+            bool isInRange = Vector3.Distance(transform.position, clickPos) <= (data.humanDetectRange * 0.5f);
+            if (isPositioningMode)
             {
-                MoveMinions(clickPos);
-            }
-            else
-            {
-                _isPositioningMode = false;
-                _location.gameObject.SetActive(false);
+                if (isInRange) MoveMinions(clickPos);
+                else isPositioningMode = false;
             }
         }
     }
@@ -177,7 +175,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
 
     private void ClickLocation()
     {
-        _isPositioningMode = true;
+        isPositioningMode = true;
     }
 
     private void MoveMinions(Vector2 pos)
@@ -187,8 +185,9 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
         {
             minion.MoveToTarget(pos + _minionPositionOffset[count++]);
         }
-        _isPositioningMode = false;
 
         _location.gameObject.SetActive(false);
+        isPositioningMode = false;
+        OnHideMonsterUI?.Invoke();
     }
 }
