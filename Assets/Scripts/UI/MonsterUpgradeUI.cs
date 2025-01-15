@@ -120,6 +120,7 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
         int refundAmount = Mathf.RoundToInt(totalSpent * refundPercentage);
         _stageManager.ChangeGold(refundAmount); //UI에 표시
         _selectedMonster.ReturnToVillage();
+        _selectedMonster.gameObject.SetActive(false);
         Hide();
     }
 

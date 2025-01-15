@@ -36,9 +36,9 @@ public class PopupMonsterSpawner : MonsterSpawner
 
     void Update()
     {
+        if (IsSpawnPointOccupied(_pendingSpawnPosition, 0.5f)) return;
 
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
+        if (EventSystem.current.IsPointerOverGameObject()) return;
 
         if (Input.GetMouseButtonDown(0)) // 마우스 클릭
         {
@@ -81,7 +81,7 @@ public class PopupMonsterSpawner : MonsterSpawner
 
     private void ShowMonsterSelectionPopup()
     {
-        if (_monsterSelectionPopup == null && !_monsterSelectionPopup.activeSelf) return;
+        if (_monsterSelectionPopup == null || !_monsterSelectionPopup.activeSelf) return;
         ShowMonsterSelectionPopup(_monsterSelectionPopup.transform.position);
     }
 
