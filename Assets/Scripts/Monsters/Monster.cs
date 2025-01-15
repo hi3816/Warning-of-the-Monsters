@@ -78,6 +78,7 @@ public abstract class Monster : MonoBehaviour
     public Action OnHideMonsterUI;
     public Action OnPositionMode;
     public TMP_Text boo;
+    private Coroutine _txtCoroutine;
     
     protected virtual void Awake()
     {
@@ -146,6 +147,7 @@ public abstract class Monster : MonoBehaviour
                 }
                 break;
             case MonsterState.ReturningVillage:
+                boo.gameObject.SetActive(false);
                 UpdateAnimatorParameters(StageManager.Instance.EndPoint.position);
                 ReturnToVillage();
                 break;

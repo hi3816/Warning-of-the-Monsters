@@ -71,12 +71,6 @@ public class PopupMonsterSpawner : MonsterSpawner
 
     private void ShowMonsterSelectionPopup(Vector2 position)
     {
-        if (IsSpawnPointOccupied(_pendingSpawnPosition, 0.5f))
-        {
-            print("Spawn point is already occupied by another monster.");
-            return;
-        }
-
         UpdateMonsterImgState();
         if (_monsterSelectionPopup != null && !_monsterSelectionPopup.activeSelf)
         {
