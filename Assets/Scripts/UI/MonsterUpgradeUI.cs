@@ -52,7 +52,6 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
     void UpdateUI()
     {
         SetMonsterStatPosition();
-
         MonsterData data = _selectedMonster.data;
         _nameText.text = data.poolTag;
         int nextLevel = data.currentLevel + 1;
