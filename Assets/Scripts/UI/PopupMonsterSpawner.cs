@@ -56,9 +56,6 @@ public class PopupMonsterSpawner : MonsterSpawner
                     _pendingSpawnPosition = spawnPoint.position;
                     _pendingSpawnPoint = spawnPoint;
 
-                    //몬스터 비활성화 업데이트
-                    UpdateMonsterImgState();
-
                     // 몬스터 선택 팝업 활성화
                     ShowMonsterSelectionPopup(_pendingSpawnPosition);
                     return; // 다른 스폰 포인트 처리 중단

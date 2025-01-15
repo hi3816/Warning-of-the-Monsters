@@ -341,7 +341,6 @@ public abstract class Monster : MonoBehaviour
 
     public virtual void ReturnToVillage()
     {
-        OnHideMonsterUI?.Invoke();
         if (_coroutine != null) StopCoroutine(_coroutine);
         _coroutine = StartCoroutine(FadeOutAndReturnToPool());
     }
