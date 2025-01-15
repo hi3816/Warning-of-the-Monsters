@@ -1,6 +1,5 @@
 using DataTable;
 using TMPro;
-using UnityEditor.Search;
 using UnityEngine;
 
 public class StatUI : MonoBehaviour
