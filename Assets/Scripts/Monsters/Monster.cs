@@ -76,7 +76,6 @@ public abstract class Monster : MonoBehaviour
     private CircleCollider2D _rangeCircleCollider;
     private Collider2D[] _collider2Ds;
     public Action OnHideMonsterUI;
-    public Action OnPositionMode;
     public TMP_Text boo;
     protected Coroutine CoBoo;
     
@@ -364,6 +363,8 @@ public abstract class Monster : MonoBehaviour
 
         TargetHumanList.Clear();
         _fatigueGauge.SetActive(false);
+        OnHideMonsterUI?.Invoke();
+        OnHideMonsterUI = null;
 
         //// Fade out
         //float startAlpha = _spriteRenderer.color.a;

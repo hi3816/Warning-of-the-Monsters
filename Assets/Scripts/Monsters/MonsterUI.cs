@@ -25,8 +25,18 @@ public class MonsterUI : MonoBehaviour
 
                 if (_clickedMonster != null)
                 {
+                    _clickedMonster.OnHideMonsterUI -= _monsterUpgradeUI.Hide;
+                    _clickedMonster.OnHideMonsterUI -= _monsterEvolutionUI.Hide;
+                    _clickedMonster.OnHideMonsterUI -= HideRangeIndicator;
+                    _clickedMonster.OnHideMonsterUI += _monsterUpgradeUI.Hide;
+                    _clickedMonster.OnHideMonsterUI += _monsterEvolutionUI.Hide;
+                    _clickedMonster.OnHideMonsterUI += HideRangeIndicator;
                     ShowUpgradeOrEvolutionUI();
-                    _clickedMonster.OnPositionMode?.Invoke();
+
+                    if (_clickedMonster is summonerMonster summoner)
+                    {
+                        summoner.OnMoveMode?.Invoke();
+                    }
                 }
             }
             else if(!EventSystem.current.IsPointerOverGameObject())
