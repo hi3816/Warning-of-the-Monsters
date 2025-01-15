@@ -22,12 +22,6 @@ public class MonsterUI : MonoBehaviour
             if (hit.collider != null)
             {
                 _clickedMonster = hit.collider.GetComponentInParent<Monster>();
-                _clickedMonster.OnHideMonsterUI -= _monsterUpgradeUI.Hide;
-                _clickedMonster.OnHideMonsterUI -= _monsterEvolutionUI.Hide;
-                _clickedMonster.OnHideMonsterUI -= HideRangeIndicator;
-                _clickedMonster.OnHideMonsterUI += _monsterUpgradeUI.Hide;
-                _clickedMonster.OnHideMonsterUI += _monsterEvolutionUI.Hide;
-                _clickedMonster.OnHideMonsterUI += HideRangeIndicator;
 
                 if (_clickedMonster != null)
                 {
