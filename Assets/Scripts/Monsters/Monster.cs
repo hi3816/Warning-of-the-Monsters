@@ -75,7 +75,8 @@ public abstract class Monster : MonoBehaviour
     protected Projectile_Data _projectileData;
     private CircleCollider2D _rangeCircleCollider;
     private Collider2D[] _collider2Ds;
-    public Action OnReturnToVillage;
+    public Action OnHideMonsterUI;
+    public Action OnPositionMode;
     public TMP_Text boo;
     
     protected virtual void Awake()
@@ -338,7 +339,7 @@ public abstract class Monster : MonoBehaviour
 
     public virtual void ReturnToVillage()
     {
-        OnReturnToVillage?.Invoke();
+        OnHideMonsterUI?.Invoke();
         if (_coroutine != null) StopCoroutine(_coroutine);
         _coroutine = StartCoroutine(FadeOutAndReturnToPool());
     }

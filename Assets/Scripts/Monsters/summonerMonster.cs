@@ -1,6 +1,7 @@
 using DataTable;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
 
     [SerializeField] private Button _location;
     private bool _isPositioningMode; // 미니언 위치 지정
+    private Vector2[] _minionPositionOffset;
 
     private void Awake()
     {
@@ -29,18 +31,34 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
             new Vector3(-0.5f, -0.5f, 0f) // 좌측하단
         };
 
+        _minionPositionOffset = new Vector2[]
+        {
+            new Vector2(-0.3f, -0.2f),
+            new Vector2(0.3f, -0.2f),
+            new Vector2(0f, 0.2f)
+        };
+
         if(_location != null) _location.onClick.AddListener(ClickLocation);
+
+        OnPositionMode += (() => _location.gameObject.SetActive(true));
     }
 
     private void Update()
     {
         base.Update();
-        if (_isPositioningMode && Input.GetMouseButton(0))
-        {
-            Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if(Vector3.Distance(transform.position, clickPos) <= data.humanDetectRange)
+        if (Input.GetMouseButton(0)) {
+            if (_isPositioningMode && _location.gameObject.activeSelf)
             {
-                MoveMinions(clickPos);
+                Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                if (Vector3.Distance(transform.position, clickPos) <= (data.humanDetectRange * 0.5f))
+                {
+                    MoveMinions(clickPos);
+                }
+            }
+            else if (_isPositioningMode && !EventSystem.current.IsPointerOverGameObject())
+            {
+                _isPositioningMode = false;
+                _location.gameObject.SetActive(false);
             }
         }
     }
@@ -164,13 +182,16 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
         _isPositioningMode = true;
     }
 
-    private void MoveMinions(Vector3 pos)
+    private void MoveMinions(Vector2 pos)
     {
+        int count = 0;
         foreach (Minion minion in MinionList)
         {
-            Vector3 randomOffset = _spawnOffsets[Random.Range(0, _spawnOffsets.Length)];
-            minion.MoveToTarget(pos + randomOffset);
+            minion.MoveToTarget(pos + _minionPositionOffset[count++]);
         }
         _isPositioningMode = false;
+
+        OnHideMonsterUI?.Invoke();
+        _location.gameObject.SetActive(false);
     }
 }
