@@ -80,15 +80,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 105833865142272
-    m_Key: Page4 Left StarInfoTxt
+    m_Key: Page4 Right StarInfoTxt
     m_Metadata:
       m_Items: []
   - m_Id: 106505813614592
-    m_Key: Page4 Left BottomTxt
-    m_Metadata:
-      m_Items: []
-  - m_Id: 107044739735552
-    m_Key: Page4 Right Txt
+    m_Key: Page4 Right BottomTxt
     m_Metadata:
       m_Items: []
   - m_Id: 107576921415680
@@ -129,6 +125,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 662075398414336
     m_Key: Boo!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 724164074790912
+    m_Key: Page4 Left Txt
     m_Metadata:
       m_Items: []
   m_Metadata:

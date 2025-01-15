@@ -107,8 +107,11 @@ MonoBehaviour:
       2 stars\nPlayer hearts 20 \u2192 3 stars"
     m_Metadata:
       m_Items: []
-  - m_Id: 107044739735552
-    m_Localized: Enjoy our game!
+  - m_Id: 724164074790912
+    m_Localized: When you click on the summoner monster, a location icon will appear.
+      Clicking the location icon will turn it blue. After that, clicking anywhere
+      within the red circle of the summoner monster will move the minion to that
+      position.
     m_Metadata:
       m_Items: []
   - m_Id: 107576921415680
