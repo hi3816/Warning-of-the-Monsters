@@ -22,8 +22,16 @@ public class LocalSelector : MonoBehaviour
     {
         active = true;
         yield return LocalizationSettings.InitializationOperation;
+        
+        if (_localID < 0 || _localID >= LocalizationSettings.AvailableLocales.Locales.Count)
+        {
+            active = false;
+            yield break;
+        }
+
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[_localID];
         PlayerPrefs.SetInt("LocalKey", _localID);
+        PlayerPrefs.Save();
         active = false;
     }
 }
