@@ -79,14 +79,14 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 36494189256704
-    m_Localized: '1. Upgrade
+    m_Localized: '2. Upgrade
 
       You can upgrade the monster if you have enough
       coins.'
     m_Metadata:
       m_Items: []
   - m_Id: 36631200391168
-    m_Localized: '2. Sell
+    m_Localized: '1. Sell
 
       You can refund a portion of the coins used on the
       monster when you sell it.'

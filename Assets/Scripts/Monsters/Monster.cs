@@ -295,8 +295,8 @@ public abstract class Monster : MonoBehaviour
     
     private Vector3 GetRandomOffset()
     {
-        float xOffset = Random.Range(-0.5f, 1.2f);
-        float yOffset = Random.Range(0.5f, 1f);
+        float xOffset = Random.Range(-1f, 1f);
+        float yOffset = Random.Range(0.8f, 1f);
         return new Vector3(xOffset, yOffset, 0);
     }
 
