@@ -22,14 +22,17 @@ public class MonsterUI : MonoBehaviour
             if (hit.collider != null)
             {
                 _clickedMonster = hit.collider.GetComponentInParent<Monster>();
-                _clickedMonster.OnReturnToVillage -= _monsterUpgradeUI.Hide;
-                _clickedMonster.OnReturnToVillage -= _monsterEvolutionUI.Hide;
-                _clickedMonster.OnReturnToVillage += _monsterUpgradeUI.Hide;
-                _clickedMonster.OnReturnToVillage += _monsterEvolutionUI.Hide;
+                _clickedMonster.OnHideMonsterUI -= _monsterUpgradeUI.Hide;
+                _clickedMonster.OnHideMonsterUI -= _monsterEvolutionUI.Hide;
+                _clickedMonster.OnHideMonsterUI -= HideRangeIndicator;
+                _clickedMonster.OnHideMonsterUI += _monsterUpgradeUI.Hide;
+                _clickedMonster.OnHideMonsterUI += _monsterEvolutionUI.Hide;
+                _clickedMonster.OnHideMonsterUI += HideRangeIndicator;
 
                 if (_clickedMonster != null)
                 {
                     ShowUpgradeOrEvolutionUI();
+                    _clickedMonster.OnPositionMode?.Invoke();
                 }
             }
             else if(!EventSystem.current.IsPointerOverGameObject())
