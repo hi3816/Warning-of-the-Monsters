@@ -1,15 +1,33 @@
 using DataTable;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MonsterUI : MonoBehaviour
+public interface IManagebleUI
 {
-    [SerializeField] private MonsterUpgradeUI _monsterUpgradeUI;
-    [SerializeField] private MonsterEvolutionUI _monsterEvolutionUI;
-    [SerializeField] private GameObject _rangeIndicator;
+    void Hide();
+}
 
+public class MonsterUIManager : SingletonBase<MonsterUIManager>
+{
+    [SerializeField] private GameObject _rangeIndicator;
+    private PopupMonsterSpawner _popupMonsterSpawner;
+    private MonsterUpgradeUI _monsterUpgradeUI;
+    private MonsterEvolutionUI _monsterEvolutionUI;
+    private List<IManagebleUI> _uiList = new List<IManagebleUI>();
     private Monster _clickedMonster;
+
+    private void Awake()
+    {
+        base.Awake();
+        _popupMonsterSpawner = GetComponentInChildren<PopupMonsterSpawner>();
+        _monsterUpgradeUI = GetComponentInChildren<MonsterUpgradeUI>();
+        _monsterEvolutionUI = GetComponentInChildren<MonsterEvolutionUI>();
+        _uiList.Add(_popupMonsterSpawner);
+        _uiList.Add(_monsterUpgradeUI);
+        _uiList.Add(_monsterEvolutionUI);
+    }
 
     void Update()
     {
@@ -39,10 +57,18 @@ public class MonsterUI : MonoBehaviour
                     }
                 }
             }
-            else if(!EventSystem.current.IsPointerOverGameObject())
+            else if (!EventSystem.current.IsPointerOverGameObject())
             {
+                if (_popupMonsterSpawner.SearchSpawanPoint(mousePosition))
+                {
+                    _popupMonsterSpawner.Show();
+                    HideOtherUI(_popupMonsterSpawner);
+                    return;    
+                }
+
                 _monsterUpgradeUI.Hide();
                 _monsterEvolutionUI.Hide();
+                _popupMonsterSpawner.Hide();
                 HideRangeIndicator();
             }
         }
@@ -57,6 +83,7 @@ public class MonsterUI : MonoBehaviour
             {
                 _monsterEvolutionUI.Show(_clickedMonster);
                 ShowRangeIndicator();
+                HideOtherUI(_monsterEvolutionUI);
             }
             else
             {
@@ -64,6 +91,7 @@ public class MonsterUI : MonoBehaviour
                 {
                     _monsterUpgradeUI.Show(_clickedMonster);
                     ShowRangeIndicator();
+                    HideOtherUI(_monsterUpgradeUI);
                 }
             }
         }
@@ -87,8 +115,29 @@ public class MonsterUI : MonoBehaviour
         _rangeIndicator.SetActive(true);
     }
 
+    public void ShowRangeIndicator(Vector3 pos, float humanDetactRange)
+    {
+        if (_rangeIndicator == null) return;
+        float range = humanDetactRange;
+        _rangeIndicator.transform.localScale = Vector2.one * range;
+        _rangeIndicator.transform.position = pos;
+        _rangeIndicator.SetActive(true);
+    }
+
     public void HideRangeIndicator()
     {
+        if (_rangeIndicator == null) return;
         _rangeIndicator.SetActive(false);
+    }
+
+    private void HideOtherUI(IManagebleUI showUI)
+    {
+        foreach(IManagebleUI ui in _uiList)
+        {
+            if (ui != showUI)
+            {
+                ui.Hide();
+            }
+        }
     }
 }

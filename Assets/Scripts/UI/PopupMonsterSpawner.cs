@@ -5,7 +5,7 @@ using UnityEngine.U2D;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class PopupMonsterSpawner : MonsterSpawner
+public class PopupMonsterSpawner : MonsterSpawner, IManagebleUI
 {
     [SerializeField] private GameObject _monsterSelectionPopup; // 몬스터 선택 팝업 UI
     private Vector3 _pendingSpawnPosition; // 선택된 스폰 위치
@@ -17,8 +17,7 @@ public class PopupMonsterSpawner : MonsterSpawner
     [SerializeField] private List<GameObject> _checkList;
     [SerializeField] private List<TextMeshProUGUI> _costTxts;
     [SerializeField] private GameObject _statUIObj;
-    [SerializeField] private GameObject _rangeIndicator;
-    
+
     private StatUI _statUI;
 
     private void Awake()
@@ -28,58 +27,38 @@ public class PopupMonsterSpawner : MonsterSpawner
         if (_selectedMonsterDict == null) return;
 
         StageManager.Instance.SetMonsterUI(this, null);
-        StageManager.Instance.OnChangeGold += ShowMonsterSelectionPopup;
+        StageManager.Instance.OnChangeGold += Show;
         _statUI = _statUIObj.GetComponent<StatUI>();
 
         SetMonsterSprite();
     }
 
-    void Update()
+    public bool SearchSpawanPoint(Vector2 touchPosition)
     {
-        if (EventSystem.current.IsPointerOverGameObject()) return;
-        
-        if (Input.GetMouseButtonDown(0)) // 마우스 클릭
+        foreach (Transform spawnPoint in SpawnPointList)
         {
-            if(!EventSystem.current.IsPointerOverGameObject() && _monsterSelectionPopup.activeSelf)
+            if (Vector2.Distance(touchPosition, spawnPoint.position) < 0.5f)
             {
-                HideSelectionPopup();
-            }
+                // 스폰 포인트와 위치 저장
+                _pendingSpawnPosition = spawnPoint.position;
+                _pendingSpawnPoint = spawnPoint;
 
-            Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            touchPosition.z = 0f;
-
-            foreach (Transform spawnPoint in SpawnPointList)
-            {
-                if (Vector2.Distance(touchPosition, spawnPoint.position) < 0.5f)
-                {
-                    // 스폰 포인트와 위치 저장
-                    _pendingSpawnPosition = spawnPoint.position;
-                    _pendingSpawnPoint = spawnPoint;
-
-                    // 몬스터 선택 팝업 활성화
-                    ShowMonsterSelectionPopup(_pendingSpawnPosition);
-                    return; // 다른 스폰 포인트 처리 중단
-                }
+                return true;
             }
         }
+        return false;
     }
 
-    private void ShowMonsterSelectionPopup(Vector2 position)
+    public void Show()
     {
         if (IsSpawnPointOccupied(_pendingSpawnPosition, 0.5f)) return;
         
         UpdateMonsterImgState();
-        if (_monsterSelectionPopup != null && !_monsterSelectionPopup.activeSelf)
+        if (_monsterSelectionPopup != null)
         {
-            _monsterSelectionPopup.transform.position = position;
+            _monsterSelectionPopup.transform.position = _pendingSpawnPosition;
             _monsterSelectionPopup.SetActive(true);
         }
-    }
-
-    private void ShowMonsterSelectionPopup()
-    {
-        if (_monsterSelectionPopup == null || !_monsterSelectionPopup.activeSelf) return;
-        ShowMonsterSelectionPopup(_monsterSelectionPopup.transform.position);
     }
 
     public void OnMonsterSelected(int slotIdx)
@@ -97,7 +76,7 @@ public class PopupMonsterSpawner : MonsterSpawner
             {
                 DataTable.Monster_Data selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData(monsterInfo.monsterId);
                 _statUI.Show(_monsterSelectionPopup.transform.position, selectedMonsterData);
-                ShowRangeIndicator(_pendingSpawnPosition, selectedMonsterData.humanDetectRange[0]);
+                MonsterUIManager.Instance.ShowRangeIndicator(_pendingSpawnPosition, selectedMonsterData.humanDetectRange[0]);
             }
             return;
         }
@@ -114,7 +93,8 @@ public class PopupMonsterSpawner : MonsterSpawner
             DataTable.Monster_Data selectedMonsterData = MonsterManager.Instance.GetSelectedMonsterData();
             base.SpawnMonster(_pendingSpawnPosition, selectedMonsterData.id);
 
-            HideSelectionPopup();
+            Hide();
+            MonsterUIManager.Instance.HideRangeIndicator();
         }
     }
 
@@ -156,7 +136,7 @@ public class PopupMonsterSpawner : MonsterSpawner
         return _stageManager.CurrGold >= data.requiredCoins[0];
     }
 
-    private void HideSelectionPopup()
+    public void Hide()
     {
         // 팝업 닫기
         if (_monsterSelectionPopup != null)
@@ -166,17 +146,7 @@ public class PopupMonsterSpawner : MonsterSpawner
                 check.SetActive(false);
             }
             _statUIObj.SetActive(false);
-            _rangeIndicator.SetActive(false);
             _monsterSelectionPopup.SetActive(false);
         }
-    }
-
-    private void ShowRangeIndicator(Vector3 pos, float humanDetactRange)
-    {
-        if (_rangeIndicator == null) return;
-        float range = humanDetactRange;
-        _rangeIndicator.transform.localScale = Vector2.one * range;
-        _rangeIndicator.transform.position = pos;
-        _rangeIndicator.SetActive(true);
     }
 }

@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MonsterEvolutionUI : MonoBehaviour, ISell
+public class MonsterEvolutionUI : MonoBehaviour, ISell, IManagebleUI
 {
     [Header("UI")]
     [SerializeField] private GameObject _evolutionUI;
@@ -22,11 +22,11 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
     private MonsterEvolution _monsterEvolution;
     private Monster _selectMonster; // 현재 클릭한 몬스터
     private EvolutionType _clickEvolutionType;
-    private MonsterUI _monsterUI;
+    private MonsterUIManager _monsterUIManager;
 
     private void Awake()
     {
-        _monsterUI = GetComponentInParent<MonsterUI>();
+        _monsterUIManager = MonsterUIManager.Instance;
         _monsterEvolution = GetComponent<MonsterEvolution>();
         _typeButtonA.onClick.AddListener(() => _monsterEvolution.Evolution(_selectMonster, EvolutionType.Atype));
         _typeButtonB.onClick.AddListener(() => _monsterEvolution.Evolution(_selectMonster, EvolutionType.Btype));
@@ -58,7 +58,6 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
 
     public void Hide()
     {
-        _monsterUI.HideRangeIndicator();
         _evolutionUI.SetActive(false);
         _evolutionStatUI.Hide();
         _typeACheck.SetActive(false);
@@ -188,7 +187,7 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell
             _typeACheck.SetActive(false);
         }
         _evolutionStatUI.Show(_selectMonster.data, evolution);
-        _monsterUI.ShowRangeIndicator(evolution);
+        _monsterUIManager.ShowRangeIndicator(evolution);
         _clickEvolutionType = evolutionType;
     }
 

@@ -10,7 +10,7 @@ public interface ISell
     int CalculateTotalSpent(Monster selectMonster);
 }
 
-public class MonsterUpgradeUI : MonoBehaviour, ISell
+public class MonsterUpgradeUI : MonoBehaviour, ISell, IManagebleUI
 {
     [SerializeField] private StageManager _stageManager;
     [SerializeField] private GameObject _upgradeCanvas;
@@ -18,6 +18,7 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
     [SerializeField] private GameObject _maxUpgradePanel;
     [SerializeField] private Button _upgradeButton;
     [SerializeField] private TextMeshProUGUI _upgradeCostText;
+    [SerializeField] private Button _sellButton;
     [SerializeField] private TextMeshProUGUI _sellButtonText;
     [SerializeField] private TextMeshProUGUI _nameText;
 
@@ -34,12 +35,15 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
     [SerializeField] private TextMeshProUGUI _diffCooldownText;
 
     private Monster _selectedMonster;
-    private MonsterUI _monsterUI;
+    private MonsterUIManager _monsterUIManager;
 
     private void Awake()
     {
         _stageManager = StageManager.Instance;
-        _monsterUI = GetComponentInParent<MonsterUI>();
+        _monsterUIManager = MonsterUIManager.Instance;
+
+        _upgradeButton.onClick.AddListener(UpgradeMonster);
+        _sellButton.onClick.AddListener(SellMonster);
     }
 
     public void Show(Monster monster)
@@ -49,7 +53,7 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
         UpdateUI();
     }
 
-    void UpdateUI()
+    private void UpdateUI()
     {
         SetMonsterStatPosition();
         MonsterData data = _selectedMonster.data;
@@ -84,7 +88,7 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
         _sellButtonText.text = Mathf.RoundToInt(CalculateTotalSpent(_selectedMonster) * 0.35f).ToString();
     }
 
-    public void UpgradeMonster()
+    private void UpgradeMonster()
     {
         if (_selectedMonster == null) return;
 
@@ -98,12 +102,13 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
             if (upgrade.maxLevel <= _selectedMonster.data.currentLevel + 1)
             {
                 _upgradeCanvas.SetActive(false);
+                _monsterUIManager.HideRangeIndicator();
             }
             else
             {
                 UpdateUI();
+                _monsterUIManager.ShowRangeIndicator();
             }
-            _monsterUI.ShowRangeIndicator();
         }
         else
         {
@@ -141,9 +146,8 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
     
     public void Hide()
     {
-        _upgradeCanvas.SetActive(false);
         _selectedMonster = null;
-        if(_monsterUI != null && _monsterUI.gameObject.activeSelf) _monsterUI.HideRangeIndicator();
+        _upgradeCanvas.SetActive(false);
     }
 
     private string CalcDiffValueToString(float curr, float upgrade)
