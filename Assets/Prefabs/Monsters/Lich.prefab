@@ -381,10 +381,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LocationCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 8161770183271537322, guid: 4ca0f795800fd5941af07baa5d3952c1, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

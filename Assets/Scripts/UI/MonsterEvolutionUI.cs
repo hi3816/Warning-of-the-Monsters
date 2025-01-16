@@ -1,7 +1,6 @@
 using DataTable;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,16 +19,16 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell, IManagebleUI
     [SerializeField] private TextMeshProUGUI _sellText;
 
     private MonsterEvolution _monsterEvolution;
-    private Monster _selectMonster; // 현재 클릭한 몬스터
     private EvolutionType _clickEvolutionType;
     private MonsterUIManager _monsterUIManager;
+    public Monster selectMonster { get; private set; } // 현재 클릭한 몬스터
 
     private void Awake()
     {
         _monsterUIManager = MonsterUIManager.Instance;
         _monsterEvolution = GetComponent<MonsterEvolution>();
-        _typeButtonA.onClick.AddListener(() => _monsterEvolution.Evolution(_selectMonster, EvolutionType.Atype));
-        _typeButtonB.onClick.AddListener(() => _monsterEvolution.Evolution(_selectMonster, EvolutionType.Btype));
+        _typeButtonA.onClick.AddListener(() => _monsterEvolution.Evolution(selectMonster, EvolutionType.Atype));
+        _typeButtonB.onClick.AddListener(() => _monsterEvolution.Evolution(selectMonster, EvolutionType.Btype));
         _typeButtonA.onClick.AddListener(() => MonsterEvolutionStat(EvolutionType.Atype));
         _typeButtonB.onClick.AddListener(() => MonsterEvolutionStat(EvolutionType.Btype));
         _sellButton.onClick.AddListener(SellMonster);
@@ -41,7 +40,8 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell, IManagebleUI
 
     public void Show(Monster monster)
     {
-        _selectMonster = monster;
+        _evolutionStatUI.gameObject.SetActive(false);
+        selectMonster = monster;
         Vector3 worldPosition = monster.transform.position;
         _evolutionUI.transform.position = worldPosition;
         _evolutionUI.SetActive(true);
@@ -52,17 +52,18 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell, IManagebleUI
 
     public void Show()
     {
-        if (_selectMonster == null && !_evolutionUI.activeSelf) return;
-        Show(_selectMonster);
+        if (selectMonster == null && !_evolutionUI.activeSelf) return;
+        Show(selectMonster);
     }
 
     public void Hide()
     {
-        _evolutionUI.SetActive(false);
+        if (!_evolutionUI.activeSelf) return;
         _evolutionStatUI.Hide();
         _typeACheck.SetActive(false);
         _typeBCheck.SetActive(false);
-        _selectMonster = null;
+        selectMonster = null;
+        _evolutionUI.SetActive(false);
     }
 
     private void ResetEvolutionPanel()
@@ -104,39 +105,39 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell, IManagebleUI
     // 진화 이미지 설정
     private void SetEnvolutionImageSprite()
     {
-        Sprite[] sprites = _monsterEvolution.GetvolutionSpriteDict(_selectMonster.data.id);
+        Sprite[] sprites = _monsterEvolution.GetvolutionSpriteDict(selectMonster.data.id);
 
         for (int i = 0; i < _typeImages.Length; i++)
         {
             _typeImages[i].sprite = sprites[i];
-            _typeImages[i].color = GetPurchaseStatusColor(_selectMonster.data.id, i);
+            _typeImages[i].color = GetPurchaseStatusColor(selectMonster.data.id, i);
         }
     }
 
     private void SetRequiredCoinsText()
     {
-        int[] coins = _monsterEvolution.GetEvolutionRequiredCoinsDict(_selectMonster.data.id);
+        int[] coins = _monsterEvolution.GetEvolutionRequiredCoinsDict(selectMonster.data.id);
 
         for (int i = 0; i < _requiredCoins.Length; i++)
         {
             _requiredCoins[i].text = coins[i].ToString();
-            _requiredCoins[i].color = GetPurchaseStatusColor(_selectMonster.data.id, i);
+            _requiredCoins[i].color = GetPurchaseStatusColor(selectMonster.data.id, i);
         }
     }
 
     private void SetSellCoinsText()
     {
-        _sellText.text = Mathf.RoundToInt(CalculateTotalSpent(_selectMonster) * 0.35f).ToString();
+        _sellText.text = Mathf.RoundToInt(CalculateTotalSpent(selectMonster) * 0.35f).ToString();
     }
 
     public void SellMonster()
     {
-        if (_selectMonster == null) return;
-        int totalSpent = CalculateTotalSpent(_selectMonster); //여태 얼마 사용했는지 계산
+        if (selectMonster == null) return;
+        int totalSpent = CalculateTotalSpent(selectMonster); //여태 얼마 사용했는지 계산
         float refundPercentage = 0.35f; // 35% 환불
         int refundAmount = Mathf.RoundToInt(totalSpent * refundPercentage);
         StageManager.Instance.ChangeGold(refundAmount); //UI에 표시
-        _selectMonster.ReturnToVillage();
+        selectMonster.ReturnToVillage();
     }
 
     public int CalculateTotalSpent(Monster selectedMonster) //몬스터 스폰 & 업그레이드에 사용한 비용 계산
@@ -173,8 +174,8 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell, IManagebleUI
 
     private void MonsterEvolutionStat(EvolutionType evolutionType)
     {
-        if (_selectMonster == null) return;
-        var evolution = DataManager.Instance.GetEvolutionData(_selectMonster.data.id, _selectMonster.data.currentLevel + 1, evolutionType);
+        if (selectMonster == null) return;
+        var evolution = DataManager.Instance.GetEvolutionData(selectMonster.data.id, selectMonster.data.currentLevel + 1, evolutionType);
         if (evolution == null) return;
         if (evolutionType == EvolutionType.Atype)
         {
@@ -186,14 +187,14 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell, IManagebleUI
             _typeBCheck.SetActive(true);
             _typeACheck.SetActive(false);
         }
-        _evolutionStatUI.Show(_selectMonster.data, evolution);
+        _evolutionStatUI.Show(selectMonster.data, evolution);
         _monsterUIManager.ShowRangeIndicator(evolution);
         _clickEvolutionType = evolutionType;
     }
 
     private void SetMonsterStatPosition()
     {
-        Vector3 posX = _selectMonster.transform.position.x > 0 ? Vector3.left : Vector3.right;
-        _evolutionStatUI.transform.position = _selectMonster.transform.position + (posX * 3f);
+        Vector3 posX = selectMonster.transform.position.x > 0 ? Vector3.left : Vector3.right;
+        _evolutionStatUI.transform.position = selectMonster.transform.position + (posX * 3f);
     }
 }

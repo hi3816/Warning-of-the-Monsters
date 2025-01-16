@@ -5441,7 +5441,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2606138813564927209}
   - component: {fileID: 65092535160609998}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MonsterSelectSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5498,7 +5498,6 @@ MonoBehaviour:
   - {fileID: 4402138545174954799}
   - {fileID: 6973272366614856281}
   _statUIObj: {fileID: 5500773759121398486}
-  _rangeIndicator: {fileID: 0}
 --- !u!1 &8285770578854201341
 GameObject:
   m_ObjectHideFlags: 0

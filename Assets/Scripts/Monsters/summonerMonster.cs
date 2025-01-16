@@ -191,6 +191,6 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
 
         _location.gameObject.SetActive(false);
         isPositioningMode = false;
-        OnHideMonsterUI?.Invoke();
+        MonsterUIManager.Instance.HideRangeIndicator();
     }
 }

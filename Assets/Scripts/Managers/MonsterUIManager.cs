@@ -13,26 +13,31 @@ public class MonsterUIManager : SingletonBase<MonsterUIManager>
 {
     [SerializeField] private GameObject _rangeIndicator;
     private PopupMonsterSpawner _popupMonsterSpawner;
-    private MonsterUpgradeUI _monsterUpgradeUI;
-    private MonsterEvolutionUI _monsterEvolutionUI;
     private List<IManagebleUI> _uiList = new List<IManagebleUI>();
     private Monster _clickedMonster;
+    
+    public MonsterUpgradeUI monsterUpgradeUI { get; private set; }
 
+    public MonsterEvolutionUI monsterEvolutionUI { get; private set; }
+    
     private void Awake()
     {
         base.Awake();
         _popupMonsterSpawner = GetComponentInChildren<PopupMonsterSpawner>();
-        _monsterUpgradeUI = GetComponentInChildren<MonsterUpgradeUI>();
-        _monsterEvolutionUI = GetComponentInChildren<MonsterEvolutionUI>();
+        monsterUpgradeUI = GetComponentInChildren<MonsterUpgradeUI>();
+        monsterEvolutionUI = GetComponentInChildren<MonsterEvolutionUI>();
         _uiList.Add(_popupMonsterSpawner);
-        _uiList.Add(_monsterUpgradeUI);
-        _uiList.Add(_monsterEvolutionUI);
+        _uiList.Add(monsterUpgradeUI);
+        _uiList.Add(monsterEvolutionUI);
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // When player clicks
+        if (Input.GetMouseButtonDown(0))
         {
+            // 게임오브젝트가 있을 때
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             int interactionLayer = LayerMask.GetMask("InteractionLayer");
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, interactionLayer);
@@ -41,14 +46,9 @@ public class MonsterUIManager : SingletonBase<MonsterUIManager>
             {
                 _clickedMonster = hit.collider.GetComponentInParent<Monster>();
 
+                // 현재 배치된 몬스터가 있을 때
                 if (_clickedMonster != null)
                 {
-                    _clickedMonster.OnHideMonsterUI -= _popupMonsterSpawner.Hide;
-                    _clickedMonster.OnHideMonsterUI -= _monsterUpgradeUI.Hide;
-                    _clickedMonster.OnHideMonsterUI -= _monsterEvolutionUI.Hide;
-                    _clickedMonster.OnHideMonsterUI += _popupMonsterSpawner.Hide;
-                    _clickedMonster.OnHideMonsterUI += _monsterUpgradeUI.Hide;
-                    _clickedMonster.OnHideMonsterUI += _monsterEvolutionUI.Hide;
                     ShowUpgradeOrEvolutionUI();
 
                     if (_clickedMonster is summonerMonster summoner)
@@ -59,16 +59,16 @@ public class MonsterUIManager : SingletonBase<MonsterUIManager>
             }
             else if (!EventSystem.current.IsPointerOverGameObject())
             {
+                // 스폰 포인트일 때
                 if (_popupMonsterSpawner.SearchSpawanPoint(mousePosition))
                 {
+                    HideRangeIndicator();
                     _popupMonsterSpawner.Show();
                     HideOtherUI(_popupMonsterSpawner);
                     return;    
                 }
 
-                _monsterUpgradeUI.Hide();
-                _monsterEvolutionUI.Hide();
-                _popupMonsterSpawner.Hide();
+                HideAllMonsterUI();
                 HideRangeIndicator();
             }
         }
@@ -81,17 +81,17 @@ public class MonsterUIManager : SingletonBase<MonsterUIManager>
             DataTable.Evolution_Data data = DataManager.Instance.GetEvolutionData(_clickedMonster.data.id, _clickedMonster.data.currentLevel + 1);
             if (data != null && data.upgradeLevel == _clickedMonster.data.maxLevel)
             {
-                _monsterEvolutionUI.Show(_clickedMonster);
+                monsterEvolutionUI.Show(_clickedMonster);
                 ShowRangeIndicator();
-                HideOtherUI(_monsterEvolutionUI);
+                HideOtherUI(monsterEvolutionUI);
             }
             else
             {
                 if (_clickedMonster.data.currentLevel <= _clickedMonster.data.maxLevel)
                 {
-                    _monsterUpgradeUI.Show(_clickedMonster);
+                    monsterUpgradeUI.Show(_clickedMonster);
                     ShowRangeIndicator();
-                    HideOtherUI(_monsterUpgradeUI);
+                    HideOtherUI(monsterUpgradeUI);
                 }
             }
         }

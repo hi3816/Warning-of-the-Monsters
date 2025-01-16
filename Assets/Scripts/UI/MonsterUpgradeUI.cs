@@ -34,7 +34,7 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell, IManagebleUI
     [SerializeField] private TextMeshProUGUI _diffMaxFearInflictedText;
     [SerializeField] private TextMeshProUGUI _diffCooldownText;
 
-    private Monster _selectedMonster;
+    public Monster selectMonster { get; private set; }
     private MonsterUIManager _monsterUIManager;
 
     private void Awake()
@@ -48,7 +48,7 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell, IManagebleUI
 
     public void Show(Monster monster)
     {
-        _selectedMonster = monster;
+        selectMonster = monster;
         _upgradeCanvas.SetActive(true);
         UpdateUI();
     }
@@ -56,7 +56,7 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell, IManagebleUI
     private void UpdateUI()
     {
         SetMonsterStatPosition();
-        MonsterData data = _selectedMonster.data;
+        MonsterData data = selectMonster.data;
         _nameText.text = data.poolTag;
         int nextLevel = data.currentLevel + 1;
         var upgrade = DataManager.Instance.GetBaseMonsterById(data.id);
@@ -85,21 +85,21 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell, IManagebleUI
             _maxUpgradePanel.SetActive(true);
         }
 
-        _sellButtonText.text = Mathf.RoundToInt(CalculateTotalSpent(_selectedMonster) * 0.35f).ToString();
+        _sellButtonText.text = Mathf.RoundToInt(CalculateTotalSpent(selectMonster) * 0.35f).ToString();
     }
 
     private void UpgradeMonster()
     {
-        if (_selectedMonster == null) return;
+        if (selectMonster == null) return;
 
-        int nextLevel = _selectedMonster.data.currentLevel + 1;
-        var upgrade = DataManager.Instance.GetBaseMonsterById(_selectedMonster.data.id);
+        int nextLevel = selectMonster.data.currentLevel + 1;
+        var upgrade = DataManager.Instance.GetBaseMonsterById(selectMonster.data.id);
         if (upgrade.fatigue.Count < nextLevel) return;
         if (upgrade.maxLevel > 0 && _stageManager.CurrGold >= upgrade.requiredCoins[nextLevel])
         {
             _stageManager.ChangeGold(-upgrade.requiredCoins[nextLevel]);
-            _selectedMonster.Upgrade(upgrade);
-            if (upgrade.maxLevel <= _selectedMonster.data.currentLevel + 1)
+            selectMonster.Upgrade(upgrade);
+            if (upgrade.maxLevel <= selectMonster.data.currentLevel + 1)
             {
                 _upgradeCanvas.SetActive(false);
                 _monsterUIManager.HideRangeIndicator();
@@ -118,12 +118,12 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell, IManagebleUI
     
     public void SellMonster()
     {
-        if (_selectedMonster == null) return;
-        int totalSpent = CalculateTotalSpent(_selectedMonster); //여태 얼마 사용했는지 계산
+        if (selectMonster == null) return;
+        int totalSpent = CalculateTotalSpent(selectMonster); //여태 얼마 사용했는지 계산
         float refundPercentage = 0.35f; // 35% 환불
         int refundAmount = Mathf.RoundToInt(totalSpent * refundPercentage);
         _stageManager.ChangeGold(refundAmount); //UI에 표시
-        _selectedMonster.ReturnToVillage();
+        selectMonster.ReturnToVillage();
     }
 
     public int CalculateTotalSpent(Monster selectedMonster) //몬스터 스폰 & 업그레이드에 사용한 비용 계산
@@ -146,7 +146,8 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell, IManagebleUI
     
     public void Hide()
     {
-        _selectedMonster = null;
+        if (!_upgradeCanvas.activeSelf) return;
+        selectMonster = null;
         _upgradeCanvas.SetActive(false);
     }
 
@@ -169,7 +170,7 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell, IManagebleUI
 
     private void SetMonsterStatPosition()
     {
-        Vector3 posX = _selectedMonster.transform.position.x > 0 ? Vector3.left : Vector3.right;
-        _upgradeCanvas.transform.position = _selectedMonster.transform.position + (posX * 1.75f);
+        Vector3 posX = selectMonster.transform.position.x > 0 ? Vector3.left : Vector3.right;
+        _upgradeCanvas.transform.position = selectMonster.transform.position + (posX * 1.75f);
     }
 }

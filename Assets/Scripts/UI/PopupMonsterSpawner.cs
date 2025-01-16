@@ -51,7 +51,8 @@ public class PopupMonsterSpawner : MonsterSpawner, IManagebleUI
 
     public void Show()
     {
-        if (IsSpawnPointOccupied(_pendingSpawnPosition, 0.5f)) return;
+        // 이미 스폰 되어있거나 현재 클릭한 스폰 포인트가 없을 때
+        if (IsSpawnPointOccupied(_pendingSpawnPosition, 0.5f) || _pendingSpawnPoint == null) return;
         
         UpdateMonsterImgState();
         if (_monsterSelectionPopup != null)
@@ -138,6 +139,8 @@ public class PopupMonsterSpawner : MonsterSpawner, IManagebleUI
 
     public void Hide()
     {
+        if (!_monsterSelectionPopup.activeSelf) return;
+
         // 팝업 닫기
         if (_monsterSelectionPopup != null)
         {
@@ -148,5 +151,7 @@ public class PopupMonsterSpawner : MonsterSpawner, IManagebleUI
             _statUIObj.SetActive(false);
             _monsterSelectionPopup.SetActive(false);
         }
+
+        _pendingSpawnPoint = null;
     }
 }
