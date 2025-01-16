@@ -43,12 +43,12 @@ public class MonsterUIManager : SingletonBase<MonsterUIManager>
 
                 if (_clickedMonster != null)
                 {
+                    _clickedMonster.OnHideMonsterUI -= _popupMonsterSpawner.Hide;
                     _clickedMonster.OnHideMonsterUI -= _monsterUpgradeUI.Hide;
                     _clickedMonster.OnHideMonsterUI -= _monsterEvolutionUI.Hide;
-                    _clickedMonster.OnHideMonsterUI -= HideRangeIndicator;
+                    _clickedMonster.OnHideMonsterUI += _popupMonsterSpawner.Hide;
                     _clickedMonster.OnHideMonsterUI += _monsterUpgradeUI.Hide;
                     _clickedMonster.OnHideMonsterUI += _monsterEvolutionUI.Hide;
-                    _clickedMonster.OnHideMonsterUI += HideRangeIndicator;
                     ShowUpgradeOrEvolutionUI();
 
                     if (_clickedMonster is summonerMonster summoner)
@@ -128,6 +128,11 @@ public class MonsterUIManager : SingletonBase<MonsterUIManager>
     {
         if (_rangeIndicator == null) return;
         _rangeIndicator.SetActive(false);
+
+        if (_clickedMonster != null && _clickedMonster is summonerMonster summoner)
+        {
+            summoner.OnStayMode?.Invoke();
+        }
     }
 
     private void HideOtherUI(IManagebleUI showUI)
@@ -138,6 +143,14 @@ public class MonsterUIManager : SingletonBase<MonsterUIManager>
             {
                 ui.Hide();
             }
+        }
+    }
+
+    public void HideAllMonsterUI()
+    {
+        foreach(IManagebleUI ui in _uiList)
+        {
+            ui.Hide();
         }
     }
 }
