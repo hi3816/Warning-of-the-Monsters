@@ -36,11 +36,12 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell, IManagebleUI
 
         StageManager.Instance.SetMonsterUI(null, this);
         StageManager.Instance.OnChangeGold += Show;
+
+        _evolutionStatUI.Hide();
     }
 
     public void Show(Monster monster)
     {
-        _evolutionStatUI.gameObject.SetActive(false);
         selectMonster = monster;
         Vector3 worldPosition = monster.transform.position;
         _evolutionUI.transform.position = worldPosition;
