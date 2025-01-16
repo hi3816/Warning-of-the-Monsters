@@ -26,8 +26,16 @@ public class StartScreen : UIBase
     [Header("FlagButton")]
     [SerializeField] private CanvasGroup _flagCanvasGroup;
     [SerializeField] private Transform _flagTransform;
-    
+
     [SerializeField] private LocalSelector selector;
+
+    [Header("CodexButton")]
+    [SerializeField] private CanvasGroup _codexCanvasGroup;
+    [SerializeField] private Transform _codexTransform;
+
+    private string codexURL = "https://docs.google.com/spreadsheets/d/1hMDNnldmZfRKfuR41h-RfOKrNq_tt7kC9cEjtTbt4GM/edit?usp=sharing";
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +49,7 @@ public class StartScreen : UIBase
         ShowTitle();
         ShowButton();
         ShowFlag();
+        ShowCodex();
     }
 
     public void OnButtonClicked()
@@ -91,5 +100,16 @@ public class StartScreen : UIBase
     {
         _flagCanvasGroup.DOFade(1, 0.3f);
         _flagTransform.DOLocalMove(Vector3.up * 10, 0.5f).SetRelative();
+    }
+
+    private void ShowCodex()
+    {
+        _codexCanvasGroup.DOFade(1, 0.3f);
+        _codexTransform.DOLocalMove(Vector3.up * 10, 0.5f).SetRelative();
+    }
+
+    public void OnClickCodexButton()
+    {
+        Application.OpenURL(codexURL);
     }
 }
