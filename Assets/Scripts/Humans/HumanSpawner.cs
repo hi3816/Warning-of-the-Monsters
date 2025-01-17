@@ -5,14 +5,12 @@ using UnityEngine;
 
 public class HumanSpawner : SingletonBase<HumanSpawner>
 {
-    private int _curStageIdx;
-    private int _curWaveIdx;
+    [SerializeField] private PoolManager.PoolConfig[] _poolConfigs; // 인간 풀
     private WaitForSeconds _spawnDelay = new WaitForSeconds(2.5f);  // 인간 스폰 되는 간격
     private List<Transform> _spawnPoints = new List<Transform>();
-    
-    [SerializeField] private PoolManager.PoolConfig[] _poolConfigs; // 인간 풀
-
     private Coroutine _spawnCoroutine;
+    private int _curStageIdx;
+    private int _curWaveIdx;
     
     protected override void Awake()
     {
@@ -50,7 +48,6 @@ public class HumanSpawner : SingletonBase<HumanSpawner>
 
         if (waveData == null)
         {
-            // Debug.LogError($"Wave data is missing: {_curWaveIdx}");
             yield break;
         }
 
@@ -93,11 +90,7 @@ public class HumanSpawner : SingletonBase<HumanSpawner>
     {
         int totalWaves = StageManager.Instance.TotalWave;   // 현재 스테이지의 총 웨이브 개수
 
-        if (totalWaves <= 0)
-        {
-            // Debug.LogAssertion($"TotalWave is invalid: {totalWaves}");
-            return -1;
-        }
+        if (totalWaves <= 0) return -1;
 
         return ConvertWaveIdx(stageIdx, totalWaves);
     }

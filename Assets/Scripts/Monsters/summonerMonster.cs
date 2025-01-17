@@ -7,15 +7,15 @@ using UnityEngine.UI;
 
 public class summonerMonster : Monster //졸개들을 불러 인간을 막는 몬스터(=병영타워)
 {
-    public List<Minion> MinionList { get; private set; } = new List<Minion>(); 
+    [SerializeField] private Button _location;
     private List<(int minionId, string minionTag, int count)> _minionToSummon = new List<(int, string, int)>();
     private Vector3[] _spawnOffsets;
-
-    [SerializeField] private Button _location;
-    public bool isPositioningMode { get; private set; }  // 미니언 위치 지정
-    public Action OnMoveMode; // 미니언 위치 지정 모드
-    public Action OnStayMode; // Location 아이콘 비활성화용
     private Vector2[] _minionPositionOffset;
+    public List<Minion> MinionList { get; private set; } = new List<Minion>(); 
+    public Action onMoveMode; // 미니언 위치 지정 모드
+    public Action onStayMode; // Location 아이콘 비활성화용
+    public bool IsPositioningMode { get; private set; }  // 미니언 위치 지정
+    
 
     private void Awake()
     {
@@ -42,8 +42,8 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
 
         if(_location != null) _location.onClick.AddListener(ClickLocation);
 
-        OnMoveMode += (() => _location.gameObject.SetActive(true));
-        OnStayMode += (() => _location.gameObject.SetActive(false));
+        onMoveMode += (() => _location.gameObject.SetActive(true));
+        onStayMode += (() => _location.gameObject.SetActive(false));
     }
 
     private void Update()
@@ -52,10 +52,10 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
         if (Input.GetMouseButton(0)) {
             Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             bool isInRange = Vector3.Distance(transform.position, clickPos) <= (data.humanDetectRange * 0.5f);
-            if (isPositioningMode)
+            if (IsPositioningMode)
             {
                 if (isInRange) MoveMinions(clickPos);
-                else isPositioningMode = false;
+                else IsPositioningMode = false;
             }
         }
     }
@@ -77,8 +77,8 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
         if (_lastScareTime >= data.cooldown)
         {
             SummonMinions();
-            if (CoBoo != null) StopCoroutine(CoBoo);
-            CoBoo = StartCoroutine(ShowBooText());
+            if (_coBoo != null) StopCoroutine(_coBoo);
+            _coBoo = StartCoroutine(ShowBooText());
             _lastScareTime = 0f;
             SetState(MonsterState.Idle);
         }
@@ -177,7 +177,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
 
     private void ClickLocation()
     {
-        isPositioningMode = true;
+        IsPositioningMode = true;
         MonsterUIManager.Instance.HideAllMonsterUI();
     }
 
@@ -190,7 +190,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
         }
 
         _location.gameObject.SetActive(false);
-        isPositioningMode = false;
+        IsPositioningMode = false;
         MonsterUIManager.Instance.HideRangeIndicator();
     }
 }

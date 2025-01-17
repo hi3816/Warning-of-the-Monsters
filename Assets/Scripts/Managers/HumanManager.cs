@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public enum HumanType
 {
@@ -16,14 +14,12 @@ public enum HumanType
 }
 public class HumanManager : SingletonBase<HumanManager>
 {
+    private int _currentWave;
+    private int _totalHumansInWave;
     // 웨이브별 현재 존재하는 인간 수를 관리하는 딕셔너리
     // key: 스폰된 웨이브 인덱스, value: 해당 웨이브에 스폰되어 현재 존재하는 인간 수
     public Dictionary<int, int> countPerWave = new Dictionary<int, int>();
-
     public bool isLastWave;
-    
-    private int _currentWave;
-    private int _totalHumansInWave;
     
     private void OnEnable()
     {

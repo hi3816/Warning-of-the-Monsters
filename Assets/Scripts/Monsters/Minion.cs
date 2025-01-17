@@ -4,18 +4,17 @@ using UnityEngine;
 public class Minion : Monster //졸개
 {
     private summonerMonster _summonerMonster;
-    protected Vector3 _targetPosition;
-
     private Coroutine _minionMove;
+    protected Vector3 _targetPosition;
 
     protected override void Update()
     {
         base.Update();
-        switch (MonsterState)
+        switch (_monsterState)
         {
              case MonsterState.Idle:
                  UpdateAnimatorParameters(Vector2.zero);
-                 if (TargetHumanList.Count > 0)
+                 if (_targetHumanList.Count > 0)
                  {
                      SetState(MonsterState.Walking);
                  }
@@ -53,15 +52,15 @@ public class Minion : Monster //졸개
 
     private void HandleWalking()
     {
-        if (TargetHumanList.Count == 0)
+        if (_targetHumanList.Count == 0)
         {
             Vector3 offset = (transform.position - _summonerMonster.transform.position).normalized;
             _targetPosition = _summonerMonster.transform.position + offset;
             SetState(MonsterState.Idle);
         }
-        if (TargetHumanList.Count > 0)
+        if (_targetHumanList.Count > 0)
         {
-            Transform nearestHuman = TargetHumanList[0].transform;
+            Transform nearestHuman = _targetHumanList[0].transform;
             float distanceToSummoner = Vector3.Distance(transform.position, _summonerMonster.transform.position);
             float distanceToHuman = Vector3.Distance(transform.position, nearestHuman.position);
             if (distanceToHuman <= data.humanDetectRange)
@@ -114,7 +113,7 @@ public class Minion : Monster //졸개
         {
             collider.enabled = false;
         }
-        TargetHumanList.Clear();
+        _targetHumanList.Clear();
 
         while (distanceToTarget >= threshold)
         {

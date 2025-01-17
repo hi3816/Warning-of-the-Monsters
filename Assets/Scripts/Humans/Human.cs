@@ -7,16 +7,14 @@ using UnityEngine.AI;
 public class Human : MonoBehaviour
 {
     private Human_Data _humanData;
-    public int id;
     private int _coin;  // 놀랐을 때 떨어뜨리고 가는 재화량(처치 시 획득 재화량)
+    public int id;
     public float MaxFear { get; private set; }
     public float FearLevel { get; private set; }
     public int LifeInflicted { get; private set; }
     public int SpawnedWaveIdx { get; set; }
     public bool isReturning;  // 풀에 반환중인 상태인지 체크
-
     public HumanController controller;
-
     public Action OnFearChanged;
 
     protected virtual void Awake()

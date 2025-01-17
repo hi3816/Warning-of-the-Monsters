@@ -9,32 +9,25 @@ public class HumanController : MonoBehaviour
     public float Cooldown { get; private set; }
     public float MinFatigueInflicted { get; private set; }
     public float MaxFatigueInflicted { get; private set; }
-    
     public Animator animator;
     public NavMeshAgent Agent { get; private set; }
     public List<Transform> targetMonsterList = new List<Transform>();
     public Transform TargetMonster { get; private set; }
     public int SpawnedPointIdx { get; set; }
-    
     public Transform humanEffect;
     public ParticleSystem attackParticle;
-    
     public HumanStateMachine stateMachine;
     public WalkHumanState WalkHumanState { get; private set; }
     public RunHumanState RunHumanState { get; private set; }
     public BattleHumanState BattleHumanState { get; private set; }
-
     public bool isSurprising;
     
     private void Awake()
     {
         // 애니메이터 & NavMeshAgent 세팅
         animator = GetComponentInChildren<Animator>();
-        // if (animator == null)
-        //      Debug.LogAssertion("Animator not found");
         Agent = GetComponent<NavMeshAgent>();
-        // if (Agent == null)
-        //     Debug.LogError("NavMeshAgent not found");
+        
         // Sprite가 화면상에 보이도록 조정
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;

@@ -5,11 +5,9 @@ public class BattleHumanState : IHumanState
 {
     private HumanController _human;
     private HumanStateMachine _stateMachine;
-
+    private Transform _oldTarget;
     private float _minFatigueInflicted;
     private float _maxFatigueInflicted;
-
-    private Transform _oldTarget;
     private float _lastAttackTime;
     
     public BattleHumanState(HumanController human)
@@ -75,10 +73,7 @@ public class BattleHumanState : IHumanState
             _human.animator.SetTrigger("Attack");
             monster.IncreaseFatigue(randValue);
         }
-        else
-        {
-            // Debug.LogWarning("TargetMonster not found");
-        }
+
         _lastAttackTime = Time.time;    // 마지막 공격 시각 갱신
     }
 

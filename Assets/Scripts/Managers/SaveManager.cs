@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [System.Serializable]
 public class StagePlayInfo
@@ -20,7 +19,6 @@ public class GamePlayInfo
 public class SaveManager : SingletonBase<SaveManager>
 {
     private const string _saveFileName = "PlayInfoData.json";
-
     private GamePlayInfo _gamePlayInfo = new GamePlayInfo();
 
     protected override void Awake()
@@ -98,7 +96,6 @@ public class SaveManager : SingletonBase<SaveManager>
         }
         else
         {
-            // Debug.LogAssertion("Stage Play Info Not Found");
             starsCount = 0;
             isCleared = false;
         }
@@ -114,7 +111,6 @@ public class SaveManager : SingletonBase<SaveManager>
         }
         else
         {
-            // Debug.LogAssertion("Stage Play Info Not Found");
             isCleared = false;
         }
     }

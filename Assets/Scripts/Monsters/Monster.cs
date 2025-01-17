@@ -2,7 +2,6 @@ using DataTable;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -61,28 +60,28 @@ public class MonsterData
 
 public abstract class Monster : MonoBehaviour
 {
-    public MonsterData data;
-    protected List<Human> TargetHumanList = new List<Human>();
-    private SpriteRenderer _spriteRenderer;
-    protected Animator Animator;
-    protected MonsterState MonsterState;
-    private float _fadeDuration = 1f;
-    protected float _lastScareTime;
-    private Coroutine _coroutine;
     [SerializeField] private GameObject _fatigueGauge;
-    protected MonsterFatigueGague _monsterFatigueGauge;
-    public Action OnAttacked;
-    protected bool _isSingleTargetAttack = true;
-    protected Projectile_Data _projectileData;
+    private SpriteRenderer _spriteRenderer;
+    private Coroutine _coroutine;
+    private Animator _animator;
     private CircleCollider2D _rangeCircleCollider;
+    private float _fadeDuration = 1f;
+    protected List<Human> _targetHumanList = new List<Human>();
+    protected MonsterFatigueGague _monsterFatigueGauge;
+    protected Projectile_Data _projectileData;
     protected Collider2D[] _collider2Ds;
+    protected Coroutine _coBoo;
+    protected MonsterState _monsterState;
+    protected float _lastScareTime;
+    protected bool _isSingleTargetAttack = true;
     public TMP_Text boo;
-    protected Coroutine CoBoo;
+    public MonsterData data;
+    public Action onAttacked;
     
     protected virtual void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        Animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
         SetState(MonsterState.Idle);
         var baseMonsterData = DataManager.Instance.GetBaseMonsterByIdx(data.id - 1);
         if (baseMonsterData != null)
@@ -124,19 +123,19 @@ public abstract class Monster : MonoBehaviour
     protected virtual void Update()
     {
         _lastScareTime += Time.deltaTime;
-        switch (MonsterState)
+        switch (_monsterState)
         {
             case MonsterState.Idle:
                 UpdateAnimatorParameters(Vector2.zero);
-                if (TargetHumanList.Count > 0)
+                if (_targetHumanList.Count > 0)
                 {
                     SetState(MonsterState.Scaring);
                 }
                 break;
             case MonsterState.Scaring:
-                if (TargetHumanList.Count> 0)
+                if (_targetHumanList.Count> 0)
                 {
-                    Vector2 directionToHuman = ((Vector2)TargetHumanList[0].transform.position - (Vector2)transform.position).normalized;
+                    Vector2 directionToHuman = ((Vector2)_targetHumanList[0].transform.position - (Vector2)transform.position).normalized;
                     UpdateAnimatorParameters(directionToHuman);
                     Scaring();
                 }
@@ -157,7 +156,7 @@ public abstract class Monster : MonoBehaviour
         SetState(MonsterState.Idle);
         _lastScareTime = data.cooldown;
         data.currentFatigue = 0f;
-        TargetHumanList.Clear();
+        _targetHumanList.Clear();
         _fatigueGauge.SetActive(true);
         
         if (_spriteRenderer.color.a <= 1f)
@@ -171,7 +170,7 @@ public abstract class Monster : MonoBehaviour
         {
             collider.enabled = true;
         }
-        if (CoBoo != null) StopCoroutine(CoBoo);
+        if (_coBoo != null) StopCoroutine(_coBoo);
     }
 
     // 처음 데이터 저장
@@ -239,41 +238,41 @@ public abstract class Monster : MonoBehaviour
 
     protected void SetState(MonsterState state)
     {
-        if (MonsterState == state) return;
+        if (_monsterState == state) return;
         
-        MonsterState = state;
-        switch (MonsterState)
+        _monsterState = state;
+        switch (_monsterState)
         {
             case MonsterState.Idle:
                 break;
 
             case MonsterState.Scaring:
-                Animator.SetTrigger("Scare");
+                _animator.SetTrigger("Scare");
                 break;
 
             case MonsterState.ReturningVillage:
-                Animator.SetBool("Return", true);
+                _animator.SetBool("Return", true);
                 break;
         }
     }
     
     protected void UpdateAnimatorParameters(Vector2 direction)
     {
-        if (Animator == null) return;
+        if (_animator == null) return;
         
-        Animator.SetFloat("Horizontal", direction.x);
-        Animator.SetFloat("Vertical", direction.y);
+        _animator.SetFloat("Horizontal", direction.x);
+        _animator.SetFloat("Vertical", direction.y);
     }
 
     protected virtual void Scaring()
     {
         if (_lastScareTime >= data.cooldown)
         {
-            Human human = TargetHumanList[0];
+            Human human = _targetHumanList[0];
             if (human == null) return;
             human.IncreaseFear(Random.Range(data.minFearInflicted, data.maxFearInflicted));
-            if (CoBoo != null) StopCoroutine(CoBoo);
-            CoBoo = StartCoroutine(ShowBooText());
+            if (_coBoo != null) StopCoroutine(_coBoo);
+            _coBoo = StartCoroutine(ShowBooText());
             _lastScareTime = 0f;
             SetState(MonsterState.Idle);
         }
@@ -304,13 +303,13 @@ public abstract class Monster : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (MonsterState == MonsterState.ReturningVillage) return;
+        if (_monsterState == MonsterState.ReturningVillage) return;
         if (other.CompareTag("Human"))
         {
             Human human = other.GetComponent<Human>();
-            if (human != null && !TargetHumanList.Contains(human) && human.FearLevel < human.MaxFear)
+            if (human != null && !_targetHumanList.Contains(human) && human.FearLevel < human.MaxFear)
             {
-                TargetHumanList.Add(human);
+                _targetHumanList.Add(human);
             }
         }
     }
@@ -322,7 +321,7 @@ public abstract class Monster : MonoBehaviour
             Human human = other.GetComponent<Human>();
             if (human != null)
             {
-                TargetHumanList.Remove(human);
+                _targetHumanList.Remove(human);
             }
         }
     }
@@ -330,13 +329,13 @@ public abstract class Monster : MonoBehaviour
     public void IncreaseFatigue(float value)
     {
         data.currentFatigue += value;
-        Animator.SetTrigger("Hit");
+        _animator.SetTrigger("Hit");
         if (data.currentFatigue >= data.fatigue)
         {
             data.currentFatigue = data.fatigue;
             SetState(MonsterState.ReturningVillage);
         }
-        OnAttacked?.Invoke();
+        onAttacked?.Invoke();
     }
 
     public virtual void ReturnToVillage()
@@ -352,7 +351,7 @@ public abstract class Monster : MonoBehaviour
             collider.enabled = false;
         }
 
-        foreach (var human in TargetHumanList)
+        foreach (var human in _targetHumanList)
         {
             if (human != null)
             {
@@ -362,26 +361,9 @@ public abstract class Monster : MonoBehaviour
             }
         }
 
-        TargetHumanList.Clear();
+        _targetHumanList.Clear();
         _fatigueGauge.SetActive(false);
         CheckAndHideSelectUI();
-
-        //// Fade out
-        //float startAlpha = _spriteRenderer.color.a;
-        //float elapsedTime = 0f;
-        //Color startColor = _spriteRenderer.color;
-
-        //while (elapsedTime < _fadeDuration)
-        //{
-        //    elapsedTime += Time.deltaTime;
-        //    float newAlpha = Mathf.Lerp(startAlpha, 0f, elapsedTime / _fadeDuration);
-        //    startColor.a = newAlpha;
-        //    _spriteRenderer.color = startColor;
-        //    yield return null;
-        //}
-        //startColor.a = 0f;
-        //_spriteRenderer.color = startColor;
-
         if (this.GetType().Name != "Minion")
         {
             GameManager.Instance.RemoveActiveList(this);
@@ -393,8 +375,8 @@ public abstract class Monster : MonoBehaviour
     // 마을로 돌아가는 몬스터가 UI 창을 띄우고 있는지 확인 후 UI 닫기
     private void CheckAndHideSelectUI()
     {
-        if(this == MonsterUIManager.Instance.monsterUpgradeUI.selectMonster ||
-           this == MonsterUIManager.Instance.monsterEvolutionUI.selectMonster)
+        if(this == MonsterUIManager.Instance.MonsterUpgradeUI.selectMonster ||
+           this == MonsterUIManager.Instance.MonsterEvolutionUI.selectMonster)
         {
             MonsterUIManager.Instance.HideAllMonsterUI();
             MonsterUIManager.Instance.HideRangeIndicator();

@@ -26,8 +26,8 @@ public class MonsterFatigueGague : MonoBehaviour
     {
         if (!Mathf.Approximately(_maxFatigue, 0f))  // 최대 피로도 초기화됐는지 확인
             UpdateFatigueGauge();
-        _monster.OnAttacked -= UpdateFatigueGauge;
-        _monster.OnAttacked += UpdateFatigueGauge;
+        _monster.onAttacked -= UpdateFatigueGauge;
+        _monster.onAttacked += UpdateFatigueGauge;
         SetFatigue();
     }
     

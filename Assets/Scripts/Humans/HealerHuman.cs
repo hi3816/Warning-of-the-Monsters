@@ -8,16 +8,14 @@ public interface IHealer
 
 public class HealerHuman : Human, IHealer
 {
-    private float _healAmount;
-    private float _healRadius;
-    private float _healCooldown;
-
     // 힐 범위 시각적 표현
     [SerializeField] private Transform _healTransform;
     [SerializeField] private SpriteRenderer _healRenderer;
-    
     private Coroutine _healCoroutine;   // 힐 실행하는 코루틴
     private Coroutine _colorCoroutine;  // 힐 범위 색상 표현하는 코루틴
+    private float _healAmount;
+    private float _healRadius;
+    private float _healCooldown;
 
     protected override void Awake()
     {

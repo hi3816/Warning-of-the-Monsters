@@ -10,7 +10,7 @@ public class stationaryDefender : Monster //한자리를 지키고 있는 몬스
             return;
         }
 
-        foreach (Human human in TargetHumanList)
+        foreach (Human human in _targetHumanList)
         {
             if (human == null) continue;
 
@@ -18,8 +18,8 @@ public class stationaryDefender : Monster //한자리를 지키고 있는 몬스
             {
                 MonsterProjectile projectile = PoolManager.Instance.SpawnFromPool<MonsterProjectile>(_projectileData.projectileType.ToString(), transform.position, Quaternion.identity);
                 projectile.SetProjectileInfo(human.transform.position, data, _projectileData);
-                if (CoBoo != null) StopCoroutine(CoBoo);
-                CoBoo = StartCoroutine(ShowBooText());
+                if (_coBoo != null) StopCoroutine(_coBoo);
+                _coBoo = StartCoroutine(ShowBooText());
                 _lastScareTime = 0f;
                 SetState(MonsterState.Idle);
             }

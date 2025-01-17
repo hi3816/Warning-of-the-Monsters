@@ -4,17 +4,15 @@ using UnityEngine.U2D;
 
 public class MonsterEvolution : MonoBehaviour
 {
-    private Monster _selectMonster;
-
     [Header("Pool")]
     [SerializeField] private PoolManager.PoolConfig[] _poolConfigs;
     [SerializeField] private List<Monster> _summonerMonsters;
     [SerializeField] private List<MonsterData> _evolutionMonsterList;
-
+    
     // 진화 스프라이트, 필요재화 담을 Dictionary
     private Dictionary<int, Sprite[]> _evolutionSpriteDict = new Dictionary<int, Sprite[]>();
     private Dictionary<int, int[]> _evolutionRequiredCoinsDict = new Dictionary<int, int[]>();
-
+    private Monster _selectMonster;
     private MonsterEvolutionUI _monsterEvolutionUI;
 
     private void Awake()

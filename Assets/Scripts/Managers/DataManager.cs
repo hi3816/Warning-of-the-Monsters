@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using UnityEngine;
 using DataTable;
 using System.Linq;
-using System.Security.Cryptography;
 
 public class DataManager : SingletonBase<DataManager>
 {
@@ -39,10 +37,6 @@ public class DataManager : SingletonBase<DataManager>
         {
             _humanDataList = Human_Data.GetList();
         }
-        if (_humanDataList.Count <= 0)
-        {
-            // Debug.LogAssertion($"Human data not Loaded");
-        }
     }
     
     public Human_Data GetHumanByIndex(int idx)
@@ -67,10 +61,6 @@ public class DataManager : SingletonBase<DataManager>
         {
             _waveDataDictionary = Wave_Data.GetDictionary();
         }
-        if (_waveDataDictionary.Count <= 0)
-        {
-            // Debug.LogAssertion($"Wave data not Loaded");
-        }
     }
     
     public Wave_Data GetWaveByIndex(int waveIdx)
@@ -83,7 +73,6 @@ public class DataManager : SingletonBase<DataManager>
         {
             return waveData;
         }
-        // Debug.LogAssertion($"Wave data not Found: {waveIdx}");
         return null;
     }
     
@@ -245,10 +234,6 @@ public class DataManager : SingletonBase<DataManager>
 
     public Dictionary<int, (int, string)> GetSelectedMonstersData()
     {
-        if (selectedMonsterData == null)
-        {
-            Debug.Log("선택된 몬스터 정보를 가져오지 못했습니다.");
-        }
         return selectedMonsterData;
     }
 }

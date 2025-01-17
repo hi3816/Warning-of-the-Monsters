@@ -1,7 +1,6 @@
 public class RunHumanState : IHumanState
 {
     private HumanController _human;
-
     public RunHumanState(HumanController human)
     {
         _human = human;
