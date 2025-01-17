@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class OptionPanelController : MonoBehaviour
@@ -8,14 +7,14 @@ public class OptionPanelController : MonoBehaviour
     [SerializeField] protected Image _bgmImage;
     [SerializeField] protected Image _sfxImage;
 
+    [Header("Slider")]
     [SerializeField] protected Slider _sfxSlider;
     [SerializeField] protected Slider _bgmSlider;
 
     private float _onAlpha = 255f / 255f;
     private float _offAlpha = 200f / 255f;
-
-    protected SoundManager _soundManager;
     private int _timeScale;
+    protected SoundManager _soundManager;
 
     private void Awake()
     {
