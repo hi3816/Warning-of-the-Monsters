@@ -108,7 +108,7 @@ public class Minion : Monster //졸개
     private IEnumerator CoMoveToTarget(Vector3 startPos, Vector3 targetPos)
     {
         float distanceToTarget = Vector2.Distance(startPos, targetPos);
-        float threshold = 0.01f; // 목표 위치와의 최소 거리
+        float threshold = 0.1f; // 목표 위치와의 최소 거리
 
         foreach (Collider2D collider in _collider2Ds)
         {
@@ -116,7 +116,7 @@ public class Minion : Monster //졸개
         }
         TargetHumanList.Clear();
 
-        while (distanceToTarget > threshold)
+        while (distanceToTarget >= threshold)
         {
             Vector2 direction = (targetPos - transform.position).normalized;
             UpdateAnimatorParameters(direction);
