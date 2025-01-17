@@ -10,7 +10,7 @@ public interface ISell
     int CalculateTotalSpent(Monster selectMonster);
 }
 
-public class MonsterUpgradeUI : MonoBehaviour, ISell
+public class MonsterUpgradeUI : MonoBehaviour, ISell, IManagebleUI
 {
     [SerializeField] private StageManager _stageManager;
     [SerializeField] private GameObject _upgradeCanvas;
@@ -18,6 +18,7 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
     [SerializeField] private GameObject _maxUpgradePanel;
     [SerializeField] private Button _upgradeButton;
     [SerializeField] private TextMeshProUGUI _upgradeCostText;
+    [SerializeField] private Button _sellButton;
     [SerializeField] private TextMeshProUGUI _sellButtonText;
     [SerializeField] private TextMeshProUGUI _nameText;
 
@@ -33,26 +34,29 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
     [SerializeField] private TextMeshProUGUI _diffMaxFearInflictedText;
     [SerializeField] private TextMeshProUGUI _diffCooldownText;
 
-    private Monster _selectedMonster;
-    private MonsterUI _monsterUI;
+    public Monster selectMonster { get; private set; }
+    private MonsterUIManager _monsterUIManager;
 
     private void Awake()
     {
         _stageManager = StageManager.Instance;
-        _monsterUI = GetComponentInParent<MonsterUI>();
+        _monsterUIManager = MonsterUIManager.Instance;
+
+        _upgradeButton.onClick.AddListener(UpgradeMonster);
+        _sellButton.onClick.AddListener(SellMonster);
     }
 
     public void Show(Monster monster)
     {
-        _selectedMonster = monster;
+        selectMonster = monster;
         _upgradeCanvas.SetActive(true);
         UpdateUI();
     }
 
-    void UpdateUI()
+    private void UpdateUI()
     {
         SetMonsterStatPosition();
-        MonsterData data = _selectedMonster.data;
+        MonsterData data = selectMonster.data;
         _nameText.text = data.poolTag;
         int nextLevel = data.currentLevel + 1;
         var upgrade = DataManager.Instance.GetBaseMonsterById(data.id);
@@ -81,29 +85,30 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
             _maxUpgradePanel.SetActive(true);
         }
 
-        _sellButtonText.text = Mathf.RoundToInt(CalculateTotalSpent(_selectedMonster) * 0.35f).ToString();
+        _sellButtonText.text = Mathf.RoundToInt(CalculateTotalSpent(selectMonster) * 0.35f).ToString();
     }
 
-    public void UpgradeMonster()
+    private void UpgradeMonster()
     {
-        if (_selectedMonster == null) return;
+        if (selectMonster == null) return;
 
-        int nextLevel = _selectedMonster.data.currentLevel + 1;
-        var upgrade = DataManager.Instance.GetBaseMonsterById(_selectedMonster.data.id);
+        int nextLevel = selectMonster.data.currentLevel + 1;
+        var upgrade = DataManager.Instance.GetBaseMonsterById(selectMonster.data.id);
         if (upgrade.fatigue.Count < nextLevel) return;
         if (upgrade.maxLevel > 0 && _stageManager.CurrGold >= upgrade.requiredCoins[nextLevel])
         {
             _stageManager.ChangeGold(-upgrade.requiredCoins[nextLevel]);
-            _selectedMonster.Upgrade(upgrade);
-            if (upgrade.maxLevel <= _selectedMonster.data.currentLevel + 1)
+            selectMonster.Upgrade(upgrade);
+            if (upgrade.maxLevel <= selectMonster.data.currentLevel + 1)
             {
                 _upgradeCanvas.SetActive(false);
+                _monsterUIManager.HideRangeIndicator();
             }
             else
             {
                 UpdateUI();
+                _monsterUIManager.ShowRangeIndicator();
             }
-            _monsterUI.ShowRangeIndicator();
         }
         else
         {
@@ -113,12 +118,12 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
     
     public void SellMonster()
     {
-        if (_selectedMonster == null) return;
-        int totalSpent = CalculateTotalSpent(_selectedMonster); //여태 얼마 사용했는지 계산
+        if (selectMonster == null) return;
+        int totalSpent = CalculateTotalSpent(selectMonster); //여태 얼마 사용했는지 계산
         float refundPercentage = 0.35f; // 35% 환불
         int refundAmount = Mathf.RoundToInt(totalSpent * refundPercentage);
         _stageManager.ChangeGold(refundAmount); //UI에 표시
-        _selectedMonster.ReturnToVillage();
+        selectMonster.ReturnToVillage();
     }
 
     public int CalculateTotalSpent(Monster selectedMonster) //몬스터 스폰 & 업그레이드에 사용한 비용 계산
@@ -141,9 +146,9 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
     
     public void Hide()
     {
+        if (!_upgradeCanvas.activeSelf) return;
+        selectMonster = null;
         _upgradeCanvas.SetActive(false);
-        _selectedMonster = null;
-        if(_monsterUI != null && _monsterUI.gameObject.activeSelf) _monsterUI.HideRangeIndicator();
     }
 
     private string CalcDiffValueToString(float curr, float upgrade)
@@ -165,7 +170,7 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell
 
     private void SetMonsterStatPosition()
     {
-        Vector3 posX = _selectedMonster.transform.position.x > 0 ? Vector3.left : Vector3.right;
-        _upgradeCanvas.transform.position = _selectedMonster.transform.position + (posX * 1.75f);
+        Vector3 posX = selectMonster.transform.position.x > 0 ? Vector3.left : Vector3.right;
+        _upgradeCanvas.transform.position = selectMonster.transform.position + (posX * 1.75f);
     }
 }

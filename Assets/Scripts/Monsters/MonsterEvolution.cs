@@ -156,6 +156,7 @@ public class MonsterEvolution : MonoBehaviour
                 GameManager.Instance.AddActiveList(evolutionMonster);
             }
             _monsterEvolutionUI.Hide();
+            MonsterUIManager.Instance.HideRangeIndicator();
         }
     }
 

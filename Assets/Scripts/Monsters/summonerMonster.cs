@@ -14,6 +14,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     [SerializeField] private Button _location;
     public bool isPositioningMode { get; private set; }  // 미니언 위치 지정
     public Action OnMoveMode; // 미니언 위치 지정 모드
+    public Action OnStayMode; // Location 아이콘 비활성화용
     private Vector2[] _minionPositionOffset;
 
     private void Awake()
@@ -42,12 +43,13 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
         if(_location != null) _location.onClick.AddListener(ClickLocation);
 
         OnMoveMode += (() => _location.gameObject.SetActive(true));
+        OnStayMode += (() => _location.gameObject.SetActive(false));
     }
 
     private void Update()
     {
         base.Update();
-        if (Input.GetMouseButton(0) && _location.gameObject.activeSelf) {
+        if (Input.GetMouseButton(0)) {
             Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             bool isInRange = Vector3.Distance(transform.position, clickPos) <= (data.humanDetectRange * 0.5f);
             if (isPositioningMode)
@@ -176,6 +178,7 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
     private void ClickLocation()
     {
         isPositioningMode = true;
+        MonsterUIManager.Instance.HideAllMonsterUI();
     }
 
     private void MoveMinions(Vector2 pos)
@@ -188,6 +191,6 @@ public class summonerMonster : Monster //졸개들을 불러 인간을 막는 �
 
         _location.gameObject.SetActive(false);
         isPositioningMode = false;
-        OnHideMonsterUI?.Invoke();
+        MonsterUIManager.Instance.HideRangeIndicator();
     }
 }

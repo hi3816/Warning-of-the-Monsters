@@ -2,6 +2,7 @@ using DataTable;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -74,8 +75,7 @@ public abstract class Monster : MonoBehaviour
     protected bool _isSingleTargetAttack = true;
     protected Projectile_Data _projectileData;
     private CircleCollider2D _rangeCircleCollider;
-    private Collider2D[] _collider2Ds;
-    public Action OnHideMonsterUI;
+    protected Collider2D[] _collider2Ds;
     public TMP_Text boo;
     protected Coroutine CoBoo;
     
@@ -171,6 +171,7 @@ public abstract class Monster : MonoBehaviour
         {
             collider.enabled = true;
         }
+        if (CoBoo != null) StopCoroutine(CoBoo);
     }
 
     // 처음 데이터 저장
@@ -363,8 +364,7 @@ public abstract class Monster : MonoBehaviour
 
         TargetHumanList.Clear();
         _fatigueGauge.SetActive(false);
-        OnHideMonsterUI?.Invoke();
-        OnHideMonsterUI = null;
+        CheckAndHideSelectUI();
 
         //// Fade out
         //float startAlpha = _spriteRenderer.color.a;
@@ -388,5 +388,16 @@ public abstract class Monster : MonoBehaviour
             PoolManager.Instance.ReturnToPool(data.poolTag, this);
         }
         yield return null;
+    }
+
+    // 마을로 돌아가는 몬스터가 UI 창을 띄우고 있는지 확인 후 UI 닫기
+    private void CheckAndHideSelectUI()
+    {
+        if(this == MonsterUIManager.Instance.monsterUpgradeUI.selectMonster ||
+           this == MonsterUIManager.Instance.monsterEvolutionUI.selectMonster)
+        {
+            MonsterUIManager.Instance.HideAllMonsterUI();
+            MonsterUIManager.Instance.HideRangeIndicator();
+        }
     }
 }

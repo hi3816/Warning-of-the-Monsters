@@ -31,7 +31,6 @@ public class EvolutionStatUI : MonoBehaviour
 
     private void SetText(MonsterData currData, Evolution_Data evolutionData)
     {
-
         _evolutionNameText.text = evolutionData.evolutionName;
 
         _fatigueText.text = currData.fatigue.ToString();

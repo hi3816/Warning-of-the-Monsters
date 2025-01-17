@@ -53,12 +53,18 @@ public class Minion : Monster //졸개
 
     private void HandleWalking()
     {
-        float distanceToSummoner = Vector3.Distance(transform.position, _summonerMonster.transform.position);
+        if (TargetHumanList.Count == 0)
+        {
+            Vector3 offset = (transform.position - _summonerMonster.transform.position).normalized;
+            _targetPosition = _summonerMonster.transform.position + offset;
+            SetState(MonsterState.Idle);
+        }
         if (TargetHumanList.Count > 0)
         {
             Transform nearestHuman = TargetHumanList[0].transform;
+            float distanceToSummoner = Vector3.Distance(transform.position, _summonerMonster.transform.position);
             float distanceToHuman = Vector3.Distance(transform.position, nearestHuman.position);
-            if (distanceToSummoner < 1.5f && distanceToHuman <= data.humanDetectRange)
+            if (distanceToHuman <= data.humanDetectRange)
             {
                 _targetPosition = nearestHuman.position;
                 if (distanceToHuman <= data.humanScaringRange)
@@ -66,17 +72,11 @@ public class Minion : Monster //졸개
                     SetState(MonsterState.Scaring);
                 }
             }
-            else if (distanceToSummoner >= 3.5f)
+            else if (distanceToSummoner > data.humanDetectRange)
             {
                 Vector3 offset = (transform.position - _summonerMonster.transform.position).normalized;
                 _targetPosition = _summonerMonster.transform.position + offset;
             }
-        }
-        if (TargetHumanList.Count == 0)
-        {
-            Vector3 offset = (transform.position - _summonerMonster.transform.position).normalized;
-            _targetPosition = _summonerMonster.transform.position + offset;
-            SetState(MonsterState.Idle);
         }
     }
     
@@ -108,9 +108,15 @@ public class Minion : Monster //졸개
     private IEnumerator CoMoveToTarget(Vector3 startPos, Vector3 targetPos)
     {
         float distanceToTarget = Vector2.Distance(startPos, targetPos);
-        float threshold = 0.01f; // 목표 위치와의 최소 거리
+        float threshold = 0.1f; // 목표 위치와의 최소 거리
 
-        while (distanceToTarget > threshold)
+        foreach (Collider2D collider in _collider2Ds)
+        {
+            collider.enabled = false;
+        }
+        TargetHumanList.Clear();
+
+        while (distanceToTarget >= threshold)
         {
             Vector2 direction = (targetPos - transform.position).normalized;
             UpdateAnimatorParameters(direction);
@@ -119,6 +125,11 @@ public class Minion : Monster //졸개
             _targetPosition = transform.position; // 주위에 인간 없을 때를 대비
             distanceToTarget = Vector2.Distance(transform.position, targetPos);
             yield return null;
+        }
+
+        foreach (Collider2D collider in _collider2Ds)
+        {
+            collider.enabled = true;
         }
 
         // 최종 위치

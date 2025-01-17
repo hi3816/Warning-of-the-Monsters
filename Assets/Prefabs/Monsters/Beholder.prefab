@@ -377,10 +377,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5813892846688784808, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 9014981195854102630, guid: c7a3b4768e4efc4489c7a57a02559ca2, type: 3}
       propertyPath: m_Name
       value: FatigueCanvas

@@ -766,7 +766,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5387458050322455932}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MonsterUpgradeUI, Assembly-CSharp
         m_MethodName: SellMonster
         m_Mode: 1
@@ -1430,7 +1430,6 @@ GameObject:
   - component: {fileID: 460866351190536399}
   - component: {fileID: 4365954929425453105}
   - component: {fileID: 5589176954264653222}
-  - component: {fileID: 5387458050322455932}
   m_Layer: 5
   m_Name: UpgradeCanvas
   m_TagString: Untagged
@@ -1521,34 +1520,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &5387458050322455932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2830615643088655321}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff5678d858ced4a208fe83c8280be152, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _stageManager: {fileID: 0}
-  _upgradeCanvas: {fileID: 2830615643088655321}
-  _upgradeStat: {fileID: 7062785362977433622}
-  _maxUpgradePanel: {fileID: 2758890260103586247}
-  _upgradeButton: {fileID: 8379488673374121214}
-  _upgradeCostText: {fileID: 3441067362080631250}
-  _sellButtonText: {fileID: 8472999761210867492}
-  _nameText: {fileID: 868379121482176644}
-  _fatigueText: {fileID: 6486134819847526420}
-  _minFearInflictedText: {fileID: 4246623255864975604}
-  _maxFearInflictedText: {fileID: 8595080758241347552}
-  _cooldownText: {fileID: 4074574029713074768}
-  _diffFatigueText: {fileID: 8302905110881542361}
-  _diffMinFearInflictedText: {fileID: 8793666397511392253}
-  _diffMaxFearInflictedText: {fileID: 4603517763917518093}
-  _diffCooldownText: {fileID: 3920856660429638302}
 --- !u!1 &2949650378316373962
 GameObject:
   m_ObjectHideFlags: 0
@@ -3191,6 +3162,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1654426208653903268}
+  - component: {fileID: 7876159837071956676}
   m_Layer: 5
   m_Name: MonsterUpgradeUI
   m_TagString: Untagged
@@ -3214,6 +3186,35 @@ Transform:
   - {fileID: 2749079184099231030}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7876159837071956676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6664867997551742608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff5678d858ced4a208fe83c8280be152, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stageManager: {fileID: 0}
+  _upgradeCanvas: {fileID: 2830615643088655321}
+  _upgradeStat: {fileID: 7062785362977433622}
+  _maxUpgradePanel: {fileID: 2758890260103586247}
+  _upgradeButton: {fileID: 8379488673374121214}
+  _upgradeCostText: {fileID: 3441067362080631250}
+  _sellButton: {fileID: 4158769538921802904}
+  _sellButtonText: {fileID: 8472999761210867492}
+  _nameText: {fileID: 868379121482176644}
+  _fatigueText: {fileID: 6486134819847526420}
+  _minFearInflictedText: {fileID: 4246623255864975604}
+  _maxFearInflictedText: {fileID: 8595080758241347552}
+  _cooldownText: {fileID: 4074574029713074768}
+  _diffFatigueText: {fileID: 8302905110881542361}
+  _diffMinFearInflictedText: {fileID: 8793666397511392253}
+  _diffMaxFearInflictedText: {fileID: 4603517763917518093}
+  _diffCooldownText: {fileID: 3920856660429638302}
 --- !u!1 &6784605171149527755
 GameObject:
   m_ObjectHideFlags: 0
@@ -3337,7 +3338,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5387458050322455932}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MonsterUpgradeUI, Assembly-CSharp
         m_MethodName: UpgradeMonster
         m_Mode: 1
