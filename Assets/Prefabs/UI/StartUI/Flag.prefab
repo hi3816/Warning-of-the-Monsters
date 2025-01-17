@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 1388990346095100845}
   - component: {fileID: 653700258278642380}
   - component: {fileID: 6581258797836684288}
+  - component: {fileID: 2626389236156238011}
   m_Layer: 5
   m_Name: Flag
   m_TagString: Untagged
@@ -265,7 +266,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3791864575927197498}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -299,3 +300,15 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &2626389236156238011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3791864575927197498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6c1e49da0f54938be3980b72c2dd79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
