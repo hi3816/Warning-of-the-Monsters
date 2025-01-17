@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StartupSelectors:
   - rid: 1849819762501615645
+  - rid: 1849819815659962422
   - rid: 1849819762501615646
   - rid: 1849819762501615647
   m_AvailableLocales:
@@ -203,3 +204,8 @@ MonoBehaviour:
         - default
         - d
         - 
+    - rid: 1849819815659962422
+      type: {class: SpecificLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
+      data:
+        m_LocaleId:
+          m_Code: en

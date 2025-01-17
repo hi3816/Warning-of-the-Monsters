@@ -5,6 +5,7 @@ using UnityEngine.Localization.Settings;
 public class LocalSelector : MonoBehaviour
 {
     private bool _active = false;
+    private Coroutine _coroutine; 
 
     private void Start()
     {
@@ -15,7 +16,8 @@ public class LocalSelector : MonoBehaviour
     public void ChangeLocal(int localeID)
     {
         if (_active) return;
-        StartCoroutine(SetLocale(localeID));
+        if (_coroutine != null) StopCoroutine(_coroutine);
+        _coroutine = StartCoroutine(SetLocale(localeID));
     }
     
     IEnumerator SetLocale(int _localID)
