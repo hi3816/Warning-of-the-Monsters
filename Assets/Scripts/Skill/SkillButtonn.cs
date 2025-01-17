@@ -1,25 +1,24 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static PoolManager;
 
 public class SkillButtonn : MonoBehaviour
 {
+    [Header("Util")]
     private DataTable.Skill_Data _skillData; // 스킬 데이터
-
-    private Button _skillButton;
-    [SerializeField] private int _skillButtonIdx;
-
-    // 현재 쿨타임이 걸려 있는가 true : 스킬 사용 불가, false : 스킬 사용 가능
-    private bool _isOnCoolDown = false;
-    private bool _isClickSkillButton = false; // 현재 스킬 사용하도록 스킬버튼을 눌렀는지 여부
-    [SerializeField] private GameObject _cancelBtn; // 취소 버튼
-
+    private SkillButtonController _skillButtonController;
+    private bool _isOnCoolDown = false; // 쿨타임 유무
     private float _timeSinceSkill; // 스킬을 사용하고 난 후 경과 시간
+
+    [Header("Button")]
+    [SerializeField] private int _skillButtonIdx;
+    [SerializeField] private GameObject _cancelBtn; // 취소 버튼
+    private Button _skillButton;
+    private bool _isClickSkillButton = false; // 스킬버튼을 눌렀는지 여부
+
+    [Header("Image")]
     [SerializeField] private Image _blackImage; // 쿨타임 표시할 이미지 (360도로 fillamount함)
     [SerializeField] private Image _skillImage; // skillSprite가 들어갈 Image 컴포넌트
-
-    private SkillButtonController _skillButtonController;
     [SerializeField] private GameObject _skillRangeSprite;
 
     private void Awake()

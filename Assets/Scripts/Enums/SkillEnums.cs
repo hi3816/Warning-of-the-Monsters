@@ -1,7 +1,4 @@
 using GoogleSheet.Core.Type;
-using JetBrains.Annotations;
-using UnityEngine;
-
 
 [UGS(typeof(SkillName))]
 

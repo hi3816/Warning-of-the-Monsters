@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SkillButtonController : MonoBehaviour
 {
-    [SerializeField] int _maxSkillCount;
+    [SerializeField] private int _maxSkillCount;
     [SerializeField] private PoolManager.PoolConfig[] _poolConfigArr;
     [SerializeField] private GameObject _skillRangeSprite; // 스킬의 범위를 볼 수 있는 오브젝트
     

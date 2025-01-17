@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Skill : MonoBehaviour
 {
-    public DataTable.Skill_Data SkillData { get; private set; }
+    [field: SerializeField] public int SkillIdx { get; private set; }
     private Animator _animator;
     private WaitForSeconds _animationTime;
     private Coroutine _attackCoroutine;
@@ -12,8 +12,9 @@ public class Skill : MonoBehaviour
     private WaitForSeconds _effectDurationTime;
     private CircleCollider2D _skillCollider;
     private SpriteRenderer _spriteRenderer;
-    [field: SerializeField] public int SkillIdx { get; private set; }
+    public DataTable.Skill_Data SkillData { get; private set; }
 
+    [Header("Human")]
     // human 확인 리스트
     private List<GameObject> _humanList = new List<GameObject>();
     private float _agentOriginSpeed = 0f;
