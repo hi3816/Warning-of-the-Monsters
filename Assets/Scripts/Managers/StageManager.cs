@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class StageManager : SingletonBase<StageManager>
@@ -23,9 +22,8 @@ public class StageManager : SingletonBase<StageManager>
 
     [SerializeField] private GameObject _stage;
     [SerializeField] private StartBattleButtonController _startBattleBtnController;
-    public List<Transform> SpawnPointList { get; private set; }
-    
     private int _stageIdx;
+    public List<Transform> SpawnPointList { get; private set; }
     public List<Transform> StartPointList { get; private set; }
     public Transform EndPoint { get; private set; }
 

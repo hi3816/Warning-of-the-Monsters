@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MonsterManager : SingletonBase<MonsterManager>
 {
+    [SerializeField] private PoolManager.PoolConfig[] _poolConfigs; // 몬스터 풀
+    [SerializeField] private PoolManager.PoolConfig[] _monsterProjectiles;
+
     private Dictionary<int, DataTable.Monster_Data> _monstersById = new Dictionary<int, DataTable.Monster_Data>();
     private int _selectedMonsterId;
     public int SelectedMonsterId => _selectedMonsterId;
 
-    [SerializeField] private PoolManager.PoolConfig[] _poolConfigs; // 몬스터 풀
-    [SerializeField] private PoolManager.PoolConfig[] _monsterProjectiles;
-    
     private void Start()
     {
         PoolManager.Instance.AddPools<Monster>(_poolConfigs);

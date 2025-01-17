@@ -16,19 +16,19 @@ public class MonsterUIManager : SingletonBase<MonsterUIManager>
     private List<IManagebleUI> _uiList = new List<IManagebleUI>();
     private Monster _clickedMonster;
     
-    public MonsterUpgradeUI monsterUpgradeUI { get; private set; }
+    public MonsterUpgradeUI MonsterUpgradeUI { get; private set; }
 
-    public MonsterEvolutionUI monsterEvolutionUI { get; private set; }
+    public MonsterEvolutionUI MonsterEvolutionUI { get; private set; }
     
     private void Awake()
     {
         base.Awake();
         _popupMonsterSpawner = GetComponentInChildren<PopupMonsterSpawner>();
-        monsterUpgradeUI = GetComponentInChildren<MonsterUpgradeUI>();
-        monsterEvolutionUI = GetComponentInChildren<MonsterEvolutionUI>();
+        MonsterUpgradeUI = GetComponentInChildren<MonsterUpgradeUI>();
+        MonsterEvolutionUI = GetComponentInChildren<MonsterEvolutionUI>();
         _uiList.Add(_popupMonsterSpawner);
-        _uiList.Add(monsterUpgradeUI);
-        _uiList.Add(monsterEvolutionUI);
+        _uiList.Add(MonsterUpgradeUI);
+        _uiList.Add(MonsterEvolutionUI);
     }
 
     void Update()
@@ -81,17 +81,17 @@ public class MonsterUIManager : SingletonBase<MonsterUIManager>
             DataTable.Evolution_Data data = DataManager.Instance.GetEvolutionData(_clickedMonster.data.id, _clickedMonster.data.currentLevel + 1);
             if (data != null && data.upgradeLevel == _clickedMonster.data.maxLevel)
             {
-                monsterEvolutionUI.Show(_clickedMonster);
+                MonsterEvolutionUI.Show(_clickedMonster);
                 ShowRangeIndicator();
-                HideOtherUI(monsterEvolutionUI);
+                HideOtherUI(MonsterEvolutionUI);
             }
             else
             {
                 if (_clickedMonster.data.currentLevel <= _clickedMonster.data.maxLevel)
                 {
-                    monsterUpgradeUI.Show(_clickedMonster);
+                    MonsterUpgradeUI.Show(_clickedMonster);
                     ShowRangeIndicator();
-                    HideOtherUI(monsterUpgradeUI);
+                    HideOtherUI(MonsterUpgradeUI);
                 }
             }
         }

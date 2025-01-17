@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : SingletonBase<GameManager>
 {
-    public bool isPlaying;
     private List<Human> _activeHumans = new List<Human>();
     private List<Minion> _activeMinons = new List<Minion>();
     private List<Monster> _activeMonsters = new List<Monster>();
+    public bool isPlaying;
     
     protected override void Awake()
     {

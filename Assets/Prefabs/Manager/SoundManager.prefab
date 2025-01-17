@@ -45,14 +45,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6fb9f5531bf87345802da830a65b726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmList:
-  - bgmType: 0
-    clip: {fileID: 8300000, guid: 2de6f55f5b5d4654d869d8511b793fde, type: 3}
+  _bgmList:
   - bgmType: 1
     clip: {fileID: 8300000, guid: 6fc0d1125a15c9840823d9333d45f620, type: 3}
   - bgmType: 2
     clip: {fileID: 8300000, guid: 02c32ca8d4a617e469782da7e91041d1, type: 3}
-  SfxList:
+  - bgmType: 0
+    clip: {fileID: 8300000, guid: 2de6f55f5b5d4654d869d8511b793fde, type: 3}
+  _sfxList:
   - sfxType: 0
     clip: {fileID: 8300000, guid: 5be5e28f5fc70354d8db24b183d2236d, type: 3}
   - sfxType: 1
@@ -63,7 +63,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 129df4fd2d7e0a04c92da179da8deab5, type: 3}
   bgmVolume: 0.063
   globalSfxVolume: 0.263
-  sfxPitchVariance: 0.278
+  _sfxPitchVariance: 0.278
   poolconfigs:
   - tag: Click
     prefab: {fileID: 664224834642801451, guid: 8e4212d74cab36540a47066b2bdec95d, type: 3}
