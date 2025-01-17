@@ -255,6 +255,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4afd99ed0a394ebf951900c1bb9305d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fatigueGauge: {fileID: 0}
+  boo: {fileID: 7765463162946877872}
   data:
     id: 4
     monsterId: 4320
@@ -272,8 +274,6 @@ MonoBehaviour:
     maxLevel: 3
     monsterType: 1
     evolutionType: 1
-  _fatigueGauge: {fileID: 0}
-  boo: {fileID: 7765463162946877872}
   _location: {fileID: 5806736033344406902}
 --- !u!114 &1164190097801783812
 MonoBehaviour:
