@@ -21,14 +21,14 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell, IManagebleUI
     private MonsterEvolution _monsterEvolution;
     private EvolutionType _clickEvolutionType;
     private MonsterUIManager _monsterUIManager;
-    public Monster selectMonster { get; private set; } // 현재 클릭한 몬스터
+    public Monster SelectMonster { get; private set; } // 현재 클릭한 몬스터
 
     private void Awake()
     {
         _monsterUIManager = MonsterUIManager.Instance;
         _monsterEvolution = GetComponent<MonsterEvolution>();
-        _typeButtonA.onClick.AddListener(() => _monsterEvolution.Evolution(selectMonster, EvolutionType.Atype));
-        _typeButtonB.onClick.AddListener(() => _monsterEvolution.Evolution(selectMonster, EvolutionType.Btype));
+        _typeButtonA.onClick.AddListener(() => _monsterEvolution.Evolution(SelectMonster, EvolutionType.Atype));
+        _typeButtonB.onClick.AddListener(() => _monsterEvolution.Evolution(SelectMonster, EvolutionType.Btype));
         _typeButtonA.onClick.AddListener(() => MonsterEvolutionStat(EvolutionType.Atype));
         _typeButtonB.onClick.AddListener(() => MonsterEvolutionStat(EvolutionType.Btype));
         _sellButton.onClick.AddListener(SellMonster);
@@ -42,7 +42,7 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell, IManagebleUI
 
     public void Show(Monster monster)
     {
-        selectMonster = monster;
+        SelectMonster = monster;
         Vector3 worldPosition = monster.transform.position;
         _evolutionUI.transform.position = worldPosition;
         _evolutionUI.SetActive(true);
@@ -53,8 +53,8 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell, IManagebleUI
 
     public void Show()
     {
-        if (selectMonster == null && !_evolutionUI.activeSelf) return;
-        Show(selectMonster);
+        if (SelectMonster == null && !_evolutionUI.activeSelf) return;
+        Show(SelectMonster);
     }
 
     public void Hide()
@@ -63,7 +63,7 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell, IManagebleUI
         _evolutionStatUI.Hide();
         _typeACheck.SetActive(false);
         _typeBCheck.SetActive(false);
-        selectMonster = null;
+        SelectMonster = null;
         _evolutionUI.SetActive(false);
     }
 
@@ -106,39 +106,39 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell, IManagebleUI
     // 진화 이미지 설정
     private void SetEnvolutionImageSprite()
     {
-        Sprite[] sprites = _monsterEvolution.GetvolutionSpriteDict(selectMonster.data.id);
+        Sprite[] sprites = _monsterEvolution.GetvolutionSpriteDict(SelectMonster.data.id);
 
         for (int i = 0; i < _typeImages.Length; i++)
         {
             _typeImages[i].sprite = sprites[i];
-            _typeImages[i].color = GetPurchaseStatusColor(selectMonster.data.id, i);
+            _typeImages[i].color = GetPurchaseStatusColor(SelectMonster.data.id, i);
         }
     }
 
     private void SetRequiredCoinsText()
     {
-        int[] coins = _monsterEvolution.GetEvolutionRequiredCoinsDict(selectMonster.data.id);
+        int[] coins = _monsterEvolution.GetEvolutionRequiredCoinsDict(SelectMonster.data.id);
 
         for (int i = 0; i < _requiredCoins.Length; i++)
         {
             _requiredCoins[i].text = coins[i].ToString();
-            _requiredCoins[i].color = GetPurchaseStatusColor(selectMonster.data.id, i);
+            _requiredCoins[i].color = GetPurchaseStatusColor(SelectMonster.data.id, i);
         }
     }
 
     private void SetSellCoinsText()
     {
-        _sellText.text = Mathf.RoundToInt(CalculateTotalSpent(selectMonster) * 0.35f).ToString();
+        _sellText.text = Mathf.RoundToInt(CalculateTotalSpent(SelectMonster) * 0.35f).ToString();
     }
 
     public void SellMonster()
     {
-        if (selectMonster == null) return;
-        int totalSpent = CalculateTotalSpent(selectMonster); //여태 얼마 사용했는지 계산
+        if (SelectMonster == null) return;
+        int totalSpent = CalculateTotalSpent(SelectMonster); //여태 얼마 사용했는지 계산
         float refundPercentage = 0.35f; // 35% 환불
         int refundAmount = Mathf.RoundToInt(totalSpent * refundPercentage);
         StageManager.Instance.ChangeGold(refundAmount); //UI에 표시
-        selectMonster.ReturnToVillage();
+        SelectMonster.ReturnToVillage();
     }
 
     public int CalculateTotalSpent(Monster selectedMonster) //몬스터 스폰 & 업그레이드에 사용한 비용 계산
@@ -175,8 +175,8 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell, IManagebleUI
 
     private void MonsterEvolutionStat(EvolutionType evolutionType)
     {
-        if (selectMonster == null) return;
-        var evolution = DataManager.Instance.GetEvolutionData(selectMonster.data.id, selectMonster.data.currentLevel + 1, evolutionType);
+        if (SelectMonster == null) return;
+        var evolution = DataManager.Instance.GetEvolutionData(SelectMonster.data.id, SelectMonster.data.currentLevel + 1, evolutionType);
         if (evolution == null) return;
         if (evolutionType == EvolutionType.Atype)
         {
@@ -188,14 +188,14 @@ public class MonsterEvolutionUI : MonoBehaviour, ISell, IManagebleUI
             _typeBCheck.SetActive(true);
             _typeACheck.SetActive(false);
         }
-        _evolutionStatUI.Show(selectMonster.data, evolution);
+        _evolutionStatUI.Show(SelectMonster.data, evolution);
         _monsterUIManager.ShowRangeIndicator(evolution);
         _clickEvolutionType = evolutionType;
     }
 
     private void SetMonsterStatPosition()
     {
-        Vector3 posX = selectMonster.transform.position.x > 0 ? Vector3.left : Vector3.right;
-        _evolutionStatUI.transform.position = selectMonster.transform.position + (posX * 3f);
+        Vector3 posX = SelectMonster.transform.position.x > 0 ? Vector3.left : Vector3.right;
+        _evolutionStatUI.transform.position = SelectMonster.transform.position + (posX * 3f);
     }
 }

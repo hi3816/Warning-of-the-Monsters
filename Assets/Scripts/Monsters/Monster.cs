@@ -282,7 +282,6 @@ public abstract class Monster : MonoBehaviour
     {
         if (boo != null)
         {
-            boo.text = "Boo!";
             Vector3 randomOffset = GetRandomOffset();
             boo.transform.position = transform.position + randomOffset;
             float zRotation = Random.Range(-10f, 10f);
@@ -375,8 +374,8 @@ public abstract class Monster : MonoBehaviour
     // 마을로 돌아가는 몬스터가 UI 창을 띄우고 있는지 확인 후 UI 닫기
     private void CheckAndHideSelectUI()
     {
-        if(this == MonsterUIManager.Instance.MonsterUpgradeUI.selectMonster ||
-           this == MonsterUIManager.Instance.MonsterEvolutionUI.selectMonster)
+        if(this == MonsterUIManager.Instance.MonsterUpgradeUI.SelectMonster ||
+           this == MonsterUIManager.Instance.MonsterEvolutionUI.SelectMonster)
         {
             MonsterUIManager.Instance.HideAllMonsterUI();
             MonsterUIManager.Instance.HideRangeIndicator();
