@@ -10,7 +10,7 @@ using DG.Tweening;
 public class StagePopup : UIBase
 {
     [Header("StagePopup")]
-    [SerializeField] Transform _PopupTransform;
+    [SerializeField] Transform _popupTransform;
 
     [Header("Button")]
     public GameObject btnSelectMonster;
@@ -82,8 +82,8 @@ public class StagePopup : UIBase
 
     private void OnEnable()
     {
-        _PopupTransform.localPosition = new Vector3(0, -1200, 0);
-        _PopupTransform.DOLocalMove(new Vector3(0, 0, 0), 0.5f)
+        _popupTransform.localPosition = new Vector3(0, -1200, 0);
+        _popupTransform.DOLocalMove(new Vector3(0, 0, 0), 0.5f)
             .SetEase(Ease.OutBack);
     }
 
@@ -91,7 +91,7 @@ public class StagePopup : UIBase
     {
         ResetSelectedMonster();
 
-        _PopupTransform.DOLocalMove(new Vector3(0, -1200, 0), 0.5f)
+        _popupTransform.DOLocalMove(new Vector3(0, -1200, 0), 0.5f)
             .SetEase(Ease.InBack)
             .OnComplete(() =>
             {

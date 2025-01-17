@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class StageButton : MonoBehaviour
 {
-    [SerializeField] GameObject stageButton;
-    [SerializeField] TextMeshProUGUI stageTxt;
+    [SerializeField] GameObject _stageButton;
+    [SerializeField] TextMeshProUGUI _stageTxt;
     [SerializeField] Sprite _isClearImg;
 
     public int stageIdx;
@@ -17,16 +17,16 @@ public class StageButton : MonoBehaviour
 
     void Start()
     {
-        stageTxt.text = stageButton.name;
+        _stageTxt.text = _stageButton.name;
 
-        stageIdx = int.Parse(Regex.Match(stageTxt.text, @"\d+").Value)-1;
+        stageIdx = int.Parse(Regex.Match(_stageTxt.text, @"\d+").Value)-1;
         
         SaveManager.Instance.GetStagePlayInfo(stageIdx, out isCleared);
 
         if (isCleared)
         {
-            stageTxt.text = "Clear";
-            Image btnImg = stageButton.GetComponent<Image>();
+            _stageTxt.text = "Clear";
+            Image btnImg = _stageButton.GetComponent<Image>();
             btnImg.sprite = _isClearImg;
         }
 
@@ -42,10 +42,10 @@ public class StageButton : MonoBehaviour
         
         if (!isEnable)
         {
-            stageButton.GetComponent<Button>().enabled = false;
+            _stageButton.GetComponent<Button>().enabled = false;
 
-            stageTxt.text = "";
-            Image btnImg = stageButton.GetComponent<Image>();
+            _stageTxt.text = "";
+            Image btnImg = _stageButton.GetComponent<Image>();
             btnImg.color = Color.gray;
         }
     }

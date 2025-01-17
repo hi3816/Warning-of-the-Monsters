@@ -27,7 +27,7 @@ public class StartScreen : UIBase
     [SerializeField] private CanvasGroup _flagCanvasGroup;
     [SerializeField] private Transform _flagTransform;
 
-    [SerializeField] private LocalSelector selector;
+    [SerializeField] private LocalSelector _selector;
 
     [Header("CodexButton")]
     [SerializeField] private CanvasGroup _codexCanvasGroup;
@@ -43,8 +43,8 @@ public class StartScreen : UIBase
         _startButton.onClick.AddListener(OnButtonClicked);
         _guideButton.onClick.AddListener(OnGuideButtonCliked);
         _guideExitButton.onClick.AddListener(OnGuideExitButtonClicked);
-        _enBtn.onClick.AddListener(() => selector.ChangeLocal(0));
-        _krBtn.onClick.AddListener(() => selector.ChangeLocal(1));
+        _enBtn.onClick.AddListener(() => _selector.ChangeLocal(0));
+        _krBtn.onClick.AddListener(() => _selector.ChangeLocal(1));
 
         ShowTitle();
         ShowButton();

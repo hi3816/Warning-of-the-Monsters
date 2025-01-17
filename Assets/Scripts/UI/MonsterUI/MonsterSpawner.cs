@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    public List<Transform> SpawnPointList { get; private set; }
     protected StageManager _stageManager;
-    
+    public List<Transform> SpawnPointList { get; private set; }
+
     private void Start()
     {
         SpawnPointList = StageManager.Instance.SpawnPointList;

@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fecca226160fb6a4ea5fc803468523aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotSprite: {fileID: 7248518779217232218}
+  _slotSprite: {fileID: 7248518779217232218}
 --- !u!1 &7194480933734071478
 GameObject:
   m_ObjectHideFlags: 0

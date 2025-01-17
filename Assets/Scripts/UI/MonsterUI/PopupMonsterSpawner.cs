@@ -11,12 +11,12 @@ public class PopupMonsterSpawner : MonsterSpawner, IManagebleUI
     private Vector3 _pendingSpawnPosition; // 선택된 스폰 위치
     private Transform _pendingSpawnPoint; // 선택된 스폰 포인트
 
-    private Dictionary<int, (int monsterId, string monsterName)> _selectedMonsterDict;
     [SerializeField] private List<GameObject> _slots;
     [SerializeField] private List<GameObject> _slotsOverlay;
     [SerializeField] private List<GameObject> _checkList;
     [SerializeField] private List<TextMeshProUGUI> _costTxts;
     [SerializeField] private GameObject _statUIObj;
+    private Dictionary<int, (int monsterId, string monsterName)> _selectedMonsterDict;
 
     private StatUI _statUI;
 

@@ -3060,7 +3060,7 @@ MonoBehaviour:
   _guideButtonTransform: {fileID: 2448408119215945732}
   _flagCanvasGroup: {fileID: 1903214375726040727}
   _flagTransform: {fileID: 5943177254977341754}
-  selector: {fileID: 4134061156073487184}
+  _selector: {fileID: 4134061156073487184}
   _codexCanvasGroup: {fileID: 843253914083462079}
   _codexTransform: {fileID: 6347515395225820585}
 --- !u!1 &8474043560741351664

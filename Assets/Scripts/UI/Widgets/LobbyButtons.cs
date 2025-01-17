@@ -6,13 +6,13 @@ using UnityEngine;
 public class LobbyButtons : MonoBehaviour
 {
     [SerializeField] private GameObject _soundOptionPanel;
-    [SerializeField] private TextMeshProUGUI startCountTxt;
-    private int starCount;
+    [SerializeField] private TextMeshProUGUI _startCountTxt;
+    private int _starCount;
 
     private void Start()
     {
-        SaveManager.Instance.GetStarCount(out starCount);
-        startCountTxt.text = $"{starCount.ToString()} / 24";
+        SaveManager.Instance.GetStarCount(out _starCount);
+        _startCountTxt.text = $"{_starCount.ToString()} / 24";
     }
 
     public void OnToggleOptionsPanel()

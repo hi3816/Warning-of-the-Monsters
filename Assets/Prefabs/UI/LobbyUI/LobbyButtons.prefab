@@ -1209,7 +1209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _soundOptionPanel: {fileID: 1055405079680930265}
-  startCountTxt: {fileID: 4999220997034427704}
+  _startCountTxt: {fileID: 4999220997034427704}
 --- !u!1 &5895350216075411541
 GameObject:
   m_ObjectHideFlags: 0
