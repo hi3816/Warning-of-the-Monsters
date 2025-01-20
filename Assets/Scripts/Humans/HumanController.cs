@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using DataTable;
 using UnityEngine;
 using UnityEngine.AI;
@@ -97,22 +98,33 @@ public class HumanController : MonoBehaviour
         // 타겟 몬스터 리스트 요소가 1개이면 해당 몬스터를 타겟 몬스터로 설정
         if (targetMonsterList.Count == 1)
         {
-            TargetMonster = targetMonsterList[0];
+            // 다른 Human이 타겟으로 설정하지 않은 경우에만 설정
+            if (!CheckOtherHumanTarget(targetMonsterList[0]))
+            {
+                TargetMonster = targetMonsterList[0];
+            }
             return;
         }
 
-        // 타겟 몬스터 리스트 요소가 2개 이상이면 거리를 비교하여 가장 가까이 있는 것을 타겟 몬스터로 설정
-        TargetMonster = targetMonsterList[1];   // 비교 대상 초기화
-        float distance = (TargetMonster.position - transform.position).magnitude;   // 기존 타겟 몬스터와의 거리
-        for (int i = targetMonsterList.Count - 2; i >= 0; i--)
+        TargetMonster = null;
+        float closestDistance = float.MaxValue; // 초기값을 최대 거리로 설정
+
+        for (int i = targetMonsterList.Count - 1; i >= 0; i--)
         {
-            if (targetMonsterList[i] == null) continue; // 중간에 몬스터 사라지는 경우 예외 처리
-            float newDistance = (targetMonsterList[i].transform.position - transform.position).magnitude;
-            if (newDistance < distance) // 기존 타겟 몬스터보다 거리가 가까우면
+            Transform monster = targetMonsterList[i];
+            // 리스트 중 Null 값이 있으면 건너뛰기
+            if (monster == null) continue;
+            // 다른 Human이 이미 타겟으로 설정했으면 건너뛰기
+            if (CheckOtherHumanTarget(monster)) continue;
+
+            // 거리 계산
+            float distance = (monster.position - transform.position).magnitude;
+            // 더 가까운 몬스터를 찾으면 갱신
+            if (distance < closestDistance)
             {
-                distance = newDistance; // 최단 거리 갱신
-                TargetMonster = targetMonsterList[i];   // 타겟 몬스터 변경
-            }  
+                closestDistance = distance;
+                TargetMonster = monster;
+            }
         }
     }
 
@@ -136,5 +148,21 @@ public class HumanController : MonoBehaviour
         humanEffect.rotation = Quaternion.Euler(0, 0, angle);   // 파티클 부모 오브젝트를 계산된 각도로 회전
         
         attackParticle.Play();
+    }
+
+    private bool CheckOtherHumanTarget(Transform monster)
+    {
+        // 복사본을 사용해 안전하게 작업
+        List<Human> humans = GameManager.Instance.GetActiveHumans();
+        foreach (var human in humans)
+        {
+            if (human == null) continue; // Null 체크 추가
+            Transform targetMonster = human.controller?.TargetMonster;
+            if (targetMonster != null && targetMonster == monster)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

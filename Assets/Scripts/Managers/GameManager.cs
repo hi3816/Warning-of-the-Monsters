@@ -113,4 +113,9 @@ public class GameManager : SingletonBase<GameManager>
             _activeMonsters.Remove(obj as Monster);
         }
     }
+
+    public List<Human> GetActiveHumans()
+    {
+        return _activeHumans;
+    }
 }
