@@ -94,7 +94,7 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell, IManagebleUI
 
         int nextLevel = SelectMonster.data.currentLevel + 1;
         var upgrade = DataManager.Instance.GetBaseMonsterById(SelectMonster.data.id);
-        if (upgrade.fatigue.Count < nextLevel) return;
+        if (upgrade.maxLevel < nextLevel) return;
         if (upgrade.maxLevel > 0 && _stageManager.CurrGold >= upgrade.requiredCoins[nextLevel])
         {
             _stageManager.ChangeGold(-upgrade.requiredCoins[nextLevel]);
