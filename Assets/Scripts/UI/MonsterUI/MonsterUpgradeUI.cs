@@ -110,9 +110,6 @@ public class MonsterUpgradeUI : MonoBehaviour, ISell, IManagebleUI
                 _monsterUIManager.ShowRangeIndicator();
             }
         }
-        else
-        {
-        }
     }
     
     public void SellMonster()
