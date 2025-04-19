@@ -7,7 +7,7 @@
 
 ## 🔗 시연 링크
 
-👉 **[배포된 Todo 앱 바로가기](https://your-vercel-link.vercel.app)**  
+👉 **[배포된 Todo 앱 바로가기](https://todo-list-hi3816.vercel.app/todos)**  
 (*Vercel로 배포된 링크입니다. 실시간으로 사용해보실 수 있어요.*)
 
 > 위 링크는 실제 배포된 프로젝트로, Supabase를 통해 할 일을 저장하고 관리할 수 있습니다.
